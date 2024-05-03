@@ -10,4 +10,6 @@ Este repositorio presenta proyectos del 42 cursus de Málaga, reflejando el prog
 
 A continuación se muestran los distintos proyectos realizados en orden inverso de antiguedad ...
 
+https://github.com/STC71/42_malaga/tree/main/ft_printf
 
+https://github.com/STC71/42_malaga/tree/main/libft
