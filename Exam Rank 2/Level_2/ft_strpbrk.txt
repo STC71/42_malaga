@@ -1,0 +1,20 @@
+Assignment name	: ft_strpbrk
+Expected files	: ft_strpbrk.c
+Allowed functions: None
+---------------------------------------------------------------
+
+Reproduce exactly the behavior of the function strpbrk
+(man strpbrk).
+
+The function should be prototyped as follows:
+
+char	*ft_strpbrk(const char *s1, const char *s2);
+
+DESCRIPTION:
+The  strpbrk() function locates the first occurrence in the 
+string s1 of any of the bytes in the string s2.
+
+RETURN VALUE:
+The strpbrk() function returns a pointer to the byte in s that 
+matches one of the bytes in s2, or NULL if no such byte is 
+found.

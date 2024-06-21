@@ -1,0 +1,17 @@
+Assignment name	: ft_strcspn
+Expected files	: ft_strcspn.c
+Allowed functions: None
+---------------------------------------------------------------
+
+Reproduce exactly the behavior of the function strcspn
+(man strcspn).
+
+The function should be prototyped as follows:
+
+size_t	ft_strcspn(const char *s, const char *reject);
+
+The strcspn() function calculates the length of the initial  
+segment of s which consists entirely of bytes not in reject.
+
+The strcspn() function returns the number of bytes in the 
+initial segment of s which are not in the string reject.
