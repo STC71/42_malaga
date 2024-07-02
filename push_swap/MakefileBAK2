@@ -1,0 +1,100 @@
+# ***** APARIENCE ************************************************************ #
+
+GREEN = \033[0;32m # Green
+YELLOW = \033[0;33m # Yellow
+RED = \033[0;31m # Red
+DEFAULT = \033[0m # Default
+
+# ***** NAMES **************************************************************** #
+
+NAME_P = push_swap # Name of the push_swap program
+NAME_B = checker # Name of the checker program
+
+# ***** DIRECTORIES ********************************************************** #
+
+DIR_S = /srcs # Directory of the source files
+DIR_O = /objs # Directory of the object files
+DIR_I = /includes # Directory of the header files
+DIR_L = /libft # Directory of the libft
+DIR_F = /ft_printf # Directory of the ft_printf
+
+# ***** FILES **************************************************************** #
+
+SRCS = push_swap.c ft_pa.c ft_pb.c ft_sa.c ft_sb.c ft_ss.c ft_ra.c ft_rb.c \
+		 ft_rr.c ft_rra.c ft_rrb.c ft_rrr.c ft_sort.c ft_find.c
+# Files of the push_swap program	
+
+SRCS_B = checker.c ft_pa.c ft_pb.c ft_sa.c ft_sb.c ft_ss.c ft_ra.c ft_rb.c \
+		 push_swap.c ft_rr.c ft_rra.c ft_rrb.c ft_rrr.c ft_sort.c ft_find.c
+# Files of the checker program
+
+OBJS = $(SRCS:%.c=$(DIR_O)/%.o) # Object files of the push_swap program
+OBJS_B = $(SRCS_B:%.c=$(DIR_O)/%.o) # Object files of the checker program
+
+# ***** COMPILERS ************************************************************ #
+
+CC = gcc # Compiler
+CFLAGS = -Wall -Wextra -Werror # Compiler flags
+AR = ar rcs # ar makes the library file and rcs are the options to create it 
+
+# ***** COMMANDS ************************************************************* #
+
+RM = rm -f # Command to remove files (-f: no error if not existing)
+MKDIR = mkdir -p # Command to create directories (-p: no error if existing)
+
+# ***** LIBRARIES *********************************************************** #
+
+LIBS = -L $(DIR_L) -lft -L $(DIR_F) -lftprintf 
+# Libraries to link with the program. 
+
+# ***** INCLUDES ************************************************************* #
+
+INC = -I $(DIR_I) -I $(DIR_L) -I $(DIR_F) 
+# Include directories for the compiler.  
+
+# ***** RULES **************************************************************** #
+
+all: libs $(NAME_P) $(NAME_B) # Make the push_swap and checker programs
+
+$(NAME_P): $(OBJS) # Make the push_swap program 
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS) # Compile the object files
+	@echo "$(GREEN)$@ is ready$(DEFAULT)" 
+
+$(NAME_B): $(OBJS_B) # Make the checker program
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS) # Compile the object files
+	@echo "$(GREEN)$@ is ready$(DEFAULT)" 
+
+$(OBJS): | $(DIR_O) # Make the object files of the push_swap program
+
+$(OBJS_B): | $(DIR_O) # Make the object files of the checker program
+
+$(DIR_O): # Make the directory of the object files
+	$(MKDIR) $(DIR_O)
+
+$(DIR_O)/%.o: $(DIR_S)/%.c # Make the object files of the push_swap program
+	$(CC) $(CFLAGS) $(INC) -o $@ -c $< # Compile the source files
+	@echo "$(YELLOW)Compiling $<$(DEFAULT)"
+
+# ***** LIBRARIES RULES ****************************************************** #
+
+libs: # Make the libraries
+	$(MAKE) -C $(DIR_L) 
+	$(MAKE) -C $(DIR_F) 
+
+clean: # Remove the object files
+	$(MAKE) clean -C $(DIR_L) 
+	$(MAKE) clean -C $(DIR_F) 
+	$(RM) -rf $(DIR_O) 
+	@echo "$(RED)Objects removed$(DEFAULT)" 
+
+fclean: clean # Remove the object files and the programs
+	$(MAKE) fclean -C $(DIR_L) 
+	$(MAKE) fclean -C $(DIR_F) 
+	$(RM) -f $(NAME_P) $(NAME_B) 
+	@echo "$(RED)$(NAME_P) and $(NAME_B) removed$(DEFAULT)" 
+
+re: fclean all # Remove all and make all again
+
+.PHONY: all clean fclean re libs # Phony rules makes the rules independent
+
+# ***** END OF FILE ********************************************************* #
