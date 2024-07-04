@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/ft_printf.h"
 
 static int	ft_len_ptr(unsigned long long ptr);
 static void	ft_srh_ptr(unsigned long long ptr);

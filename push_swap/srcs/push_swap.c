@@ -87,10 +87,13 @@ int main (int argc, char *argv[])
 	if (argc < 2)
 		return (0);
 	stack_a = NULL;
-	i = 0;
+	i = 1;
 	while (argv[i])
 		stack_a = ft_stacknew(ft_atoi(argv[i++]));
 	ft_be_duplicated(stack_a);
+	if (be_sorted(stack_a))
+		return (0);
+	ft_sort(stack_a, NULL);
 	return (0);
 }
 
