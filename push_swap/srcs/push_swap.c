@@ -42,7 +42,7 @@ void	ft_be_duplicated(t_stack *stack_a)
 		ft_error(0);
 	while (stack_a->next != NULL)
 	{
-		tmp = stack_a->next;
+		tmp = stack_a -> next;
 		while (tmp != NULL)
 		{
 			if (stack_a->value == tmp->value)
@@ -57,15 +57,15 @@ int	be_sorted(t_stack *stack_a)
 	t_stack	*tmp;
 
 	if (stack_a == NULL)
-		return (1);
+		return (1); //If the list is empty, it is sorted.
 	tmp = stack_a;
 	while (tmp->next != NULL)
 	{
 		if (tmp->value > tmp->next->value)
-			return (0);
+			return (0); //If the list is not sorted, return 0.
 		tmp = tmp->next;
 	}
-	return (1);
+	return (1); //If the list is sorted, return 1.
 }
 t_stack		*ft_stacknew(int value)
 {
@@ -82,18 +82,29 @@ t_stack		*ft_stacknew(int value)
 int main (int argc, char *argv[])
 {
 	t_stack		*stack_a;
+	t_stack		*tmp;
+
+	//t_stack		**stack_a;
+	//t_stack		**stack_b;
+
 	int		i;
 
 	if (argc < 2)
 		return (0);
 	stack_a = NULL;
+	//stack_b = NULL;
 	i = 1;
-	while (argv[i])
-		stack_a = ft_stacknew(ft_atoi(argv[i++]));
+	while (i < argc)
+	{
+		tmp = ft_stacknew(ft_atoi(argv[i++]));
+		tmp->next = stack_a;
+		stack_a = tmp;
+	}
+		//*stack_a = ft_stacknew(ft_atoi(argv[i++]));
 	ft_be_duplicated(stack_a);
 	if (be_sorted(stack_a))
 		return (0);
-	ft_sort(stack_a, NULL);
+	ft_sort(&stack_a, NULL);
 	return (0);
 }
 

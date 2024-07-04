@@ -22,7 +22,7 @@ void	sa(t_stack **stack_a, int print)
     *stack_a = tmp->next;
     tmp->next = (*stack_a)->next;
     (*stack_a)->next = tmp;
-    if (print)
+    if (print == 1)
         ft_printf("sa\n");
 }
 

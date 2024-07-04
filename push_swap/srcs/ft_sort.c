@@ -32,7 +32,9 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
     int stack_len;
 
     stack_len = ft_stack_len(*stack_a);
-    if (stack_len == 2 && !be_sorted(*stack_a))
+    if (stack_len < 2)
+        ft_error(0);
+    else if (stack_len == 2 && be_sorted(*stack_a) == 0)
         sa(stack_a, 1);
     else if (stack_len == 3 && !be_sorted(*stack_a))
         ft_sort_three(stack_a);
