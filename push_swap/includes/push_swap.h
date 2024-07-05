@@ -29,6 +29,9 @@ prototypes of the functions defined in the project.
 //This library is used to include the write function.
 # include <stdio.h>
 //This library is used to include the printf function.
+# include <stddef.h>
+//This library is used to include the size_t type, the null pointer constant
+//and the offsetof macro.
 
 # include "../libft/libft.h"
 //This library is used to include my prototypes of the libft functions.

@@ -50,8 +50,9 @@ OBJS			= $(SRCS:.c=.o)
 OBJS_BONUS		= $(SRCS_BONUS:.c=.o)
 # .c=.o is used to replace the .c extension with the .o extension.
 
-LIBFT_DIR		= ./libft/libft.a
-FT_PRINTF_DIR	= ./ft_printf/libftprintf.a
+OBJS_DIR		= ./objs
+LIBFT_DIR		= ./libft
+FT_PRINTF_DIR	= ./ft_printf
 INCLUDES		= ./includes/push_swap.h ./includes/colors.h
 # The variable INCLUDES is used to include the header files.
 
@@ -63,9 +64,10 @@ all: $(NAME) # $(NAME_BONUS)
 $(NAME): clean_screen $(OBJS)
 	@echo "${DARK_YELLOW}${BOLD}Compiling my ${NAME}...${DEF_COLOR}"
 # The @ symbol is used to hide the command from the terminal.	
-	@${MAKE} -C ./libft
-	@${MAKE} -C ./ft_printf
-	@${CC} ${CFLAGS} ${OBJS} ${LIBFT_DIR} ${FT_PRINTF_DIR} ${INCLUDES} -o ${NAME} 
+	@${MAKE} -C ${LIBFT_DIR}
+	@${MAKE} -C ${FT_PRINTF_DIR}
+	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} -L${LIBFT_DIR} -lft -L${FT_PRINTF_DIR} -lftprintf ${INCLUDES}
+# ${OBJS} ${LIBFT_DIR} ${FT_PRINTF_DIR} ${INCLUDES} -o ${NAME} 
 # To compile the project:
 # ${CC} command is used to compile the project.
 # ${CFLAGS} variable is used to add the flags to the compilation.
@@ -98,21 +100,24 @@ $(NAME_BONUS): clean_screen $(OBJS_BONUS)
 clean:
 	@${RM} ${OBJS} ${OBJS_BONUS}
 	@echo "${RED}${BOLD}Cleaning objects...${DEF_COLOR}"
-	@${MCL} ./libft
-	@${MCL} ./ft_printf
-	@${RM} -r ./objs
+	@${MCL} ${LIBFT_DIR}
+	@${MCL} ${FT_PRINTF_DIR}
+	@if [ -d "$(OBJS_DIR)" ]; then ${RM} -r $(OBJS_DIR); fi
 	@echo "${RED}${BOLD}Cleaning objects is done!${DEF_COLOR}"
+	#@${RM} -r ./objs
+	#@echo "${RED}${BOLD}Cleaning objects is done!${DEF_COLOR}"
 # The clean rule is used to clean the object files.
 # ${RM} command is used to remove the object files.
 # -r flag is used to remove the directory.
+# if [ -d "$(OBJS_DIR)" ]; then ${RM} -r $(OBJS_DIR); fi is used to remove the
+# directory if it exists. -d flag is used to check if the directory exists.
 # ${MCL} command is used to clean the object files in the libraries.
 
 fclean: clean
 	@${RM} ${NAME} ${NAME_BONUS}
 	@echo "${RED}${BOLD}Cleaning ${NAME}...${DEF_COLOR}"
-	@${MFCL} ./libft
-	@${MFCL} ./ft_printf
-	@${RM} -r ./objs
+	@${MFCL} $(LIBFT_DIR)
+	@${MFCL} $(FT_PRINTF_DIR)
 	@echo "${RED}${BOLD}Cleaning ${NAME} is done!${DEF_COLOR}"
 # The same of the clean rule but this clean all the files: object files and
 # the executable files.

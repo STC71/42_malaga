@@ -28,13 +28,13 @@ bonus: $(OBJS_B)
 	$(AR) -r $(NAME) $?
 
 %.o: %.c
-	$(CC) -o $@ -c $(CFLAGS) $<
+	@$(CC) -o $@ -c $(CFLAGS) $<
 
 clean:
-	rm -f $(OBJS) $(OBJS_B)
+	@rm -f $(OBJS) $(OBJS_B)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

@@ -15,12 +15,12 @@
 void	ft_error(int i)
 {
 	if (i == 1)
-		ft_printf("Error: invalid character,\n");
+		ft_printf("Error: invalid character,");
 	if (i == 2)
-		ft_printf("Error: number out of range,\n");
+		ft_printf("Error: number out of range,");
 	if (i == 3)
-		ft_printf("Error: duplicated number,\n");
-	ft_printf("       try again please...\n");
+		ft_printf("Error: duplicated number,");
+	ft_printf("try again please...\n");
 	exit(1);
 }
 
@@ -61,15 +61,24 @@ int	be_sorted(t_stack *stack_a)
 	tmp = stack_a;
 	while (tmp->next != NULL)
 	{
-		if (tmp->value > tmp->next->value)
+		if (tmp->value < tmp->next->value)
+		{	
+			ft_printf("is sorted \n");
+			tmp = tmp->next;
+		}
+		else
+		{
+			ft_printf("is not sorted \n");
 			return (0); //If the list is not sorted, return 0.
-		tmp = tmp->next;
+		}
+		//tmp = tmp->next;
 	}
 	return (1); //If the list is sorted, return 1.
 }
 t_stack		*ft_stacknew(int value)
 {
 	t_stack	*new;
+	new = 0;
 
 	new = (t_stack *)malloc(sizeof(t_stack));
 	if (!new)
@@ -83,22 +92,20 @@ int main (int argc, char *argv[])
 {
 	t_stack		*stack_a;
 	t_stack		*tmp;
-
-	//t_stack		**stack_a;
-	//t_stack		**stack_b;
-
 	int		i;
 
 	if (argc < 2)
 		return (0);
 	stack_a = NULL;
 	//stack_b = NULL;
-	i = 1;
-	while (i < argc)
+	i = argc - 1;
+	while (i > 0)
 	{
-		tmp = ft_stacknew(ft_atoi(argv[i++]));
+		tmp = ft_stacknew(ft_atoi(argv[i]));
+		ft_printf("El valor de %d es: %d\n", i, tmp->value); 
 		tmp->next = stack_a;
 		stack_a = tmp;
+		i--;
 	}
 		//*stack_a = ft_stacknew(ft_atoi(argv[i++]));
 	ft_be_duplicated(stack_a);

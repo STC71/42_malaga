@@ -26,7 +26,7 @@ void	rra(t_stack **stack_a, int print)
     last->next = NULL;
     tmp->next = *stack_a;
     *stack_a = tmp;
-    if (print)
+    if (print == 1)
         ft_printf("rra\n");
 }
 
