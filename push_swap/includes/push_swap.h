@@ -110,6 +110,17 @@ void	ft_sort_five(t_stack **stack_a, t_stack **stack_b);
 //and an integer as parameters. It is used to sort a stack with four or five
 //elements.
 
+//ft_sort_big.c functions:
+
+int		ft_pos_min(t_stack **stack_a, int pos);
+//ft_pos_min is a function that returns an integer. It takes a pointer to a stack
+//and an integer as parameters. It is used to find the position of the minimum
+//value of the stack.
+
+void	ft_sort_big(t_stack **stack_a, t_stack **stack_b);
+//ft_sort_big is a function that returns void. It takes two pointers to stacks as
+//parameters. It is used to sort a stack of any size.
+
 //ft_find.c functions:
 
 int		ft_find_min(t_stack **stack);
@@ -129,6 +140,16 @@ int		ft_find_pos_max(t_stack **stack, int max);
 //ft_find_pos_max is a function that returns an integer. It takes a pointer to a
 //stack and an integer as parameters. It is used to find the position of the
 //maximum value of the stack.
+
+//ft_free.c functions:
+
+void    ft_free(t_stack **stack);
+//ft_free is a function that returns void. It takes a pointer to a stack as a
+//parameter. It is used to free the memory of the stack.
+
+void    ft_free_all(t_stack **stack_a, t_stack **stack_b);
+//ft_free_all is a function that returns void. It takes two pointers to stacks as
+//parameters. It is used to free the memory of the two stacks.
 
 //Other functions:
 
@@ -178,6 +199,12 @@ void	rrb(t_stack **stack, int print);
 void	rrr(t_stack **stack_a, t_stack **stack_b, int print);
 //rrr is a function that returns void. It takes two pointers to stacks and an
 //integer as parameters. It is used to reverse rotate the two stacks.
+
+//ft_tools.c functions:
+
+t_stack    *ft_new_stack(int value);
+//ft_new_stack is a function that returns a pointer to a stack. It takes an integer
+//as a parameter. It is used to create a new element of the stack.
 
 #endif
 

@@ -26,11 +26,18 @@ void	ft_error(int i)
 
 void	be_nbr(char *str)
 {
-	if (!str || !ft_isdigit(*str))
-		ft_error(1);
-	if ((*str == '-' || *str == '+' || *str == ' ') && !ft_isdigit(*str++))
-		ft_error(1);
-	if (ft_atoi(str) > 2147483647 || ft_atoi(str) <= -2147483648)
+	char	*tmp;
+
+	tmp = str;
+	if (str == NULL)
+		ft_error(0);
+	while (*str)
+	{
+		if (!ft_isdigit(*str) && *str != '-' && *str != '+')
+			ft_error(1);
+		str++;
+	}
+	if (ft_atoi(tmp) > INT_MAX || ft_atoi(tmp) < INT_MIN)
 		ft_error(2);
 }
 
@@ -63,12 +70,12 @@ int	be_sorted(t_stack *stack_a)
 	{
 		if (tmp->value < tmp->next->value)
 		{	
-			ft_printf("is sorted \n");
+			//ft_printf("is sorted \n");
 			tmp = tmp->next;
 		}
 		else
 		{
-			ft_printf("is not sorted \n");
+			//ft_printf("is not sorted \n");
 			return (0); //If the list is not sorted, return 0.
 		}
 		//tmp = tmp->next;
@@ -91,18 +98,21 @@ t_stack		*ft_stacknew(int value)
 int main (int argc, char *argv[])
 {
 	t_stack		*stack_a;
+	t_stack		*stack_b;
 	t_stack		*tmp;
 	int		i;
 
 	if (argc < 2)
 		return (0);
 	stack_a = NULL;
-	//stack_b = NULL;
+	stack_b = NULL;
 	i = argc - 1;
+	//ft_printf ("\033c");
 	while (i > 0)
 	{
+		be_nbr(argv[i]);
 		tmp = ft_stacknew(ft_atoi(argv[i]));
-		ft_printf("El valor de %d es: %d\n", i, tmp->value); 
+		//ft_printf("El valor de %d es: %d\n", i, tmp->value); 
 		tmp->next = stack_a;
 		stack_a = tmp;
 		i--;
@@ -112,6 +122,7 @@ int main (int argc, char *argv[])
 	if (be_sorted(stack_a))
 		return (0);
 	ft_sort(&stack_a, NULL);
+	ft_free_all(&stack_a, &stack_b);
 	return (0);
 }
 

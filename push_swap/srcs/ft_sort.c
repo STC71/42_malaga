@@ -32,7 +32,7 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
     int stack_len;
 
     stack_len = ft_stack_len(*stack_a);
-    ft_printf("stack_len: %d\n", stack_len); // stack_len is the length of the stack
+    //ft_printf("stack_len: %d\n", stack_len); // stack_len is the length of the stack
     if (stack_len < 2)
         ft_error(0);
     else if (stack_len == 2 && be_sorted(*stack_a) == 0)
@@ -41,8 +41,9 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
         ft_sort_three(stack_a);
     else if ((stack_len == 4 || stack_len == 5) && be_sorted(*stack_a) == 0)
         ft_sort_five(stack_a, stack_b);
-    //else if (stack_len > 5
-    //    ft_sort_many(stack_a, stack_b, stack_len);
+    //
+    else if ((stack_len > 500) && be_sorted(*stack_a) == 0)
+        ft_sort_big(stack_a, stack_b);
 }
 void    ft_sort_three(t_stack **stack)
 {
@@ -50,57 +51,56 @@ void    ft_sort_three(t_stack **stack)
         && (*stack)->value < (*stack)->next->next->value)
     {
         sa(stack, 1);
-        ft_printf("option 1\n"); // 
+        //ft_printf("option 1\n"); // 
     }
     else if ((*stack)->value > (*stack)->next->value 
-        && (*stack)->value > (*stack)->next->next->value)
+        && (*stack)->value > (*stack)->next->next->value 
+        && (*stack)->next->value > (*stack)->next->next->value)
     {
         sa(stack, 1);
         rra(stack, 1);
-        ft_printf("option 2\n"); // swap the first two elements and rotate the stack to the right
+        //ft_printf("option 2\n"); // swap the first two elements and rotate the stack to the right
     }
     else if ((*stack)->value > (*stack)->next->value 
-        && (*stack)->value > (*stack)->next->next->value)
+        && (*stack)->value > (*stack)->next->next->value 
+        && (*stack)->next->value < (*stack)->next->next->value)
     {
         ra(stack, 1);
-        ft_printf("option 3\n"); // rotate the stack to the left
+        //ft_printf("option 3\n"); // rotate the stack to the left
     }
     else if ((*stack)->value < (*stack)->next->value 
         && (*stack)->value < (*stack)->next->next->value)
     {
         sa(stack, 1);
         ra(stack, 1);
-        ft_printf("option 4\n"); // swap the first two elements and rotate the stack to the left
+        //ft_printf("option 4\n"); // swap the first two elements and rotate the stack to the left
     }
     else if ((*stack)->value < (*stack)->next->value 
         && (*stack)->value > (*stack)->next->next->value)
         rra(stack, 1);
-    ft_printf("option 5\n"); // rotate the stack to the right
+        //ft_printf("option 5\n"); // rotate the stack to the right
 }
 
 void    ft_sort_five(t_stack **stack_a, t_stack **stack_b)
 {
     int len;
 
+    ft_new_stack(0);
     len = ft_stack_len(*stack_a);
-    while ((*stack_a)->value != ft_find_max(stack_a))
+    if (len == 4)
     {
-        if (ft_find_pos_max(stack_a, ft_find_max(stack_a)) < len / 2)
-            ra(stack_a, 1);
-        rra(stack_a, 1);
+        pb(stack_a, stack_b, 1);
+        ft_sort_three(stack_a);
+        pa(stack_a, stack_b, 1);
     }
-    pb(stack_a, stack_b, 1); //push max to stack b
-    while ((*stack_a)->value != ft_find_min(stack_a))
+    else if (len == 5)
     {
-        if (ft_find_pos_min(stack_a, ft_find_min(stack_a)) < len / 2)
-            ra(stack_a, 1);
-        rra(stack_a, 1);
+        pb(stack_a, stack_b, 1);
+        pb(stack_a, stack_b, 1);
+        ft_sort_three(stack_a);
+        pa(stack_a, stack_b, 1);
+        pa(stack_a, stack_b, 1);
     }
-    pb(stack_a, stack_b, 1); //push min to stack b
-    ft_sort_three(stack_a); //sort the remaining three values
-    while (*stack_b)
-        pa(stack_a, stack_b, 1); //push the values back to stack a
-    rra(stack_a, 1); //rotate the stack to the right
 }
 
 /*
