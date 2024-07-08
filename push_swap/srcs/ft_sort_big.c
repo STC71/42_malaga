@@ -35,6 +35,41 @@ int    ft_pos_min(t_stack **stack_a, int pos)
     return (post);
 }
 
+void    ft_sort_min(t_stack **stack_a, t_stack **stack_b)
+{
+    int pos;
+
+    while (*stack_a)
+    {
+        pos = ft_pos_min(stack_a, 0);
+        while (pos != 0)
+        {
+            ra(stack_a, 1);
+            pos--;
+        }
+        pb(stack_a, stack_b, 1);
+    }
+    while (*stack_b)
+        pa(stack_a, stack_b, 1);
+}
+
+void   ft_sort_max(t_stack **stack_a, t_stack **stack_b)
+{
+    int pos;
+
+    while (*stack_a)
+    {
+        pos = ft_pos_min(stack_a, 0);
+        while (pos != 0)
+        {
+            ra(stack_a, 1);
+            pos--;
+        }
+        pb(stack_a, stack_b, 1);
+    }
+    while (*stack_b)
+        pa(stack_a, stack_b, 1);
+}
 
 void    ft_sort_big(t_stack **stack_a, t_stack **stack_b)
 {

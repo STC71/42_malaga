@@ -20,11 +20,12 @@ void    ft_free(t_stack **stack)
         return ;
     while (*stack)
     {
-        tmp = (*stack)->next;
-        free(*stack);
-        *stack = tmp;
+        tmp = (*stack)->next; // tmp is a pointer to the next element of the stack.
+        free(*stack); // free the memory of the stack.
+        *stack = tmp; // the stack is now the next element.
     }
-    *stack = NULL;
+    *stack = NULL; // the stack is now NULL.
+    free(tmp); // free the memory of the pointer tmp.
 }
 
 void    ft_free_all(t_stack **stack_a, t_stack **stack_b)

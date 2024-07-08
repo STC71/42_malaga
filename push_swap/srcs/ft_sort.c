@@ -41,7 +41,10 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
         ft_sort_three(stack_a);
     else if ((stack_len == 4 || stack_len == 5) && be_sorted(*stack_a) == 0)
         ft_sort_five(stack_a, stack_b);
-    //
+    else if (stack_len > 5 && stack_len <= 100 && be_sorted(*stack_a) == 0)
+        ft_sort_min(stack_a, stack_b);
+    else if ((stack_len > 100 && stack_len <= 500) && be_sorted(*stack_a) == 0)
+        ft_sort_max(stack_a, stack_b);
     else if ((stack_len > 500) && be_sorted(*stack_a) == 0)
         ft_sort_big(stack_a, stack_b);
 }
@@ -49,43 +52,33 @@ void    ft_sort_three(t_stack **stack)
 {
     if ((*stack)->value > (*stack)->next->value 
         && (*stack)->value < (*stack)->next->next->value)
-    {
         sa(stack, 1);
-        //ft_printf("option 1\n"); // 
-    }
     else if ((*stack)->value > (*stack)->next->value 
         && (*stack)->value > (*stack)->next->next->value 
         && (*stack)->next->value > (*stack)->next->next->value)
     {
         sa(stack, 1);
         rra(stack, 1);
-        //ft_printf("option 2\n"); // swap the first two elements and rotate the stack to the right
     }
     else if ((*stack)->value > (*stack)->next->value 
         && (*stack)->value > (*stack)->next->next->value 
         && (*stack)->next->value < (*stack)->next->next->value)
-    {
         ra(stack, 1);
-        //ft_printf("option 3\n"); // rotate the stack to the left
-    }
     else if ((*stack)->value < (*stack)->next->value 
         && (*stack)->value < (*stack)->next->next->value)
     {
         sa(stack, 1);
         ra(stack, 1);
-        //ft_printf("option 4\n"); // swap the first two elements and rotate the stack to the left
     }
     else if ((*stack)->value < (*stack)->next->value 
         && (*stack)->value > (*stack)->next->next->value)
         rra(stack, 1);
-        //ft_printf("option 5\n"); // rotate the stack to the right
 }
 
 void    ft_sort_five(t_stack **stack_a, t_stack **stack_b)
 {
     int len;
 
-    ft_new_stack(0);
     len = ft_stack_len(*stack_a);
     if (len == 4)
     {

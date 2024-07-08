@@ -117,6 +117,14 @@ int		ft_pos_min(t_stack **stack_a, int pos);
 //and an integer as parameters. It is used to find the position of the minimum
 //value of the stack.
 
+void	ft_sort_min(t_stack **stack_a, t_stack **stack_b);
+//ft_sort_min to order the stack with more of five elements and less or equal to
+//one hundred elements.
+
+void	ft_sort_max(t_stack **stack_a, t_stack **stack_b);
+//ft_sort_max to orden the stack with more of one hundred elements and less or 
+//equal to two five hundred elements.
+
 void	ft_sort_big(t_stack **stack_a, t_stack **stack_b);
 //ft_sort_big is a function that returns void. It takes two pointers to stacks as
 //parameters. It is used to sort a stack of any size.
