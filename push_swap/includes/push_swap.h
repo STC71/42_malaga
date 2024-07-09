@@ -105,6 +105,10 @@ void	ft_sort_three(t_stack **stack);
 //ft_sort_three is a function that returns void. It takes a pointer to a stack as
 //a parameter. It is used to sort a stack with three elements.
 
+void	ft_sort_four(t_stack **stack_a, t_stack **stack_b);
+//ft_sort_four is a function that returns void. It takes two pointers to stacks as
+//parameters. It is used to sort a stack with four elements.
+
 void	ft_sort_five(t_stack **stack_a, t_stack **stack_b);
 //ft_sort_five is a function that returns void. It takes two pointers to stacks
 //and an integer as parameters. It is used to sort a stack with four or five

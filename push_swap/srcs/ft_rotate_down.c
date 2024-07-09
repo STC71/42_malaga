@@ -37,21 +37,21 @@ void	rrb(t_stack **stack_b, int print)
 
     if (!*stack_b || !(*stack_b)->next)
         return ;
-    tmp = *stack_b;
-    last = tmp;
+    last = *stack_b;
     while (last->next->next)
         last = last->next;
-    last->next->next = tmp;
-    *stack_b = last->next;
+    tmp = last->next;
     last->next = NULL;
+    tmp->next = *stack_b;
+    *stack_b = tmp;
     if (print)
         ft_printf("rrb\n");
 }
 
 void	rrr(t_stack **stack_a, t_stack **stack_b, int print)
 {
-    ra(stack_a, 0);
-    rb(stack_b, 0);
+    rra(stack_a, 0);
+    rrb(stack_b, 0);
     if (print)
         ft_printf("rrr\n");
 }

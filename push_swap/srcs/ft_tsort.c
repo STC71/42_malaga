@@ -39,14 +39,18 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
         sa(stack_a, 1);
     else if (stack_len == 3 && be_sorted(*stack_a) == 0)
         ft_sort_three(stack_a);
-    else if ((stack_len == 4 || stack_len == 5) && be_sorted(*stack_a) == 0)
+    else if (stack_len == 4 && be_sorted(*stack_a) == 0)
+        ft_sort_four(stack_a, stack_b);
+    else if (stack_len == 5 && be_sorted(*stack_a) == 0)
         ft_sort_five(stack_a, stack_b);
-    else if (stack_len > 5 && stack_len <= 100 && be_sorted(*stack_a) == 0)
+    else if ((stack_len > 5 && stack_len <= 100) && be_sorted(*stack_a) == 0)
         ft_sort_min(stack_a, stack_b);
-    else if ((stack_len > 100 && stack_len <= 500) && be_sorted(*stack_a) == 0)
+    else if ((stack_len > 100) && stack_len <=500 && be_sorted(*stack_a) == 0)
         ft_sort_max(stack_a, stack_b);
     else if ((stack_len > 500) && be_sorted(*stack_a) == 0)
         ft_sort_big(stack_a, stack_b);
+    else
+        ft_error(0);
 }
 void    ft_sort_three(t_stack **stack)
 {
@@ -75,25 +79,48 @@ void    ft_sort_three(t_stack **stack)
         rra(stack, 1);
 }
 
-void    ft_sort_five(t_stack **stack_a, t_stack **stack_b)
+void    ft_sort_four(t_stack **stack_a, t_stack **stack_b)
 {
-    int len;
-
-    //ft_new_stack(**stack_b);
-    len = ft_stack_len(*stack_a);
-    if (len == 4)
+    if (ft_find_pos_min(stack_a, ft_find_min(stack_a)) < 2)
+        while (ft_find_min(stack_a) != (*stack_a)->value)
+            ra(stack_a, 1);
+    else
+        while (ft_find_min(stack_a) != (*stack_a)->value)
+            rra(stack_a, 1);
+    pb(stack_a, stack_b, 1);
+    if (be_sorted(*stack_a) == 1)
+        pa(stack_a, stack_b, 1);
+    else
     {
-        pb(stack_a, stack_b, 1);
         ft_sort_three(stack_a);
         pa(stack_a, stack_b, 1);
     }
-    else if (len == 5)
+}
+
+void    ft_sort_five(t_stack **stack_a, t_stack **stack_b)
+{
     {
-        pb(stack_a, stack_b, 1);
-        pb(stack_a, stack_b, 1);
-        ft_sort_three(stack_a);
-        pa(stack_a, stack_b, 1);
-        pa(stack_a, stack_b, 1);
+        while (ft_stack_len(*stack_a) > 3)
+        {
+            if (ft_find_pos_min(stack_a, ft_find_min(stack_a)) < 3)
+                while (ft_find_min(stack_a) != (*stack_a)->value)
+                    ra(stack_a, 1);
+            else
+                while (ft_find_min(stack_a) != (*stack_a)->value)
+                    rra(stack_a, 1);
+            pb(stack_a, stack_b, 1);
+        }
+        if (be_sorted(*stack_a) == 1)
+        {    
+            pa(stack_a, stack_b, 1);
+            pa(stack_a, stack_b, 1);
+        }
+        else
+        {
+            ft_sort_three(stack_a);
+            pa(stack_a, stack_b, 1);
+            pa(stack_a, stack_b, 1);
+        }
     }
 }
 

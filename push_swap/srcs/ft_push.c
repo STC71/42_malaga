@@ -16,11 +16,12 @@ void	pa(t_stack **stack_a, t_stack **stack_b, int print)
 {
     t_stack	*tmp;
 
-    if (!*stack_b)
+    if (*stack_b == NULL)
         return ;
-    tmp = *stack_b; 
-    *stack_b = (*stack_b)->next;
-    *stack_a = tmp;
+    tmp = (*stack_b)->next; // to avoid losing the rest of the stack
+    (*stack_b)->next = *stack_a; // the first element of the stack b is now the first element of the stack a
+    *stack_a = *stack_b; // the first element of the stack a is now the first element of the stack b
+    *stack_b = tmp; // the first element of the stack b is now the second element
     if (print)
         ft_printf("pa\n");
 }

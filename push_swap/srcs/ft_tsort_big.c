@@ -73,21 +73,22 @@ void   ft_sort_max(t_stack **stack_a, t_stack **stack_b)
 
 void    ft_sort_big(t_stack **stack_a, t_stack **stack_b)
 {
-    int pos;
+    int pos; 
 
     while (*stack_a)
     {
-        pos = ft_pos_min(stack_a, 0);
-        while (pos != 0)
-        {
-            ra(stack_a, 1);
-            pos--;
-        }
+        pos = ft_find_pos_min(stack_a, ft_find_min(stack_a));
+        if (pos >= ft_stack_len(*stack_a) / 2)
+            while (pos++ <= ft_stack_len(*stack_a))
+                rra(stack_a, 1);
+        else
+            while (pos--)
+                ra(stack_a, 1);
         pb(stack_a, stack_b, 1);
-        ft_sort_big(stack_a, stack_b);
     }
-    while (*stack_b)
-        pa(stack_a, stack_b, 1);
+    while (*stack_b)  
+        pa(stack_a, stack_b, 1); 
+    
 }
 
 /*

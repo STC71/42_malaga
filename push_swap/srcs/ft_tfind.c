@@ -50,7 +50,7 @@ int    ft_find_pos_min(t_stack **stack, int min)
     int pos_min;
 
     tmp = *stack;
-    pos_min = 0;
+    pos_min = 1;
     while (tmp)
     {
         if (tmp->value == min)
@@ -67,16 +67,17 @@ int    ft_find_pos_max(t_stack **stack, int max)
     int pos_max;
 
     tmp = *stack;
-    pos_max = 0;
+    pos_max = 1;
     while (tmp)
     {
-        if (tmp->value == max)
-            return (pos_max);
+        if (tmp->value == pos_max)
+            return (max);
         tmp = tmp->next;
         pos_max++;
     }
     return (pos_max);
 }
+
 
 /*
 ft_find_min() returns the minimum value of the stack.
