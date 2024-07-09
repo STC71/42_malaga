@@ -79,6 +79,7 @@ void    ft_sort_five(t_stack **stack_a, t_stack **stack_b)
 {
     int len;
 
+    //ft_new_stack(**stack_b);
     len = ft_stack_len(*stack_a);
     if (len == 4)
     {

@@ -16,7 +16,6 @@ void	pa(t_stack **stack_a, t_stack **stack_b, int print)
 {
     t_stack	*tmp;
 
-    tmp = NULL;
     if (!*stack_b)
         return ;
     tmp = *stack_b; 
@@ -30,17 +29,17 @@ void	pb(t_stack **stack_a, t_stack **stack_b, int print)
 {
     t_stack	*tmp;
 
-    tmp = NULL;
-    if (!*stack_a)
+    if (*stack_a == NULL)
         return ;
-    tmp = *stack_a;
-    *stack_a = (*stack_a)->next;
-    *stack_b = tmp;
+    tmp = (*stack_a)->next; // to avoid losing the rest of the stack
+    (*stack_a)->next = *stack_b; // the first element of the stack a is now the first element of the stack b
+    *stack_b = *stack_a; // the first element of the stack b is now the first element of the stack a
+    *stack_a = tmp; // the first element of the stack a is now the second element
     if (print)
         ft_printf("pb\n");
 }
 
-/*
+/*pa
 Push the first element of the 'stack b' to the top of the 'stack a'.
 t_stack *tmp: a pointer to the first element of the 'stack b'.
 if (!*stack_b): if the 'stack b' is empty, return.
@@ -51,7 +50,7 @@ tmp = *stack_b: the first element of the 'stack b' is now the first
 print: 1 to print the operation, 0 to not print it.
 */
 
-/*
+/*pb
 Push the first element of the 'stack a' to the top of the 'stack b'.
 t_stack *tmp: a pointer to the first element of the 'stack a'.
 if (!*stack_a): if the 'stack a' is empty, return.

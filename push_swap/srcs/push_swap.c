@@ -106,6 +106,7 @@ int main (int argc, char *argv[])
 		return (0);
 	stack_a = NULL;
 	stack_b = NULL;
+	tmp = NULL;
 	i = argc - 1;
 	//ft_printf ("\033c");
 	while (i > 0)
@@ -121,7 +122,7 @@ int main (int argc, char *argv[])
 	ft_be_duplicated(stack_a);
 	if (be_sorted(stack_a))
 		return (0);
-	ft_sort(&stack_a, NULL);
+	ft_sort(&stack_a, &stack_b);
 	ft_free_all(&stack_a, &stack_b);
 	return (0);
 }
