@@ -113,12 +113,10 @@ int main (int argc, char *argv[])
 	{
 		be_nbr(argv[i]);
 		tmp = ft_stacknew(ft_atoi(argv[i]));
-		//ft_printf("El valor de %d es: %d\n", i, tmp->value); 
 		tmp->next = stack_a;
 		stack_a = tmp;
 		i--;
 	}
-		//*stack_a = ft_stacknew(ft_atoi(argv[i++]));
 	ft_be_duplicated(stack_a);
 	if (be_sorted(stack_a))
 		return (0);

@@ -32,7 +32,7 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
     int stack_len;
 
     stack_len = ft_stack_len(*stack_a);
-    //ft_printf("stack_len: %d\n", stack_len); // stack_len is the length of the stack
+    ft_get_index(stack_a);
     if (stack_len < 2)
         ft_error(0);
     else if (stack_len == 2 && be_sorted(*stack_a) == 0)

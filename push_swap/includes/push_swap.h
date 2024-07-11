@@ -218,6 +218,14 @@ t_stack    *ft_new_stack(int value);
 //ft_new_stack is a function that returns a pointer to a stack. It takes an integer
 //as a parameter. It is used to create a new element of the stack.
 
+int   ft_count_neg(t_stack **stack_a);
+//ft_count_neg is a function that returns an integer. It takes a pointer to a stack
+//as a parameter. It is used to count the number of negative numbers in the stack.
+
+void    ft_get_index(t_stack **stack_a);
+//ft_get_index is a function that returns void. It takes a pointer to a stack as a
+//parameter. It is used to assign an index to each element of the stack.
+
 #endif
 
 //This is the end of the header guard for the PUSH_SWAP_H macro.
