@@ -36,14 +36,14 @@ void	sb(t_stack **stack_b, int print)
     *stack_b = tmp->next;
     tmp->next = (*stack_b)->next;
     (*stack_b)->next = tmp;
-    if (print)
+    if (print == 1)
         ft_printf("sb\n");
 }
 
 void	ss(t_stack **stack_a, t_stack **stack_b, int print)
 {
-    sa(stack_a, 1);
-    sb(stack_b, 1);
+    sa(stack_a, 0);
+    sb(stack_b, 0);
     if (print)
         ft_printf("ss\n");
 }

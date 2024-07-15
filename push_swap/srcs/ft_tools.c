@@ -39,40 +39,11 @@ int   ft_count_neg(t_stack **stack_a)
     }
     return (count);
 }
-/*
-void    ft_get_index(t_stack **stack_a)
+
+void    ft_b_to_a(t_stack **stack_a, t_stack **stack_b)
 {
-    t_stack *tmp;
-    t_stack *tmp2;
-    int     index;
-
-    tmp2 = *stack_a;
-    while (tmp2 != NULL)
-    {
-        index = 0;
-        tmp = tmp2;
-        while (tmp)
-        {
-            if (tmp->value > (tmp2)->value)
-                index++;
-            tmp = tmp->next;
-        }
-        (tmp2)->index = index;
-        tmp2 = (tmp2)->next;
-    }
+    while (ft_stack_len(*stack_b) > 0)
+        pa(stack_a, stack_b, 1);
+    ft_free(stack_b);
 }
-*/
-/*
-The new_stack() function allocates sufficient memory for a new stack, 
-does the copy, and returns a pointer to it.
-*/
 
-/*
-The count_neg() function counts the number of negative numbers in the stack,
-and returns the count.
-*/
-
-/*
-The get_index() function assigns an index to each element of the stack.
-The order of index is the same as the order of the elements in the stack.
-*/

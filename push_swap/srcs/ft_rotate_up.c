@@ -14,46 +14,91 @@
 
 void	ra(t_stack **stack_a, int print)
 {
-    t_stack	*tmp;
-    t_stack	*last;
+	t_stack	*tmp;
+	t_stack	*last;
 
-    if (!*stack_a || !(*stack_a)->next)
-        return ;
-    tmp = *stack_a;
-    *stack_a = tmp->next;
-    last = *stack_a;
-    while (last->next)
-        last = last->next;
-    last->next = tmp;
-    tmp->next = NULL;
-    if (print)
-        ft_printf("ra\n");
+	if (!*stack_a || !(*stack_a)->next)
+		return ;
+	tmp = *stack_a;
+	*stack_a = tmp->next;
+	last = *stack_a;
+	while (last->next)
+		last = last->next;
+	last->next = tmp;
+	tmp->next = NULL;
+	if (print == 1)
+		ft_printf("ra\n");
 }
 
 void	rb(t_stack **stack_b, int print)
 {
-    t_stack	*tmp;
-    t_stack	*last;
+	t_stack	*tmp;
+	t_stack	*last;
 
-    if (!*stack_b || !(*stack_b)->next)
-        return ;
-    tmp = *stack_b;
-    last = *stack_b;
-    while (last->next)
-        last = last->next;
-    *stack_b = tmp->next;
-    tmp->next = NULL;
-    last->next = tmp;
-    if (print)
-        ft_printf("rb\n");
+	if (!*stack_b || !(*stack_b)->next)
+		return ;
+	tmp = *stack_b;
+	last = *stack_b;
+	while (last->next)
+		last = last->next;
+	*stack_b = tmp->next;
+	tmp->next = NULL;
+	last->next = tmp;
+	if (print == 1)
+		ft_printf("rb\n");
 }
 
 void	rr(t_stack **stack_a, t_stack **stack_b, int print)
 {
-    ra(stack_a, 0);
-    rb(stack_b, 0);
-    if (print)
-        ft_printf("rr\n");
+	ra(stack_a, 0);
+	rb(stack_b, 0);
+	if (print)
+		ft_printf("rr\n");
+}
+
+void    rr_rot(t_stack **stack_a, t_stack **stack_b, int *a_cost, int *b_cost)
+{
+	while (*a_cost > 0 && *b_cost > 0)
+	{
+		
+		(*a_cost)--;
+		(*b_cost)--;
+		rr(stack_a, stack_b, 1);
+	}
+}
+
+void	a_rot(t_stack **stack_a, int *cost)
+{
+	while (*cost)
+	{
+		if (*cost > 0)
+		{
+			(*cost)--;
+			ra(stack_a, 1);
+		}
+		else
+		{
+			(*cost)++;
+			rra(stack_a, 1);
+		}
+	}
+}
+
+void	b_rot(t_stack **stack_b, int *cost)
+{
+	while (*cost)
+	{
+		if (*cost > 0)
+		{
+			(*cost)--;
+			rb(stack_b, 1);
+		}
+		else
+		{
+			(*cost)++;
+			rrb(stack_b, 1);
+		}
+	}
 }
 
 /*ra

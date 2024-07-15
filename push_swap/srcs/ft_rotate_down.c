@@ -14,46 +14,56 @@
 
 void	rra(t_stack **stack_a, int print)
 {
-    t_stack	*tmp;
-    t_stack	*last;
+	t_stack	*tmp;
+	t_stack	*last;
 
-    if (!*stack_a || !(*stack_a)->next)
-        return ;
-    last = *stack_a;
-    while (last->next->next)
-        last = last->next;
-    tmp = last->next;
-    last->next = NULL;
-    tmp->next = *stack_a;
-    *stack_a = tmp;
-    if (print == 1)
-        ft_printf("rra\n");
+	if (!*stack_a || !(*stack_a)->next)
+		return ;
+	last = *stack_a;
+	while (last->next->next)
+		last = last->next;
+	tmp = last->next;
+	last->next = NULL;
+	tmp->next = *stack_a;
+	*stack_a = tmp;
+	if (print == 1)
+		ft_printf("rra\n");
 }
 
 void	rrb(t_stack **stack_b, int print)
 {
-    t_stack	*tmp;
-    t_stack	*last;
+	t_stack	*tmp;
+	t_stack	*last;
 
-    if (!*stack_b || !(*stack_b)->next)
-        return ;
-    last = *stack_b;
-    while (last->next->next)
-        last = last->next;
-    tmp = last->next;
-    last->next = NULL;
-    tmp->next = *stack_b;
-    *stack_b = tmp;
-    if (print)
-        ft_printf("rrb\n");
+	if (!*stack_b || !(*stack_b)->next)
+		return ;
+	last = *stack_b;
+	while (last->next->next)
+		last = last->next;
+	tmp = last->next;
+	last->next = NULL;
+	tmp->next = *stack_b;
+	*stack_b = tmp;
+	if (print == 1)
+		ft_printf("rrb\n");
 }
 
 void	rrr(t_stack **stack_a, t_stack **stack_b, int print)
 {
-    rra(stack_a, 0);
-    rrb(stack_b, 0);
-    if (print)
-        ft_printf("rrr\n");
+	rra(stack_a, 0);
+	rrb(stack_b, 0);
+	if (print)
+		ft_printf("rrr\n");
+}
+
+void	rrr_rev(t_stack **stack_a, t_stack **stack_b, int *a_cost, int *b_cost)
+{
+	while (*a_cost < 0 && *b_cost < 0)
+	{
+		(*a_cost)++;
+		(*b_cost)++;
+		rrr(stack_a, stack_b, 1);
+	}
 }
 
 /*rra
@@ -76,4 +86,13 @@ The last element of each stack becomes the first one.
 stack_a: the address of a pointer to the first node of the list 'a'.
 stack_b: the address of a pointer to the first node of the list 'b'.
 print: 1 to print the operation, 0 to not print it.
+*/
+
+/*rrr_rev
+Reverse rotate the 'stack a' and 'stack b' down by one.
+The last element of each stack becomes the first one.
+stack_a: the address of a pointer to the first node of the list 'a'.
+stack_b: the address of a pointer to the first node of the list 'b'.
+a_cost: the cost of moving the element in the 'stack a'.
+b_cost: the cost of moving the element in the 'stack b'.
 */
