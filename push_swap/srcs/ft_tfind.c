@@ -77,3 +77,21 @@ int    ft_find_pos_max(t_stack **stack, int max)
 	}
 	return (pos_max);
 }
+
+int		ft_find_last(t_stack *stack)
+{
+	t_stack *tmp;
+
+	tmp = stack;
+	while (tmp->next)
+		tmp = tmp->next;
+	return (tmp->index);
+}
+
+/*
+ft_find_min() returns the minimum value in the stack.
+ft_find_max() returns the maximum value in the stack.
+ft_find_pos_min() returns the position of the minimum value in the stack.
+ft_find_pos_max() returns the position of the maximum value in the stack.
+ft_find_last() returns the last index of the stack.
+*/

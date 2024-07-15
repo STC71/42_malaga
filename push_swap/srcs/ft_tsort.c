@@ -31,13 +31,12 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
 {
     int stack_len;
 
-    stack_len = ft_stack_len(*stack_a);
+    stack_len = ft_stack_len(*stack_a);    
     ft_get_index(stack_a);
-    //while (stack_a) //esto es para ver si se ha asignado bien el index
-    //{
-    //    ft_printf ("value del stack_a: %d - index del stack_a: %d\n", (*stack_a)->value, (*stack_a)->index);
-    //    *stack_a = (*stack_a)->next;
-    //} //esto es para ver si se ha asignado bien el index
+    ft_add_pos(stack_a, stack_b);
+    
+    ft_be_good (stack_a, stack_b); 
+
     if (stack_len < 2)
         ft_error(0);
     else if (stack_len == 2 && be_sorted(*stack_a) == 0)
@@ -48,16 +47,15 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
         ft_sort_four(stack_a, stack_b);
     else if (stack_len == 5 && be_sorted(*stack_a) == 0)
         ft_sort_five(stack_a, stack_b);
-    /*
-    else if ((stack_len > 5 && stack_len <= 100) && be_sorted(*stack_a) == 0)
+    else if ((stack_len > 5 && stack_len <= 500) && be_sorted(*stack_a) == 0)
         ft_sort_min(stack_a, stack_b);
-    else if ((stack_len > 100) && stack_len <=500 && be_sorted(*stack_a) == 0)
-        ft_sort_max(stack_a, stack_b);
-    */
-    else if ((stack_len > 500) && be_sorted(*stack_a) == 0)
-        ft_sort_big(stack_a, stack_b);
-    else
-        ft_error(0);
+    // else if ((stack_len > 100) && stack_len <=500 && be_sorted(*stack_a) == 0)
+    //     ft_sort_max(stack_a, stack_b);
+    // */
+    // else if ((stack_len > 500) && be_sorted(*stack_a) == 0)
+    //     ft_sort_big(stack_a, stack_b);
+    // else
+    //     ft_error(0);
 }
 void    ft_sort_three(t_stack **stack)
 {

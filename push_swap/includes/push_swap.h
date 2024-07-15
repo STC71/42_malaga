@@ -183,6 +183,10 @@ int		ft_find_pos_max(t_stack **stack, int max);
 //stack and an integer as parameters. It is used to find the position of the
 //maximum value of the stack.
 
+int		ft_find_last(t_stack *stack);
+//ft_find_last is a function that returns an integer. It takes a pointer to a stack
+//as a parameter. It is used to find the index of the last element of the stack.
+
 //ft_find_index.c functions:
 
 int		ft_find_index_up(t_stack **stack_a, int min, int max);
@@ -316,6 +320,16 @@ void	ft_position(t_stack **stack);
 void	ft_end_pos(t_stack **stack_a, t_stack **stack_b);
 //ft_end_pos is a function that returns void. It takes two pointers to stacks as
 //parameters. It is used to assign a target position to each element of the stack.
+
+//ft_tpos.c functions:
+
+void    ft_add_pos(t_stack **stack_a, t_stack **stack_b);
+//ft_add_pos is a function that returns void. It takes two pointers to stacks as
+//parameters. It is used to assign a position to each element of the stacks.
+
+void    ft_be_good(t_stack **stack_a, t_stack **stack_b);
+//ft_be_good is a function that returns void. It takes two pointers to stacks as
+//parameters. It is used to print the values, indexes and positions of the stacks.
 
 #endif
 

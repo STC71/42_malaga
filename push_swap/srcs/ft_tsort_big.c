@@ -35,27 +35,31 @@ int    ft_pos_min(t_stack **stack_a, int pos)
 	return (post);
 }
 
-/*
 void    ft_sort_min(t_stack **stack_a, t_stack **stack_b)
-{}
-*/
-
-void   ft_sort_max(t_stack **stack_a, t_stack **stack_b)
 {
-	int pos;
+	int		i;
+	//int		mid;
 
-	while (*stack_a)
-	{
-		pos = ft_pos_min(stack_a, 0);
-		while (pos != 0)
+	i = ft_stack_len(*stack_a);
+	while (i > 3)
+	{	
+		//if (i % 2 == 0)
+			//mid = i / 2;
+		//else
+			//mid = (i + 1) / 2;
+		//mid = (i + 1) / 2;
+		if ((*stack_a)->index <= ft_find_last(*stack_a))
 		{
-			ra(stack_a, 1);
-			pos--;
+			pb(stack_a, stack_b, 1);
+			//ft_printf("i: %d\n", i);
+			i--;
 		}
-		pb(stack_a, stack_b, 1);
+		else if ((*stack_a)->next->index <= ft_find_last(*stack_a))
+		 	ra(stack_a, 1);
+		else if ((*stack_a)->index > ft_find_last(*stack_a))
+		 	rra(stack_a, 1);
 	}
-	while (*stack_b)
-		pa(stack_a, stack_b, 1);
+	ft_sort_three(stack_a);
 }
 
 void    ft_sort_big(t_stack **stack_a, t_stack **stack_b)

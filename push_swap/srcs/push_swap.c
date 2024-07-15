@@ -108,7 +108,7 @@ int main (int argc, char *argv[])
 	stack_b = NULL;
 	tmp = NULL;
 	i = argc - 1;
-	//ft_printf ("\033c");
+	//ft_printf ("\033c"); // Is this line necessary?
 	while (i > 0)
 	{
 		be_nbr(argv[i]);
@@ -121,6 +121,7 @@ int main (int argc, char *argv[])
 	if (be_sorted(stack_a))
 		return (0);
 	ft_sort(&stack_a, &stack_b);
+	ft_be_good(&stack_a, &stack_b); // Is this line necessary? 
 	ft_free_all(&stack_a, &stack_b);
 	return (0);
 }

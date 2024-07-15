@@ -67,7 +67,7 @@ int find_index(t_stack *sorted_list, int value)
 {
     int index;
     
-    index = 0;
+    index = 1;
     while (sorted_list)
     {
         if (sorted_list->value == value)

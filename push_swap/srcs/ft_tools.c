@@ -47,3 +47,33 @@ void    ft_b_to_a(t_stack **stack_a, t_stack **stack_b)
     ft_free(stack_b);
 }
 
+void    ft_be_good(t_stack **stack_a, t_stack **stack_b)
+{
+    t_stack *tmp_a; 
+    t_stack *tmp_b;
+    int value;
+    int index;
+    int pos;
+
+    ft_add_pos(stack_a, stack_b);
+    tmp_a = *stack_a;
+    tmp_b = *stack_b;
+    while (tmp_a)
+    {
+        value = tmp_a->value;
+        index = tmp_a->index;
+        pos = tmp_a->pos;
+        ft_printf ("value del stack_a: %d - index del stack_a: %d - pos del stack_a: %d\n", value, index, pos);
+        tmp_a = tmp_a->next;
+    }
+    while (tmp_b)
+    {
+        value = tmp_b->value;
+        index = tmp_b->index;
+        pos = tmp_b->pos;
+        ft_printf ("value del stack_b: %d - index del stack_b: %d - pos del stack_b: %d\n", value, index, pos);
+        tmp_b = tmp_b->next;
+    }
+    ft_free(&tmp_a);
+}
+
