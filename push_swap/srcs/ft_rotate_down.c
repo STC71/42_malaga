@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-void	rra(t_stack **stack_a, int print)
+void		rra(t_stack **stack_a, int print)
 {
 	t_stack	*tmp;
 	t_stack	*last;
@@ -30,7 +30,7 @@ void	rra(t_stack **stack_a, int print)
 		ft_printf("rra\n");
 }
 
-void	rrb(t_stack **stack_b, int print)
+void		rrb(t_stack **stack_b, int print)
 {
 	t_stack	*tmp;
 	t_stack	*last;
@@ -48,21 +48,38 @@ void	rrb(t_stack **stack_b, int print)
 		ft_printf("rrb\n");
 }
 
-void	rrr(t_stack **stack_a, t_stack **stack_b, int print)
+void		rrr(t_stack **stack_a, t_stack **stack_b, int print)
 {
 	rra(stack_a, 0);
 	rrb(stack_b, 0);
-	if (print)
+	if (print == 1)
 		ft_printf("rrr\n");
 }
 
-void	rrr_rev(t_stack **stack_a, t_stack **stack_b, int *a_cost, int *b_cost)
+void		rrr_rot(t_stack **s_a, t_stack **s_b, int *a_cost, int *b_cost)
 {
 	while (*a_cost < 0 && *b_cost < 0)
 	{
 		(*a_cost)++;
 		(*b_cost)++;
-		rrr(stack_a, stack_b, 1);
+		rrr(s_a, s_b, 1);
+	}
+}
+
+void		b_rot(t_stack **stack_b, int *cost)
+{
+	while (*cost)
+	{
+		if (*cost > 0)
+		{
+			(*cost)--;
+			rb(stack_b, 1);
+		}
+		else if (*cost < 0)
+		{
+			(*cost)++;
+			rrb(stack_b, 1);
+		}
 	}
 }
 

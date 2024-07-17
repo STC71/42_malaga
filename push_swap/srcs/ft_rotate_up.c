@@ -56,14 +56,14 @@ void	rr(t_stack **stack_a, t_stack **stack_b, int print)
 		ft_printf("rr\n");
 }
 
-void    rr_rot(t_stack **stack_a, t_stack **stack_b, int *a_cost, int *b_cost)
+void    rr_rot(t_stack **s_a, t_stack **s_b, int *a_cost, int *b_cost)
 {
 	while (*a_cost > 0 && *b_cost > 0)
 	{
 		
 		(*a_cost)--;
 		(*b_cost)--;
-		rr(stack_a, stack_b, 1);
+		rr(s_a, s_b, 1);
 	}
 }
 
@@ -76,7 +76,7 @@ void	a_rot(t_stack **stack_a, int *cost)
 			(*cost)--;
 			ra(stack_a, 1);
 		}
-		else
+		else if (*cost < 0)
 		{
 			(*cost)++;
 			rra(stack_a, 1);
@@ -84,22 +84,7 @@ void	a_rot(t_stack **stack_a, int *cost)
 	}
 }
 
-void	b_rot(t_stack **stack_b, int *cost)
-{
-	while (*cost)
-	{
-		if (*cost > 0)
-		{
-			(*cost)--;
-			rb(stack_b, 1);
-		}
-		else
-		{
-			(*cost)++;
-			rrb(stack_b, 1);
-		}
-	}
-}
+
 
 /*ra
 Rotate the 'stack a' up by one.

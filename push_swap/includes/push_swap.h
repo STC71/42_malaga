@@ -70,266 +70,244 @@ to store the information of the stack.
 
 //Funtions prototypes for the push_swap project.
 
-//push_swap.c functions:
+//push_push.c functions:
 
-void	ft_error(int i);
-//ft_error is a static function that returns void. It takes an integer as a
-//parameter. It is used to print an error message and exit the program.
+void		pa(t_stack **stack_a, t_stack **stack_b, int print);
+	//This funtion push the first element of the stack b to the stack a.
 
-void	be_nbr(char *str);
-//be_nbr is a function that returns void. It takes a string as a parameter. It
-//is used to check if the string is a number.
+void		pb(t_stack **stack_a, t_stack **stack_b, int print);
+	//This funtion push the first element of the stack a to the stack b.
 
-void	ft_be_duplicated(t_stack *stack_a);
-//be_duplicated is a function that returns void. It takes a string and an integer
-//as parameters. It is used to check if there are duplicated numbers.
+//ft_rotate_down.c functions:
 
-int		be_sorted(t_stack *stack_a);
-//be_sorted is a function that returns an integer. It takes a pointer to a stack
-//as a parameter. It is used to check if the stack is sorted.
+void		rra(t_stack **stack_a, int print);
+	//This funtion is used to rate the stack a down. If print is 1, the funtion
+	//print the move.
 
-t_stack		*ft_stacknew(int value);
-//ft_stacknew is a function that returns a pointer to a stack. It takes an integer
-//as a parameter. It is used to create a new element of the stack.
+void		rrb(t_stack **stack_b, int print);
+	//This funtion is used to rate the stack b down. If print is 1, the funtion
+	//print the move.
 
-//ft_sort.c functions:
+void		rrr(t_stack **stack_a, t_stack **stack_b, int print);
+	//This funtion is used to rate the stack a and the stack b down. If print is 1,
+	//the funtion print the move. Only one move is printed.
 
-int		ft_stack_len(t_stack *stack);
-//ft_stack_len is a function that returns an integer. It takes a pointer to a stack
-//as a parameter. It is used to get the length of the stack.
+void		rrr_rot(t_stack **s_a, t_stack **s_b, int *a_cost, int *b_cost);
+	//This funtion is used to rate the stack a and the stack b down. The funtion
+	//print the moves of the stack a and the stack b. Only one move is printed.
 
-void	ft_sort(t_stack **stack_a, t_stack **stack_b);
-//ft_sort is a function that returns void. It takes two pointers to stacks as
-//parameters. It is used to sort the stack.
+void		b_rot(t_stack **stack_b, int *cost);
+	//This funtion is used to rate the stack b down. The funtion print the moves
+	//of the stack b. Only one move is printed.
 
-void	ft_sort_three(t_stack **stack);
-//ft_sort_three is a function that returns void. It takes a pointer to a stack as
-//a parameter. It is used to sort a stack with three elements.
+//ft_rotate_up.c functions:
 
-void	ft_sort_four(t_stack **stack_a, t_stack **stack_b);
-//ft_sort_four is a function that returns void. It takes two pointers to stacks as
-//parameters. It is used to sort a stack with four elements.
+void		ra(t_stack **stack, int print);
+	//This funtion is used to rate the stack a up. 
+	//If print is 1, the funtion print
 
-void	ft_sort_five(t_stack **stack_a, t_stack **stack_b);
-//ft_sort_five is a function that returns void. It takes two pointers to stacks
-//and an integer as parameters. It is used to sort a stack with four or five
-//elements.
+void		rb(t_stack **stack, int print);
+	//This funtion is used to rate the stack b up. 
+	//If print is 1, the funtion print
 
-//ft_sort_big.c functions:
+void		rr(t_stack **stack_a, t_stack **stack_b, int print);
+	//This funtion is used to rate the stack a and the stack b up.
+	//If print is 1, the funtion print. Only one move is printed.
 
-int		ft_pos_min(t_stack **stack_a, int pos);
-//ft_pos_min is a function that returns an integer. It takes a pointer to a stack
-//and an integer as parameters. It is used to find the position of the minimum
-//value of the stack.
+void		rr_rot(t_stack **s_a, t_stack **s_b, int *a_cost, int *b_cost);
+	//This funtion is used to rate the stack a and the stack b up. The funtion
+	//print the moves of the stack a and the stack b. Only one move is printed.
 
-void	ft_sort_min(t_stack **stack_a, t_stack **stack_b);
-//ft_sort_min to order the stack with more of five elements and less or equal to
-//one hundred elements.
+void		a_rot(t_stack **stack_a, int *cost);
+	//This funtion is used to rate the stack a up. The funtion print the moves
+	//of the stack a.
 
-void	ft_sort_max(t_stack **stack_a, t_stack **stack_b);
-//ft_sort_max to orden the stack with more of one hundred elements and less or 
-//equal to two five hundred elements.
+//ft_swap.c functions:
 
-void	ft_sort_big(t_stack **stack_a, t_stack **stack_b);
-//ft_sort_big is a function that returns void. It takes two pointers to stacks as
-//parameters. It is used to sort a stack of any size.
+void		sa(t_stack **stack, int print);
+	//This funtion is used to swap the first two elements of the stack a.
 
-//ft_sort_c.c functions (100 elements):
+void		sb(t_stack **stack, int print);
+	//This funtion is used to swap the first two elements of the stack b.
 
-void	ft_sort_c(t_stack **stack_a, t_stack **stack_b);
-//ft_sort_c is a function that returns void. It takes two pointers to stacks as
-//parameters. It is used to sort the stack.
+void			ss(t_stack **stack_a, t_stack **stack_b, int print);
+	//This funtion is used to swap the first two elements of the stack a and the
+	//stack b. Only one move is printed.
 
-void	ft_b_to_a(t_stack **stack_a, t_stack **stack_b);
-//ft_a_to_b is a function that returns void. It takes two pointers to stacks as
-//parameters. It is used to move the elements of the stack from stack a to stack b.
+//ft_tfind_index.c functions:
 
-void	ft_sort_a(t_stack **stack_a);
-//ft_sort_a is a function that returns void. It takes a pointer to a stack as a
-//parameter. It is used to sort the stack.
+int 			ft_find_index_up(t_stack **stack_a, int min, int max);
+	//This funtion is used to find the index of the first element of the stack 
+	//that is between the min and max values.
 
-//ft_tcheap_cost.c functions:
+int 			ft_find_index_down(t_stack **stack_a, int min, int max);
+	//This funtion is used to find the index of the last element of the stack.
 
-void	ft_cheap_sort(t_stack **stack_a, t_stack **stack_b);
-//ft_cheap_sort is a function that returns void. It takes two pointers to stacks
-//as parameters. It is used to sort the stack in the cheapest way possible.
+void 			ft_cheap_sort(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to sort the stack a and the stack b with the cheapest
+	//way. The funtion is used to sort a stack of any size.
 
-void	ft_get_cost(t_stack **stack_a, t_stack **stack_b);
-//ft_get_cost is a function that returns void. It takes two pointers to stacks as
-//parameters. It is used to get the cost of the moves for each element of the stack.
+void			ft_get_cost(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to get the cost of the stack a and the stack b.
 
-void	ft_moves(t_stack **a, t_stack **b, int a_cost, int b_cost);
-//ft_moves is a function that returns void. It takes two pointers to stacks and
-//two integers as parameters. It is used to move the elements of the stack to the
-//appropriate position.
+//ft_tfind.c functions:
 
-//ft_find.c functions:
+int    			ft_find_min(t_stack **stack);
+	//This funtion is used to find the minimum value of the stack.
 
-int		ft_find_min(t_stack **stack);
-//ft_find_min is a function that returns void. It takes a pointer to a stack as a
-//parameter. It is used to find the minimum value of the stack.
+int    			ft_find_max(t_stack **stack);
+	//This funtion is used to find the maximum value of the stack.
 
-int		ft_find_max(t_stack **stack);
-//ft_find_max is a function that returns void. It takes a pointer to a stack as a
-//parameter. It is used to find the maximum value of the stack.
+int    			ft_find_pos_min(t_stack **stack, int min);
+	//This funtion is used to find the position of the minimum value of the stack.
 
-int		ft_find_pos_min(t_stack **stack, int min);
-//ft_find_pos_min is a function that returns an integer. It takes a pointer to a
-//stack and an integer as parameters. It is used to find the position of the
-//minimum value of the stack.
+int    			ft_find_pos_max(t_stack **stack, int max);
+	//This funtion is used to find the position of the maximum value of the stack.
 
-int		ft_find_pos_max(t_stack **stack, int max);
-//ft_find_pos_max is a function that returns an integer. It takes a pointer to a
-//stack and an integer as parameters. It is used to find the position of the
-//maximum value of the stack.
+int				ft_find_last(t_stack *stack);
+	//This funtion is used to find the last element of the stack.
 
-int		ft_find_last(t_stack *stack);
-//ft_find_last is a function that returns an integer. It takes a pointer to a stack
-//as a parameter. It is used to find the index of the last element of the stack.
+//ft_tfree.c functions:
 
-//ft_find_index.c functions:
+void    		ft_free(t_stack **stack);
+	//This funtion is used to free the memory of the stack.
 
-int		ft_find_index_up(t_stack **stack_a, int min, int max);
-//ft_find_index_up is a function that returns an integer. It takes a pointer to a
-//stack and two integers as parameters. It is used to find the index of the
-//elements of the stack that are between the minimum and maximum values in the
-//up direction.
-
-int		ft_find_index_down(t_stack **stack_a, int min, int max);
-//ft_find_index_down is a function that returns an integer. It takes a pointer to
-//a stack and two integers as parameters. It is used to find the index of the
-//elements of the stack that are between the minimum and maximum values in the
-//down direction.
-
-//ft_free.c functions:
-
-void    ft_free(t_stack **stack);
-//ft_free is a function that returns void. It takes a pointer to a stack as a
-//parameter. It is used to free the memory of the stack.
-
-void    ft_free_all(t_stack **stack_a, t_stack **stack_b);
-//ft_free_all is a function that returns void. It takes two pointers to stacks as
-//parameters. It is used to free the memory of the two stacks.
+void			ft_free_all(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to free the memory of the stack a and the stack b.
 
 //ft_tindex.c functions:
 
-t_stack	*copy_stack(t_stack *stack);
-//copy_stack is a function that returns a pointer to a stack. It takes a pointer
-//to a stack as a parameter. It is used to copy the stack.
+t_stack			*copy_stack(t_stack *original);
+	//This funtion is used to copy the stack. It is used to copy the stack a to a
+	//temporary stack to define de index of the stack.
 
-void	sort_list(t_stack **list);
-//sort_list is a function that returns void. It takes a pointer to a stack as a
-//parameter. It is used to sort the stack.
+void			sort_list(t_stack **list);
+	//This funtion is used to sort the list, and so the index of the stack is
+	//defined.
 
-int		find_index(t_stack *sorted_list, int value);
-//find_index is a function that returns an integer. It takes a pointer to a stack
-//and an integer as parameters. It is used to find the index of a value in the
-//stack.
+int				find_index(t_stack *sorted_list, int value);
+	//This funtion is used to find the index of the value in the sorted list. It
+	//is used to define the index of the stack.
 
-void	ft_get_index(t_stack **stack_a);
-//ft_get_index is a function that returns void. It takes a pointer to a stack as a
-//parameter. It is used to assign an index to each element of the stack.
-
-//Other functions:
-
-void	sa(t_stack **stack, int print);
-//sa is a function that returns void. It takes a pointer to a stack and an integer
-//as parameters. It is used to swap the first two elements of the stack.
-
-void	sb(t_stack **stack, int print);
-//sb is a function that returns void. It takes a pointer to a stack and an integer
-//as parameters. It is used to swap the first two elements of the stack.
-
-void	ss(t_stack **stack_a, t_stack **stack_b, int print);
-//ss is a function that returns void. It takes two pointers to stacks and an
-//integer as parameters. It is used to swap the first two elements of the two
-//stacks.
-
-void	pa(t_stack **stack_a, t_stack **stack_b, int print);
-//pa is a function that returns void. It takes two pointers to stacks and an
-//integer as parameters. It is used to push the first element of the second stack
-//to the first stack.
-
-void	pb(t_stack **stack_a, t_stack **stack_b, int print);
-//pb is a function that returns void. It takes two pointers to stacks and an
-//integer as parameters. It is used to push the first element of the first stack
-//to the second stack.
-
-void	ra(t_stack **stack, int print);
-//ra is a function that returns void. It takes a pointer to a stack and an integer
-//as parameters. It is used to rotate the stack.
-
-void	rb(t_stack **stack, int print);
-//rb is a function that returns void. It takes a pointer to a stack and an integer
-//as parameters. It is used to rotate the stack.
-
-void	rr(t_stack **stack_a, t_stack **stack_b, int print);
-//rr is a function that returns void. It takes two pointers to stacks and an
-//integer as parameters. It is used to rotate the two stacks.
-
-void	rra(t_stack **stack, int print);
-//rra is a function that returns void. It takes a pointer to a stack and an integer
-//as parameters. It is used to reverse rotate the stack.
-
-void	rrb(t_stack **stack, int print);
-//rrb is a function that returns void. It takes a pointer to a stack and an integer
-//as parameters. It is used to reverse rotate the stack.
-
-void	rrr(t_stack **stack_a, t_stack **stack_b, int print);
-//rrr is a function that returns void. It takes two pointers to stacks and an
-//integer as parameters. It is used to reverse rotate the two stacks.
-
-void	rrr_rev(t_stack **stack_a, t_stack **stack_b, int *a_cost, int *b_cost);
-//rrr_rev is a function that returns void. It takes two pointers to stacks and two
-//integers as parameters. It is used to reverse rotate the two stacks.
-//And control the cost of the rotations.
-
-void	rr_rot(t_stack **stack_a, t_stack **stack_b, int *a_cost, int *b_cost);
-//rr_rot is a function that returns void. It takes two pointers to stacks and two
-//integers as parameters. It is used to rotate the two stacks.
-//And control the cost of the rotations.
-
-void	a_rot(t_stack **stack_a, int *cost);
-//a_rot is a function that returns void. It takes a pointer to a stack and an
-//integer as parameters. It is used to rotate the stack.
-//And control the cost of the rotations.
-
-void	b_rot(t_stack **stack_b, int *cost);
-//b_rot is a function that returns void. It takes a pointer to a stack and an
-//integer as parameters. It is used to rotate the stack.
-//And control the cost of the rotations.
+void			ft_get_index(t_stack **stack_a);
+	//This funtion is used to get the index of the stack a.
 
 //ft_tools.c functions:
 
-t_stack    *ft_new_stack(int value);
-//ft_new_stack is a function that returns a pointer to a stack. It takes an integer
-//as a parameter. It is used to create a new element of the stack.
+t_stack    		*ft_new_stack(int value);
+	//This funtion is used to create a new element of the stack.
 
-int   ft_count_neg(t_stack **stack_a);
-//ft_count_neg is a function that returns an integer. It takes a pointer to a stack
-//as a parameter. It is used to count the number of negative numbers in the stack.
+int   			ft_count_neg(t_stack **stack_a);
+	//This funtion is used to count the number of negative values of the stack.
 
-void    ft_get_index(t_stack **stack_a);
-//ft_get_index is a function that returns void. It takes a pointer to a stack as a
-//parameter. It is used to assign an index to each element of the stack.
+void    		ft_b_to_a(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to push all the elements of the stack b to the stack a.
 
-void	ft_position(t_stack **stack);
-//ft_position is a function that returns void. It takes a pointer to a stack as a
-//parameter. It is used to assign a position to each element of the stack.
+void    		ft_be_good(t_stack **stack_a, t_stack **stack_b);
+	//The funtion print the moves, values, index, position, target, cost, a_cost
+	//and b_cost of the stack a and the stack b. It is not necessary to use this
+	//program, but it is useful to debug it.
 
-void	ft_end_pos(t_stack **stack_a, t_stack **stack_b);
-//ft_end_pos is a function that returns void. It takes two pointers to stacks as
-//parameters. It is used to assign a target position to each element of the stack.
+int     		ft_abs(int a);
+	//This funtion is used to return the absolute value of the integer. If the 
+	//integer is negative, the funtion returns the positive value.
 
 //ft_tpos.c functions:
 
-void    ft_add_pos(t_stack **stack_a, t_stack **stack_b);
-//ft_add_pos is a function that returns void. It takes two pointers to stacks as
-//parameters. It is used to assign a position to each element of the stacks.
+void			ft_add_pos(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to add the position of the elements of the stack a and
+	//the stack b. The position is the number of elements that are above the
+	//element. The position is used to calculate the cost of the element. 
 
-void    ft_be_good(t_stack **stack_a, t_stack **stack_b);
-//ft_be_good is a function that returns void. It takes two pointers to stacks as
-//parameters. It is used to print the values, indexes and positions of the stacks.
+void    		ft_find_pos_target(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to find the position and the target of the stack a and
+	//the stack b. The position is the number of elements that are above the
+	//element. The target is the element that is closest to the element.
+
+int     		ft_target(t_stack **stack_a, int index, int target, int pos);
+	//This funtion is used to find the target of the element, to calculate the
+	//cost of the element.
+
+void    		ft_pos_target(t_stack **stack);
+	//This funtion is used to find the position and the target of the element.
+
+//ft_tsort_big.c functions:
+
+int    			ft_pos_min(t_stack **stack_a, int pos);
+	//This funtion is used to find the position of the minimum value of the stack.
+
+void    		ft_sort_max(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to sort the stack a and the stack b, with the maximum
+	//value of the stack.
+
+void			ft_sort_end(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is the last of the sort functions.
+
+void	ft_moves(t_stack **stack_a, t_stack **stack_b, int a_cost, int b_cost);
+	//This funtion is used to move the elements of the stack a and the stack b.
+	//a_cost and b_cost are used to calculate the cost of the element.
+
+void    		ft_sort_big(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to sort the stack a and the stack b, with the push_swap
+	//algorithm. It is used to sort a stack of any size. In this case, the stack
+	//is sorted by pushing the smallest number to stack b and then sorting stack a
+	//recursively. The funtion is used to sort more of 500 elements.
+
+//ft_tsortc.c functions:
+
+void			ft_sort_min(t_stack **stack);
+	//This funtion is used to sort the stack with the minimum value of the stack.
+
+void			shifte_change(t_stack **stack_a);
+	//This funtion is used to shift the stack a to the minimum value of the stack.
+
+int				ft_low_index(t_stack **stack);
+	//This funtion is used to find the index of the minimum value of the stack.
+
+int				ft_hi_index(t_stack *stack);
+	//This funtion is used to find the index of the maximum value of the stack.
+
+//ft_tsort.c functions:
+
+int				ft_stack_len(t_stack *stack);
+	//This funtion is used to calculate the length of the stack whit a while loop.
+
+void    		ft_sort(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to sort the stack a and the stack b.
+
+void    		ft_sort_three(t_stack **stack);
+	//This funtion is used to sort the stack with three elements.
+
+void			ft_sort_four(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to sort the stack with four elements.
+
+void    		ft_sort_five(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to sort the stack with five elements.
+
+//push_swap.c functions:
+
+void			ft_error(int i);
+	//The funtion takes an integer as a parameter. It is used to print a error 
+	//message and exit the program.
+
+int				be_nbr(char *str);
+	//The funtion takes a string as a parameter. It is used to check if the string
+	//is a number, positive or negative. If the string is not a number or the value
+	//is greater than INT_MAX or less than INT_MIN, the funtion calls the ft_error.
+
+void			ft_be_duplicated(t_stack *stack_a);
+	//The funtion is used to check if the stack has duplicated values. 
+	//If the stack has duplicated values, the funtion calls the ft_error.
+
+int				be_sorted(t_stack *stack_a);
+	//The funtion is used to check if the stack is sorted. If the stack is sorted,
+	//the funtion returns 1. If the stack is not sorted, the funtion returns 0.
+
+t_stack			*ft_stacknew(int value);
+	//The funtion is used to create a new element of the stack.
+
+//int main (int argc, char *argv[]);
+	//The funtion is used to check the arguments, create the list and sort it.
 
 #endif
 

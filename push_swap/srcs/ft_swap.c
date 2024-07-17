@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-void	sa(t_stack **stack_a, int print)
+void	    sa(t_stack **stack_a, int print)
 {
     t_stack	*tmp;
 
@@ -26,7 +26,7 @@ void	sa(t_stack **stack_a, int print)
         ft_printf("sa\n");
 }
 
-void	sb(t_stack **stack_b, int print)
+void     sb(t_stack **stack_b, int print)
 {
     t_stack	*tmp;
 

@@ -48,3 +48,48 @@ int ft_find_index_down(t_stack **stack_a, int min, int max)
     return -1; // No se encontró un elemento en el rango
 }
 
+void 	ft_cheap_sort(t_stack **stack_a, t_stack **stack_b)
+{
+	t_stack	*tmp;
+	int		a_cost;
+	int		b_cost;
+	int		cheap;
+
+	tmp = *stack_b;
+	cheap = INT_MAX;
+	while (tmp)
+	{
+		if (ft_abs(tmp->a_cost) + ft_abs(tmp->b_cost) < ft_abs(cheap))
+		{
+			cheap = ft_abs(tmp->b_cost + ft_abs(tmp->a_cost));
+			a_cost = tmp->a_cost;
+			b_cost = tmp->b_cost;
+		}
+		tmp = tmp->next;
+	}
+	ft_moves(stack_a, stack_b, a_cost, b_cost);
+}
+
+void	ft_get_cost(t_stack **stack_a, t_stack **stack_b)
+{
+	//t_stack		*tmp_a;
+	t_stack		*tmp_b;
+	int			len_a;
+	int			len_b;
+
+	//tmp_a = *stack_a;
+	tmp_b = *stack_b;
+	len_a = ft_stack_len(*stack_a);
+	len_b = ft_stack_len(*stack_b);
+	while (tmp_b)
+	{
+		tmp_b->b_cost = tmp_b->pos;
+		if (tmp_b->pos > len_b / 2)
+			tmp_b->b_cost = (len_b - tmp_b->pos) * -1;
+		tmp_b->a_cost = tmp_b->target;
+		if (tmp_b->target > len_a / 2)
+			tmp_b->a_cost = (len_a - tmp_b->target) * -1;
+		tmp_b = tmp_b->next;
+	}
+}
+

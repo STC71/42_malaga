@@ -35,7 +35,7 @@ int    ft_pos_min(t_stack **stack_a, int pos)
 	return (post);
 }
 
-void    ft_sort_min(t_stack **stack_a, t_stack **stack_b)
+void    ft_sort_max(t_stack **stack_a, t_stack **stack_b)
 {
 	int		i;
 	//int		mid;
@@ -59,7 +59,33 @@ void    ft_sort_min(t_stack **stack_a, t_stack **stack_b)
 		else if ((*stack_a)->index > ft_find_last(*stack_a))
 		 	rra(stack_a, 1);
 	}
-	ft_sort_three(stack_a);
+	if (!be_sorted(*stack_a))
+		ft_sort_three(stack_a);
+	ft_sort_end(stack_a, stack_b);
+}
+
+void	ft_sort_end(t_stack **stack_a, t_stack **stack_b)
+{
+	ft_sort_min(stack_a);
+	while (*stack_b)
+	{
+		ft_find_pos_target(stack_a, stack_b);
+		ft_get_cost(stack_a, stack_b);
+		ft_cheap_sort(stack_a, stack_b);
+	}
+	if(!be_sorted(*stack_a)) 
+		shifte_change(stack_a);
+}
+
+void	ft_moves(t_stack **stack_a, t_stack **stack_b, int a_cost, int b_cost)
+{
+	if (a_cost < 0 && b_cost < 0)
+		rrr_rot(stack_a, stack_b, &a_cost, &b_cost);
+	else if (a_cost > 0 && b_cost > 0)
+		rr_rot(stack_a, stack_b, &a_cost, &b_cost);
+	a_rot(stack_a, &a_cost);
+	b_rot(stack_b, &b_cost);
+	pa(stack_a, stack_b, 1);
 }
 
 void    ft_sort_big(t_stack **stack_a, t_stack **stack_b)
