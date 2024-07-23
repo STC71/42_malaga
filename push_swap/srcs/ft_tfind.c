@@ -18,14 +18,15 @@ int    ft_find_min(t_stack **stack)
 	int min;
 
 	tmp = *stack;
-	min = tmp->value;
+	min = tmp->index;
 	while (tmp)
 	{
-		if (tmp->value < min)
-			min = tmp->value;
+		if (tmp->index < min)
+			min = tmp->index;
 		tmp = tmp->next;
 	}
-	return (min);
+	ft_free(&tmp);
+	return (min); 
 }
 
 int    ft_find_max(t_stack **stack)
@@ -34,13 +35,14 @@ int    ft_find_max(t_stack **stack)
 	int max;
 
 	tmp = *stack;
-	max = tmp->value;
+	max = tmp->index;
 	while (tmp)
 	{
-		if (tmp->value > max)
-			max = tmp->value;
+		if (tmp->index > max)
+			max = tmp->index;
 		tmp = tmp->next;
 	}
+	ft_free(&tmp);
 	return (max);
 }
 
@@ -53,12 +55,13 @@ int    ft_find_pos_min(t_stack **stack, int min)
 	pos_min = 1;
 	while (tmp)
 	{
-		if (tmp->value == min)
+		if (tmp->index == min)
 			return (pos_min);
 		tmp = tmp->next;
 		pos_min++;
 	}
-	return (pos_min);
+	ft_free(&tmp);
+	return (pos_min); // return the position of the minimum index in the stack
 }
 
 int    ft_find_pos_max(t_stack **stack, int max)
@@ -70,28 +73,32 @@ int    ft_find_pos_max(t_stack **stack, int max)
 	pos_max = 1;
 	while (tmp)
 	{
-		if (tmp->value == pos_max)
+		if (tmp->index == pos_max)
 			return (max);
 		tmp = tmp->next;
 		pos_max++;
 	}
-	return (pos_max);
+	ft_free(&tmp);
+	return (pos_max); 
 }
 
-int		ft_find_last(t_stack *stack)
+int		ft_find_last(t_stack **stack)
 {
 	t_stack *tmp;
+	int 	last;
 
-	tmp = stack;
-	while (tmp->next)
+	tmp = *stack;
+	while (tmp)
 		tmp = tmp->next;
-	return (tmp->index);
+	last = tmp->index;
+	ft_free(&tmp);
+	return (last);
 }
 
 /*
-ft_find_min() returns the minimum value in the stack.
-ft_find_max() returns the maximum value in the stack.
-ft_find_pos_min() returns the position of the minimum value in the stack.
-ft_find_pos_max() returns the position of the maximum value in the stack.
+ft_find_min() returns the minimum index in the stack.
+ft_find_max() returns the maximum index in the stack.
+ft_find_pos_min() returns the position of the minimum index in the stack.
+ft_find_pos_max() returns the position of the maximum index in the stack.
 ft_find_last() returns the last index of the stack.
 */

@@ -11,32 +11,55 @@
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-/*
-int	main(int argc, char *argv[])
-{
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-	char	*line;
 
-	stack_a = NULL;
-	stack_b = NULL;
-	if (argc < 2)
+int		ft_sort(t_stack *stack_a, t_stack *stack_b)
+{
+	t_stack	*tmp;
+
+	if (!stack_a)
 		return (0);
-	stack_a = ft_add_data(argc, argv);
-	ft_be_nbr(argv);
-	ft_be_duplicated(stack_a);
-	stack_a = ft_fill_stack(argc, argv);
-	while (get_next_line(0, &line) > 0)
+	tmp = stack_a;
+	while (tmp->next)
 	{
-		ft_do_op(line, &stack_a, &stack_b);
-		free(line);
+		if (tmp->value > tmp->next->value)
+			return (0);
+		tmp = tmp->next;
 	}
-	if (ft_is_sorted(stack_a) && stack_b == NULL)
-		ft_printf("OK\n");
-	else
-		ft_printf("KO\n");
-	ft_free_stack(stack_a);
-	ft_free_stack(stack_b);
-	return (0);
+	return (1);
 }
-*/
+
+int		ft_double(t_stack *stack_a)
+{
+	t_stack	*tmp;
+	t_stack	*tmp2;
+
+	if (!stack_a)
+		return (0);
+	tmp = stack_a;
+	while (tmp->next)
+	{
+		tmp2 = tmp->next;
+		while (tmp2)
+		{
+			if (tmp->value == tmp2->value)
+				return (0);
+			tmp2 = tmp2->next;
+		}
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int		ft_check(t_stack *stack_a, t_stack *stack_b)
+{
+	if (ft_sort(stack_a, stack_b) && !stack_b)
+	{
+		ft_printf("OK\n");
+		return (1);
+	}
+	else
+	{
+		ft_printf("KO\n");
+		return (0);
+	}
+}

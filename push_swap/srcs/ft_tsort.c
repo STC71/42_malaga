@@ -31,13 +31,15 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
 {
     int stack_len;
 
+    if (!stack_a || !*stack_a)
+        return ;
     stack_len = ft_stack_len(*stack_a);    
     ft_get_index(stack_a);
     ft_add_pos(stack_a, stack_b);
     ft_find_pos_target(stack_a, stack_b);
     
-    ft_be_good (stack_a, stack_b); 
-
+    //ft_be_good (stack_a, stack_b); 
+    
     if (stack_len < 2)
         ft_error(0);
     else if (stack_len == 2 && be_sorted(*stack_a) == 0)
@@ -48,10 +50,10 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
         ft_sort_four(stack_a, stack_b);
     else if (stack_len == 5 && be_sorted(*stack_a) == 0)
         ft_sort_five(stack_a, stack_b);
-    else if ((stack_len > 5 && stack_len <= 500) && be_sorted(*stack_a) == 0)
+    else if (stack_len > 5 && be_sorted(*stack_a) == 0)
         ft_sort_max(stack_a, stack_b);
-    // else if ((stack_len > 100) && stack_len <=500 && be_sorted(*stack_a) == 0)
-    //     ft_sort_max(stack_a, stack_b);
+    // else if ((stack_len > 100) && be_sorted(*stack_a) == 0)
+    //      ft_sort_big(stack_a, stack_b);
     // */
     // else if ((stack_len > 500) && be_sorted(*stack_a) == 0)
     //     ft_sort_big(stack_a, stack_b);
@@ -60,38 +62,38 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
 }
 void    ft_sort_three(t_stack **stack)
 {
-    if ((*stack)->value > (*stack)->next->value 
-        && (*stack)->value < (*stack)->next->next->value)
+    if ((*stack)->index > (*stack)->next->index 
+        && (*stack)->index < (*stack)->next->next->index)
         sa(stack, 1);
-    else if ((*stack)->value > (*stack)->next->value 
-        && (*stack)->value > (*stack)->next->next->value 
-        && (*stack)->next->value > (*stack)->next->next->value)
+    else if ((*stack)->index > (*stack)->next->index 
+        && (*stack)->index > (*stack)->next->next->index 
+        && (*stack)->next->index > (*stack)->next->next->index)
     {
         sa(stack, 1);
         rra(stack, 1);
     }
-    else if ((*stack)->value > (*stack)->next->value 
-        && (*stack)->value > (*stack)->next->next->value 
-        && (*stack)->next->value < (*stack)->next->next->value)
+    else if ((*stack)->index > (*stack)->next->index 
+        && (*stack)->index > (*stack)->next->next->index 
+        && (*stack)->next->index < (*stack)->next->next->index)
         ra(stack, 1);
-    else if ((*stack)->value < (*stack)->next->value 
-        && (*stack)->value < (*stack)->next->next->value)
+    else if ((*stack)->index < (*stack)->next->index 
+        && (*stack)->index < (*stack)->next->next->index)
     {
         sa(stack, 1);
         ra(stack, 1);
     }
-    else if ((*stack)->value < (*stack)->next->value 
-        && (*stack)->value > (*stack)->next->next->value)
+    else if ((*stack)->index < (*stack)->next->index 
+        && (*stack)->index > (*stack)->next->next->index)
         rra(stack, 1);
 }
 
 void    ft_sort_four(t_stack **stack_a, t_stack **stack_b)
 {
     if (ft_find_pos_min(stack_a, ft_find_min(stack_a)) < 2)
-        while (ft_find_min(stack_a) != (*stack_a)->value)
+        while (ft_find_min(stack_a) != (*stack_a)->index)
             ra(stack_a, 1);
     else
-        while (ft_find_min(stack_a) != (*stack_a)->value)
+        while (ft_find_min(stack_a) != (*stack_a)->index)
             rra(stack_a, 1);
     pb(stack_a, stack_b, 1);
     if (be_sorted(*stack_a) == 1)
@@ -109,10 +111,10 @@ void    ft_sort_five(t_stack **stack_a, t_stack **stack_b)
         while (ft_stack_len(*stack_a) > 3)
         {
             if (ft_find_pos_min(stack_a, ft_find_min(stack_a)) < 3)
-                while (ft_find_min(stack_a) != (*stack_a)->value)
+                while (ft_find_min(stack_a) != (*stack_a)->index)
                     ra(stack_a, 1);
             else
-                while (ft_find_min(stack_a) != (*stack_a)->value)
+                while (ft_find_min(stack_a) != (*stack_a)->index)
                     rra(stack_a, 1);
             pb(stack_a, stack_b, 1);
         }

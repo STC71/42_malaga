@@ -164,7 +164,7 @@ int    			ft_find_pos_min(t_stack **stack, int min);
 int    			ft_find_pos_max(t_stack **stack, int max);
 	//This funtion is used to find the position of the maximum value of the stack.
 
-int				ft_find_last(t_stack *stack);
+int				ft_find_last(t_stack **stack);
 	//This funtion is used to find the last element of the stack.
 
 //ft_tfree.c functions:
@@ -192,6 +192,16 @@ int				find_index(t_stack *sorted_list, int value);
 void			ft_get_index(t_stack **stack_a);
 	//This funtion is used to get the index of the stack a.
 
+//ft_tmoves.c functions:
+
+void			ft_move_a(t_stack **stack_a, t_stack **stack_b, int pos, int i);
+	//This funtion is used to move the stack a to the stack b. The funtion is used
+	//to sort the stack with the push_swap algorithm.
+
+void			ft_select_a(t_stack **stack_a, t_stack **stack_b);
+	//This funtion is used to select the stack a to move the stack a to the stack b.
+	//The funtion is used to sort the stack with the push_swap algorithm.
+
 //ft_tools.c functions:
 
 t_stack    		*ft_new_stack(int value);
@@ -203,7 +213,7 @@ int   			ft_count_neg(t_stack **stack_a);
 void    		ft_b_to_a(t_stack **stack_a, t_stack **stack_b);
 	//This funtion is used to push all the elements of the stack b to the stack a.
 
-void    		ft_be_good(t_stack **stack_a, t_stack **stack_b);
+//void    		ft_be_good(t_stack **stack_a, t_stack **stack_b);
 	//The funtion print the moves, values, index, position, target, cost, a_cost
 	//and b_cost of the stack a and the stack b. It is not necessary to use this
 	//program, but it is useful to debug it.
@@ -290,7 +300,7 @@ void			ft_error(int i);
 	//The funtion takes an integer as a parameter. It is used to print a error 
 	//message and exit the program.
 
-int				be_nbr(char *str);
+void			be_nbr(char *str);
 	//The funtion takes a string as a parameter. It is used to check if the string
 	//is a number, positive or negative. If the string is not a number or the value
 	//is greater than INT_MAX or less than INT_MIN, the funtion calls the ft_error.

@@ -19,21 +19,21 @@ void    ft_add_pos(t_stack **stack_a, t_stack **stack_b)
     int     pos_a;
     int     pos_b;
 
-    pos_a = 0; //ft_stack_len(*stack_a);
+    pos_a = 0;
     tmp_a = *stack_a;
     while (tmp_a)
     {
         tmp_a->pos = pos_a;
         tmp_a = tmp_a->next;
-        pos_a++; //--;
+        pos_a++;
     }
     tmp_b = *stack_b;
-    pos_b = 0; //ft_stack_len(*stack_b);
+    pos_b = 0;
     while (tmp_b)
     {
         tmp_b->pos = pos_b;
         tmp_b = tmp_b->next;
-        pos_b++; //--;
+        pos_b++;
     }
     ft_free_all(&tmp_a, &tmp_b);
 }
@@ -53,7 +53,7 @@ void    ft_find_pos_target(t_stack **stack_a, t_stack **stack_b)
         tmp_b->target = pos_b;
         tmp_b = tmp_b->next;        
     }
-    //ft_free(&tmp_b);
+    ft_free(&tmp_b);
 }
 
 int     ft_target(t_stack **stack_a, int index, int target, int pos)

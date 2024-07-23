@@ -3496,7 +3496,7 @@ else
   printf "${RED} [KO LEAKS] ${DEF_COLOR}\n";
 fi
 
-ARG="1 2 3 4 5 6 7 8 9";
+ARG="18 2 3 4 5 6 7  9";
 N=$(./push_swap $ARG | wc -l)
 if [ $N -eq 0 ]; then
 	printf "${GREEN}2. [OK]${DEF_COLOR}";

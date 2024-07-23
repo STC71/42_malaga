@@ -54,19 +54,31 @@ void 	ft_cheap_sort(t_stack **stack_a, t_stack **stack_b)
 	int		a_cost;
 	int		b_cost;
 	int		cheap;
+	int		current_cost;
 
 	tmp = *stack_b;
 	cheap = INT_MAX;
 	while (tmp)
-	{
-		if (ft_abs(tmp->a_cost) + ft_abs(tmp->b_cost) < ft_abs(cheap))
-		{
-			cheap = ft_abs(tmp->b_cost + ft_abs(tmp->a_cost));
-			a_cost = tmp->a_cost;
-			b_cost = tmp->b_cost;
-		}
-		tmp = tmp->next;
-	}
+    {
+        current_cost = ft_abs(tmp->a_cost) + ft_abs(tmp->b_cost);
+        if (current_cost < cheap)
+        {
+            cheap = current_cost;
+            a_cost = tmp->a_cost;
+            b_cost = tmp->b_cost;
+        }
+        tmp = tmp->next;
+    }
+	// while (tmp)
+	// {
+	// 	if (ft_abs(tmp->a_cost) + ft_abs(tmp->b_cost) < ft_abs(cheap))
+	// 	{
+	// 		cheap = ft_abs(tmp->b_cost + ft_abs(tmp->a_cost));
+	// 		a_cost = tmp->a_cost;
+	// 		b_cost = tmp->b_cost;
+	// 	}
+	// 	tmp = tmp->next;
+	// }
 	ft_moves(stack_a, stack_b, a_cost, b_cost);
 }
 

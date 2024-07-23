@@ -14,13 +14,8 @@
 
 void	ft_error(int i)
 {
-	if (i == 1)
-		ft_printf("Error: invalid character,");
-	if (i == 2)
-		ft_printf("Error: number out of range,");
-	if (i == 3)
-		ft_printf("Error: duplicated number,");
-	ft_printf("try again please...\n");
+	if (i >= 0)
+		ft_printf("Error\n");
 	exit(1);
 }
 
@@ -31,8 +26,11 @@ void	be_nbr(char *str)
 	tmp = str;
 	if (str == NULL)
 		ft_error(0);
+	
 	while (*str)
 	{
+		if (*str == '"')
+			exit(1);
 		if (!ft_isdigit(*str) && *str != '-' && *str != '+')
 			ft_error(1);
 		str++;
@@ -69,16 +67,9 @@ int	be_sorted(t_stack *stack_a)
 	while (tmp->next != NULL)
 	{
 		if (tmp->value < tmp->next->value)
-		{	
-			//ft_printf("is sorted \n");
 			tmp = tmp->next;
-		}
 		else
-		{
-			//ft_printf("is not sorted \n");
 			return (0); //If the list is not sorted, return 0.
-		}
-		//tmp = tmp->next;
 	}
 	return (1); //If the list is sorted, return 1.
 }
@@ -89,7 +80,10 @@ t_stack		*ft_stacknew(int value)
 
 	new = (t_stack *)malloc(sizeof(t_stack));
 	if (!new)
-		return (0);
+	{
+		free(new);
+		return (NULL);
+	}
 	new->value = value;
 	new->next = NULL;
 	return (new);
@@ -121,11 +115,17 @@ int main (int argc, char *argv[])
 	if (be_sorted(stack_a))
 		return (0);
 	ft_sort(&stack_a, &stack_b);
-	ft_be_good(&stack_a, &stack_b); // Is this line necessary? 
 	ft_free_all(&stack_a, &stack_b);
 	return (0);
 }
 
+
+
+
+// void	ft_control(char *argv[])
+// {
+// 	argv = ft_split(argv, " ");
+// }
 /*
 ft_error: print an error message and return 1.
 be_nbr: check if the string is a number.
