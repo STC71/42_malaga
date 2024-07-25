@@ -38,8 +38,6 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
     ft_add_pos(stack_a, stack_b);
     ft_find_pos_target(stack_a, stack_b);
     
-    //ft_be_good (stack_a, stack_b); 
-    
     if (stack_len < 2)
         ft_error(0);
     else if (stack_len == 2 && be_sorted(*stack_a) == 0)
@@ -52,14 +50,8 @@ void    ft_sort(t_stack **stack_a, t_stack **stack_b)
         ft_sort_five(stack_a, stack_b);
     else if (stack_len > 5 && be_sorted(*stack_a) == 0)
         ft_sort_max(stack_a, stack_b);
-    // else if ((stack_len > 100) && be_sorted(*stack_a) == 0)
-    //      ft_sort_big(stack_a, stack_b);
-    // */
-    // else if ((stack_len > 500) && be_sorted(*stack_a) == 0)
-    //     ft_sort_big(stack_a, stack_b);
-    // else
-    //     ft_error(0);
 }
+
 void    ft_sort_three(t_stack **stack)
 {
     if ((*stack)->index > (*stack)->next->index 

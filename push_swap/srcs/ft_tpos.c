@@ -101,11 +101,15 @@ void    ft_pos_target(t_stack **stack)
 }
 
 /*
-The function ft_add_pos() assigns the position of each element in the stack. 
-It takes two arguments: a pointer to a pointer to a t_stack structure and a 
-pointer to a pointer to a t_stack structure. 
-The function assigns the position of each element in the stack by iterating 
-through the stack and assigning the position of each element in the stack. 
-The function then frees the memory allocated for the temporary variables 
-tmp_a and tmp_b using the ft_free_all() function.
+The ft_add_pos function is used to add the position of each element 
+in the stack. 
+
+The function ft_find_pos_target is used to find the target position 
+of each element in the stack. 
+
+The ft_target function is used to find the target position of an 
+element in the stack. 
+
+The ft_pos_target function is used to add the position of each element 
+in the stack.
 */

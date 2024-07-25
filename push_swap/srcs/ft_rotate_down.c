@@ -83,33 +83,10 @@ void		b_rot(t_stack **stack_b, int *cost)
 	}
 }
 
-/*rra
-Rotate the 'stack a' down by one.
-The last element becomes the first one.
-stack_a: the address of a pointer to the first node of the list.
-print: 1 to print the operation, 0 to not print it.
-*/
-
-/*rrb
-Rotate the 'stack b' down by one.
-The last element becomes the first one.
-stack_b: the address of a pointer to the first node of the list.
-print: 1 to print the operation, 0 to not print it.
-*/
-
-/*rrr
-Reverse rotate the 'stack a' and 'stack b' down by one.
-The last element of each stack becomes the first one.
-stack_a: the address of a pointer to the first node of the list 'a'.
-stack_b: the address of a pointer to the first node of the list 'b'.
-print: 1 to print the operation, 0 to not print it.
-*/
-
-/*rrr_rev
-Reverse rotate the 'stack a' and 'stack b' down by one.
-The last element of each stack becomes the first one.
-stack_a: the address of a pointer to the first node of the list 'a'.
-stack_b: the address of a pointer to the first node of the list 'b'.
-a_cost: the cost of moving the element in the 'stack a'.
-b_cost: the cost of moving the element in the 'stack b'.
+/*
+The rra funtion rotates the stack a down by one.
+The rrb function rotates the stack b down by one.
+The rrr function rotates both stacks down by one.
+The rrr_rot function rotates both stacks down by one until the cost is 0.
+The b_rot function rotates the stack b down by one until the cost is 0.
 */

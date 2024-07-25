@@ -107,3 +107,20 @@ stack_a: the address of a pointer to the first node of the list 'a'.
 stack_b: the address of a pointer to the first node of the list 'b'.
 print: 1 to print the operation, 0 to not print it.
 */
+
+/*rr_rot
+Rotate the 'stack a' and 'stack b' up by one.
+The first element of each stack becomes the last one.
+s_a: the address of a pointer to the first node of the list 'a'.
+s_b: the address of a pointer to the first node of the list 'b'.
+a_cost: the number of rotations to perform on 'stack a'.
+b_cost: the number of rotations to perform on 'stack b'.
+print: 1 to print the operation, 0 to not print it.
+*/
+
+/*a_rot
+Rotate the 'stack a' up by the number of rotations in 'cost'.
+stack_a: the address of a pointer to the first node of the list 'a'.
+cost: the number of rotations to perform on 'stack a'.
+print: 1 to print the operation, 0 to not print it.
+*/

@@ -12,54 +12,57 @@
 
 #include "../includes/push_swap.h"
 
-int		ft_sort(t_stack *stack_a, t_stack *stack_b)
+void	ft_check(t_stack **stack_a, t_stack **stack_b)
 {
 	t_stack	*tmp;
 
-	if (!stack_a)
-		return (0);
-	tmp = stack_a;
+	tmp = *stack_a;
 	while (tmp->next)
 	{
-		if (tmp->value > tmp->next->value)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
-}
-
-int		ft_double(t_stack *stack_a)
-{
-	t_stack	*tmp;
-	t_stack	*tmp2;
-
-	if (!stack_a)
-		return (0);
-	tmp = stack_a;
-	while (tmp->next)
-	{
-		tmp2 = tmp->next;
-		while (tmp2)
+		if (tmp->index > tmp->next->index)
 		{
-			if (tmp->value == tmp2->value)
-				return (0);
-			tmp2 = tmp2->next;
+			ft_free(&tmp);
+			ft_free_all(stack_a, stack_b);
+			ft_printf("KO\n");
+			exit(0);
 		}
 		tmp = tmp->next;
 	}
-	return (1);
+	ft_free(&tmp);
+	if (*stack_b)
+	{
+		ft_free_all(stack_a, stack_b);
+		ft_printf("KO\n");
+		exit(0);
+	}
+	ft_free_all(stack_a, stack_b);
+	ft_printf("OK\n");
 }
 
-int		ft_check(t_stack *stack_a, t_stack *stack_b)
+int		main(int ac, char **av)
 {
-	if (ft_sort(stack_a, stack_b) && !stack_b)
-	{
-		ft_printf("OK\n");
-		return (1);
-	}
-	else
-	{
-		ft_printf("KO\n");
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+	char	**tab;
+	int		i;
+
+	if (ac < 2)
 		return (0);
+	i = 0;
+	tab = ft_strsplit(av[1], ' ');
+	stack_a = NULL;
+	stack_b = NULL;
+	while (tab[i])
+	{
+		ft_add_stack(&stack_a, ft_atoi(tab[i]));
+		i++;
 	}
+	ft_free_tab(tab);
+	while (get_next_line(0, &tab) > 0)
+	{
+		ft_do_op(tab, &stack_a, &stack_b);
+		ft_free_tab(tab);
+	}
+	ft_check(&stack_a, &stack_b);
+	return (0);
 }

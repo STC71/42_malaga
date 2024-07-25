@@ -99,3 +99,14 @@ void ft_get_index(t_stack **stack_a)
     }
 }
 
+/*
+This functions finds the index of the target in the stack_a,
+and assigns it with the values imputs.
+*/
+
+/*
+The function *copy_stack creates a copy of the stack_a anb returns it.
+The function sort_list sorts the stack_a in ascending order.
+The function find_index finds the index of the target in the stack_a.
+The function ft_get_index assigns the index of the target in the stack_a.
+*/

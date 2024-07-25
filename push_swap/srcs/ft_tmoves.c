@@ -19,8 +19,8 @@ void	ft_move_a(t_stack **stack_a, t_stack **stack_b, int pos, int i)
 		while (pos++ < ft_stack_len(*stack_a))
 			if (*stack_b)
 			{
-				if ((*stack_b)->index < ft_find_last(*stack_b) 
-				&& (*stack_a)->index > ft_find_last(*stack_a))
+				if ((*stack_b)->index < ft_find_last(&(*stack_b)) 
+				&& (*stack_a)->index > ft_find_last(&(*stack_a)))
 					rrr(stack_a, stack_b, 1);
 				else
 					rra(stack_a, 1);
@@ -60,3 +60,11 @@ void	ft_select_a(t_stack **stack_a, t_stack **stack_b)
 	else
 		ft_move_a(stack_a, stack_b, pos_b, 1);
 }
+
+/*
+The ft_move_a function is used to move the stack A to the top of 
+the stack B.
+
+The ft_select_a function is used to select the stack A to move to
+the top of the stack B.
+*/

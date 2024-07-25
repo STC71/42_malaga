@@ -12,31 +12,33 @@
 
 #include "../includes/push_swap.h"
 
-void	ft_error(int i)
-{
-	if (i >= 0)
-		ft_printf("Error\n");
-	exit(1);
-}
-
 void	be_nbr(char *str)
 {
-	char	*tmp;
+	long	nbr;
+	int		neg;
 
-	tmp = str;
-	if (str == NULL)
-		ft_error(0);
-	
-	while (*str)
+	nbr = 0;
+	neg = 0;
+	if (*str == '-' || *str == '+')
 	{
-		if (*str == '"')
-			exit(1);
-		if (!ft_isdigit(*str) && *str != '-' && *str != '+')
-			ft_error(1);
+		neg = (*str == '-');
 		str++;
 	}
-	if (ft_atoi(tmp) > INT_MAX || ft_atoi(tmp) < INT_MIN)
-		ft_error(2);
+	if (!*str)
+		ft_error(0);
+	while (*str)
+	{
+		if (!ft_isdigit(*str) && *str != '-' && *str != '+')
+			ft_error(0);
+		if (*str == '+')
+			str++;
+		nbr = nbr * 10 + *str - '0';
+		str++;
+	}
+	if (neg)
+		nbr = -nbr;
+	if (nbr > INT_MAX || nbr < INT_MIN)
+		ft_error(0);
 }
 
 void	ft_be_duplicated(t_stack *stack_a)
@@ -51,28 +53,30 @@ void	ft_be_duplicated(t_stack *stack_a)
 		while (tmp != NULL)
 		{
 			if (stack_a->value == tmp->value)
-				ft_error(3);
+				ft_error(0);
 			tmp = tmp->next;
 		}
 		stack_a = stack_a->next;
 	}
 }
+
 int	be_sorted(t_stack *stack_a)
 {
 	t_stack	*tmp;
 
 	if (stack_a == NULL)
-		return (1); //If the list is empty, it is sorted.
+		return (1);
 	tmp = stack_a;
 	while (tmp->next != NULL)
 	{
 		if (tmp->value < tmp->next->value)
 			tmp = tmp->next;
 		else
-			return (0); //If the list is not sorted, return 0.
+			return(0);
 	}
-	return (1); //If the list is sorted, return 1.
+	return (1);
 }
+
 t_stack		*ft_stacknew(int value)
 {
 	t_stack	*new;
@@ -96,13 +100,12 @@ int main (int argc, char *argv[])
 	t_stack		*tmp;
 	int		i;
 
-	if (argc < 2)
+	if (argc <= 2)
 		return (0);
 	stack_a = NULL;
 	stack_b = NULL;
 	tmp = NULL;
 	i = argc - 1;
-	//ft_printf ("\033c"); // Is this line necessary?
 	while (i > 0)
 	{
 		be_nbr(argv[i]);
@@ -119,17 +122,20 @@ int main (int argc, char *argv[])
 	return (0);
 }
 
-
-
-
-// void	ft_control(char *argv[])
-// {
-// 	argv = ft_split(argv, " ");
-// }
 /*
-ft_error: print an error message and return 1.
-be_nbr: check if the string is a number.
-be_duplicated: check if the number is duplicated.
-be_sorted: check if the list is sorted.
-main: check the arguments, create the list and sort it.
+The be_nbr function checks if the given string is a valid number. It calls 
+the ft_error function if the string is not a valid number.
+
+The ft_be_duplicated function checks if there are any duplicate values 
+in the stack. It calls the ft_error function if there are any duplicates.
+
+The be_sorted function checks if the stack is already sorted. It returns 1
+if the stack is sorted, otherwise it returns 0.
+
+The ft_stacknew function creates a new stack with the given value.
+
+The main function takes the arguments from the command line and creates
+a stack with the given values. It then checks if the stack is sorted, and
+calls the ft_sort function to sort the stack. Finally, it frees the memory
+used by the stacks.
 */

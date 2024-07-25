@@ -47,38 +47,6 @@ void    ft_b_to_a(t_stack **stack_a, t_stack **stack_b)
     ft_free(stack_b);
 }
 
-// void    ft_be_good(t_stack **stack_a, t_stack **stack_b)
-// {
-//     t_stack *tmp_a; 
-//     t_stack *tmp_b;
-//     int value;
-//     int index;
-//     int pos;
-
-//     ft_add_pos(stack_a, stack_b);
-//     tmp_a = *stack_a;
-//     tmp_b = *stack_b;
-//     ft_printf ("\nstack_a\n");
-//     while (tmp_a)
-//     {
-//         value = tmp_a->value;
-//         index = tmp_a->index;
-//         pos = tmp_a->pos;
-//         ft_printf ("value del stack_a: %d - index del stack_a: %d - pos del stack_a: %d - target del stack_a: %d\n", value, index, pos, tmp_a->target); 
-//         tmp_a = tmp_a->next;
-//     }
-//     ft_printf ("\nstack_b\n");
-//     while (tmp_b)
-//     {
-//         value = tmp_b->value;
-//         index = tmp_b->index;
-//         pos = tmp_b->pos;
-//         ft_printf ("value del stack_b: %d - index del stack_b: %d - pos del stack_b: %d - target del stack_b: %d\n", value, index, pos, tmp_b->target);
-//         tmp_b = tmp_b->next;
-//     }
-//     ft_free(&tmp_a);
-// }
-
 int     ft_abs(int a)
 {
     if (a < 0)
@@ -86,3 +54,17 @@ int     ft_abs(int a)
     return (a);
 }
 
+void	ft_error(int i)
+{
+	if (i < 1)
+		ft_printf("Error\n");
+    exit(1);
+}
+
+/*
+The *ft_new_stack function creates a new stack with the given value.
+The ft_count_neg function counts the number of negative values in the stack.
+The ft_b_to_a function moves all values from stack b to stack a.
+The ft_abs function returns the absolute value of a given integer.
+The ft_error function prints "Error" when the value of i is less than 1.
+*/

@@ -42,69 +42,28 @@ void    ft_sort_max(t_stack **stack_a, t_stack **stack_b)
 	max = (ft_stack_len(*stack_a) / 2);
 	while (ft_stack_len(*stack_a) >= max + 1)
 	{
-		if ((*stack_a)->index <= max)
+		if ((*stack_a)->index <= max + 1)
 			pb(stack_a, stack_b, 1);
 		else
 			ra(stack_a, 1);
-		// else if ((ft_find_last(stack_a) < (*stack_a)->index) 
-		// && (ft_find_last(stack_b) > (*stack_b)->index))
-		// 	rrr(stack_a, stack_b, 1);
-		// else if ((*stack_a)->next->index < (*stack_a)->index 
-		// && (*stack_b)->next->index > (*stack_b)->index)
-		// 	rr(stack_a, stack_b, 1);
-		// else if ((*stack_a)->next->index < (*stack_a)->index 
-		// && (*stack_b)->next->index < (*stack_b)->index)
-		// 	ra(stack_a, 1);
-		// else if ((*stack_a)->next->index > (*stack_a)->index 
-		// && (*stack_b)->next->index < (*stack_b)->index)
-		// 	rb(stack_a, 1);
-		// else if ((ft_find_last(stack_a) < (*stack_a)->index) 
-		// && (ft_find_last(stack_b) > (*stack_b)->index))
-		// 	rra(stack_a, 1);
-		// // else if ((ft_find_last(stack_b) < (*stack_b)->index) 
-		// // && (ft_find_last(stack_a) > (*stack_a)->index))
-		// // 	rrb(stack_a, 1);
-		// else if ((*stack_a)->next->index > (*stack_a)->index)
-		// 	sa(stack_a, 1);
-		// else if ((*stack_b)->next->index > (*stack_b)->index)
-		// 	sb(stack_b, 1);
-		// else if(((*stack_a)->next->index < (*stack_a)->index) 
-		// && ((*stack_b)->next->index < (*stack_b)->index))
-		// 	ss(stack_a, stack_b, 1);
 	}
 	while ((ft_stack_len(*stack_a) >= 1))
 		pb(stack_a, stack_b, 1);
 	ft_sort_end(stack_a, stack_b);
-	// if (i--)
-	// {
-	// 	while (i--)
-	// 	{
-	// 		pb(stack_a, stack_b, 1);
-
-	// 		// if ((*stack_b)->index < (*stack_b)->next->index 
-	// 		// && ft_stack_len(*stack_b) > 1 && max > 100)
-	// 		// 	rb(stack_b, 1);
-	// 	}
-	// 	ft_sort_end(stack_a, stack_b);
-	// }
 }
 
 void	ft_sort_end(t_stack **stack_a, t_stack **stack_b)
 {
-	ft_sort_min(stack_a); // To find the minimum index in the stack
+	ft_sort_min(stack_a);
 	while (*stack_b)
 	{
-		ft_find_pos_target(stack_a, stack_b); // To find the value of the target
-		ft_get_cost(stack_a, stack_b); // To find the cost of the target
-		ft_cheap_sort(stack_a, stack_b); // To find the cheapest way to sort the stack
+		ft_find_pos_target(stack_a, stack_b);
+		ft_get_cost(stack_a, stack_b);
+		ft_cheap_sort(stack_a, stack_b);
 	}
 	if(!be_sorted(*stack_a)) 
-		shifte_change(stack_a); // To find the cheapest way to sort the stack
-	//while (*stack_a) // No es necesario!!!
-	//{
-	// 	ft_printf("stack_a: %d\n", (*stack_a)->value);
-	// 	stack_a = &(*stack_a)->next;
-	// }
+		shifte_change(stack_a);
+
 }
 
 void	ft_moves(t_stack **stack_a, t_stack **stack_b, int a_cost, int b_cost)
@@ -118,54 +77,25 @@ void	ft_moves(t_stack **stack_a, t_stack **stack_b, int a_cost, int b_cost)
 	pa(stack_a, stack_b, 1);
 }
 
-// void    ft_sort_big(t_stack **stack_a, t_stack **stack_b)
-// {
-//     int     i;
-//     int     j;
-//     int     num;
-//     int     max_bits;
-//     int     total_elements;
-//     int     pushed_elements;
-
-//     total_elements = ft_stack_len(*stack_a);
-//     max_bits = 0;
-//     while ((total_elements - 1) >> max_bits != 0)
-//         ++max_bits; 
-//     i = 0;
-//     while (i < max_bits)
-//     {
-//         j = 0;
-//         pushed_elements = 0;
-//         while (j < total_elements)
-//         {
-//             num = (*stack_a)->index;
-//             if (((num >> i) & 1) == 1)
-//                 ra(stack_a, 1);
-//             else
-//             {
-//                 pb(stack_a, stack_b, 1);
-//                 pushed_elements++;
-//             }
-//             j++;
-//         }
-//         while (pushed_elements > 0)
-//         {
-//             pa(stack_a, stack_b, 1);
-//             pushed_elements--;
-//         }
-//         i++;
-//     }
-// }
-
-
 /*
-The ft_sort_big function is the main function for sorting a big stack. 
-It first calculates the number of bits needed to represent the maximum 
-index in the stack. Then, it iterates over each bit, shifting the numbers 
-in the stack to the right position. The ra and pb functions are used to 
-move the numbers to the right position, and the pa function is used to 
-move the numbers back to the original stack. This process is repeated for 
-each bit, resulting in a sorted stack.
-The funtion finish using pa to move the numbers back to the original stack.
-*/
+The function ft_pos_min() returns the position of the minimum value 
+in the stack.
 
+The function ft_sort_max() sorts the stack_a by moving the index (values). 
+It gets the half maximum values of the stack_a and moves them to the stack_b.
+After that, the follows the same process with the rest of the values.
+Finally, it call the function ft_sort_end() to sort the stack_b and return 
+sorted all the values to the stack_a.
+
+The function ft_sort_end() call the function ft_sort_min() to sort the stack_a.
+Then, it calls the function ft_sort_min() to sort the stack_a. It go in a loop 
+until the stack_b is not empty. It calls the function ft_find_pos_target() to 
+find the position of the target in the stack_a, and stores it in the target
+variable of the stack_b. Then, it calls the function ft_get_cost() to find the
+position of the target in the stack_a, and stores it in the target variable of
+the stack_b. Finally, it calls the function ft_cheap_sort() to sort the cheapest
+move to sort the stack_a and stack_b.
+
+The function ft_moves() moves the stack_a to the top of the stack_b. It gets the
+cheapest move to sort the stack_a and stack_b depending on the cost of the moves.
+*/

@@ -87,3 +87,16 @@ int	ft_hi_index(t_stack *stack)
 	}
 	return (index);
 }
+
+/*
+The ft_sort_min function is used to sort the stack with the minimum index at 
+the top of the stack.
+
+The shifte_change function is used to select the move to sort the stack, 
+depending on the position of the minimum index.
+
+The ft_low_index function is used to find the position of the minimum index
+in the stack.
+
+The ft_hi_index function is used to find the maximum index in the stack.
+*/

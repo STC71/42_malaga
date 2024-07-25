@@ -61,7 +61,7 @@ int    ft_find_pos_min(t_stack **stack, int min)
 		pos_min++;
 	}
 	ft_free(&tmp);
-	return (pos_min); // return the position of the minimum index in the stack
+	return (pos_min);
 }
 
 int    ft_find_pos_max(t_stack **stack, int max)

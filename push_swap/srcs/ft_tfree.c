@@ -20,12 +20,12 @@ void    ft_free(t_stack **stack)
         return ;
     while (*stack)
     {
-        tmp = (*stack)->next; // tmp is a pointer to the next element of the stack.
-        free(*stack); // free the memory of the stack.
-        *stack = tmp; // the stack is now the next element.
+        tmp = (*stack)->next;
+        free(*stack);
+        *stack = tmp;
     }
-    *stack = NULL; // the stack is now NULL.
-    free(tmp); // free the memory of the pointer tmp.
+    *stack = NULL;
+    free(tmp);
 }
 
 void    ft_free_all(t_stack **stack_a, t_stack **stack_b)
@@ -33,6 +33,10 @@ void    ft_free_all(t_stack **stack_a, t_stack **stack_b)
     ft_free(stack_a);
     ft_free(stack_b);
 }
-/*The free() function deallocates the memory allocation for the stack pointed 
+
+/*
+The free() function deallocates the memory allocation for the stack pointed 
 to by stack. If stack is a NULL pointer, no operation is performed.
-The function free_all() frees the memory of both stacks.*/
+
+The function free_all() frees the memory of both stacks.
+*/

@@ -18,10 +18,10 @@ void	    pa(t_stack **stack_a, t_stack **stack_b, int print)
 
     if (*stack_b == NULL)
         return ;
-    tmp = (*stack_b)->next; // to avoid losing the rest of the stack
-    (*stack_b)->next = *stack_a; // the first element of the stack b is now the first element of the stack a
-    *stack_a = *stack_b; // the first element of the stack a is now the first element of the stack b
-    *stack_b = tmp; // the first element of the stack b is now the second element
+    tmp = (*stack_b)->next;
+    (*stack_b)->next = *stack_a;
+    *stack_a = *stack_b;
+    *stack_b = tmp;
     if (print)
         ft_printf("pa\n");
 }
@@ -32,32 +32,17 @@ void	    pb(t_stack **stack_a, t_stack **stack_b, int print)
 
     if (*stack_a == NULL)
         return ;
-    tmp = (*stack_a)->next; // to avoid losing the rest of the stack
-    (*stack_a)->next = *stack_b; // the first element of the stack a is now the first element of the stack b
-    *stack_b = *stack_a; // the first element of the stack b is now the first element of the stack a
-    *stack_a = tmp; // the first element of the stack a is now the second element
+    tmp = (*stack_a)->next;
+    (*stack_a)->next = *stack_b;
+    *stack_b = *stack_a;
+    *stack_a = tmp;
     if (print)
         ft_printf("pb\n");
 }
 
-/*pa
-Push the first element of the 'stack b' to the top of the 'stack a'.
-t_stack *tmp: a pointer to the first element of the 'stack b'.
-if (!*stack_b): if the 'stack b' is empty, return.
-tmp = *stack_b: the first element of the 'stack b' is now the first
-    element of the 'stack b' in the pointer tmp.
-*stack_b = tmp->next: the first element of the 'stack b' is now the
-    second element.
-print: 1 to print the operation, 0 to not print it.
-*/
+/*
+The pa funtion takes the first element of the stack b and puts it at the 
+top of the stack a. 
 
-/*pb
-Push the first element of the 'stack a' to the top of the 'stack b'.
-t_stack *tmp: a pointer to the first element of the 'stack a'.
-if (!*stack_a): if the 'stack a' is empty, return.
-tmp = *stack_a: the first element of the 'stack a' is now the first
-    element of the 'stack a' in the pointer tmp.
-*stack_a = tmp->next: the first element of the 'stack a' is now the
-    second element.
-print: 1 to print the operation, 0 to not print it.
+The pb function does the opposite.
 */
