@@ -12,9 +12,17 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include <unistd.h> // for ssize_t, size_t, NULL, write, read, etc.
-# include <stdlib.h> // for malloc, free, exit, NULL, size_t, ssize_t, etc.
-# include <stddef.h> // for NULL, size_t, etc.
+# include <unistd.h> 	// for ssize_t, size_t, NULL, write, read, etc.
+# include <stdlib.h> 	// for malloc, free, exit, NULL, size_t, ssize_t, etc.
+# include <stddef.h> 	// for NULL, size_t, etc.
+# include <fcntl.h>  	// for open, close, etc.
+# include <stdio.h>  	// for printf, BUFER_SIZE, etc
+# include <string.h>	// for strdup, strlen, etc.
+# include <sys/types.h> // for ssize_t, size_t, etc.
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
 
 typedef struct s_list // The structure 's_list' is defined as a structure.
 {
@@ -237,5 +245,32 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
     list element. del: a function pointer used to delete the contents of a 
     node, if necessary.*/
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+/*The get_next_line.c function reads a line from a file descriptor.
+	Returns a line read from a file descriptor, without the newline character.
+	Returns NULL when the reading fails.
+	Returns NULL when the reading is finished.*/
+
+/*The ft_len function returns the length of the string.*/
+size_t	ft_len(char *str);
+
+/*The *ft_gnlstrchr function returns a pointer to the first occurrence of 
+the character c in the string str.*/
+char	*ft_gnlstrchr(char *str, int c);
+
+/*The *ft_gnlstrjoin function concatenates two strings.*/
+char	*ft_gnlstrjoin(char *s1, char *s2);
+
+//The *ft_alloc.c function allocates memory for the string.
+char	*ft_alloc(int fd, char *str);
+
+//the *ft_nline.c function returns a new string containing the line of text.
+char	*ft_nline(char *str);
+
+//The *ft_rline.c function returns the rest of the string.
+char	*ft_rline(char *line);
+
+/*The get_next_line.c function reads a line from a file descriptor.*/
+char	*get_next_line(int fd);
 
 #endif

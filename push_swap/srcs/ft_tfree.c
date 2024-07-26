@@ -12,26 +12,26 @@
 
 #include "../includes/push_swap.h"
 
-void    ft_free(t_stack **stack)
+void	ft_free(t_stack **stack)
 {
-    t_stack	*tmp;
+	t_stack	*tmp;
 
-    if (*stack == NULL)
-        return ;
-    while (*stack)
-    {
-        tmp = (*stack)->next;
-        free(*stack);
-        *stack = tmp;
-    }
-    *stack = NULL;
-    free(tmp);
+	if (*stack == NULL)
+		return ;
+	while (*stack)
+	{
+		tmp = (*stack)->next;
+		free(*stack);
+		*stack = tmp;
+	}
+	*stack = NULL;
+	free(tmp);
 }
 
-void    ft_free_all(t_stack **stack_a, t_stack **stack_b)
+void	ft_free_all(t_stack **stack_a, t_stack **stack_b)
 {
-    ft_free(stack_a);
-    ft_free(stack_b);
+	ft_free(stack_a);
+	ft_free(stack_b);
 }
 
 /*

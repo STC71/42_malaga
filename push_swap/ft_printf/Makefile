@@ -1,25 +1,36 @@
 NAME = libftprintf.a
 
-SRC = ft_printf.c ft_write_chr.c ft_write_dns.c ft_write_hxl.c ft_write_hxu.c \
-      ft_write_nbr.c ft_write_ptr.c ft_write_str.c ft_strlen.c
+SRC = ft_printf.c \
+		ft_write_chr.c \
+		ft_write_dns.c \
+		ft_write_hxl.c \
+		ft_write_hxu.c \
+      	ft_write_nbr.c \
+		ft_write_ptr.c \
+		ft_write_str.c \
+		ft_strlen.c
 
 OBJS = $(SRC:.c=.o)
 
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
+AR = ar
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@$(AR) -csr $@ $?
+	@echo "Creating library $(NAME) from objects $(OBJS)"
+	@$(AR) -csr $@ $^
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@ 
 
 clean:
+	@echo "Cleaning object files of library $(NAME)"
 	@rm -f $(OBJS)
 
 fclean: clean
+	@echo "Cleaning library $(NAME)"
 	@rm -f $(NAME)
 
 re: fclean all

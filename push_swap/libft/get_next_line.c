@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 size_t	ft_len(char *str)
 {
@@ -24,7 +24,7 @@ size_t	ft_len(char *str)
 	return (i);
 }
 
-char	*ft_strchr(char *str, int c)
+char	*ft_gnlstrchr(char *str, int c)
 {
 	size_t	i;
 

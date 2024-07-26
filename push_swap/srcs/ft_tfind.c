@@ -12,10 +12,10 @@
 
 #include "../includes/push_swap.h"
 
-int    ft_find_min(t_stack **stack)
+int	ft_find_min(t_stack **stack)
 {
-	t_stack *tmp;
-	int min;
+	t_stack	*tmp;
+	int		min;
 
 	tmp = *stack;
 	min = tmp->index;
@@ -26,13 +26,13 @@ int    ft_find_min(t_stack **stack)
 		tmp = tmp->next;
 	}
 	ft_free(&tmp);
-	return (min); 
+	return (min);
 }
 
-int    ft_find_max(t_stack **stack)
+int	ft_find_max(t_stack **stack)
 {
-	t_stack *tmp;
-	int max;
+	t_stack	*tmp;
+	int		max;
 
 	tmp = *stack;
 	max = tmp->index;
@@ -46,10 +46,10 @@ int    ft_find_max(t_stack **stack)
 	return (max);
 }
 
-int    ft_find_pos_min(t_stack **stack, int min)
+int	ft_find_pos_min(t_stack **stack, int min)
 {
-	t_stack *tmp;
-	int pos_min;
+	t_stack	*tmp;
+	int		pos_min;
 
 	tmp = *stack;
 	pos_min = 1;
@@ -64,10 +64,10 @@ int    ft_find_pos_min(t_stack **stack, int min)
 	return (pos_min);
 }
 
-int    ft_find_pos_max(t_stack **stack, int max)
+int	ft_find_pos_max(t_stack **stack, int max)
 {
-	t_stack *tmp;
-	int pos_max;
+	t_stack	*tmp;
+	int		pos_max;
 
 	tmp = *stack;
 	pos_max = 1;
@@ -79,13 +79,13 @@ int    ft_find_pos_max(t_stack **stack, int max)
 		pos_max++;
 	}
 	ft_free(&tmp);
-	return (pos_max); 
+	return (pos_max);
 }
 
-int		ft_find_last(t_stack **stack)
+int	ft_find_last(t_stack **stack)
 {
-	t_stack *tmp;
-	int 	last;
+	t_stack	*tmp;
+	int		last;
 
 	tmp = *stack;
 	while (tmp)

@@ -12,16 +12,17 @@
 
 #include "../includes/push_swap.h"
 
-int    ft_pos_min(t_stack **stack_a, int pos)
+int	ft_pos_min(t_stack **stack_a, int pos)
 {
-	t_stack *tmp;
-	int     post;
+	t_stack	*tmp;
+	int		post;
+	int		min;
 
 	if (!stack_a || !*stack_a)
 		return (-1);
 	post = pos;
 	tmp = *stack_a;
-	int min = tmp->value;
+	min = tmp->value;
 	while (tmp)
 	{
 		if ((tmp->value < min))
@@ -35,7 +36,7 @@ int    ft_pos_min(t_stack **stack_a, int pos)
 	return (post);
 }
 
-void    ft_sort_max(t_stack **stack_a, t_stack **stack_b)
+void	ft_sort_max(t_stack **stack_a, t_stack **stack_b)
 {
 	int		max;
 
@@ -61,20 +62,19 @@ void	ft_sort_end(t_stack **stack_a, t_stack **stack_b)
 		ft_get_cost(stack_a, stack_b);
 		ft_cheap_sort(stack_a, stack_b);
 	}
-	if(!be_sorted(*stack_a)) 
+	if (!be_sorted(*stack_a))
 		shifte_change(stack_a);
-
 }
 
-void	ft_moves(t_stack **stack_a, t_stack **stack_b, int a_cost, int b_cost)
+void	ft_moves(t_stack **s_a, t_stack **s_b, int a_cost, int b_cost)
 {
 	if (a_cost < 0 && b_cost < 0)
-		rrr_rot(stack_a, stack_b, &a_cost, &b_cost);
+		rrr_rot(s_a, s_b, &a_cost, &b_cost);
 	else if (a_cost > 0 && b_cost > 0)
-		rr_rot(stack_a, stack_b, &a_cost, &b_cost);
-	a_rot(stack_a, &a_cost);
-	b_rot(stack_b, &b_cost);
-	pa(stack_a, stack_b, 1);
+		rr_rot(s_a, s_b, &a_cost, &b_cost);
+	a_rot(s_a, &a_cost);
+	b_rot(s_b, &b_cost);
+	pa(s_a, s_b, 1);
 }
 
 /*

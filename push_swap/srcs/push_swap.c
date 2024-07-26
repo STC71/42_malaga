@@ -72,16 +72,16 @@ int	be_sorted(t_stack *stack_a)
 		if (tmp->value < tmp->next->value)
 			tmp = tmp->next;
 		else
-			return(0);
+			return (0);
 	}
 	return (1);
 }
 
-t_stack		*ft_stacknew(int value)
+t_stack	*ft_stacknew(int value)
 {
 	t_stack	*new;
-	new = 0;
 
+	new = 0;
 	new = (t_stack *)malloc(sizeof(t_stack));
 	if (!new)
 	{
@@ -93,12 +93,12 @@ t_stack		*ft_stacknew(int value)
 	return (new);
 }
 
-int main (int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
 	t_stack		*stack_a;
 	t_stack		*stack_b;
 	t_stack		*tmp;
-	int		i;
+	int			i;
 
 	if (argc <= 2)
 		return (0);

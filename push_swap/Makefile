@@ -39,8 +39,37 @@ MK_				= && make
 
 # ***** DIRECTORIES ********************************************************** #
 
-SRCS			= $(wildcard ./srcs/*.c) 
-SRCS_BONUS		= $(wildcard ./srcs_bonus/*.c) $(wildcard ./srcs/*.c)
+SRCS			= srcs/ft_push.c \
+					srcs/ft_rotate_down.c \
+					srcs/ft_rotate_up.c \
+					srcs/ft_swap.c \
+					srcs/ft_tfind_index.c \
+					srcs/ft_tfind.c \
+					srcs/ft_tfree.c \
+					srcs/ft_tindex.c \
+					srcs/ft_tmoves.c \
+					srcs/ft_tools.c \
+					srcs/ft_tpos.c \
+					srcs/ft_tsort_big.c \
+					srcs/ft_tsort_c.c \
+					srcs/ft_tsort.c \
+					srcs/push_swap.c
+SRCS_BONUS		= srcs/ft_push.c \
+					srcs/ft_rotate_down.c \
+					srcs/ft_rotate_up.c \
+					srcs/ft_swap.c \
+					srcs/ft_tfind_index.c \
+					srcs/ft_tfind.c \
+					srcs/ft_tfree.c \
+					srcs/ft_tindex.c \
+					srcs/ft_tmoves.c \
+					srcs/ft_tools.c \
+					srcs/ft_tpos.c \
+					srcs/ft_tsort_big.c \
+					srcs/ft_tsort_c.c \
+					srcs/ft_tsort.c \
+					srcs_bonus/checker.c \
+					srcs_bonus/checker_utils.c
 # wildcard is used to get all the files in the directory.
 # The variable SRCS is used to get all the source files in the SRCS directory.
 # The variable SRCS_BONUS is used to get all the source files in the 
@@ -53,7 +82,7 @@ OBJS_BONUS		= $(SRCS_BONUS:.c=.o)
 OBJS_DIR		= ./objs
 LIBFT_DIR		= ./libft
 FT_PRINTF_DIR	= ./ft_printf
-INCLUDES		= ./includes/push_swap.h ./includes/colors.h
+INCLUDES		= ./includes
 # The variable INCLUDES is used to include the header files.
 
 # ***** COMPILATION ********************************************************** #
@@ -66,7 +95,7 @@ $(NAME): clean_screen $(OBJS)
 # The @ symbol is used to hide the command from the terminal.	
 	@${MAKE} -C ${LIBFT_DIR}
 	@${MAKE} -C ${FT_PRINTF_DIR}
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} -L${LIBFT_DIR} -lft -L${FT_PRINTF_DIR} -lftprintf ${INCLUDES}
+	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} -L${LIBFT_DIR} -lft -L${FT_PRINTF_DIR} -lftprintf -I${INCLUDES}
 # ${OBJS} ${LIBFT_DIR} ${FT_PRINTF_DIR} ${INCLUDES} -o ${NAME} 
 # To compile the project:
 # ${CC} command is used to compile the project.
@@ -77,14 +106,16 @@ $(NAME): clean_screen $(OBJS)
 # ${INCLUDES} variable is used to include the header files.
 # -o flag is used to specify the output file.
 # ${NAME} variable is used to specify the output file.
-	@echo "${GREEN}${BOLD}Compilation of ${NAME} is done!${DEF_COLOR}"
+	@echo "${DARK_GREEN}${BOLD}Compilation of ${NAME} is done!${DEF_COLOR}"
+
+bonus: $(NAME_BONUS)
 
 $(NAME_BONUS): clean_screen $(OBJS_BONUS)
 	@echo "${DARK_YELLOW}${BOLD}Compiling my ${NAME_BONUS}...${DEF_COLOR}"
-	@${MAKE} -C ./libft
-	@${MAKE} -C ./ft_printf
-	@${CC} ${CFLAGS} ${OBJS_BONUS} ${LIBFT_DIR} ${FT_PRINTF_DIR} ${INCLUDES} -o ${NAME_BONUS} 
-	@echo "${BLUE}${BOLD}Compilation of ${NAME_BONUS} is done!${DEF_COLOR}"
+	@${MAKE} -C ${LIBFT_DIR}
+	@${MAKE} -C ${FT_PRINTF_DIR}
+	@$(CC) $(CFLAGS) -o $(NAME_BONUS) $(OBJS_BONUS) -L$(LIBFT_DIR) -lft -L$(FT_PRINTF_DIR) -lftprintf -I$(INCLUDES)
+	@echo "${DARK_GREEN}${BOLD}Compilation of ${NAME_BONUS} is done!${DEF_COLOR}"
 # The same as above but for the bonus part.
 
 %.o: %.c
