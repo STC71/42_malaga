@@ -100,7 +100,7 @@ int	main(int argc, char *argv[])
 	t_stack		*tmp;
 	int			i;
 
-	if (argc <= 2)
+	if (argc < 2)
 		return (0);
 	stack_a = NULL;
 	stack_b = NULL;

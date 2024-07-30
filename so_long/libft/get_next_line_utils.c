@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-char	*ft_strjoin(char *str1, char *str2)
+char	*ft_gnlstrjoin(char *str1, char *str2)
 {
 	size_t		i;
 	size_t		j;
@@ -49,7 +49,7 @@ char	*ft_alloc(int fd, char *str)
 	if (!buff)
 		return (NULL);
 	len = 1;
-	while (!(ft_strchr(str, '\n')) && len > 0)
+	while (!(ft_gnlstrchr(str, '\n')) && len > 0)
 	{
 		len = read(fd, buff, BUFFER_SIZE);
 		if (len == -1)
@@ -58,7 +58,7 @@ char	*ft_alloc(int fd, char *str)
 			return (NULL);
 		}
 		buff[len] = '\0';
-		str = ft_strjoin(str, buff);
+		str = ft_gnlstrjoin(str, buff);
 	}
 	free(buff);
 	return (str);
@@ -118,7 +118,7 @@ char	*ft_rline(char *line)
 	return (str);
 }
 
-/*The function ft_strjoin concatenates two strings str1 and str2. 
+/*The function ft_gnlstrjoin concatenates two strings str1 and str2. 
 	It allocates memory for the resulting string (out) based on the lengths 
 	of str1 and str2, plus one additional byte for the null-terminator. 
 	If str1 is NULL, it allocates memory for an empty string. 
@@ -131,7 +131,7 @@ char	*ft_rline(char *line)
 	BUFFER_SIZE. If the allocation fails, it returns NULL. It reads from 
 	fd into buff until either a newline character is found in str or the 
 	read data is empty. It concatenates the read data into str using 
-	ft_strjoin. If the read fails, it frees buff and returns NULL. 
+	ft_gnlstrjoin. If the read fails, it frees buff and returns NULL. 
 	Finally, it frees buff and returns str.*/
 
 /*The function ft_nline returns a new string containing the line of text

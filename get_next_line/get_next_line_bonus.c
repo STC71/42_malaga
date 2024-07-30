@@ -61,24 +61,78 @@ char	*get_next_line(int fd)
 	return (out);
 }
 
-/*int main(int ac, char **av)
-{
-	int		fd;
-	char	*line;
+// int main(int argc, char **argv)
+// {
+//     int *fds;
+//     char **lines;
+//     int i;
+//     int files_remaining;
 
-	if (ac == 2)
-	{
-		fd = open(av[1], O_RDONLY);
-		while ((line = get_next_line(fd)))
-		{
-			printf("%s\n", line);
-			free(line);
-		}
-		close(fd);
-	}
-	return (0);
-}*/
+//     if (argc < 2)
+//     {
+//         printf("Usage: %s file1 file2 ...\n", argv[0]);
+//         return 1;
+//     }
 
+//     fds = malloc((argc - 1) * sizeof(int));
+//     lines = malloc((argc - 1) * sizeof(char *));
+//     if (!fds || !lines)
+//     {
+//         perror("malloc");
+//         return 1;
+//     }
+//     i = 0;
+//     while (i < argc - 1)
+//     {
+//         fds[i] = open(argv[i + 1], O_RDONLY);
+//         if (fds[i] == -1)
+//         {
+//             perror("open");
+//             return 1;
+//         }
+//         lines[i] = get_next_line(fds[i]);
+//         i++;
+//     }
+//     files_remaining = argc - 1;
+//     while (files_remaining > 0)
+//     {
+//         files_remaining = 0;
+//         i = 0;
+//         while (i < argc - 1)
+//         {
+//             if (lines[i])
+//             {
+//                 printf("%s\n", lines[i]);
+//                 free(lines[i]);
+//                 lines[i] = get_next_line(fds[i]);
+//                 if (lines[i])
+//                 {
+//                     files_remaining++;
+//                 }
+//             }
+//             i++;
+//         }
+//     }
+//     i = 0;
+//     while (i < argc - 1)
+//     {
+//         close(fds[i]);
+//         i++;
+//     }
+//     free(fds);
+//     free(lines);
+//     return 0;
+// }
+
+/*
+To compile the program, run the following command:
+	gcc -Wall -Wextra -Werror get_next_line_bonus.c get_next_line_utils_bonus.c -o gnl_bonus
+To run the program, run the following command:
+	./gnl_bonus file1 file2 ...
+	./gnl_bonus txt01.txt txt02.txt txt 03.txt
+Replace file1, file2, etc. with the names of the files you want to read.
+The program reads lines from the files and prints them to the standard output.
+*/
 /*The function ft_len calculates the length of a null-terminated 
 	string str. It iterates through the characters of str until 
 	it encounters the null terminator ('\0'), counting each character 

@@ -29,11 +29,11 @@
 // We use string.h to have access to strdup() function.
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
+#  define BUFFER_SIZE 4096
 # endif
 
 /* BUFFER_SIZE is the maximum number of bytes to read from the file descriptor.
-    If BUFFER_SIZE is not defined, we define it as 1024.*/
+    If BUFFER_SIZE is not defined, we define it as 4096.*/
 
 //The ft_strlen.c function returns the length of a string.
 size_t	ft_len(char *str);
