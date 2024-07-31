@@ -24,11 +24,10 @@
 
 # include "../ft_printf/ft_printf.h"    // Custom printf function.
 # include "../libft/libft.h"            // Custom library functions.
-# include "../minilibx-linux/mlx.h"     // MiniLibX for linux.
+# include "../mlx_linux/mlx.h"          // MiniLibX for linux.
 
-#ifndef DIR     // define DIR is used to check if the OS is linux or mac. 
-                // If it is not defined, it will be defined as 0 for mac.
-# define DIR 1  // 1 for linux.
+#ifndef DIR     
+# define DIR 00200000       // define DIR as 00200000 for linux.
 
 # endif
 
@@ -86,27 +85,64 @@
 
 // *** Paths to graphic materials. ***
 
+# define BEGIN "materials/begin.xpm"       //Image of the beginning.
 # define PLAYER "materials/player.xpm"     //Image of the player.
 # define ENEMY "materials/enemy.xpm"       //Image of the enemy.
 # define WALL "materials/wall.xpm"         //Image of the wall.
+# define FLOOR "materials/floor.xpm"       //Image of the floor.
+# define COLLECT "materials/collect.xpm"   //Image of the collectible.
+# define EXIT "materials/exit.xpm"         //Image of the exit.
 
 # define ESC 65307  // ASCII value for the 'esc' key.
 
 # define FOE ""
 
-typedef struct t_game   // Structure to hold the game data.
+typedef struct s_game   // Structure to hold the game data.
 {
     void    *mlx;
     void    *win;
-    char    **map;
+    int     i;
+    int     j;
     int     map_width;
     int     map_height;
     int     player_x;
     int     player_y;
     int     collectibles;
     int     moves;
+    t_img img;
+    t_img map;
 }   t_game;
 
+typedef struct s_form   // Structure to hold the form data.
+{
+    int     color;  
+    int     x;
+    int     y;
+    int     width;
+    int     height;
+}   t_form;
+
+typedef struct s_img    // Structure to hold the image data.
+{
+    void    *img_mlx;
+    char    *addr;
+    char    *map;
+    int     bits_per_pixel;
+    int     line_length;
+    int     endian;
+    int     width;
+    int     height;
+}   t_img;
+
+typedef struct s_map    // Structure to hold the map data.
+{
+    size_t  len_line;
+    char    **map;
+    int     fd;
+    int     count_len; 
+    int     width;
+    int     height;
+}   t_map;
 
 
 #endif

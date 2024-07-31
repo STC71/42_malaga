@@ -56,3 +56,9 @@ t_stack	*ft_checker_stacknew(int value)
 	new->next = NULL;
 	return (new);
 }
+
+/*
+The be_nbr function is used to check if the string is a number.
+
+The ft_checker_stacknew function is used to create a new stack.
+*/

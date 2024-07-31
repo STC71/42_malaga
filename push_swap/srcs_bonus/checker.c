@@ -124,3 +124,24 @@ int	main(int argc, char **argv)
 	ft_free_all(&stack_a, &stack_b);
 	return (0);
 }
+
+/*
+The ft_operations function is used to execute the operations on the stacks.
+it used the ft_strncmp function to compare the operation with the operations
+available in the program.
+If the operation is not found, it prints "Error\n".
+
+The ft_be_duplicated function is used to check if there are any duplicated
+numbers in the stack.
+
+The be_sorted function is used to check if the stack is sorted.
+
+The ft_include function is used to include the numbers in the stack.
+
+The main function is the main function of the checker program.
+It creates two stacks, stack_a and stack_b, and includes the numbers in stack_a.
+It then reads the operations from the standard input and executes them on the stacks.
+If the stack_a is sorted and stack_b is empty, it prints "OK\n".
+Otherwise, it prints "KO\n".
+It then frees the memory allocated for the stacks and returns 0.
+*/

@@ -16,29 +16,35 @@ int	main(int argc, char **argv)
 {
     t_game	game;
 
-    if (argc != 2)
+    if (argc = 2)
     {
-        ft_putstr_fd("Error\nInvalid number of arguments\n", 2);
-        return (1);
+        if (chek_ber(argv[1]) == ERR_FILE)
+            ft_error(ERR_FILE, &game);
+        map_draw(argv[1], &game);
+        map_init(&game);
+        map_check(&game);
+        init_gamer(&game);
+        init_terminal(&game);
+        imgs_init(&game);
+        make_game(game);        
+        imgs_loop(game);
+        imgs_del(game);
+        free(game.mlx);
+        if (game.map.map)
+            free(game.map.map);
     }
-    if (ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".ber", 4))
-    {
-        ft_putstr_fd("Error\nInvalid file extension\n", 2);
-        return (1);
-    }
-    game = init_game();
-    if (!game.map)
-    {
-        ft_putstr_fd("Error\nMap not found\n", 2);
-        return (1);
-    }
-    if (!parse_map(&game, argv[1]))
-    {
-        ft_putstr_fd("Error\nInvalid map\n", 2);
-        return (1);
-    }
-    mlx_hook(game.win, 2, 1L << 0, key_hook, &game);
-    mlx_hook(game.win, 17, 1L << 17, close_game, &game);
-    mlx_loop(game.mlx);
     return (0);
 }
+
+/*
+The main function is the entry point of the program. 
+It checks if the number of arguments is equal to 2.
+If the number of arguments is not equal to 2, the program exits.
+If the number of arguments is equal to 2, the program checks if the file is 
+a valid .ber file. If the file is not a valid .ber file, the program exits.
+If the file is a valid .ber file, the program draws the map, initializes the
+map, checks the map, initializes the player, initializes the terminal,
+initializes the images, makes the game, loops the images, deletes the images,
+frees the mlx, and frees the map.
+The program then returns 0.
+*/
