@@ -16,46 +16,58 @@ int	ft_atoi(char *s)
 {
 	int res;
 
+	res = 0;
 	while (*s)
-	{
-		res = res * 10 + *s - '0'; 
-		s++;
-	}
+		res = res * 10 + *s++ - 48; 
 	return (res);	
 }
-int main (int argc, char *argv[])
+
+int	is_prime(int n)
 {
 	int i;
-	int j;
-	int sum;
-	int prime;
 
+	i = 2;
+	if (n <= 1)
+		return (0);
+	while (i * i <= n)
+	{
+		if (n % i == 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	put_nbr(int n)
+{
+	char c;
+
+	if (n >= 10)
+		put_nbr(n / 10);
+	c = n % 10 + '0';
+	write(1, &c, 1);
+}
+
+int main (int argc, char *argv[])
+{
 	if (argc == 2)
 	{
-		i = 2;
+		int n;
+		int sum;
+
+		n = ft_atoi(argv[1]);
 		sum = 0;
-		while (i <= ft_atoi(argv[1]))
+		while (n > 0)
 		{
-			j = 2;
-			prime = 1;
-			while (j <= i / 2)
-			{
-				if (i % j == 0)
-				{
-					prime = 0;
-					break;
-				}
-				j++;
-			}
-			if (prime == 1)
-				sum += i;
-			i++;
+			if (is_prime(n))
+				sum += n;
+			n--;
 		}
-		write(1, "sum: ", 5);
-		
+		put_nbr(sum);
 	}
-	else
-		write(1, "0\n", 2);
+	if (argc != 2)
+		put_nbr(0);
+	write(1, "\n", 1);
 	return (0);
 }
 
@@ -67,4 +79,9 @@ followed by a newline.
 
 The program compiled with the following flags:
 gcc -Wall -Wextra -Werror add_prime_sum.c -o add_prime_sum
+
+El programa toma un número entero como argumento y muestra la suma de todos los
+números primos hasta e incluyendo el número entero. Si el número de argumentos
+no es 1, el programa muestra 0 seguido de un salto de línea. El programa muestra
+el resultado seguido de un salto de línea.
 */
