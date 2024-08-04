@@ -11,10 +11,15 @@ Este repositorio presenta proyectos del 42 cursus de Málaga. Aquí se encuentra
 A continuación se muestran los distintos proyectos realizados ...
 
 https://github.com/STC71/42_malaga/tree/main/push_swap
+
 https://github.com/STC71/42_malaga/tree/main/minitalk
+
 https://github.com/STC71/42_malaga/tree/main/born2beroot
+
 https://github.com/STC71/42_malaga/tree/main/get_next_line
+
 https://github.com/STC71/42_malaga/tree/main/ft_printf
+
 https://github.com/STC71/42_malaga/tree/main/libft
 
 
