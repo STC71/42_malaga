@@ -12,39 +12,55 @@
 
 #include "../includes/so_long.h"
 
-int	main(int argc, char **argv)
+int	ft_map(t_init **game)
 {
-    t_game	game;
+	t_init	*tmp;
 
-    if (argc = 2)
-    {
-        if (chek_ber(argv[1]) == ERR_FILE)
-            ft_error(ERR_FILE, &game);
-        map_draw(argv[1], &game);
-        map_init(&game);
-        map_check(&game);
-        init_gamer(&game);
-        init_terminal(&game);
-        imgs_init(&game);
-        make_game(game);        
-        imgs_loop(game);
-        imgs_del(game);
-        free(game.mlx);
-        if (game.map.map)
-            free(game.map.map);
-    }
-    return (0);
+	tmp = *game;
+	tmp->map = ft_map_init(tmp);
+	if (!tmp->map)
+	{
+		free(tmp);
+		return (1);
+	}
+	tmp->size.x = map_size_x(tmp->map); // ***** VOY POR AQUÍ *****	
+	tmp->size.y = map_size_y(tmp->map);
+	tmp->status_a = make_matrix(tmp);
+	if (!tmp->status_a)
+	{
+		free_game(tmp, 2);
+		return (FAILURE);
+	}
+	tmp->status_b = make_matrix(tmp);
+	if (!tmp->status_b)
+	{
+		free_game(tmp, 1);
+		return (FAILURE);
+	}
+	*game = tmp;
+	return (SUCCESS);
 }
 
-/*
-The main function is the entry point of the program. 
-It checks if the number of arguments is equal to 2.
-If the number of arguments is not equal to 2, the program exits.
-If the number of arguments is equal to 2, the program checks if the file is 
-a valid .ber file. If the file is not a valid .ber file, the program exits.
-If the file is a valid .ber file, the program draws the map, initializes the
-map, checks the map, initializes the player, initializes the terminal,
-initializes the images, makes the game, loops the images, deletes the images,
-frees the mlx, and frees the map.
-The program then returns 0.
-*/
+int	main(int argc, char **argv)
+{
+	int	i;
+
+	i = 0;
+	if (argc != 2)
+	{
+		ft_map_error("Usage: ./so_long [map.ber]");
+		return (1);
+	}
+	if (argc == 2)
+	{
+		if (ft_check_ber(argv[1]) == FAILURE)
+		{
+			ft_map_error("Invalid name of the map, must be a *.ber file.");
+			return (FAILURE);
+		}
+		i = ft_start_map(argv[1]); 
+		if (i == 1)
+			return (1);
+	}
+	return (0);
+}

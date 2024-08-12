@@ -1,0 +1,58 @@
+Assignment name  : lcm
+Expected files   : lcm.c
+Allowed functions:
+--------------------------------------------------------------------------------
+
+Write a function who takes two unsigned int as parameters and returns the
+computed LCM of those parameters.
+
+LCM (Lowest Common Multiple) of two non-zero integers is the smallest postive
+integer divisible by the both integers.
+
+A LCM can be calculated in two ways:
+
+- You can calculate every multiples of each integers until you have a common
+multiple other than 0
+
+- You can use the HCF (Highest Common Factor) of these two integers and
+calculate as follows:
+
+	LCM(x, y) = | x * y | / HCF(x, y)
+
+  | x * y | means "Absolute value of the product of x by y"
+
+If at least one integer is null, LCM is equal to 0.
+
+Your function must be prototyped as follows:
+
+  unsigned int    lcm(unsigned int a, unsigned int b);
+
+
+Nombre de la tarea: lcm
+Archivos esperados: lcm.c
+Funciones permitidas:
+-------------------------------------------------- ------------------------------
+
+Escriba una función que tome dos int sin signo como parámetros y devuelva el
+MCM calculado de esos parámetros.
+
+MCM (mínimo común múltiplo) de dos números enteros distintos de cero es el 
+número entero positivo más pequeño divisible por ambos números enteros.
+
+EL MCM se puede calcular de dos maneras:
+
+- Puedes calcular todos los múltiplos de cada número entero hasta que tengas un 
+común múltiplo distinto de 0
+
+- Puedes utilizar el HCF (máximo factor común) de estos dos números enteros y
+calcular de la siguiente manera:
+
+	MCM(x, y) = | x * y | / HCF(x, y)
+
+  | x * y | significa "Valor absoluto del producto de x por y"
+
+Si al menos un número entero es nulo, MCM es igual a 0.
+
+El prototipo de la función será:
+
+  unsigned int    lcm(unsigned int a, unsigned int b);

@@ -10,32 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H   // If the header file has not been included.
-# define SO_LONG_H  // Define the header file.
+#ifndef SO_LONG_H           // If the header file has not been included.
+# define SO_LONG_H          // Define the header file.
 
 # include <stdio.h>         // Standard input/output definitions.
 # include <fcntl.h>         // File control options. Used for open().
 # include <unistd.h>        // Used for read() and close().
 # include <stdlib.h>        // General utilities.
-# include <X11/X.h>         // Used to get the keycodes.
-# include <X11/keysym.h>    // Used to convert keycodes to keysyms.
-# include <sys/types.h>     // Used to define data types.
-# include <sys/stat.h>      // Used to get file information.
+# include <stdarg.h>        // VA. To use va_list, va_start, va_arg, va_end.
 
-# include "../ft_printf/ft_printf.h"    // Custom printf function.
-# include "../libft/libft.h"            // Custom library functions.
-# include "../mlx_linux/mlx.h"          // MiniLibX for linux.
 
-#ifndef DIR     
-# define DIR 00200000       // define DIR as 00200000 for linux.
+# include "../ft_printf/ft_printf.h"        // Custom printf function.
+# include "../libft/libft.h"                // Custom library functions.
+# include "../MLX42/include/MLX42/MLX42.h"  // MLX42 library.
+# include "./MLX42/MLX42.h"                 // MLX42 library.
 
-# endif
+// *** Name of the game. ***
 
 # define NAME "so_long"     // Name of the executable.
 # define TITRE "So Long"    // Title of the window.
 
 # define TILE_SIZE 32       // Size of the tiles in pixels.
 # define IMG_SIZE 48        // Size of the images in pixels.
+
+// *** Window size. ***
+
+# define WIDTH 1920         // Width of the window.
+# define HEIGHT 1080        // Height of the window.
+
+# define TRUE 1             // Boolean true. 
+# define FALSE 0            // Boolean false.
+# define BOOL short int     // Boolean type. Value can be TRUE or FALSE.
 
 // *** Colors for the terminal. ***
 
@@ -49,6 +54,16 @@
 # define CYAN "\033[1;36m"      // Cyan color for the terminal.
 # define PINK "\033[1;95m"      // Pink color for the terminal.
 # define RESET "\033[0m"        // Reset color for the terminal.
+# define SLOW_BLINK "\033[5m"   // Slow blink for the terminal.
+
+// *** Map elements. ***
+
+# define PLAYER 'P'     // Player character.
+# define ENEMY 'E'      // Enemy character.
+# define WALL '1'       // Wall character.
+# define FLOOR '0'      // Floor character.
+# define COLLECT 'C'    // Collectible character.
+# define EXIT 'E'       // Exit character.
 
 // *** Error messages. ***
 
@@ -68,81 +83,171 @@
 
 // *** Keycodes for the game. ***
 
-# define A 97              // ASCII value for the 'a' key.
-# define D 100             // ASCII value for the 'd' key.
-# define S 115             // ASCII value for the 's' key.
-# define W 119             // ASCII value for the 'w' key.
+# define LEFT 65361        // ASCII value for the left arrow key.
+# define RIGHT 65363       // ASCII value for the right arrow key.
+# define DOWN 65364        // ASCII value for the down arrow key.
+# define UP 65362          // ASCII value for the up arrow key.
 
-# define Z 122             // ASCII value for the 'z' key.
-# define Q 113             // ASCII value for the 'q' key.
-# define S 115             // ASCII value for the 's' key.
-# define D 100             // ASCII value for the 'd' key.
+# define ESC 65307         // ASCII value for the 'esc' key.
 
-# define GO_LEFT 65361     // ASCII value for the left arrow key.
-# define GO_RIGHT 65363    // ASCII value for the right arrow key.
-# define GO_DOWN 65364     // ASCII value for the down arrow key.
-# define GO_UP 65362       // ASCII value for the up arrow key.
+// *** Paths to graphic imgs. ***
 
-// *** Paths to graphic materials. ***
+// # define IBEGIN "imgs/begin.xpm"       //Image of the beginning.
+// # define IPLAYER "imgs/player.xpm"     //Image of the player.
+// # define IENEMY "imgs/enemy.xpm"       //Image of the enemy.
+// # define IWALL "imgs/wall.xpm"         //Image of the wall.
+// # define IFLOOR "imgs/floor.xpm"       //Image of the floor.
+// # define ICOLLECT "imgs/collect.xpm"   //Image of the collectible.
+// # define IEXIT "imgs/exit.xpm"         //Image of the exit.
 
-# define BEGIN "materials/begin.xpm"       //Image of the beginning.
-# define PLAYER "materials/player.xpm"     //Image of the player.
-# define ENEMY "materials/enemy.xpm"       //Image of the enemy.
-# define WALL "materials/wall.xpm"         //Image of the wall.
-# define FLOOR "materials/floor.xpm"       //Image of the floor.
-# define COLLECT "materials/collect.xpm"   //Image of the collectible.
-# define EXIT "materials/exit.xpm"         //Image of the exit.
+// *** Structure for the textures. ***
 
-# define ESC 65307  // ASCII value for the 'esc' key.
-
-# define FOE ""
-
-typedef struct s_game   // Structure to hold the game data.
+typedef struct s_textures
 {
-    void    *mlx;
-    void    *win;
-    int     i;
-    int     j;
-    int     map_width;
-    int     map_height;
-    int     player_x;
-    int     player_y;
-    int     collectibles;
-    int     moves;
-    t_img img;
-    t_img map;
-}   t_game;
+	mlx_texture_t   *floor;
+	mlx_texture_t   *wall;
+	mlx_texture_t   *collec;
+	mlx_texture_t   *exit;
+	mlx_texture_t   *ship;
+	mlx_texture_t   *ship_u;
+	mlx_texture_t   *ship_d;
+	mlx_texture_t   *ship_l;
+	mlx_texture_t   *ship_r;
+} t_textures;
 
-typedef struct s_form   // Structure to hold the form data.
-{
-    int     color;  
-    int     x;
-    int     y;
-    int     width;
-    int     height;
-}   t_form;
+//The textures are created to store the texture of the game. The textures 
+//are used to give the visual aspect of the objects in the game.
 
-typedef struct s_img    // Structure to hold the image data.
-{
-    void    *img_mlx;
-    char    *addr;
-    char    *map;
-    int     bits_per_pixel;
-    int     line_length;
-    int     endian;
-    int     width;
-    int     height;
-}   t_img;
+// *** Structure for the images. ***
 
-typedef struct s_map    // Structure to hold the map data.
+typedef struct s_images
 {
-    size_t  len_line;
-    char    **map;
-    int     fd;
-    int     count_len; 
-    int     width;
-    int     height;
-}   t_map;
+	mlx_image_t		*floor;
+	mlx_image_t		*wall;
+	mlx_image_t		*collec;
+	mlx_image_t		*exit;
+	mlx_image_t		*ship;
+	mlx_image_t		*ship_u;
+	mlx_image_t		*ship_d;
+	mlx_image_t		*ship_l;
+	mlx_image_t		*ship_r;
+} t_images;
+
+//The images are created to store the images of the game. The images are
+//the visual objetcs that are displayed in the game.
+
+// *** Structure for the map. ***
+
+typedef struct s_map
+{
+	char			*map;
+	struct s_map	*next;
+}	t_map;
+
+//The map is used to store the map of the game. *map store the information
+//of the map. *next is used to store the next map. For example, if the player
+//goes to the next level. It is not used in this game.
+
+// *** Structure for the cells. ***
+
+typedef struct s_cell
+{
+	int	ship;
+	int	wall;
+	int	collec;
+	int	exit;
+}	t_cell;
+
+//The cells are used to store the information of the cells of the game. 
+//For example, if the cell contains a ship, a wall...
+//The values are set to 0 or 1 to indicate if the cell contains the object.
+
+// *** Structure for the key codes. ***
+
+typedef struct s_key_press
+{
+	int	key;
+}	t_key_press;
+
+//The key press is used to store the key pressed by the player.
+
+// *** Structure for the position. ***
+
+typedef struct s_coord
+{
+	int	x;
+	int	y;
+}	t_coord;
+
+//The coord structure is used to store the position of the objects in the game.
+
+// *** Structure for the game. ***
+
+typedef struct s_init				// Structure for the game.
+{
+	mlx_t			*mlx;
+	t_textures		textures;
+	t_images		imgs;
+	t_cell			cell;
+	t_map			*map;
+	t_coord			ship;			// Position of the player.
+	t_coord			size;
+	char			**status_a;
+	char			**status_b;
+	char			*path;			// Path to the map.
+	int				moves;			// Number of moves.
+	int				counter;		// Number of collectibles.
+	int				collec;			// Number of collectibles.
+	int				flag; 			// 0 = game, 1 = win, 2 = lose
+	char			course;			// Direction of the player.
+	bool			walking;
+	//int				counter;
+}	t_init;
+
+//The game structure is used to store the information of the game.
+//	*mlx is used to store the connection to the display.
+//	textures is used to store the textures of the game.
+//	images is used to store the images of the game.
+//	cell is used to store the information of the cells of the game.
+//	*map is used to store the map of the game.
+//	ship is used to store the position of the ship, the player.
+//	path is used to store the path of the map.
+//	moves is used to store the number of moves of the player.
+//	counter is used to store the number of collectibles.
+//	collec is used to store the number of collectibles.
+//	flag is used to store the flag of the game. 0 = game, 1 = win, 2 = lose.
+//	course is used to store the direction of the player.
+//	walking is used to store if the player is walking or not.
+
+
+// *** Function prototypes. ***
+
+// *** ft_check_tools.c ***
+
+
+
+// *** ft_drawing_tools.c ***
+
+
+
+// *** ft_initialize.c ***
+
+
+
+// *** ft_materials.c ***
+
+
+
+// *** ft_moves.c ***
+
+void	ft_key_press(struct mlx_key_data key_data, void *param);
+//The ft_key_press() function is used to handle the key press of the player.
+
+// *** ft_tools.c ***
+
+
+
+// *** so_long.c ***
 
 
 #endif

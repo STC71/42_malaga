@@ -1,7 +1,7 @@
 # ***** NAMES ***************************************************************** #
 
-NAME 			= push_swap
-NAME_BONUS		= checker
+NAME 			= so_long
+BONUS_NAME		= so_long_bonus
 
 # ***** APARIENCE ************************************************************* #
 
@@ -29,139 +29,103 @@ DARK_YELLOW 	= \033[38;5;143m
 
 CC 				= gcc
 CFLAGS 			= -Wall -Werror -Wextra
-AR 				= ar rcs
-RM 				= rm -f
-MK 				= make -C
-MKD				= mkdir -p
-MCL 			= make clean -C
-MFCL 			= make fclean -C
-MK_				= && make
+MLX42 			= ./MLX42
+LIBFT 			= ./libft
+FT_PRINTF 		= ./ft_printf
+INCLUDES 		= -I$(MLX42)/include -I$(LIBFT)/include -I$(FT_PRINTF)/include -Iincludes
+LIBS 			= -L$(MLX42)/lib -lmlx42 -lglfw -ldl -lm -lpthread -L$(LIBFT) -lft -L$(FT_PRINTF) -lftprintf
 
-# ***** DIRECTORIES ********************************************************** #
+# ***** DIRECTORIES ********************************************************* #
 
-SRCS			= srcs/ft_push.c \
-					srcs/ft_rotate_down.c \
-					srcs/ft_rotate_up.c \
-					srcs/ft_swap.c \
-					srcs/ft_tfind_index.c \
-					srcs/ft_tfind.c \
-					srcs/ft_tfree.c \
-					srcs/ft_tindex.c \
-					srcs/ft_tmoves.c \
-					srcs/ft_tools.c \
-					srcs/ft_tpos.c \
-					srcs/ft_tsort_big.c \
-					srcs/ft_tsort_c.c \
-					srcs/ft_tsort.c \
-					srcs/push_swap.c
-SRCS_BONUS		= srcs/ft_push.c \
-					srcs/ft_rotate_down.c \
-					srcs/ft_rotate_up.c \
-					srcs/ft_swap.c \
-					srcs/ft_tfind_index.c \
-					srcs/ft_tfind.c \
-					srcs/ft_tfree.c \
-					srcs/ft_tindex.c \
-					srcs/ft_tmoves.c \
-					srcs/ft_tools.c \
-					srcs/ft_tpos.c \
-					srcs/ft_tsort_big.c \
-					srcs/ft_tsort_c.c \
-					srcs/ft_tsort.c \
-					srcs_bonus/checker.c \
-					srcs_bonus/checker_utils.c
-# wildcard is used to get all the files in the directory.
-# The variable SRCS is used to get all the source files in the SRCS directory.
-# The variable SRCS_BONUS is used to get all the source files in the 
-# bonus and the SRCS directory. 
+SRC_DIR 		= ./srcs
+SRC_BONUS_DIR 	= ./srcs_bonus
+OBJ_DIR 		= ./obj
+OBJ_BONUS_DIR 	= ./obj_bonus
 
-OBJS			= $(SRCS:.c=.o)
-OBJS_BONUS		= $(SRCS_BONUS:.c=.o)
-# .c=.o is used to replace the .c extension with the .o extension.
+# ***** FILES *************************************************************** #
 
-OBJS_DIR		= ./objs
-LIBFT_DIR		= ./libft
-FT_PRINTF_DIR	= ./ft_printf
-INCLUDES		= ./includes
-# The variable INCLUDES is used to include the header files.
+SRC_FILES 		= so_long.c \
+					ft_tools.c \
+					ft_moves.c \
+					ft_materials.c \
+					ft_mlx_init.c \
+					ft_initialize.c \
+					ft_drawing_tools.c \
+					ft_check_tools.c 
+#SRC_BONUS_FILES = $(SRC_BONUS_DIR)/main.c $(SRC_BONUS_DIR)/bonus_file.c
 
-# ***** COMPILATION ********************************************************** #
+OBJS 			= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
+OBJS_BONUS 		= $(addprefix $(OBJ_BONUS_DIR)/, $(SRC_BONUS_FILES:.c=.o))
 
-all: $(NAME) # $(NAME_BONUS)
-# The all rule is used to compile the project
+# ***** RULES *************************************************************** #
 
-$(NAME): clean_screen $(OBJS)
-	@echo "${DARK_YELLOW}${BOLD}Compiling my ${NAME}...${DEF_COLOR}"
-# The @ symbol is used to hide the command from the terminal.	
-	@${MAKE} -C ${LIBFT_DIR}
-	@${MAKE} -C ${FT_PRINTF_DIR}
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} -L${LIBFT_DIR} -lft -L${FT_PRINTF_DIR} -lftprintf -I${INCLUDES}
-# ${OBJS} ${LIBFT_DIR} ${FT_PRINTF_DIR} ${INCLUDES} -o ${NAME} 
-# To compile the project:
-# ${CC} command is used to compile the project.
-# ${CFLAGS} variable is used to add the flags to the compilation.
-# ${OBJS} variable is used to get the object files.
-# ${LIBFT_DIR} variable is used to get the library.
-# ${FT_PRINTF_DIR} variable is used to get the library.
-# ${INCLUDES} variable is used to include the header files.
-# -o flag is used to specify the output file.
-# ${NAME} variable is used to specify the output file.
-	@echo "${DARK_GREEN}${BOLD}Compilation of ${NAME} is done!${DEF_COLOR}"
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@echo "$(CYAN)Compiling:$(DEF_COLOR) $<"
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo "$(GREEN)Compiled:$(DEF_COLOR) $<"
 
-bonus: $(NAME_BONUS)
+$(OBJ_BONUS_DIR)/%.o: $(SRC_BONUS_DIR)/%.c
+	@echo "$(CYAN)Compiling:$(DEF_COLOR) $<"
+	@mkdir -p $(OBJ_BONUS_DIR)
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo "$(GREEN)Compiled:$(DEF_COLOR) $<"
 
-$(NAME_BONUS): clean_screen $(OBJS_BONUS)
-	@echo "${DARK_YELLOW}${BOLD}Compiling my ${NAME_BONUS}...${DEF_COLOR}"
-	@${MAKE} -C ${LIBFT_DIR}
-	@${MAKE} -C ${FT_PRINTF_DIR}
-	@$(CC) $(CFLAGS) -o $(NAME_BONUS) $(OBJS_BONUS) -L$(LIBFT_DIR) -lft -L$(FT_PRINTF_DIR) -lftprintf -I$(INCLUDES)
-	@echo "${DARK_GREEN}${BOLD}Compilation of ${NAME_BONUS} is done!${DEF_COLOR}"
-# The same as above but for the bonus part.
+$(NAME): $(LIBFT)/libft.a $(FT_PRINTF)/libftprintf.a $(OBJS)
+	@echo "$(CYAN)Linking:$(DEF_COLOR) $(NAME)"
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS)
+	@echo "$(GREEN)Linked:$(DEF_COLOR) $(NAME)"
 
-%.o: %.c
-	@${CC} ${CFLAGS} -c $< -o $@
-	@echo "${BLUE}${BOLD}Compiling $<...${DEF_COLOR}"
-# The %.o: %.c rule is used to compile the object files.
-# $< is used to get the first dependency.
-# $@ is used to get the target.
-# -c flag is used to compile the source files.
+$(BONUS_NAME): $(LIBFT)/libft.a $(FT_PRINTF)/libftprintf.a $(OBJS_BONUS)
+	@echo "$(CYAN)Linking:$(DEF_COLOR) $(BONUS_NAME)"
+	@$(CC) $(CFLAGS) -o $(BONUS_NAME) $(OBJS_BONUS) $(LIBS)
+	@echo "$(GREEN)Linked:$(DEF_COLOR) $(BONUS_NAME)"
 
-# ***** CLEANING ************************************************************* #
+# ***** DEPENDENCIES ******************************************************** #
+
+$(LIBFT)/libft.a:
+	@echo "$(CYAN)Compiling:$(DEF_COLOR) $(LIBFT)"
+	@$(MAKE) -C $(LIBFT)
+	@echo "$(GREEN)Compiled:$(DEF_COLOR) $(LIBFT)"
+
+$(FT_PRINTF)/libftprintf.a:
+	@echo "$(CYAN)Compiling:$(DEF_COLOR) $(FT_PRINTF)"
+	@$(MAKE) -C $(FT_PRINTF)
+	@echo "$(GREEN)Compiled:$(DEF_COLOR) $(FT_PRINTF)"
+
+# ***** PRINCIPAL RULES ***************************************************** #
+
+all: $(NAME) $(BONUS_NAME)
+
+# ***** CLEANING RULES ****************************************************** #
 
 clean:
-	@${RM} ${OBJS} ${OBJS_BONUS}
-	@echo "${RED}${BOLD}Cleaning objects...${DEF_COLOR}"
-	@${MCL} ${LIBFT_DIR}
-	@${MCL} ${FT_PRINTF_DIR}
-	@if [ -d "$(OBJS_DIR)" ]; then ${RM} -r $(OBJS_DIR); fi
-	@echo "${RED}${BOLD}Cleaning objects is done!${DEF_COLOR}"
-	#@${RM} -r ./objs
-	#@echo "${RED}${BOLD}Cleaning objects is done!${DEF_COLOR}"
-# The clean rule is used to clean the object files.
-# ${RM} command is used to remove the object files.
-# -r flag is used to remove the directory.
-# if [ -d "$(OBJS_DIR)" ]; then ${RM} -r $(OBJS_DIR); fi is used to remove the
-# directory if it exists. -d flag is used to check if the directory exists.
-# ${MCL} command is used to clean the object files in the libraries.
+	@echo "$(RED)Cleaning:$(DEF_COLOR) $(OBJ_DIR)"
+	@$(MAKE) -C $(LIBFT) clean
+	@echo "$(RED)Cleaning:$(DEF_COLOR) $(OBJ_BONUS_DIR)"
+	@$(MAKE) -C $(FT_PRINTF) clean
+	@echo "$(RED)Cleaning:$(DEF_COLOR) $(OBJ_DIR)"
+	@$(RM) -r $(OBJ_DIR) $(OBJ_BONUS_DIR)
+	@echo "$(GREEN)Cleaned:$(DEF_COLOR) $(OBJ_DIR) $(OBJ_BONUS_DIR)"
+
+# ***** FCLEANING RULES ***************************************************** #
 
 fclean: clean
-	@${RM} ${NAME} ${NAME_BONUS}
-	@echo "${RED}${BOLD}Cleaning ${NAME}...${DEF_COLOR}"
-	@${MFCL} $(LIBFT_DIR)
-	@${MFCL} $(FT_PRINTF_DIR)
-	@echo "${RED}${BOLD}Cleaning ${NAME} is done!${DEF_COLOR}"
-# The same of the clean rule but this clean all the files: object files and
-# the executable files.
+	@echo "$(RED)Cleaning:$(DEF_COLOR) $(NAME)"
+	@echo "$(RED)Cleaning:$(DEF_COLOR) $(BONUS_NAME)"
+	@echo "$(RED)Cleaning:$(DEF_COLOR) $(LIBFT)/libft.a"
+	@echo "$(RED)Cleaning:$(DEF_COLOR) $(FT_PRINTF)/libftprintf.a"
+	@echo "$(RED)Cleaning:$(DEF_COLOR) $(MLX42)/lib/libmlx42.a"
+	$(RM) $(NAME) $(BONUS_NAME)
+	@echo "$(GREEN)Cleaned:$(DEF_COLOR) $(NAME) $(BONUS_NAME) $(LIBFT)/libft.a $(FT_PRINTF)/libftprintf.a $(MLX42)/lib/libmlx42.a"
 
-clean_screen:
-	@clear
-
-# ***** RECOMPILATION ******************************************************** #
+# ***** RE RULES *********************************************************** #
 
 re: fclean all
-# The re rule is used to recompile the project from scratch.
+	@echo "$(GREEN)Recompiled:$(DEF_COLOR) $(NAME) $(BONUS_NAME)"
 
-.PHONY: all clean fclean re libft ft_printf 
-# The .PHONY rule is used to avoid conflicts with the files with the same name.
+# ***** PHONY *************************************************************** #
+
+.PHONY: all clean fclean re
 
 # ***** THE END ************************************************************** #

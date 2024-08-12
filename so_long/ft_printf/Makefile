@@ -21,17 +21,22 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@echo "Creating library $(NAME) from objects $(OBJS)"
 	@$(AR) -csr $@ $^
+	@echo "Library $(NAME) created"
 
 %.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ 
+	@echo "Compiling $<"
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$< compiled"
 
 clean:
 	@echo "Cleaning object files of library $(NAME)"
 	@rm -f $(OBJS)
+	@echo "Object files removed"
 
 fclean: clean
 	@echo "Cleaning library $(NAME)"
 	@rm -f $(NAME)
+	@echo "Library $(NAME) removed"
 
 re: fclean all
 

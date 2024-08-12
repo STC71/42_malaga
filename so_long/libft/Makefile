@@ -25,19 +25,27 @@ CFLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(AR) -r $@ $?
+	@echo "Creating library $(NAME) from objects $(OBJS)"	
+	@$(AR) -r $@ $?
+	@echo "Library $(NAME) created"
 
 bonus: $(OBJS_B)
-	$(AR) -r $(NAME) $?
+	@echo "Creating library $(NAME) from objects $(OBJS_B)"
+	@$(AR) -r $(NAME) $?
+	@echo "Library $(NAME) created"
 
 %.o: %.c
+	@echo "Compiling $<"	
 	@$(CC) -o $@ -c $(CFLAGS) $<
+	@echo "$< compiled"
 
 clean:
 	@rm -f $(OBJS) $(OBJS_B)
+	@echo "Object files removed"
 
 fclean: clean
 	@rm -f $(NAME)
+	@echo "Library $(NAME) removed"
 
 re: fclean all
 
