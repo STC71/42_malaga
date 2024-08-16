@@ -31,8 +31,6 @@ char	*ft_strchr(char *str, int c)
 	i = 0;
 	if (!str)
 		return (0);
-	if (c == '\0')
-		return ((char *)&str[ft_len(str)]);
 	while (str[i])
 	{
 		if (str[i] == (char) c)
@@ -47,7 +45,7 @@ char	*get_next_line(int fd)
 	char		*out;
 	static char	*str[4096];
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) == -1)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 	{
 		free (str[fd]);
 		str[fd] = (NULL);

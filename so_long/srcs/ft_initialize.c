@@ -41,16 +41,16 @@ int	ft_start_map(char *path)
 	game->path = path;
 	if (ft_map(&game) == 1)
 		return (FAILURE);
-	game = find_player(game); // ***** VOY POR AQUÍ *****
-	game = flood_fill(game);
-	game->status_b = free_matrix(game->status_b, game->size.y);
-	if (check_errors(game, map_objects(game->map)) == 1)
+	game = ft_find_ship(game);
+	game = ft_flood(game);
+	game->status_b = ft_free_status(game->status_b, game->size.y);
+	if (ft_check_failed(game, ft_count_obj(game->map)) == FAILURE)
 	{
-		free_game(game, 1);
+		ft_free_all(game, 1);
 		return (FAILURE);
 	}
-	start_mlx(game);
-	free_game(game, 0);
+	ft_mlx_init(game);
+	ft_free_all(game, 0);
 	return (SUCCESS);
 }
 

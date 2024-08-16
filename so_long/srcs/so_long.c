@@ -12,6 +12,33 @@
 
 #include "../includes/so_long.h"
 
+char	**ft_status_map(t_init *game)
+{
+	t_map	*tmp;
+	char	**status;
+	int		i;
+
+	i = 0;
+	tmp = game->map;
+	status = malloc(sizeof(char *) * (game->size.y + 1));
+	if (!status)
+		return (NULL);
+	while (game->map)
+	{
+		status[i] = ft_strdup(game->map->map);
+		if (!status[i])
+		{
+			ft_free_status(status, i);
+			return (NULL);
+		}
+		i++;
+		game->map = game->map->next;
+	}
+	game->map = tmp;
+	status[i] = NULL;
+	return (status);
+}
+
 int	ft_map(t_init **game)
 {
 	t_init	*tmp;
@@ -23,18 +50,18 @@ int	ft_map(t_init **game)
 		free(tmp);
 		return (1);
 	}
-	tmp->size.x = map_size_x(tmp->map); // ***** VOY POR AQUÍ *****	
-	tmp->size.y = map_size_y(tmp->map);
-	tmp->status_a = make_matrix(tmp);
+	tmp->size.x = ft_map_x(tmp->map); 	
+	tmp->size.y = ft_map_y(tmp->map);
+	tmp->status_a = make_status(tmp);
 	if (!tmp->status_a)
 	{
-		free_game(tmp, 2);
+		ft_free_all(tmp, 2);
 		return (FAILURE);
 	}
-	tmp->status_b = make_matrix(tmp);
+	tmp->status_b = make_status(tmp);
 	if (!tmp->status_b)
 	{
-		free_game(tmp, 1);
+		ft_free_all(tmp, 1);
 		return (FAILURE);
 	}
 	*game = tmp;

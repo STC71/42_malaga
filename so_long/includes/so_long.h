@@ -104,15 +104,21 @@
 
 typedef struct s_textures
 {
-	mlx_texture_t   *floor;
+	mlx_texture_t   *ocean;
 	mlx_texture_t   *wall;
 	mlx_texture_t   *collec;
-	mlx_texture_t   *exit;
+	mlx_texture_t   *exit_c;
+	mlx_texture_t   *exit_o;
 	mlx_texture_t   *ship;
 	mlx_texture_t   *ship_u;
 	mlx_texture_t   *ship_d;
 	mlx_texture_t   *ship_l;
 	mlx_texture_t   *ship_r;
+	mlx_texture_t   *shark;
+	//mlx_texture_t   *shark_u;
+	//mlx_texture_t   *shark_d;
+	// mlx_texture_t   *shark_l;
+	// mlx_texture_t   *shark_r;
 } t_textures;
 
 //The textures are created to store the texture of the game. The textures 
@@ -122,15 +128,21 @@ typedef struct s_textures
 
 typedef struct s_images
 {
-	mlx_image_t		*floor;
+	mlx_image_t		*ocean;
 	mlx_image_t		*wall;
 	mlx_image_t		*collec;
-	mlx_image_t		*exit;
+	mlx_image_t		*exit_c;
+	mlx_image_t		*exit_o;
 	mlx_image_t		*ship;
 	mlx_image_t		*ship_u;
 	mlx_image_t		*ship_d;
 	mlx_image_t		*ship_l;
 	mlx_image_t		*ship_r;
+	mlx_image_t		*shark;
+	// mlx_image_t		*shark_u;
+	// mlx_image_t		*shark_d;
+	// mlx_image_t		*shark_l;
+	// mlx_image_t		*shark_r;
 } t_images;
 
 //The images are created to store the images of the game. The images are
@@ -153,6 +165,8 @@ typedef struct s_map
 typedef struct s_cell
 {
 	int	ship;
+	int shark;
+	int ocean;
 	int	wall;
 	int	collec;
 	int	exit;
@@ -191,6 +205,7 @@ typedef struct s_init				// Structure for the game.
 	t_cell			cell;
 	t_map			*map;
 	t_coord			ship;			// Position of the player.
+	t_coord			shark;			// Position of the enemy.
 	t_coord			size;
 	char			**status_a;
 	char			**status_b;

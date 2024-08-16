@@ -25,7 +25,7 @@ t_init	*ft_find_ship(t_init *ship)
 		i = 1;
 		while (ship->status_a[j][i] != '\n')
 		{
-			if (ship->status_a[j][i] == 'P')
+			if (ship->status_a[j][i] == PLAYER)
 			{
 				ship->ship.x = i;
 				ship->ship.y = j;
@@ -37,6 +37,32 @@ t_init	*ft_find_ship(t_init *ship)
 	}
 	return (ship);
 }
+
+t_cell	ft_count_obj(t_map *map)
+{
+	t_cell	obj;
+	int		i;
+
+	initialize_obj(&obj); // ***** VOY POR AQUÍ *****
+	while (map)
+	{
+		i = 0;
+		while (map->map[i])
+		{
+			if (map->map[i] == PLAYER)
+				obj.ship++;
+			if (map->map[i] == COLLECT)
+				obj.collec++;
+			if (map->map[i] == EXIT)
+				obj.exit++;
+			i++;
+		}
+		map = map->next;
+	}
+	return (obj);
+}
+
+
 
 
 

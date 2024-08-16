@@ -19,10 +19,10 @@ void	ft_mlx_init(t_init *gm)
 	if (!gm || !gm->mlx)
 	{
 		ft_map_error("Failed MLX initiation.\n");
-		free_gm(gm, 1);		// ***** VOY POR AQUÍ *****
+		ft_free_all(gm, 1);
 		exit(FAILURE);
 	}
-	load_textures(gm);
+	load_textures(gm);		// ***** VOY POR AQUÍ *****
 	create_images_from_textures(gm);
 	build_map(gm);
 	gm->imgs.ship = NULL;

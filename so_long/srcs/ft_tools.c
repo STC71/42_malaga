@@ -23,6 +23,29 @@ void	ft_map_error(char *str)
 	exit(FAILURE);
 }
 
+int	ft_map_x(t_map *width)
+{
+	int	x;
+
+	x = 0;
+	while (width->map[x] != '\n')
+		x++;
+	return (x);
+}
+
+int	ft_map_y(t_map *height)
+{
+	int	y;
+
+	y = 0;
+	while (height)
+	{
+		y++;
+		height = height->next;
+	}
+	return (y);
+}
+
 void	ft_game_over_(void)
 {
 	ft_printf("\n\n%s", SLOW_BLINK);
@@ -31,6 +54,7 @@ void	ft_game_over_(void)
 	ft_printf("%s╚═╝╩ ╩╩ ╩╚═╝  ╚═╝ ╚╝ ╚═╝╩╚═%s\n", RED, RESET);
 	ft_printf("%s\n\n", RESET);
 }
+
 
 
 

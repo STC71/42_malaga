@@ -12,97 +12,130 @@
 
 #include "../includes/so_long.h"
 
-void	ft_drawing_background(t_vars *vars)
+t_map	*ft_add_line(char *line)
 {
-	t_point	ini;
-	t_point	end;
+	t_map	*new;
 
-	ini.x = 0;
-	ini.y = 0;
-	end.x = vars->map.g_width * SIZE;
-	end.y = vars->map.g_height * SIZE;
-	while (ini.y < end.y)
+	new = malloc(sizeof(t_map));
+	if (!new)
+		return (NULL);
+	new->map = ft_strdup(line);
+	if (!new->map)
 	{
-		while (ini.x < end.x)
-		{
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->floor.img, \
-			ini.x, ini.y);
-			ini.x += SIZE;
-		}
-		ini.x = 0;
-		ini.y += SIZE;
+		free(new);
+		return (NULL);
+	}
+	new->next = NULL;
+	return (new);
+}
+
+void	ft_last_line(t_init *game, t_map *new)
+{
+	t_map	*last;
+
+	last = game->map;
+	if (!last)
+		game->map = new;
+	else
+	{
+		while (last->next)
+			last = last->next;
+		last->next = new;
 	}
 }
 
-void	ft_drawing_map(t_vars *vars)
-{
-	t_point	s;
 
-	s.x = 0;
-	s.y = 0;
-	while (s.y < vars->map.g_height * SIZE)
-	{
-		while (s.x < vars->map.g_width * SIZE)
-		{
-			if (vars->map.grid[s.y / SIZE][s.x / SIZE] == FLOOR)
-				put_sp(vars, s, FLOOR);
-			else if (vars->map.grid[s.y / SIZE][s.x / SIZE] == WALL)
-				put_sp(vars, s, WALL);				
-			else if (vars->map.grid[s.y / SIZE][s.x / SIZE] == PLAYER)
-				put_sp(vars, s, PLAYER);			
-			else if (vars->map.grid[s.y / SIZE][s.x / SIZE] == COLLECT)
-				put_sp(vars, s, COLLECT);
-			else if (vars->map.grid[s.y / SIZE][s.x / SIZE] == EXIT)
-				put_sp(vars, s, EXIT);
-			s.x += SIZE;
-		}
-		s.x = 0;
-		s.y += SIZE;
-	}
-}
+// void	ft_drawing_background(t_vars *vars)
+// {
+// 	t_point	ini;
+// 	t_point	end;
 
-void	ft_drawing_image(t_vars *vars, t_point coo, char img)
-{
-	if (img == FLOOR)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->floor.img, \
-			coo.x, coo.y);
-	else if (img == WALL)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->wall.img, \
-			coo.x, coo.y);
-	else if (img == PLAYER)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->player.img, \
-			coo.x, coo.y);
-	else if (img == COLLECT)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->collect.img, \
-			coo.x, coo.y);
-	else if (img == EXIT)
-		mlx_put_image_to_window(vars->mlx, vars->win, vars->exit.img, \
-			coo.x, coo.y);
-}
+// 	ini.x = 0;
+// 	ini.y = 0;
+// 	end.x = vars->map.g_width * SIZE;
+// 	end.y = vars->map.g_height * SIZE;
+// 	while (ini.y < end.y)
+// 	{
+// 		while (ini.x < end.x)
+// 		{
+// 			mlx_put_image_to_window(vars->mlx, vars->win, vars->floor.img, \
+// 			ini.x, ini.y);
+// 			ini.x += SIZE;
+// 		}
+// 		ini.x = 0;
+// 		ini.y += SIZE;
+// 	}
+// }
+
+// void	ft_drawing_map(t_vars *vars)
+// {
+// 	t_point	s;
+
+// 	s.x = 0;
+// 	s.y = 0;
+// 	while (s.y < vars->map.g_height * SIZE)
+// 	{
+// 		while (s.x < vars->map.g_width * SIZE)
+// 		{
+// 			if (vars->map.grid[s.y / SIZE][s.x / SIZE] == FLOOR)
+// 				put_sp(vars, s, FLOOR);
+// 			else if (vars->map.grid[s.y / SIZE][s.x / SIZE] == WALL)
+// 				put_sp(vars, s, WALL);				
+// 			else if (vars->map.grid[s.y / SIZE][s.x / SIZE] == PLAYER)
+// 				put_sp(vars, s, PLAYER);			
+// 			else if (vars->map.grid[s.y / SIZE][s.x / SIZE] == COLLECT)
+// 				put_sp(vars, s, COLLECT);
+// 			else if (vars->map.grid[s.y / SIZE][s.x / SIZE] == EXIT)
+// 				put_sp(vars, s, EXIT);
+// 			s.x += SIZE;
+// 		}
+// 		s.x = 0;
+// 		s.y += SIZE;
+// 	}
+// }
+
+// void	ft_drawing_image(t_vars *vars, t_point coo, char img)
+// {
+// 	if (img == FLOOR)
+// 		mlx_put_image_to_window(vars->mlx, vars->win, vars->floor.img, \
+// 			coo.x, coo.y);
+// 	else if (img == WALL)
+// 		mlx_put_image_to_window(vars->mlx, vars->win, vars->wall.img, \
+// 			coo.x, coo.y);
+// 	else if (img == PLAYER)
+// 		mlx_put_image_to_window(vars->mlx, vars->win, vars->player.img, \
+// 			coo.x, coo.y);
+// 	else if (img == COLLECT)
+// 		mlx_put_image_to_window(vars->mlx, vars->win, vars->collect.img, \
+// 			coo.x, coo.y);
+// 	else if (img == EXIT)
+// 		mlx_put_image_to_window(vars->mlx, vars->win, vars->exit.img, \
+// 			coo.x, coo.y);
+// }
 
 
-void	ft_drawing_gamer(t_vars *vars)
-{
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->player.img, \
-		vars->gamer.pos.x * SIZE, vars->gamer.pos.y * SIZE);
-}
+// void	ft_drawing_gamer(t_vars *vars)
+// {
+// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->player.img, \
+// 		vars->gamer.pos.x * SIZE, vars->gamer.pos.y * SIZE);
+// }
 
-void	ft_drawing_movements(t_vars *vars)
-{
-	int	hun;
-	int	ten;
-	int	uni;
+// void	ft_drawing_movements(t_vars *vars)
+// {
+// 	int	hun;
+// 	int	ten;
+// 	int	uni;
 
-	hun = (vars->moves / 100);
-	ten = (vars->moves / 10) % 10;
-	uni = ((vars->moves % 100) % 10);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->nbrs[hun].img, \
-		0 * SIZE + 10, 10);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->nbrs[ten].img, \
-		1 * SIZE + 10, 10);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->nbrs[uni].img, \
-		2 * SIZE + 10, 10);
-}
+// 	hun = (vars->moves / 100);
+// 	ten = (vars->moves / 10) % 10;
+// 	uni = ((vars->moves % 100) % 10);
+// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->nbrs[hun].img, \
+// 		0 * SIZE + 10, 10);
+// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->nbrs[ten].img, \
+// 		1 * SIZE + 10, 10);
+// 	mlx_put_image_to_window(vars->mlx, vars->win, vars->nbrs[uni].img, \
+// 		2 * SIZE + 10, 10);
+// }
 
 /*
 The drawing_background() function draws the background of the map.

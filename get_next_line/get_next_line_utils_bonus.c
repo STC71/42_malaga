@@ -14,28 +14,28 @@
 
 char	*ft_strjoin(char *str1, char *str2)
 {
-	size_t		i;
-	size_t		j;
+	size_t		*i;
 	char		*out;
 
+	i = 0;
 	if (!str1)
 	{
-		str1 = (char *)malloc(sizeof(char) * 1);
+		str1 = (char *)malloc(sizeof(char));
 		str1[0] = '\0';
 	}
 	if (!str2)
 		return (NULL);
-	out = (char *)malloc(sizeof(char) * (ft_len(str1) + ft_len(str2) + 1));
-	if (out == NULL)
+	out = (char *)malloc((sizeof(char) * (ft_len(str1) + ft_len(str2) + 1)));
+	if (!out)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (str1[i])
-		out[j++] = str1[i++];
-	i = 0;
-	while (str2[i])
-		out[j++] = str2[i++];
-	out[j] = '\0';
+	while (str1[i[0]])
+	{
+		out[i[0]] = str1[i[0]];
+		i[0]++;
+	}
+	while (str2[i[1]])
+		out[i[0]++] = str2[i[1]++];
+	out[i[0]] = '\0';
 	free(str1);
 	return (out);
 }
@@ -45,11 +45,11 @@ char	*ft_alloc(int fd, char *str)
 	char	*buff;
 	ssize_t	dim;
 
-	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (NULL);
 	dim = 1;
-	while (!(ft_strchr(str, '\n')) && dim > 0)
+	while (!(ft_strchr(str, '\n')) && dim)
 	{
 		dim = read(fd, buff, BUFFER_SIZE);
 		if (dim == -1)
@@ -67,10 +67,10 @@ char	*ft_alloc(int fd, char *str)
 char	*ft_nline(char *str)
 {
 	char	*new;
-	int		i;
+	ssize_t	i;
 
 	i = 0;
-	if (str[i] == 0)
+	if (!str)
 		return (NULL);
 	while (str[i] && str[i] != '\n')
 		i++;
@@ -95,25 +95,24 @@ char	*ft_nline(char *str)
 char	*ft_rline(char *line)
 {
 	char	*str;
-	int		i;
-	int		j;
+	ssize_t	*i;
 
 	i = 0;
-	while (line[i] && line[i] != '\n')
+	while (line[i[0]] && line[i[0]] != '\n')
 		i++;
-	if (!line[i])
+	if (!line[i[0]])
 	{
 		free(line);
 		return (NULL);
 	}
-	str = (char *)malloc(sizeof(char) * (ft_len(line) - i + 1));
+	str = (char *)malloc(sizeof(char) * (ft_len(line) - i[0] + 1));
 	if (!str)
 		return (NULL);
-	i++;
-	j = 0;
-	while (line[i])
-		str[j++] = line[i++];
-	str[j] = '\0';
+	i[0]++;
+	i[1] = 0;
+	while (line[i[0]])
+		str[i[1]++] = line[i[0]++];
+	str[i[1]] = '\0';
 	free(line);
 	return (str);
 }
