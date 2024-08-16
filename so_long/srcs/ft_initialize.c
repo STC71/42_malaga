@@ -62,7 +62,7 @@ t_map	*ft_map_init(t_init *game)
 	fd = open(game->path, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_map_error("The map was not found or cannot be opened.\n");
+		ft_map_error(ERR_MAP);
 		return (NULL);
 	}
 	line = get_next_line(fd);

@@ -39,6 +39,27 @@ char	**ft_status_map(t_init *game)
 	return (status);
 }
 
+void	ft_key_press(struct mlx_key_data key_data, void *date)
+{
+	t_init	*game;
+
+	game = date;
+	game = ft_find_ship(game);
+	if (key_data.key == MLX_KEY_UP && ft_key_check(game) == 1)
+		ft_move_ship_up(game, game->ship.y, game->ship.x);
+	if (key_data.key == MLX_KEY_DOWN && ft_key_check(game) == 2)
+		ft_move_ship_down(game, game->ship.y, game->ship.x);
+	if (key_data.key == MLX_KEY_LEFT && ft_key_check(game) == 3)
+		ft_move_ship_left(game, game->ship.y, game->ship.x);
+	if (key_data.key == MLX_KEY_RIGHT && ft_key_check(game) == 4)
+		ft_move_ship_right(game, game->ship.y, game->ship.x);
+	if (key_data.key == MLX_KEY_ESCAPE && ft_key_check(game) == 5)
+	{
+		mlx_close_window(game->mlx);
+		return ;
+	}
+}
+
 int	ft_map(t_init **game)
 {
 	t_init	*tmp;
@@ -75,19 +96,19 @@ int	main(int argc, char **argv)
 	i = 0;
 	if (argc != 2)
 	{
-		ft_map_error("Usage: ./so_long [map.ber]");
+		ft_map_error(ERR_INIT);
 		return (1);
 	}
 	if (argc == 2)
 	{
 		if (ft_check_ber(argv[1]) == FAILURE)
 		{
-			ft_map_error("Invalid name of the map, must be a *.ber file.");
+			ft_map_error(ERR_FILE);
 			return (FAILURE);
 		}
 		i = ft_start_map(argv[1]); 
 		if (i == 1)
-			return (1);
+			return (FAILURE);
 	}
-	return (0);
+	return (SUCCESS);
 }

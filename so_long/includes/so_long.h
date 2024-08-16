@@ -67,14 +67,17 @@
 
 // *** Error messages. ***
 
-# define ERR_FILE "The argument is not a valid file (.ber).\n"
+# define ERR_FILE "Invalid name of the map, must be a *.ber fil\n"
 # define ERR_CHAR "The map contains invalid characters.\n"
-# define ERR_INIT "One of the required elements in the map is missing.\n"
+# define ERR_MLX "Failed MLX initiation.\n"
+# define ERR_MAP "The map was not found or cannot be opened.\n"
+# define ERR_INIT "Usage: ./so_long [map.ber].\n"
 # define ERR_PLAYER "The map must contain only one player.\n"
 # define ERR_BPLAYER "Only one player is allowed on each side.\n"
 # define ERR_FORMAT "The map is not rectangular.\n"
 # define ERR_BORDER "The map must be surrounded by walls.\n"
-
+# define ERR_LINE "Empty line has been detected in the file.\n"
+# define ERR_GENERAL "Map or objects failed.\n"
 // *** Return values. ***
 
 # define ERROR -1       // Error return value. Used for error handling.
@@ -237,32 +240,86 @@ typedef struct s_init				// Structure for the game.
 
 // *** Function prototypes. ***
 
+// *** ft_cells.c ***
+
+t_init		**ft_fill(char **stat, t_coord size, t_coord now, t_init **game);
+t_init		*ft_flood(t_init *game);
+
+// *** ft_check_game.c ***
+
+int			ft_check_obj(t_cell checked, t_cell objects);
+int			ft_check_obj_nbr(t_cell objects);
+int			ft_check_form(t_init *game);
+int			ft_check_borders(t_init *game);
+
 // *** ft_check_tools.c ***
 
+int 		ft_check_failed(t_init *game, t_cell objects);
+int			ft_check_ber(char *file);
+void		ft_check_empty_line(t_init game, char *line);
+t_init		**ft_check_cell(t_init	**game, char check);
+int			ft_key_check(t_init *game);
 
+// *** ft_drawing_moves.c ***
+
+void		ft_ship_go_up(t_init *game, t_coord p, int step);
+void		ft_ship_go_down(t_init *game, t_coord p, int step);
+void		ft_ship_go_right(t_init *game, t_coord p, int step);
+void		ft_ship_go_left(t_init *game, t_coord p, int step);
 
 // *** ft_drawing_tools.c ***
 
+t_map		*ft_add_line(char *line);
+void		ft_last_line(t_init *game, t_map *new);
+void		ft_drawing_map(t_init *game);
+void		ft_drawing_imgs(t_init *game, char img, t_coord p);
+void		ft_drawing_ship(t_init *game, t_coord p);
 
+// *** ft_free_tools.c ***
+
+void		ft_free_all(t_init *game, int error);
+void		ft_free_stack(t_map **stack);
+void		ft_free_txt(t_init **game);
+void		ft_free_img(t_init **game);
+char		**free_status_a(char **status_a, int size);
 
 // *** ft_initialize.c ***
 
-
+t_init		*ft_initialize_game(t_init *init);
+int			ft_start_map(char *path);
+t_map		*ft_map_init(t_init *game);
+void		ft_init_txts(t_init *game);
+void		ft_init_imgs(t_init *game);
 
 // *** ft_materials.c ***
 
+t_init		*ft_find_ship(t_init *ship);
+void		ft_objs_init(t_cell *obj);
+t_cell		ft_count_obj(t_map *map);
 
+// *** ft_mlx_init.c ***
+
+void		ft_mlx_init(t_init *gm);
 
 // *** ft_moves.c ***
 
-void	ft_key_press(struct mlx_key_data key_data, void *param);
-//The ft_key_press() function is used to handle the key press of the player.
+void		ft_move_ship_right(t_init *game, int y, int x);
+void		ft_move_ship_left(t_init *game, int y, int x);
+void		ft_move_ship_up(t_init *game, int y, int x);
+void		ft_move_ship_down(t_init *game, int y, int x);
 
 // *** ft_tools.c ***
 
-
+void		ft_map_error(char *str);
+int			ft_map_x(t_map *width);
+int			ft_map_y(t_map *height);
+void		ft_game_over_(void);
 
 // *** so_long.c ***
 
+char		**ft_status_map(t_init *game);
+void		ft_key_press(struct mlx_key_data key_data, void *date);
+int			ft_map(t_init **game);
+//int			main(int argc, char **argv);
 
-#endif
+#endif;

@@ -86,13 +86,13 @@ void	ft_drawing_imgs(t_init *game, char img, t_coord p)
 void	ft_drawing_ship(t_init *game, t_coord p)
 {
 	if (game->course == 'U' && game->counter > 0)
-		ft_move_ship_up(game, p, game->counter);
+		ft_ship_go_up(game, p, game->counter);
 	else if (game->course == 'D' && game->counter > 0)
-		ft_move_ship_down(game, p, game->counter);
+		ft_ship_go_down(game, p, game->counter);
 	else if (game->course == 'R' && game->counter > 0)
-		ft_move_ship_right(game, p, game->counter);
+		ft_ship_go_right(game, p, game->counter);
 	else if (game->course == 'L' && game->counter > 0)
-		ft_move_ship_left(game, p, game->counter);
+		ft_ship_go_left(game, p, game->counter);
 	else
 		mlx_image_to_window(game->mlx, game->imgs.ship, p.x * 64, p.y * 64);
 }
