@@ -75,38 +75,43 @@ t_map	*ft_map_init(t_init *game)
 	return (game->map);
 }
 
-/*
-The function ft_initialize_init() initializes the variables of the game.
-The function receives a pointer to the structure t_init and returns a pointer 
-to the structure t_init. It initializes the variables of the game to NULL or 0.
-It returns the pointer to the structure t_init.
-*/
+void	ft_init_txts(t_init *game)
+{
+	game->txts.wall = mlx_load_png("./imgs/wall.png");
+	game->txts.ocean = mlx_load_png("./imgs/ocean.png");
+	game->txts.ship = mlx_load_png("./imgs/ship.png");
+	game->txts.ship_u = mlx_load_png("./imgs/ship_U.png");
+	game->txts.ship_d = mlx_load_png("./imgs/ship_D.png");
+	game->txts.ship_l = mlx_load_png("./imgs/ship_L.png");
+	game->txts.ship_r = mlx_load_png("./imgs/ship_R.png");
+	game->txts.shark = mlx_load_png("./imgs/shark.png");
+	game->txts.collec = mlx_load_png("./imgs/collec.png");
+	game->txts.exit_c = mlx_load_png("./imgs/exit_c.png");
+	game->txts.exit_o = mlx_load_png("./imgs/exit_o.png");
+	if (!game->txts.wall || !game->txts.ocean || !game->txts.ship
+		|| !game->txts.ship_u || !game->txts.ship_d 
+		|| !game->txts.ship_l || !game->txts.ship_r
+		|| !game->txts.shark || !game->txts.collec 
+		|| !game->txts.exit_c || !game->txts.exit_o)
+	{
+		ft_map_error("The textures could not be loaded..\n");
+		ft_free_all(game, 1);
+		exit(FAILURE);
+	}
+}
 
-
-
-
-
-
-// void	ft_initialize(t_vars *vars, char *route)
-// {
-// 	vars->start_found = 0;
-// 	vars->moves = 0;
-// 	vars->map.route = route;
-//     vars->collectibles = 0;
-//     vars->map.collectibles_possible = 0;
-// 	vars->collected = 0;
-// 	vars->won = FALSE;
-// 	vars->exit_found = 0;
-// 	vars->map.exit_possible = FALSE;
-// 	vars->exit_unlocked = FALSE;
-// }
-
-// void	ft_initialize_map(t_vars *vars, t_point *pos)
-// {
-// 	vars->map.fd = open(vars->map.route, O_RDONLY);
-// 	vars->map.grid = malloc(vars->map.g_height * sizeof(char *));
-// 	vars->map.tiles = malloc(vars->map.g_height * sizeof(t_tile *));
-// 	pos->x = 0;
-// 	pos->y = 0;
-// }
+void	ft_init_imgs(t_init *game)
+{
+	game->imgs.wall = mlx_texture_to_imgs(game->mlx, game->txts.wall);
+	game->imgs.ocean = mlx_texture_to_imgs(game->mlx, game->txts.ocean);
+	game->imgs.ship = mlx_texture_to_imgs(game->mlx, game->txts.ship);
+	game->imgs.ship_d = mlx_texture_to_imgs(game->mlx, game->txts.ship_d);
+	game->imgs.ship_l = mlx_texture_to_imgs(game->mlx, game->txts.ship_l);
+	game->imgs.ship_r = mlx_texture_to_imgs(game->mlx, game->txts.ship_r);
+	game->imgs.ship_u = mlx_texture_to_imgs(game->mlx, game->txts.ship_u);
+	game->imgs.shark = mlx_texture_to_imgs(game->mlx, game->txts.shark);
+	game->imgs.collec = mlx_texture_to_imgs(game->mlx, game->txts.collec);
+	game->imgs.exit_c = mlx_texture_to_imgs(game->mlx, game->txts.exit_c);
+	game->imgs.exit_o = mlx_texture_to_imgs(game->mlx, game->txts.exit_o);
+}
 

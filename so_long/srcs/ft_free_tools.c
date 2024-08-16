@@ -54,28 +54,28 @@ void	ft_free_stack(t_map **stack)
 
 void	ft_free_txt(t_init **game)
 {
-	mlx_delete_texture((*game)->textures.ocean);
-	(*game)->textures.ocean = NULL;
-	mlx_delete_texture((*game)->textures.wall);
-	(*game)->textures.wall = NULL;    
- 	mlx_delete_texture((*game)->textures.collec);
-	(*game)->textures.collec = NULL;
-	mlx_delete_texture((*game)->textures.exit_c);
-    (*game)->textures.exit_c = NULL;
-    mlx_delete_texture((*game)->textures.exit_o);
-	(*game)->textures.exit_o = NULL;    
-    mlx_delete_texture((*game)->textures.ship);
-	(*game)->textures.ship = NULL;
-	mlx_delete_texture((*game)->textures.ship_u);
-	(*game)->textures.ship_u = NULL;
-	mlx_delete_texture((*game)->textures.ship_d);
-	(*game)->textures.ship_d = NULL;
-	mlx_delete_texture((*game)->textures.ship_l);
-	(*game)->textures.ship_l = NULL;
-	mlx_delete_texture((*game)->textures.ship_r);
-	(*game)->textures.ship_r = NULL;
-	mlx_delete_texture((*game)->textures.shark);
-	(*game)->textures.shark = NULL;
+	mlx_delete_texture((*game)->txts.ocean);
+	(*game)->txts.ocean = NULL;
+	mlx_delete_texture((*game)->txts.wall);
+	(*game)->txts.wall = NULL;    
+ 	mlx_delete_texture((*game)->txts.collec);
+	(*game)->txts.collec = NULL;
+	mlx_delete_texture((*game)->txts.exit_c);
+    (*game)->txts.exit_c = NULL;
+    mlx_delete_texture((*game)->txts.exit_o);
+	(*game)->txts.exit_o = NULL;    
+    mlx_delete_texture((*game)->txts.ship);
+	(*game)->txts.ship = NULL;
+	mlx_delete_texture((*game)->txts.ship_u);
+	(*game)->txts.ship_u = NULL;
+	mlx_delete_texture((*game)->txts.ship_d);
+	(*game)->txts.ship_d = NULL;
+	mlx_delete_texture((*game)->txts.ship_l);
+	(*game)->txts.ship_l = NULL;
+	mlx_delete_texture((*game)->txts.ship_r);
+	(*game)->txts.ship_r = NULL;
+	mlx_delete_texture((*game)->txts.shark);
+	(*game)->txts.shark = NULL;
 }
 
 void	ft_free_img(t_init **game)

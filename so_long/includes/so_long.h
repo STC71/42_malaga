@@ -102,7 +102,7 @@
 
 // *** Structure for the textures. ***
 
-typedef struct s_textures
+typedef struct s_txts
 {
 	mlx_texture_t   *ocean;
 	mlx_texture_t   *wall;
@@ -119,7 +119,7 @@ typedef struct s_textures
 	//mlx_texture_t   *shark_d;
 	// mlx_texture_t   *shark_l;
 	// mlx_texture_t   *shark_r;
-} t_textures;
+} t_txts;
 
 //The textures are created to store the texture of the game. The textures 
 //are used to give the visual aspect of the objects in the game.
@@ -199,24 +199,24 @@ typedef struct s_coord
 
 typedef struct s_init				// Structure for the game.
 {
-	mlx_t			*mlx;
-	t_textures		textures;
-	t_images		imgs;
-	t_cell			cell;
-	t_map			*map;
+	mlx_t			*mlx;			// Connection to the graphic display.
+	t_txts			txts;			// Textures of the game.
+	t_images		imgs;			// Images of the game.
+	t_cell			cell;			// Object of the game.
+	t_map			*map;			// Map of the game.
 	t_coord			ship;			// Position of the player.
 	t_coord			shark;			// Position of the enemy.
-	t_coord			size;
-	char			**status_a;
-	char			**status_b;
+	t_coord			size;			// Size in pixels of the window.
+	char			**status_a;		// Matrix of the map.
+	char			**status_b;		// Matrix of the map.
 	char			*path;			// Path to the map.
 	int				moves;			// Number of moves.
 	int				counter;		// Number of collectibles.
 	int				collec;			// Number of collectibles.
+	int				c;				// Collectibles collected.	
 	int				flag; 			// 0 = game, 1 = win, 2 = lose
 	char			course;			// Direction of the player.
-	bool			walking;
-	//int				counter;
+	bool			walking;		// Walking or not.
 }	t_init;
 
 //The game structure is used to store the information of the game.

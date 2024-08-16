@@ -22,9 +22,9 @@ void	ft_mlx_init(t_init *gm)
 		ft_free_all(gm, 1);
 		exit(FAILURE);
 	}
-	load_textures(gm);		// ***** VOY POR AQUÍ *****
-	create_images_from_textures(gm);
-	build_map(gm);
+	ft_init_txts(gm);
+	ft_init_imgs(gm);
+	ft_drawing_map(gm);	// ***** VOY POR AQUÍ *****
 	gm->imgs.ship = NULL;
 	mlx_key_hook(gm->mlx, ft_key_press, gm);
 	mlx_loop(gm->mlx);

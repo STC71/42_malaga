@@ -38,12 +38,19 @@ t_init	*ft_find_ship(t_init *ship)
 	return (ship);
 }
 
+void ft_objs_init(t_cell *obj)
+{
+    obj->ship = 0;
+	obj->collec = 0;
+    obj->exit = 0;
+}
+
 t_cell	ft_count_obj(t_map *map)
 {
 	t_cell	obj;
 	int		i;
 
-	initialize_obj(&obj); // ***** VOY POR AQUÍ *****
+	ft_objs_init(&obj);
 	while (map)
 	{
 		i = 0;
