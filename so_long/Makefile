@@ -50,9 +50,24 @@ SRC_FILES 		= so_long.c \
 					ft_materials.c \
 					ft_mlx_init.c \
 					ft_initialize.c \
+					ft_free_tools.c \
 					ft_drawing_tools.c \
+					ft_drawing_moves.c \
+					ft_check_game.c \
+					ft_cells.c \
 					ft_check_tools.c 
-#SRC_BONUS_FILES = $(SRC_BONUS_DIR)/main.c $(SRC_BONUS_DIR)/bonus_file.c
+SRC_BONUS_FILES = so_long_bonus.c \
+					ft_tools_bonus.c \
+					ft_moves_bonus.c \
+					ft_materials_bonus.c \
+					ft_mlx_init_bonus.c \
+					ft_initialize_bonus.c \
+					ft_free_tools_bonus.c \
+					ft_drawing_tools_bonus.c \
+					ft_drawing_moves_bonus.c \
+					ft_check_game_bonus.c \
+					ft_cells_bonus.c \
+					ft_check_tools_bonus.c 
 
 OBJS 			= $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 OBJS_BONUS 		= $(addprefix $(OBJ_BONUS_DIR)/, $(SRC_BONUS_FILES:.c=.o))
@@ -116,7 +131,7 @@ fclean: clean
 	@echo "$(RED)Cleaning:$(DEF_COLOR) $(LIBFT)/libft.a"
 	@echo "$(RED)Cleaning:$(DEF_COLOR) $(FT_PRINTF)/libftprintf.a"
 	@echo "$(RED)Cleaning:$(DEF_COLOR) $(MLX42)/lib/libmlx42.a"
-	$(RM) $(NAME) $(BONUS_NAME)
+	@$(RM) $(NAME) $(BONUS_NAME)
 	@echo "$(GREEN)Cleaned:$(DEF_COLOR) $(NAME) $(BONUS_NAME) $(LIBFT)/libft.a $(FT_PRINTF)/libftprintf.a $(MLX42)/lib/libmlx42.a"
 
 # ***** RE RULES *********************************************************** #

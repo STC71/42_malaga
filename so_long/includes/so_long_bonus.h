@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H           // If the header file has not been included.
-# define SO_LONG_H          // Define the header file.
+#ifndef SO_LONG_BONUS_H           // If the header file has not been included.
+# define SO_LONG_BONUS_H          // Define the header file.
 
 # include <stdio.h>         // Standard input/output definitions.
 # include <fcntl.h>         // File control options. Used for open().

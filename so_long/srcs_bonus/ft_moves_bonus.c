@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_moves.c                                         :+:      :+:    :+:   */
+/*   ft_moves_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "../includes/so_long_bonus.h"
+
+void	ft_moves_win(t_init *game)
+{
+	char	*counter;
+
+	counter = ft_itoa(game->moves);
+	mlx_put_string(game->mlx, "Moves: ", 25, 20);
+	mlx_put_string(game->mlx, counter, 95, 20);
+}
 
 void	ft_move_ship_right(t_init *game, int y, int x)
 {
@@ -33,6 +42,7 @@ void	ft_move_ship_right(t_init *game, int y, int x)
 	game->counter++;
 	game->course = 'R';
 	game->walking = true;
+	ft_moves_win(game);
 	ft_printf("Total moves: %s%d\n%s", RED, game->moves, RESET);
 	ft_drawing_imgs(game, game->status_a[y][x], coord);
 	coord.x++;
@@ -61,6 +71,7 @@ void	ft_move_ship_left(t_init *game, int y, int x)
 	game->counter++;
 	game->course = 'L';
 	game->walking = true;
+	ft_moves_win(game);
 	ft_printf("Total moves: %s%d\n%s", RED, game->moves, RESET);
 	ft_drawing_imgs(game, game->status_a[y][x], coord);
 	coord.x--;
@@ -89,6 +100,7 @@ void	ft_move_ship_up(t_init *game, int y, int x)
 	game->counter++;
 	game->course = 'U';
 	game->walking = true;
+	ft_moves_win(game);	
 	ft_printf("Total moves: %s%d\n%s", RED, game->moves, RESET);
 	ft_drawing_imgs(game, game->status_a[y][x], coord);
 	coord.y--;
@@ -117,6 +129,7 @@ void	ft_move_ship_down(t_init *game, int y, int x)
 	game->counter++;
 	game->course = 'D';
 	game->walking = true;
+	ft_moves_win(game);	
 	ft_printf("Total moves: %s%d\n%s", RED, game->moves, RESET);
 	ft_drawing_imgs(game, game->status_a[y][x], coord);
 	coord.y++;
