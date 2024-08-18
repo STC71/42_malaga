@@ -306,6 +306,7 @@ void		ft_mlx_init(t_init *gm);
 
 // *** ft_moves.c ***
 
+void		ft_moves_win(t_init *game);
 void		ft_move_ship_right(t_init *game, int y, int x);
 void		ft_move_ship_left(t_init *game, int y, int x);
 void		ft_move_ship_up(t_init *game, int y, int x);
@@ -316,6 +317,7 @@ void		ft_move_ship_down(t_init *game, int y, int x);
 void		ft_map_error(char *str);
 int			ft_map_x(t_map *width);
 int			ft_map_y(t_map *height);
+void		ft_the_end(t_init *game);
 void		ft_game_over_(void);
 
 // *** so_long.c ***

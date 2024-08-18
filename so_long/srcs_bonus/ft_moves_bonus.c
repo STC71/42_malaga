@@ -16,9 +16,10 @@ void	ft_moves_win(t_init *game)
 {
 	char	*counter;
 
+	mlx_image_to_window(game->mlx, game->imgs.wall, 64, 1);
 	counter = ft_itoa(game->moves);
-	mlx_put_string(game->mlx, "Moves: ", 25, 20);
-	mlx_put_string(game->mlx, counter, 95, 20);
+	mlx_put_string(game->mlx, "Moves: ", 20, 20);
+	mlx_put_string(game->mlx, counter, 85, 20);
 }
 
 void	ft_move_ship_right(t_init *game, int y, int x)
@@ -29,11 +30,9 @@ void	ft_move_ship_right(t_init *game, int y, int x)
 	coord.x = x;
 	if (game->status_a[y][x + 1] == 'C')
 		game->c++;
-	else if (game->status_a[y][x + 1] == 'E' && game->c == game->collec)
-	{
-		mlx_close_window(game->mlx);
-		return ;
-	}
+	else if ((game->status_a[y][x + 1] == 'E' && game->c == game->collec) 
+		|| game->status_a[y][x + 1] == 'X')
+		ft_the_end(game);
 	else if (game->status_a[y][x + 1] == 'E')
 		return ;
 	game->moves++;
@@ -58,11 +57,9 @@ void	ft_move_ship_left(t_init *game, int y, int x)
 	coord.x = x;
 	if (game->status_a[y][x - 1] == 'C')
 		game->c++;
-	else if (game->status_a[y][x - 1] == 'E' && game->c == game->collec)
-	{
-		mlx_close_window(game->mlx);
-		return ;
-	}
+	else if ((game->status_a[y][x - 1] == 'E' && game->c == game->collec) 
+		|| game->status_a[y][x - 1] == 'X')
+		ft_the_end(game);
 	else if (game->status_a[y][x - 1] == 'E')
 		return ;
 	game->moves++;
@@ -87,11 +84,9 @@ void	ft_move_ship_up(t_init *game, int y, int x)
 	coord.x = x;
 	if (game->status_a[y - 1][x] == 'C')
 		game->c++;
-	else if (game->status_a[y - 1][x] == 'E' && game->c == game->collec)
-	{
-		mlx_close_window(game->mlx);
-		return ;
-	}
+	else if ((game->status_a[y - 1][x] == 'E' && game->c == game->collec) 
+		|| game->status_a[y - 1][x] == 'X')
+		ft_the_end(game);
 	else if (game->status_a[y - 1][x] == 'E')
 		return ;
 	game->moves++;
@@ -116,11 +111,9 @@ void	ft_move_ship_down(t_init *game, int y, int x)
 	coord.x = x;
 	if (game->status_a[y + 1][x] == 'C')
 		game->c++;
-	else if (game->status_a[y + 1][x] == 'E' && game->c == game->collec)
-	{
-		mlx_close_window(game->mlx);
-		return ;
-	}
+	else if ((game->status_a[y + 1][x] == 'E' && game->c == game->collec) 
+		|| game->status_a[y + 1][x] == 'X')
+		ft_the_end(game);
 	else if (game->status_a[y + 1][x] == 'E')
 		return ;
 	game->moves++;

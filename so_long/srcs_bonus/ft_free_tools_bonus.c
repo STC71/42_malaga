@@ -118,18 +118,3 @@ char	**ft_free_status(char **status, int len)
 	return (status);
 }
 
-// char	**free_matrix(char **matrix, int cont)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < cont)
-// 	{
-// 		free(matrix[i]);
-// 		matrix[i] = NULL;
-// 		i++;
-// 	}
-// 	free(matrix);
-// 	matrix = NULL;
-// 	return (matrix);
-// }

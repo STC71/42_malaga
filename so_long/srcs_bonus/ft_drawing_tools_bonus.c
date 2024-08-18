@@ -79,6 +79,8 @@ void	ft_drawing_imgs(t_init *game, char img, t_coord p)
 	}
 	if (img == 'C' && game->imgs.collec != NULL)
 		mlx_image_to_window(game->mlx, game->imgs.collec, p.x * 64, p.y * 64);
+	if (img == 'X' && game->imgs.shark != NULL)
+		mlx_image_to_window(game->mlx, game->imgs.shark, p.x * 64, p.y * 64);	
 	if (img == 'E' && game->imgs.exit_c != NULL)
 		mlx_image_to_window(game->mlx, game->imgs.exit_c, p.x * 64, p.y * 64);
 }

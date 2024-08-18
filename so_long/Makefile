@@ -110,7 +110,8 @@ $(FT_PRINTF)/libftprintf.a:
 
 # ***** PRINCIPAL RULES ***************************************************** #
 
-all: $(NAME) $(BONUS_NAME)
+all: 	$(NAME) $(BONUS_NAME)
+bonus: 	$(BONUS_NAME)
 
 # ***** CLEANING RULES ****************************************************** #
 

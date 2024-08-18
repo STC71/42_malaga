@@ -27,11 +27,11 @@ int	ft_check_obj(t_cell checked, t_cell objects)
 int	ft_check_obj_nbr(t_cell objects)
 {
 	if (objects.ship != 1)
-		ft_map_error(ERR_PLAYER);//return (FAILURE);
+		ft_map_error(ERR_PLAYER);
 	if (objects.collec < 1)
-		ft_map_error(ERR_COLLEC);//return (FAILURE);	
+		ft_map_error(ERR_COLLEC);
     if (objects.exit != 1)
-		ft_map_error(ERR_EXIT);//return (FAILURE);
+		ft_map_error(ERR_EXIT);
 
 	return (SUCCESS);
 }
@@ -53,7 +53,7 @@ int	ft_check_form(t_init *game)
 		{
 			if (game->status_a[j][i] != '0' && game->status_a[j][i] != WALL
 				&& game->status_a[j][i] != 'P' && game->status_a[j][i] != 'C'
-				&& game->status_a[j][i] != EXIT)
+				&& game->status_a[j][i] != 'X' && game->status_a[j][i] != EXIT)
 				return (1);
 			i++;
 		}

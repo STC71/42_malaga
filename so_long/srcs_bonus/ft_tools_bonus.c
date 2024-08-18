@@ -46,6 +46,12 @@ int	ft_map_y(t_map *height)
 	return (y);
 }
 
+void	ft_the_end(t_init *game)
+{
+	mlx_close_window(game->mlx);
+	return ;
+}
+
 void	ft_game_over_(void)
 {
 	ft_printf("\n%s", SLOW_BLINK);
