@@ -19,7 +19,7 @@ void	ft_free_all(t_init *game, int error)
 		ft_free_stack(&game->map);
 		free(game);
 	}
-    if (error == 1)
+	if (error == 1)
 	{
 		game->status_a = ft_free_status(game->status_a, game->size.y);
 		ft_free_stack(&game->map);
@@ -57,14 +57,14 @@ void	ft_free_txt(t_init **game)
 	mlx_delete_texture((*game)->txts.ocean);
 	(*game)->txts.ocean = NULL;
 	mlx_delete_texture((*game)->txts.wall);
-	(*game)->txts.wall = NULL;    
- 	mlx_delete_texture((*game)->txts.collec);
+	(*game)->txts.wall = NULL;
+	mlx_delete_texture((*game)->txts.collec);
 	(*game)->txts.collec = NULL;
 	mlx_delete_texture((*game)->txts.exit_c);
-    (*game)->txts.exit_c = NULL;
-    mlx_delete_texture((*game)->txts.exit_o);
-	(*game)->txts.exit_o = NULL;    
-    mlx_delete_texture((*game)->txts.ship);
+	(*game)->txts.exit_c = NULL;
+	mlx_delete_texture((*game)->txts.exit_o);
+	(*game)->txts.exit_o = NULL;
+	mlx_delete_texture((*game)->txts.ship);
 	(*game)->txts.ship = NULL;
 	mlx_delete_texture((*game)->txts.ship_u);
 	(*game)->txts.ship_u = NULL;
@@ -81,7 +81,7 @@ void	ft_free_txt(t_init **game)
 void	ft_free_img(t_init **game)
 {
 	mlx_delete_image((*game)->mlx, (*game)->imgs.ocean);
-	(*game)->imgs.ocean = NULL;	
+	(*game)->imgs.ocean = NULL;
 	mlx_delete_image((*game)->mlx, (*game)->imgs.wall);
 	(*game)->imgs.wall = NULL;
 	mlx_delete_image((*game)->mlx, (*game)->imgs.collec);
@@ -90,7 +90,7 @@ void	ft_free_img(t_init **game)
 	(*game)->imgs.exit_c = NULL;
 	mlx_delete_image((*game)->mlx, (*game)->imgs.exit_o);
 	(*game)->imgs.exit_o = NULL;
-    mlx_delete_image((*game)->mlx, (*game)->imgs.ship);
+	mlx_delete_image((*game)->mlx, (*game)->imgs.ship);
 	(*game)->imgs.ship = NULL;
 	mlx_delete_image((*game)->mlx, (*game)->imgs.ship_u);
 	(*game)->imgs.ship_u = NULL;
@@ -117,4 +117,3 @@ char	**ft_free_status(char **status, int len)
 	}
 	return (status);
 }
-

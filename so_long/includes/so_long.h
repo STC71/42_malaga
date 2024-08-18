@@ -18,8 +18,6 @@
 # include <unistd.h>        // Used for read() and close().
 # include <stdlib.h>        // General utilities.
 # include <stdarg.h>        // VA. To use va_list, va_start, va_arg, va_end.
-
-
 # include "../ft_printf/ft_printf.h"        // Custom printf function.
 # include "../libft/libft.h"                // Custom library functions.
 # include "../MLX42/include/MLX42/MLX42.h"  // MLX42 library.
@@ -40,7 +38,7 @@
 
 # define TRUE 1             // Boolean true. 
 # define FALSE 0            // Boolean false.
-# define BOOL short int     // Boolean type. Value can be TRUE or FALSE.
+# define BOOL 			    // Boolean type. Value can be TRUE or FALSE.
 
 // *** Colors for the terminal. ***
 
@@ -81,6 +79,7 @@
 # define ERR_BORDER "The map must be surrounded by walls.\n"
 # define ERR_LINE "Empty line has been detected in the file.\n"
 # define ERR_GENERAL "Map or objects failed.\n"
+
 // *** Return values. ***
 
 # define ERROR -1       // Error return value. Used for error handling.
@@ -110,22 +109,22 @@
 
 typedef struct s_txts
 {
-	mlx_texture_t   *ocean;
-	mlx_texture_t   *wall;
-	mlx_texture_t   *collec;
-	mlx_texture_t   *exit_c;
-	mlx_texture_t   *exit_o;
-	mlx_texture_t   *ship;
-	mlx_texture_t   *ship_u;
-	mlx_texture_t   *ship_d;
-	mlx_texture_t   *ship_l;
-	mlx_texture_t   *ship_r;
-	mlx_texture_t   *shark;
+	mlx_texture_t	*ocean;
+	mlx_texture_t	*wall;
+	mlx_texture_t	*collec;
+	mlx_texture_t	*exit_c;
+	mlx_texture_t	*exit_o;
+	mlx_texture_t	*ship;
+	mlx_texture_t	*ship_u;
+	mlx_texture_t	*ship_d;
+	mlx_texture_t	*ship_l;
+	mlx_texture_t	*ship_r;
+	mlx_texture_t	*shark;
 	//mlx_texture_t   *shark_u;
 	//mlx_texture_t   *shark_d;
 	// mlx_texture_t   *shark_l;
 	// mlx_texture_t   *shark_r;
-} t_txts;
+}	t_txts;
 
 //The textures are created to store the texture of the game. The textures 
 //are used to give the visual aspect of the objects in the game.
@@ -149,7 +148,7 @@ typedef struct s_images
 	// mlx_image_t		*shark_d;
 	// mlx_image_t		*shark_l;
 	// mlx_image_t		*shark_r;
-} t_images;
+}	t_images;
 
 //The images are created to store the images of the game. The images are
 //the visual objetcs that are displayed in the game.
@@ -171,8 +170,8 @@ typedef struct s_map
 typedef struct s_cell
 {
 	int	ship;
-	int shark;
-	int ocean;
+	int	shark;
+	int	ocean;
 	int	wall;
 	int	collec;
 	int	exit;
@@ -203,7 +202,7 @@ typedef struct s_coord
 
 // *** Structure for the game. ***
 
-typedef struct s_init				// Structure for the game.
+typedef struct s_init
 {
 	mlx_t			*mlx;			// Connection to the graphic display.
 	t_txts			txts;			// Textures of the game.
@@ -220,7 +219,7 @@ typedef struct s_init				// Structure for the game.
 	int				counter;		// Number of collectibles.
 	int				collec;			// Number of collectibles.
 	int				c;				// Collectibles collected.	
-	int				flag; 			// 0 = game, 1 = win, 2 = lose
+	int				flag;			// 0 = game, 1 = win, 2 = lose
 	char			course;			// Direction of the player.
 	bool			walking;		// Walking or not.
 }	t_init;
@@ -240,7 +239,6 @@ typedef struct s_init				// Structure for the game.
 //	course is used to store the direction of the player.
 //	walking is used to store if the player is walking or not.
 
-
 // *** Function prototypes. ***
 
 // *** ft_cells.c ***
@@ -257,7 +255,7 @@ int			ft_check_borders(t_init *game);
 
 // *** ft_check_tools.c ***
 
-int 		ft_check_failed(t_init *game, t_cell objects);
+int			ft_check_failed(t_init *game, t_cell objects);
 int			ft_check_ber(char *file);
 void		ft_check_empty_line(t_init *game, char *line);
 t_init		**ft_check_cell(t_init	**game, char check);

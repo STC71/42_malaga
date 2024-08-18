@@ -71,7 +71,7 @@ int	ft_map(t_init **game)
 		free(tmp);
 		return (1);
 	}
-	tmp->size.x = ft_map_x(tmp->map); 	
+	tmp->size.x = ft_map_x(tmp->map);
 	tmp->size.y = ft_map_y(tmp->map);
 	tmp->status_a = ft_status_map(tmp);
 	if (!tmp->status_a)
@@ -107,7 +107,7 @@ int	main(int argc, char **argv)
 			ft_map_error(ERR_FILE);
 			return (FAILURE);
 		}
-		i = ft_start_map(argv[1]); 
+		i = ft_start_map(argv[1]);
 		if (i == 1)
 			return (FAILURE);
 	}

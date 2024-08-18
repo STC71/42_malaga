@@ -60,4 +60,3 @@ void	ft_game_over_(void)
 	ft_printf("%s╚═╝╩ ╩╩ ╩╚═╝  ╚═╝ ╚╝ ╚═╝╩╚═\n", DARK_BLUE);
 	ft_printf("%s\n", RESET);
 }
-

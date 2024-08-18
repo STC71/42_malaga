@@ -38,8 +38,8 @@ int	ft_check_ber(char *file)
 	size_t	len;
 
 	len = ft_strlen(file);
-	if ((file[len-4] != '.' || file[len -3] != 'b' 
-		|| file[len -2] != 'e' || file[len -1] != 'r'))
+	if ((file[len - 4] != '.' || file[len - 3] != 'b'
+			|| file[len -2] != 'e' || file[len -1] != 'r'))
 		return (FAILURE);
 	return (SUCCESS);
 }

@@ -33,6 +33,7 @@ void	ft_ship_go_down(t_init *game, t_coord p, int step)
 		mlx_image_to_window(game->mlx, game->imgs.ship_d,
 			p.x * 64, p.y * 64);
 }
+
 void	ft_ship_go_right(t_init *game, t_coord p, int step)
 {
 	mlx_delete_image(game->mlx, game->imgs.ship);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_initialize_bonus.c                                    :+:      :+:    :+:   */
+/*   ft_initialize_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,20 +14,20 @@
 
 t_init	*ft_initialize_game(t_init *init)
 {
-	init->mlx = NULL;	
+	init->mlx = NULL;
 	init->path = NULL;
 	init->map = NULL;
 	init->status_a = NULL;
 	init->status_b = 0;
 	init->ship.x = 0;
 	init->ship.y = 0;
-	init->size.x = 0;	
+	init->size.x = 0;
 	init->size.y = 0;
 	init->moves = 0;
 	init->c = 0;
 	init->counter = 0;
 	init->collec = 0;
-	init->flag = 0;	
+	init->flag = 0;
 	return (init);
 }
 
@@ -90,9 +90,9 @@ void	ft_init_txts(t_init *game)
 	game->txts.exit_c = mlx_load_png("./imgs/exit_c.png");
 	game->txts.exit_o = mlx_load_png("./imgs/exit_o.png");
 	if (!game->txts.wall || !game->txts.ocean || !game->txts.ship
-		|| !game->txts.ship_u || !game->txts.ship_d 
+		|| !game->txts.ship_u || !game->txts.ship_d
 		|| !game->txts.ship_l || !game->txts.ship_r
-		|| !game->txts.shark || !game->txts.collec 
+		|| !game->txts.shark || !game->txts.collec
 		|| !game->txts.exit_c || !game->txts.exit_o)
 	{
 		ft_map_error("The textures could not be loaded..\n");
@@ -115,4 +115,3 @@ void	ft_init_imgs(t_init *game)
 	game->imgs.exit_c = mlx_texture_to_image(game->mlx, game->txts.exit_c);
 	game->imgs.exit_o = mlx_texture_to_image(game->mlx, game->txts.exit_o);
 }
-

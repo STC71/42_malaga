@@ -123,4 +123,3 @@ void	ft_move_ship_down(t_init *game, int y, int x)
 	game->walking = false;
 	ft_drawing_imgs(game, game->status_a[y + 1][x], coord);
 }
-

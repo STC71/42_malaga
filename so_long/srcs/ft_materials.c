@@ -18,7 +18,7 @@ t_init	*ft_find_ship(t_init *ship)
 	int		j;
 
 	j = 1;
-	ship->ship.x = 0;	
+	ship->ship.x = 0;
 	ship->ship.y = 0;
 	while (j < ship->size.y)
 	{
@@ -38,11 +38,11 @@ t_init	*ft_find_ship(t_init *ship)
 	return (ship);
 }
 
-void ft_objs_init(t_cell *obj)
+void	ft_objs_init(t_cell *obj)
 {
-    obj->ship = 0;
+	obj->ship = 0;
 	obj->collec = 0;
-    obj->exit = 0;
+	obj->exit = 0;
 }
 
 t_cell	ft_count_obj(t_map *map)
@@ -68,4 +68,3 @@ t_cell	ft_count_obj(t_map *map)
 	}
 	return (obj);
 }
-

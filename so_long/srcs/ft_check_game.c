@@ -16,23 +16,21 @@ int	ft_check_obj(t_cell checked, t_cell objects)
 {
 	if (checked.ship != objects.ship)
 		return (FAILURE);
-    if (checked.collec != objects.collec)
+	if (checked.collec != objects.collec)
 		return (FAILURE);
 	if (checked.exit != objects.exit)
 		return (FAILURE);
-
 	return (SUCCESS);
 }
 
 int	ft_check_obj_nbr(t_cell objects)
 {
 	if (objects.ship != 1)
-		ft_map_error(ERR_PLAYER);//return (FAILURE);
+		ft_map_error(ERR_PLAYER);
 	if (objects.collec < 1)
-		ft_map_error(ERR_COLLEC);//return (FAILURE);	
-    if (objects.exit != 1)
-		ft_map_error(ERR_EXIT);//return (FAILURE);
-
+		ft_map_error(ERR_COLLEC);
+	if (objects.exit != 1)
+		ft_map_error(ERR_EXIT);
 	return (SUCCESS);
 }
 
@@ -91,4 +89,3 @@ int	ft_check_borders(t_init *game)
 	}
 	return (SUCCESS);
 }
-
