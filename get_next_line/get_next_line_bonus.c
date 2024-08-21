@@ -31,6 +31,8 @@ char	*ft_strchr(char *str, int c)
 	i = 0;
 	if (!str)
 		return (0);
+	if (c == '\0')
+		return ((char *)&str[ft_len(str)]);
 	while (str[i])
 	{
 		if (str[i] == (char) c)
@@ -124,7 +126,9 @@ char	*get_next_line(int fd)
 
 /*
 To compile the program, run the following command:
-	gcc -Wall -Wextra -Werror get_next_line_bonus.c get_next_line_utils_bonus.c -o gnl_bonus
+
+gcc -Wall -Wextra -Werror get_next_line_bonus.c get_next_line_utils_bonus.c get_next_line_bonus.h -o gnl_bonus
+
 To run the program, run the following command:
 	./gnl_bonus file1 file2 ...
 	./gnl_bonus txt01.txt txt02.txt txt 03.txt

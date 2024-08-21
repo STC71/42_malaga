@@ -47,7 +47,7 @@ char	*get_next_line(int fd)
 	char		*out;
 	static char	*str;
 
-	if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) == -1)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 	{
 		free (str);
 		str = NULL;
@@ -83,6 +83,19 @@ char	*get_next_line(int fd)
 	}
 	return (0);
 }*/
+
+/*To compile the program, use the following command:
+
+gcc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c get_next_line.h -o gnl
+
+To execute the program, use the following command:
+
+./gnl txt01.txt
+./gnl txt02.txt
+./gnl txt03.txt
+
+Replace file1, file2, etc. with the names of the files you want to read.
+*/
 
 /*The function ft_len calculates the length of a null-terminated 
 	string str. It iterates through the characters of str until 

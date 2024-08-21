@@ -14,28 +14,28 @@
 
 char	*ft_strjoin(char *str1, char *str2)
 {
-	size_t		*i;
+	size_t		i;
+	size_t		j;
 	char		*out;
 
-	i = 0;
 	if (!str1)
 	{
-		str1 = (char *)malloc(sizeof(char));
+		str1 = (char *)malloc(sizeof(char) * 1);
 		str1[0] = '\0';
 	}
 	if (!str2)
 		return (NULL);
-	out = (char *)malloc((sizeof(char) * (ft_len(str1) + ft_len(str2) + 1)));
-	if (!out)
+	out = (char *)malloc(sizeof(char) * (ft_len(str1) + ft_len(str2) + 1));
+	if (out == NULL)
 		return (NULL);
-	while (str1[i[0]])
-	{
-		out[i[0]] = str1[i[0]];
-		i[0]++;
-	}
-	while (str2[i[1]])
-		out[i[0]++] = str2[i[1]++];
-	out[i[0]] = '\0';
+	i = 0;
+	j = 0;
+	while (str1[i])
+		out[j++] = str1[i++];
+	i = 0;
+	while (str2[i])
+		out[j++] = str2[i++];
+	out[j] = '\0';
 	free(str1);
 	return (out);
 }
@@ -45,11 +45,11 @@ char	*ft_alloc(int fd, char *str)
 	char	*buff;
 	ssize_t	dim;
 
-	buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (NULL);
 	dim = 1;
-	while (!(ft_strchr(str, '\n')) && dim)
+	while (!(ft_strchr(str, '\n')) && dim > 0)
 	{
 		dim = read(fd, buff, BUFFER_SIZE);
 		if (dim == -1)
@@ -70,7 +70,7 @@ char	*ft_nline(char *str)
 	ssize_t	i;
 
 	i = 0;
-	if (!str)
+	if (str[i] == 0)
 		return (NULL);
 	while (str[i] && str[i] != '\n')
 		i++;
@@ -95,24 +95,25 @@ char	*ft_nline(char *str)
 char	*ft_rline(char *line)
 {
 	char	*str;
-	ssize_t	*i;
+	ssize_t	i;
+	ssize_t	j;
 
 	i = 0;
-	while (line[i[0]] && line[i[0]] != '\n')
+	while (line[i] && line[i] != '\n')
 		i++;
-	if (!line[i[0]])
+	if (!line[i])
 	{
 		free(line);
 		return (NULL);
 	}
-	str = (char *)malloc(sizeof(char) * (ft_len(line) - i[0] + 1));
+	str = (char *)malloc(sizeof(char) * (ft_len(line) - i + 1));
 	if (!str)
 		return (NULL);
-	i[0]++;
-	i[1] = 0;
-	while (line[i[0]])
-		str[i[1]++] = line[i[0]++];
-	str[i[1]] = '\0';
+	i++;
+	j = 0;
+	while (line[i])
+		str[j++] = line[i++];
+	str[j] = '\0';
 	free(line);
 	return (str);
 }
