@@ -1,0 +1,55 @@
+Assignment name  : rstr_capitalizer
+Expected files   : rstr_capitalizer.c
+Allowed functions: write
+--------------------------------------------------------------------------------
+
+Write a program that takes one or more strings and, for each argument, puts
+the last character that is a letter of each word in uppercase and the rest
+in lowercase, then displays the result followed by a \n.
+
+A word is a section of string delimited by spaces/tabs or the start/end of the
+string. If a word has a single letter, it must be capitalized.
+
+A letter is a character in the set [a-zA-Z]
+
+If there are no parameters, display \n.
+
+Examples:
+
+$> ./rstr_capitalizer | cat -e
+$
+$> ./rstr_capitalizer "a FiRSt LiTTlE TESt" | cat -e
+A firsT littlE tesT$
+$> ./rstr_capitalizer "SecONd teST A LITtle BiT   Moar comPLEX" "   But... This iS not THAT COMPLEX" "     Okay, this is the last 1239809147801 but not    the least    t" | cat -e
+seconD tesT A littlE biT   moaR compleX$
+   but... thiS iS noT thaT compleX$
+     okay, thiS iS thE lasT 1239809147801 buT noT    thE leasT    T$
+$>
+
+Nombre de la tarea: rstr_capitalizer
+Archivos esperados: rstr_capitalizer.c
+Funciones permitidas: escribir
+-------------------------------------------------- ------------------------------
+
+Escriba un programa que tome una o más cadenas y, para cada argumento, ponga
+el último carácter que es una letra de cada palabra en mayúscula y el resto
+en minúsculas, luego muestra el resultado seguido de \n.
+
+Una palabra es una sección de cadena delimitada por espacios/tabulaciones o el inicio/final de la
+cadena. Si una palabra tiene una sola letra, debe escribirse en mayúscula.
+
+Una letra es un carácter del conjunto [a-zA-Z]
+
+Si no hay parámetros, muestra \n.
+
+Ejemplos:
+
+$> ./rstr_capitalizer | cat -e
+$
+$> ./rstr_capitalizer "a FiRSt LiTTlE TESt" | cat -e
+A firsT littlE tesT$
+$> ./rstr_capitalizer "SecONd teST A LITtle BiT   Moar comPLEX" "   But... This iS not THAT COMPLEX" "     Okay, this is the last 1239809147801 but not    the least    t" | cat -e
+seconD tesT A littlE biT   moaR compleX$
+   but... thiS iS noT thaT compleX$
+     okay, thiS iS thE lasT 1239809147801 buT noT    thE leasT    T$
+$>
