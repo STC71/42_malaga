@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_point_flood_fill.h                               :+:      :+:    :+:   */
+/*   flood_fill.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef T_POINT_FLOOD_FILL
-# define T_POINT_FLOOD_FILL
+#ifndef FLOOD_FILL
+# define FLOOD_FILL
+
+#include <stdlib.h>     // for malloc
+#include <stdio.h>      // for printf
 
 typedef struct  s_point
 {
