@@ -128,5 +128,5 @@ Estos valores pueden variar dependiendo del sistema y la implementación del com
 pero generalmente en sistemas de 32 bits:
 
 - `INT_MAX` suele ser `2147483647`.
-- `INT_MIN` suele ser `-2147483648`.
+- `INT_MIN` suele ser `-2147483647`.
 */
