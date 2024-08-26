@@ -1,0 +1,32 @@
+Assignment name  : sort_int_tab
+Expected files   : sort_int_tab.c
+Allowed functions:
+--------------------------------------------------------------------------------
+
+Write the following function:
+
+void sort_int_tab(int *tab, unsigned int size);
+
+It must sort (in-place) the 'tab' int array, that contains exactly 'size'
+members, in ascending order.
+
+Doubles must be preserved.
+
+Input is always coherent.
+
+
+Nombre de la tarea: sort_int_tab
+Archivos esperados: sort_int_tab.c
+Funciones permitidas:
+--------------------------------------------------------------------------------
+
+Escribe la siguiente función:
+
+void sort_int_tab(int *tab, unsigned int size);
+
+Debe ordenar (en el lugar) la matriz int 'tab', que contiene exactamente 'tamaño'
+miembros, en orden ascendente.
+
+Hay que conservar los dobles.
+
+Las aportaciones son siempre coherentes.
