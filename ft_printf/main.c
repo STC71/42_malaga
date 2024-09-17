@@ -14,7 +14,7 @@
 
 int	main(void)
 {
-	ft_printf("Hellodd, %s!\n", "world");
+	ft_printf("Hello, %s!\n", "world");
 	return (0);
 }
 
