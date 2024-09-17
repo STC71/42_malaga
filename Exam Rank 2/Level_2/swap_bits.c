@@ -17,6 +17,8 @@ unsigned char	swap_bits(unsigned char octet)
     return ((octet >> 4) | (octet << 4));
 }
 
+// The following code is used to test the function. it is not necessary for the exam.
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -52,9 +54,17 @@ int main (int argc, char *argv[])
 The function swap_bits takes an unsigned char as a parameter
 and swaps the 4 most significant bits with the 4 least significant bits.
 
+Example:
+$ ./swap_bits 42
+Original: 42 (binario: 00101010)
+Swapped: 168 (binario: 10101000)
+
 The main function takes a byte as a command-line argument,
 converts it to an unsigned char, and calls swap_bits.
 
 The program compiled with the following command:
 gcc -Wall -Wextra -Werror swap_bits.c -o swap_bits
+
+
+
 */

@@ -13,17 +13,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void print_bits(unsigned char octet) 
+void print_bits(unsigned char octet)  // octet = 2 = 00000010 
 {
-    unsigned char mask = 0x80; // 10000000 in binary
+    unsigned char mask = 0x80;        // mask = 10000000
 
-    while (mask > 0) 
+    while (mask > 0)            // loop through each bit of the byte (8 bits)
     {
-        if (octet & mask) 
-            printf("1");
+        if (octet & mask)       // 00000010 & 10000000 = 00000000 -> print 0
+                                // 00000010 & 01000000 = 00000000 -> print 0
+                                // 00000010 & 00100000 = 00000000 -> print 0
+                                // 00000010 & 00010000 = 00000000 -> print 0
+                                // 00000010 & 00001000 = 00000000 -> print 0
+                                // 00000010 & 00000100 = 00000000 -> print 0
+                                // 00000010 & 00000010 = 00000010 -> print 1
+                                // 00000010 & 00000001 = 00000000 -> print 0
+            printf("1");             
         else
-            printf("0");
-        mask >>= 1; // shift right by 1 bit
+            printf("0");        
+        mask >>= 1;             // mask = 01000000, 00100000, 00010000, ...
     }
 }
 
@@ -31,12 +38,12 @@ int main(int argc, char *argv[])
 {
     if (argc != 2) 
     {
-        printf("Usage: %s <byte>\n", argv[0]);
+        printf("Usage: %s <byte>\n", argv[0]); 
         return 1;
     }
 
-    unsigned char octet = (unsigned char)atoi(argv[1]);
-    print_bits(octet);
+    unsigned char octet = (unsigned char)atoi(argv[1]); // if argv[1] is 2, octet will be 2
+    print_bits(octet);                     // if argv[1] is 2, print_bits(2) will be called
 
     return 0;
 }

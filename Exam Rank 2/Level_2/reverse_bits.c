@@ -12,18 +12,27 @@
 
 #include <unistd.h>
 
-unsigned char	reverse_bits(unsigned char octet)
+unsigned char	reverse_bits(unsigned char octet) // = 5 = 00000101
 {
 	int		i = 8;
 	unsigned char	res = 0;
 
 	while (i > 0)
 	{
-		res = (res << 1) | (octet & 1);
-        octet >>= 1;
+		res = (res << 1) | (octet & 1); // i = 8 -> 00000000 | 00000001 == 00000001
+                                        // i = 7 -> 00000010 | 00000000 == 00000010
+                                        // i = 6 -> 00000100 | 00000001 == 00000101
+                                        // ...
+                                        // i = 1 -> 10100000 | 00000000 == 10100000
+
+        octet >>= 1;                    // i = 8 -> octet = 00000010
+                                        // i = 7 -> octet = 00000001
+                                        // i = 6 -> octet = 00000000
+                                        /// ...
+                                        // i = 1 -> octet = 00000000
         i--;
 	}
-	return (res);
+	return (res);       // res = 10010010
 }
 
 #include <stdio.h>

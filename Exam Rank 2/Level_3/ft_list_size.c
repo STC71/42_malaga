@@ -22,6 +22,11 @@ int ft_list_size(t_list *list)
         // the next element of the list. For example, if the list has 3 elements,
         // the function will return 1 + 1 + 1 + 0 = 3. '0' because the last 
         // element of the list is NULL.
+
+        // Devuelve 1 más el resultado de llamarse a sí misma con el puntero al
+        // siguiente elemento de la lista. Por ejemplo, si la lista tiene 3
+        // elementos, la función devolverá 1 + 1 + 1 + 0 = 3. '0' porque el
+        // último elemento de la lista es NULL.
 }
 
 /*

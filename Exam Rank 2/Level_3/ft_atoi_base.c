@@ -36,7 +36,7 @@ int	get_digit(char c, int str_base)
 		return (c - '0');
 		// If c = '9'; c - '0' = '9' - '0' = 9
 		// convert char to int in base 10
-	else if (c >= '0' && c <= '9' && c <= max)
+	else if (c >= 'a' && c <= 'f' && c <= max)
 		return (10 + c - 'a');
 		// If c = '9' and max = '9'; 
 		// 10 + c - 'a' = 10 + '9' - 'a' = 10 + 9 - 10 = 9

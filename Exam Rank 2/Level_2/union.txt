@@ -25,3 +25,11 @@ $>
 $>./union "rien" | cat -e
 $
 $>
+
+Escriba un programa que tome dos cadenas y muestre, sin dobles, el
+caracteres que aparecen en cualquiera de las cadenas.
+
+La pantalla se mostrará en el orden en que aparecen los caracteres 
+en la línea de comando e irá seguido de un \n.
+
+Si el número de argumentos no es 2, el programa muestra \n.

@@ -35,8 +35,6 @@ void repeat_alpha(char *str)
     }
 }
 
-// Do not include the main function when submitting to examshell.
-
 int main(int argc, char **argv)
 {
     if (argc == 2)
@@ -55,6 +53,6 @@ a number of times equal to its position in the alphabet.
 
 If the number of arguments is not equal to 2, the program does nothing. 
 
-The program is compiled with the following command:
-gcc -Wall -Wextra -Werror repeat_alpha.c -o repeat_alpha
+The program is compiled and runed with the following command:
+gcc -Wall -Wextra -Werror repeat_alpha.c -o repeat_alpha; ./repeat_alpha "Hello, World!"
 */

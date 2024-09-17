@@ -104,9 +104,9 @@ La función Flood_fill tendrá un prototipo de esta manera:
 
 La estructura t_point tiene un prototipo así:
 
-  estructura typedef s_point
+  typedef struct 	s_point
   {
-    intx;
-    int y;
-  } t_point;
+    int 	x;
+    int 	y;
+  } 	t_point;
   

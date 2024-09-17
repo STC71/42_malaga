@@ -74,4 +74,16 @@ Finally, the program prints the union string and returns 0.
 
 The program compiled with the following command:
 gcc -Wall -Wextra -Werror union.c -o union
+
+El programa toma dos cadenas como argumentos de línea de comandos e imprime
+los caracteres que aparecen en cualquiera de las cadenas.
+
+El programa primero verifica si el número de argumentos es correcto.
+Si no, imprime un mensaje de uso y devuelve 1.
+
+El programa luego itera sobre la primera cadena, agregando cada carácter
+a una cadena de unión.
+
+El programa luego itera sobre la segunda cadena, agregando cada carácter
+a la cadena de unión si aún no está presente.
 */

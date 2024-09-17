@@ -22,6 +22,8 @@ int    ft_strcmp(char *s1, char *s2)
     return (s1[i] - s2[i]);
 }
 
+// Then main fuction is not necesary, but it is useful to test the function.
+
 #include <stdio.h>
 
 int main (int argc, char *argv[])
@@ -34,4 +36,10 @@ int main (int argc, char *argv[])
 /*
 The funtion compiles with the following flags:
 gcc -Wall -Wextra -Werror ft_strcmp.c -o ft_strcmp
+*/
+
+/* 
+The function compares the two strings s1 and s2. It returns an integer less 
+than, equal to, or greater than zero if s1 is found, respectively, to be less 
+than, to match, or be greater than s2.
 */

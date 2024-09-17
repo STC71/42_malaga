@@ -12,17 +12,17 @@
 
 #include <unistd.h>
 
-int		max(int* tab, unsigned int len)
+int		max(int* tab, unsigned int len) // tab = array, len = length
 {
-    int result;
-	unsigned int i = 0;
+    int result;                 // result = variable to store the maximum value
+	unsigned int i = 0;         // i = variable to iterate through the array
 	
 	if (len == 0)
 		return (0);
 	result = tab[i];
 	while(i < len)
 	{
-		if (result <  tab[i])
+		if (result < tab[i])
 			result = tab[i];
 		i++;
 	}

@@ -19,14 +19,13 @@ void rev_print (char *str)
     i = 0;
     while (str[i])
         i++;
+    i--;
     while (i >= 0)
     {
-        write (1, &str[i],1 );
+        write (1, &str[i], 1);
         i--;
     }
 }
-
-// Do not include the main function when submitting to examshell.
 
 int main (int argc, char **argv)
 {
@@ -45,6 +44,6 @@ function is called with the string as an argument.
 The rev_print function prints the string in reverse order.
 If the number of arguments is not equal to 2, the program does nothing.
 
-The program is compiled with the following command:
-gcc -Wall -Wextra -Werror rev_print.c -o rev_print
+The program is compiled and runed with the following command:
+gcc -Wall -Wextra -Werror rev_print.c -o rev_print; ./rev_print "Hello, World!"
 */

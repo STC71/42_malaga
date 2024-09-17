@@ -31,3 +31,6 @@ int main(int argc, char **argv)
     write(1, "\n", 1);
     return (0);
 }
+
+// Compile and run with the following commands:
+// gcc -Wall -Wextra -Werror ft_putstr.c -o ft_putstr; ./ft_putstr "Hello, World!"

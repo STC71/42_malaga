@@ -42,3 +42,6 @@ character in the string. The write function then prints the string to
 standard output. If the number of arguments is not equal to 2, the program
 does nothing. The program is compiled with the following command:
 gcc -Wall -Wextra -Werror ft_strlen.c -o ft_strlen*/
+
+// To compile and run:
+// gcc -Wall -Wextra -Werror ft_strlen.c -o ft_strlen; ./ft_strlen "Hello, World!"

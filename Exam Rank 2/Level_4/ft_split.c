@@ -49,7 +49,8 @@ char	**ft_split(char *str)           // *str = "Hello world, from 42 Málaga"
 	char **out = (char **)malloc(sizeof(char *) * (wc + 1));
 	// malloc = 5 (words) + 1 (null pointer) = 6 * sizeof(char *) = 6 * 8 = 48 bytes
     // sizeof(char *) = 8 bytes on a 64-bit system
-    
+    if (!out)
+        return (NULL);
     i = 0;                                // reset i to 0
 	
 
@@ -66,6 +67,8 @@ char	**ft_split(char *str)           // *str = "Hello world, from 42 Málaga"
 		if (i > j)
 		{
 			out[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
+            if (!out[k])
+                return (NULL);
             // We reserve memory for the word + 1 byte for the null character.
             // sizeof(char) = 1 byte on a 64-bit system 
             // 5 + 1 = 6 bytes, for the first word "Hello"

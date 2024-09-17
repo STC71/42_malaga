@@ -22,7 +22,7 @@ void	sort_int_tab(int *tab, unsigned int size)
     int tmp;
 
     while (i < (size - 1))              // to 5 3 1 4 2 => size = 5
-    {
+    {                       
         if (tab[i] > tab[i + 1])
         {
             tmp = tab[i];

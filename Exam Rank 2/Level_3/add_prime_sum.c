@@ -35,16 +35,16 @@ int	is_prime(int n) //n = 25
 {
 	int i;
 
-	i = 2;
-	if (n <= 1)
+	i = 2;				// 2 because 1 is not a prime number
+	if (n <= 1)			// because 1 and 0 are not a prime number 
 		return (0);
-	while (i * i <= n) // 2 * 2 = 4 <= 25; i = 2
+	while (i * i <= n) 	// 2 * 2 = 4 <= 25; i = 2
 	{
 		if (n % i == 0) // i = 2; n % i = 25 % 2 = 1
 						// i = 3; n % i = 25 % 3 = 1
 						// i = 4; n % i = 25 % 4 = 1
 						// i = 5; n % i = 25 % 5 = 0
-			return (0);
+			return (0); // 25 is not a prime number, because 25 % 5 = 0
 		i++;
 	}
 	return (1);

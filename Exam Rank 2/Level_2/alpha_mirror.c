@@ -37,3 +37,26 @@ int main (int argc, char **argv)
 The funtion compiles with the following flags:
 gcc -Wall -Wextra -Werror alpha_mirror.c -o alpha_mirror
 */
+
+/*
+The function changes the case of the letters in the string passed as argument.
+
+For example:
+
+If the string passed as argument is "Hello", the output will be "Svool".
+
+In this case, the function changes the case of the letters as follows:
+
+H -> S - using the formula 90(Z) - 72(H) + 65(A) = 83 = S
+e -> v - using the formula 122(z) - 101(e) + 97(a) = 118 = v
+l -> o - using the formula 122(z) - 108(l) + 97(a) = 111 = o
+...
+
+a -> z - using the formula 122(z) - 97(a) + 97(a) = 122 = z
+m -> n - using the formula 122(z) - 109(m) + 97(a) = 110 = n
+n -> m - using the formula 122(z) - 110(n) + 97(a) = 109 = m
+z -> a - using the formula 122(z) - 122(z) + 97(a) = 97 = a
+
+97 = a; 122 = z; 65 = A; 90 = Z
+
+*/

@@ -59,21 +59,21 @@ It returns 0 to the operating system.
 The program compiled with the following command:
     gcc -Wall -Wextra -Werror pgcd.c -o pgcd
 */
-// int main(int argc, char const *argv[])
+// int main(int argc, char const *argv[]) // argv[1] = 15, argv[2] = 10
 // {
 // 	int nbr1;
 // 	int nbr2;
 
 // 	if (argc == 3)
 // 	{
-// 		if ((nbr1 = atoi(argv[1])) > 0 && (nbr2 = atoi(argv[2])) > 0)
+// 		if ((nbr1 = atoi(argv[1])) > 0 && (nbr2 = atoi(argv[2])) > 0) // atoi(argv[1]) = 15, atoi(argv[2]) = 10
 // 		{
-// 			while (nbr1 != nbr2)
+// 			while (nbr1 != nbr2)        // 15 != 10
 // 			{
-// 				if (nbr1 > nbr2)
-// 					nbr1 -= nbr2;
-// 				else
-// 					nbr2 -= nbr1;
+// 				if (nbr1 > nbr2)        // 15 > 10
+// 					nbr1 -= nbr2;       // 15 - 10 = 5
+// 				else                    // 5 < 10
+// 					nbr2 -= nbr1;       // 10 - 5 = 5
 // 			}
 // 			printf("%d", nbr1);
 // 		}
