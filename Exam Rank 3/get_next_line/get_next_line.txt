@@ -1,0 +1,125 @@
+
+ARCHIVOS ESPERADOS:
+
+    get_next_line.c
+    get_next_line.h
+
+FUNCIONES PERMITIDAS:
+
+    read, free y malloc
+
+PROTOTIPO:
+
+    char *get_next_line(int fd);
+
+EL PROGRAMA:
+
+LÍNEA
+
+    Tu función debe devolver una línea que ha sido leída del descriptor de archivo 
+    pasado como parámetro. Lo que llamamos una "línea que ha sido leída" es una 
+    sucesión de 0 a n caracteres que termina con '\n' (código ASCII 0x0a) o con 
+    Fin de Archivo (EOF). La línea debe devolverse incluyendo el '\n' en caso de 
+    que haya uno al final de la línea que ha sido leída.
+
+BUFFER
+
+    Cuando hayas alcanzado el EOF, debes almacenar el buffer actual en un `char *` 
+    y devolverlo.
+
+NULL
+
+    Si el buffer está vacío, debes devolver NULL. 
+    En caso de error, devuelve NULL. 
+    Si no devuelves NULL, el puntero debe ser liberable.
+
+MEMORIA
+
+    Tu programa se compilará con la bandera -D BUFFER_SIZE=xx, que debe 
+    usarse como el tamaño del buffer para las llamadas a read en tus funciones.
+
+Tu función debe ser libre de fugas de memoria.
+
+    Cuando hayas alcanzado el EOF, tu función no debe tener memoria 
+    asignada con malloc, excepto la línea que ha sido devuelta.
+
+FUNCIÓN
+
+    Llamar a tu función get_next_line en un bucle permitirá leer el texto 
+    disponible en un descriptor de archivo línea por línea hasta el final del 
+    texto, sin importar el tamaño, ya sea del texto o de una de sus líneas.
+
+    Asegúrate de que tu función se comporta bien al leer de un archivo, de la 
+    salida estándar, de una redirección, etc.
+
+    No se hará ninguna llamada a otra función sobre el descriptor de archivo 
+    entre dos llamadas de get_next_line.
+
+ARCHIVO
+
+    Finalmente, consideramos que get_next_line tiene un comportamiento 
+    indefinido al leer de un archivo binario.
+
+---------------------------------------------------------------------------------
+
+Excepted Files:
+
+    get_next_line.c
+    get_next_line.h
+
+Allowed Functions:
+
+    read, free and malloc
+
+Prototype:
+
+    char	  *get_next_line(int fd);
+
+The Program:
+
+LINE
+
+    Your function must return a line that has been read from the file descriptor
+    passed as parameter.
+    What we call a "line that has been read" is a succesion of 0 to n characters 
+    that end with '\n' (ascii code 0x0a) or with End Of File (EOF).
+    The line should be returned including the '\n' in case there is one at the 
+    end of the line that has been read.
+
+BUFFER
+
+    When you've reached the EOF, you must store the current buffer in a char * 
+    and return it.
+
+NULL
+
+    If the buffer is empty you must return NULL.
+    In case of error return NULL.
+    In case of not returning NULL, the pointer should be free-able.
+
+MEMORY
+
+    Your program will be compiled with the flag -D BUFFER_SIZE=xx, which has 
+    to be used as the buffer size for the read calls in your functions.
+
+Your function must be memory leak free.
+
+    When you've reached the EOF, your function should keep 0 memory allocated 
+    with malloc, except the line that has been returned.
+
+FUNCTION
+
+    Calling your function get_next_line in a loop will therefore allow you to 
+    read the text avaiable on a file descriptor one line at a time until the 
+    end of the text, no matter the size or either the text or one of its lines.
+
+    Make sure that your function behaves well when it reads from a file, from 
+    the standard output, from a redirection, etc...
+
+    No call to another function will be done on the file descriptor between 2 
+    calls of get_next_line.
+
+FILE
+
+    Finally we consider that get_next_line has an undefined behaviour when 
+    reading from a binary file.
