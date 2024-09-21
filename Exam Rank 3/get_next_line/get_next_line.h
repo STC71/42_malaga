@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_H         // If the GET_NEXT_LINE_H is not defined
+# define GET_NEXT_LINE_H        // Define the GET_NEXT_LINE_H
 
-# include <unistd.h>
-# include <stdlib.h>	
-# include <stdio.h>
-# include <fcntl.h>
+# include <unistd.h>            // Include the read function
+# include <stdlib.h>	        // Include the malloc and free functions
+# include <stdio.h>             // Include the printf function and NULL
+# include <fcntl.h>             // Include the open and close functions
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
+# ifndef BUFFER_SIZE            // Define the buffer size if not already defined
+#  define BUFFER_SIZE 42        // Set the buffer size to 42 by default
+# endif                         // End of the BUFFER_SIZE definition
 
-#endif
+#endif                          // End of the GET_NEXT_LINE_H definition

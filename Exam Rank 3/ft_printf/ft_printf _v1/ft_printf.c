@@ -37,7 +37,8 @@ int putnum(long num, int base)                  // Function to print a number
 }
 
 int ptf(char *s, va_list args, int i, int n)    // Function to parse the string
-{
+{												// i : index of the character in the string
+												// n : number of characters printed
 	if (!s[i])
 		return n;						// Return the number of characters printed
 	if (s[i] == '%' && s[i + 1] == 's')		// Check for the %s format specifier

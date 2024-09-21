@@ -64,22 +64,22 @@ char	*get_next_line(int fd) 			// Function to read a line from a file
 
 int		main(int ac, char **av)
 {
-	int	fd;
+	int		fd;
 	char	*line;
 
 	if (ac == 2)
 	{
-		fd = open(av[1], O_RDONLY);
-		if (fd < 0)
+		fd = open(av[1], O_RDONLY);				// Open the file for reading
+		if (fd < 0)								// Check if the file was opened successfully
 			return (1);
-		line = get_next_line(fd);
-		while (line)
-		{
+		line = get_next_line(fd);				// Read the first line from the file
+		while (line)							// Loop to read and display each line
+		{										// from the file until the end of file
 			printf("%s\n", line);
-			free(line);
-			line = get_next_line(fd);
+			free(line);							// Free the memory allocated for the line
+			line = get_next_line(fd);			
 		}
-		close(fd);
+		close(fd);								// Close the file
 	}
 	return (0);
 }
