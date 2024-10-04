@@ -22,6 +22,7 @@
 # define ERROR_ARGS_5 "Error: Time to sleep must be at least 60 ms\n"
 # define ERROR_ARGS_6 "Error: Number of meals must be at least 1\n"
 
-
+# define FAILURE 1
+# define SUCCESS 0
 
 #endif

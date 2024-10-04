@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   messages.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-23 08:12:09 by sternero          #+#    #+#             */
-/*   Updated: 2024-09-23 08:12:09 by sternero         ###   ########.fr       */
+/*   Created: 2024-09-23 11:36:35 by sternero          #+#    #+#             */
+/*   Updated: 2024-09-23 11:36:35 by sternero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#ifndef MESSAGES_H
+# define MESSAGES_H
 
-int     main (int argc, char **argv)
-{
-    if (argc == 5 || argc == 6)
-    {
-        ft_check_args(argc, argv);
-    }
-    ft_printf("\n");
-    return (0);
-}
+// ------- Error Messages ------------------------------------------------------
+
+# define ERROR_ARGS_1 "Error: \n"
+# define ERROR_ARGS_2 "Error: \n"
+# define ERROR_ARGS_3 "Error: \n"
+# define ERROR_ARGS_4 "Error: \n"
+# define ERROR_ARGS_5 "Error: \n"
+# define ERROR_ARGS_6 "Error: \n"
+
+# define FAILURE 1
+# define SUCCESS 0
+
+#endif

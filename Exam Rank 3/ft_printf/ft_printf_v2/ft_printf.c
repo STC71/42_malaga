@@ -10,52 +10,52 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>						// Include the write function
-#include <stdarg.h>						// Include the variable arguments list
+#include <unistd.h>				// Include the write function
+#include <stdarg.h>				// Include the variable arguments list
 
-void    ft_putstr(char *str, int *len)
+void    ft_putstr(char *str, int *len)          // Function to print a string
 {
         if (!str)
                 str = "(null)";
         while (*str)
-                *len += write(1, str++, 1);
+                *len += write(1, str++, 1);     // Write one character at a time and increment the length
 }
 void    ft_putnum(long long int nbr, int base, int *len)
 {
         char    *hex;
-        hex = "0123456789abcdef";
-        if (nbr < 0)
+        hex = "0123456789abcdef";                       // Define the hexadecimal characters
+        if (nbr < 0)                                    // Check if the number is negative  
         {
-                nbr *= -1;
-                *len += write(1, "-", 1);
+                nbr *= -1;                              // Make the number positive
+                *len += write(1, "-", 1);       
         }
-        if (nbr >= base)
-                ft_putnum((nbr / base), base, len);
-        *len += write(1, &hex[nbr % base], 1);
+        if (nbr >= base)                                // Check if the number is greater than the base
+                ft_putnum((nbr / base), base, len);     // Call the function recursively to print the remaining digits
+        *len += write(1, &hex[nbr % base], 1);          // Write the character corresponding to the digit
 }
 int     ft_printf(const char *format, ...)
 {
         int     len;
-        va_list ptr;
+        va_list ptr;                                    // Define the variable arguments list
         len = 0;
-        va_start(ptr, format);
+        va_start(ptr, format);                          // Start the variable arguments list
         while (*format)
         {
-                if ((*format == '%') && *(format + 1))
+                if ((*format == '%') && *(format + 1))  // Check if the character is a format specifier and there is a character after it
                 {
-                        format++;
+                        format++;                       // Move to the next character
                         if (*format == 's')
-                                ft_putstr(va_arg(ptr, char *), &len);
+                                ft_putstr(va_arg(ptr, char *), &len);                           // Call the function to print a string
                         else if (*format == 'd' || *format == 'i')
-                                ft_putnum((long long int)va_arg(ptr, int), 10, &len);
+                                ft_putnum((long long int)va_arg(ptr, int), 10, &len);           // Call the function to print a decimal number
                         else if (*format == 'x')
-                                ft_putnum((long long int)va_arg(ptr, unsigned int), 16, &len);
+                                ft_putnum((long long int)va_arg(ptr, unsigned int), 16, &len);  // Call the function to print a hexadecimal number
                 }
                 else
-                        len += write(1, format, 1);
-                format++;
+                        len += write(1, format, 1);     // Write the character to the console
+                format++;                               // Move to the next character
         }
-        return (va_end(ptr), len);
+        return (va_end(ptr), len);                      // End the variable arguments list and return the total number of characters printed
 }
 
 // ------------------------------- TEST FUNCTION --------------------------------

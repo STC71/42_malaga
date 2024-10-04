@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-04-13 14:04:53 by sternero          #+#    #+#             */
-/*   Updated: 2024-04-13 14:04:53 by sternero         ###   ########.fr       */
+/*   Created: 2024-09-23 08:12:09 by sternero          #+#    #+#             */
+/*   Updated: 2024-09-23 08:12:09 by sternero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../includes/philo.h"
 
-size_t	ft_strlen(const char *str)
+int     main (int argc, char **argv)
 {
-	int	num;
-
-	num = 0;
-	while (str[num] != '\0')
-	{
-		num++;
-	}
-	return (num);
+    if (argc > 1)
+    {
+        ft_check_args(argc, argv);
+    }
+    //printf("\n");
+    return (0);
 }
-
-/*The strlen() function returns the number of characters that precede the
-     terminating NUL character.*/
