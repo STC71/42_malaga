@@ -15,7 +15,7 @@
 
 int putstr(char *str, int i)                    // Function to print a string
 {
-	if (!str)
+	if (!str)							// Check if the string is NULL
 		return putstr("(null)", i);		// Print "(null)" if the string is NULL
 	if (!str[i])
 		return i;						// Return the number of characters printed

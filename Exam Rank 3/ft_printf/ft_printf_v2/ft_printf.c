@@ -16,7 +16,7 @@
 void    ft_putstr(char *str, int *len)          // Function to print a string
 {
         if (!str)
-                str = "(null)";
+                str = "(null)";                 // If the string is NULL, print "(null)"
         while (*str)
                 *len += write(1, str++, 1);     // Write one character at a time and increment the length
 }

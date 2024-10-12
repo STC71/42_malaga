@@ -23,7 +23,7 @@ char	*get_next_line(int fd) 			// Function to read a line from a file
 										// and the buffer size is greater than 0
 		return (NULL);
 
-	str_buf = (char*)malloc(42000000);	// Allocate memory for the buffer
+	str_buf = malloc(42000000);			// Allocate memory for the buffer
 	if (!str_buf)						// Check if the memory allocation was 
 										// successful, if not, return NULL
 		return (NULL);
@@ -64,22 +64,22 @@ char	*get_next_line(int fd) 			// Function to read a line from a file
 
 int		main(int ac, char **av)
 {
-	int		fd;
-	char	*line;
+	int		fd;									// File descriptor
+	char	*line;								// Pointer to the line read
 
 	if (ac == 2)
 	{
 		fd = open(av[1], O_RDONLY);				// Open the file for reading
 		if (fd < 0)								// Check if the file was opened successfully
-			return (1);
+			return (1);							// Return an error code if the file could not be opened
 		line = get_next_line(fd);				// Read the first line from the file
 		while (line)							// Loop to read and display each line
 		{										// from the file until the end of file
-			printf("%s\n", line);
+			printf("%s\n", line);				// Display the line read from the file
 			free(line);							// Free the memory allocated for the line
-			line = get_next_line(fd);			
+			line = get_next_line(fd);			// Read the next line from the file
 		}
-		close(fd);								// Close the file
+		close(fd);								// Close the file after reading
 	}
 	return (0);
 }
