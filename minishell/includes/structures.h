@@ -31,8 +31,8 @@ typedef struct  s_cmd
 {
     char        *cmd;
     char        **args;
-    char        **in_cmd;
-    char        **out_cmd;
+    char        **cmd_in;
+    char        **cmd_out;
 }               t_cmd;
 
 // The structure t_cmd is used to store the commands entered by the user. It has
@@ -51,15 +51,15 @@ typedef struct s_var
 // and value. The name member stores the name of the variable, and the value
 // member stores the value of the variable.
 
-typedef struct s_pipe_redirection
+typedef struct s_pipe_redir
 {
     int         pipe;
     int         redir;
 }               t_pipe_red;
 
-// The structure t_pipe_redirection is used to store the pipe and redirection
-// flags. It has two members: pipe and redir. The pipe member is a flag that
-// indicates if the pipe is present, and the redir member is a flag that indicates
+// The structure t_pipe_redir is used to store the pipe and redirection flags.
+// It has two members: pipe and redir. The pipe member is a flag that indicates 
+// if the pipe is present, and the redir member is a flag that indicates
 // if the redirection is present.
 
 typedef struct s_minishell

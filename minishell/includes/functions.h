@@ -69,7 +69,17 @@ int     ft_check_redirection(char *str, int i);
 // the character is a '>', 2 if the character is a '<', and 0 if the character
 // is not a redirection character.
 
+int     ft_num_pipe(char *str);
+// The ft_num_pipe() function counts the number of pipe characters in a string.
+// It takes one argument: a string. It returns the number of pipe characters in
+// the string.
+
 // ------- ft_env_tools.c
+
+void    ft_breaking_lines(t_minishell *minishell);
+// The ft_breaking_lines() function breaks the command into lines. It takes a
+// pointer to a t_minishell structure as an argument. It allocates memory for
+// the commands and calls the ft_parse_command() function to parse the command.
 
 char    *ft_find_var(char *str, int i);
 // The ft_find_var() function finds the variable in the command. It takes two
@@ -102,6 +112,20 @@ void	ft_restore_dolar(char **dolar);
 // The ft_restore_dolar() function restores the dollar signs in the command. It
 // takes a pointer to a char array as an argument.
 
+// ------- ft_envp.c
+
+t_var	**ft_envp(char **envp);
+// The ft_envp() function creates a list of environment variables. It takes one
+// argument: an array of strings. It returns a pointer to a list of environment
+// variables. The function allocates memory for the list of environment 
+// variables and copies the environment variables from the array of strings to
+// the list of environment variables.
+
+// ------- ft_free_utils.c
+
+void    ft_free_cmd(t_cmd *cmd);
+// The ft_free_cmd() function frees the memory allocated for a t_cmd structure.
+
 // ------- ft_handling.c 
 
 int     ft_end_word(char *str, int i);
@@ -118,6 +142,37 @@ char    *ft_process_word(char *str, int *i);
 // The ft_process_char() function extracts a word from a string. It takes two
 // arguments: a string and a pointer to an index. It returns a pointer to the
 // word extracted from the string.
+
+void    ft_handling_inside(char **elements, int *i, t_cmd *cmds, int *inside);
+// The ft_handling_inside() function processes the input redirection command. It
+// takes four arguments: an array of elements, a pointer to an index, a pointer
+// to a t_cmd structure, and a pointer to a variable.
+
+void    ft_handling_outside(char **elements, int *i, t_cmd *cmds, int *outside);
+// The ft_handling_outside() function processes the output redirection command. 
+// It takes four arguments: an array of elements, a pointer to an index, a
+// pointer to a t_cmd structure, and a pointer to a variable.
+
+// ------- ft_mem_utils.c
+
+void    ft_mem_alloc(t_cmd **cmds, char **split_cmd);
+// The ft_mem_alloc() function allocates memory for the commands. It takes two
+// arguments: an array of t_cmd structures and an array of strings.
+
+void    ft_mem_args(t_cmd *cmd, char **split_cmd);
+// The ft_mem_args() function allocates memory for the arguments of the command.
+// It takes two arguments: a pointer to a t_cmd structure and an array of 
+// strings.
+
+void    ft_mem_out(t_cmd *cmd, char **split_cmd);
+// The ft_mem_out() function allocates memory for the output redirection 
+// command. It takes two arguments: a pointer to a t_cmd structure and an array
+// of strings.
+
+void    ft_mem_in(t_cmd *cmd, char **split_cmd);
+// The ft_mem_in() function allocates memory for the input redirection command.
+// It takes two arguments: a pointer to a t_cmd structure and an array of 
+// strings. 
 
 // ------- ft_remove.c
 
@@ -166,6 +221,12 @@ void    ft_parse_input(t_minishell *minishell);
 // tokens, and prints the tokens to the screen. It takes a pointer to a
 // t_minishell structure as an argument.
 
+void    ft_parse_command(char **cmd_break, int *i, t_cmd *struct_command);
+// The ft_parse_command() function parses the command into tokens. It takes
+// three arguments: an array of strings, a pointer to an index, and a pointer
+// to a t_cmd structure. It used to parse the command, the arguments, the input
+// redirection command, and the output redirection command.
+
 // ------- ft_struct_process.c
 
 char    *ft_process_double(char *str, int *i);
@@ -196,6 +257,14 @@ char    *ft_process_redirection_2(char *str, int *i);
 // to the word extracted from the string. The < character is used to extract the
 // word.
 
+// ------- ft_struct_start.c
+
+void    ft_struct_start(t_pipe_red *pipe_red);
+// The ft_struct_start() function initializes the pipe and redirection flags. It
+// takes one argument: a pointer to a t_pipe_red structure. It initializes the
+// pipe and redirection flags to 0. This is necessary to avoid undefined behavior
+// when the flags are used in the program.
+
 // ------- ft_token.c
 
 char    **ft_top_split(char *str);
@@ -206,5 +275,11 @@ char    *proess_tokens(char *str, int *i);
 // The process_tokens() function extracts a word from a string. It takes two
 // arguments: a string and a pointer to an index. It returns a pointer to the
 // word extracted from the string.
+
+// ------- ft_tools.c
+
+int     ft_vector_len(char **vector);
+// The ft_vector_len() function takes one argument: an array of strings. It
+// returns the number of strings in the array.
 
 #endif

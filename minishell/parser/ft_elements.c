@@ -44,6 +44,22 @@ int     ft_check_redirection(char *str, int i)
     return (0);
 }
 
+int     ft_num_pipe(char *str)
+{
+    int i;
+    int n_pipe;
+
+    i = 0;
+    n_pipe = 0;
+    while (str[i])
+    {
+        if (str[i] == '|')
+            n_pipe++;
+        i++;
+    }
+    return (n_pipe);
+}
+
 /* The ft_check_quotes() function checks if a character is a quote. It takes two
     arguments: a string and an index. It returns DQ_OPEN if the character is a
     double quote, SQ_OPEN if the character is a single quote, and NO_QUOTE if 
@@ -57,3 +73,7 @@ int     ft_check_redirection(char *str, int i)
     character. It takes two arguments: a string and an index. It returns 1 if
     the character is a '>', 2 if the character is a '<', and 0 if the character
     is not a redirection character. */
+
+/* The ft_num_pipe() function counts the number of pipe characters in a string.
+    It takes one argument: a string. It returns the number of pipe characters in
+    the string. */

@@ -12,6 +12,35 @@
 
 #include "../includes/minishell.h"
 
+void    ft_breaking_lines(t_minishell *minishell)
+{
+    int     n_pipe;
+    int     i;
+    int     index;
+    t_cmd   *cmds;
+
+    index = 0;
+    i = 0;
+    n_pipe = ft_num_pipes(minishell->split_cmd);
+    cmds = ft_calloc(n_pipe + 1, sizeof(t_cmd *));
+    ft_mem_alloc(cmds, minishell->split_cmd);
+    while (minishell->split_cmd[i])
+    {
+        ft_parse_command(minishell->split_cmd, &i, cmds[index]);
+        if (minishell->split_cmd[i] 
+            && strcmp(minishell->split_cmd[i], "|") == 0)
+            i++;
+        index++;
+    }
+    i = 0;
+    if (minishell->cmds)
+    {
+        while (minishell->cmds[i])
+            ft_free_cmd(minishell->cmds[i++]);
+        free(minishell->cmds);
+    }
+}
+
 char    *ft_find_var(char *str, int i)
 {
     char    *var;
@@ -55,6 +84,11 @@ char    *ft_insert_str(char *str, char *ins, size_t pos)
         out[npos++] = str[pos++];
     return (out[npos] = '\0', out);
 }
+
+/* The ft_breaking_lines() function breaks the command into lines. It takes a
+    pointer to a t_minishell structure as an argument. It allocates memory for
+    the commands and calls the ft_parse_command() function to parse the command.
+     */
 
 /* The ft_find_var() function finds the variable in the command. It takes two
     arguments: a string and an index. It returns a pointer to the variable. */
