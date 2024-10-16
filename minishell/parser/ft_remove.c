@@ -12,6 +12,24 @@
 
 #include "../includes/minishell.h"
 
+char    ft_remove_last(char **vector)
+{
+    int     i;
+    int     len;
+    char    **out;
+
+    i = 0;
+    len = ft_vector_len(vector);
+    out = ft_calloc(sizeof(char *), len);
+    while (i < len - 1)
+    {
+        out[i] = ft_strdup(vector[i]);
+        i++;
+    }
+    ft_free_vector(vector);
+    return (out);
+}
+
 void    ft_remove_quotes(char *str)
 {
     int     i;
@@ -62,6 +80,10 @@ char    *ft_delete_str(char *str, size_t init, size_t end)
     out[npos] = '\0';
     return (out);
 }
+
+/* The ft_remove_last() function removes the last element from an array of strings.
+    It takes one argument: an array of strings. It returns a new array of strings
+    with the last element removed. */
 
 /* The ft_remove_qotes() function removes the single and double quotes from a 
     string. It takes one argument: a string and returns void. */

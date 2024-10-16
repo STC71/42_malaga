@@ -38,7 +38,7 @@ MK_				= && make
 
 # ***** DIRECTORIES ********************************************************** #
 
-SRCS			= srcs/ft_push.c \
+SRCS			= parse/ft_action.c \
 				
 # The variable SRCS is used to get all the source files in the SRCS directory.
 
@@ -49,7 +49,7 @@ OBJS			= $(SRCS:.c=.o)
 
 OBJS_DIR		= ./objs
 LIBFT_DIR		= ./libft
-#FT_PRINTF_DIR	= ./ft_printf
+FT_PRINTF_DIR	= ./ft_printf
 INCLUDES		= ./includes
 
 # The variable INCLUDES is used to include the header files.
@@ -64,7 +64,7 @@ $(NAME): clean_screen $(OBJS)
 
 # The @ symbol is used to hide the command from the terminal.	
 
-	@${MAKE} -C ${LIBFT_DIR}
+	@${MAKE} -C ${LIBFT_DIR} 
 	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} -L${LIBFT_DIR} -lft -I${INCLUDES}
 
 # To compile the project:

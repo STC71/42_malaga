@@ -114,17 +114,26 @@ void	ft_restore_dolar(char **dolar);
 
 // ------- ft_envp.c
 
-t_var	**ft_envp(char **envp);
-// The ft_envp() function creates a list of environment variables. It takes one
+t_var	**ft_env(char **envp);
+// The ft_env() function creates a list of environment variables. It takes one
 // argument: an array of strings. It returns a pointer to a list of environment
 // variables. The function allocates memory for the list of environment 
 // variables and copies the environment variables from the array of strings to
 // the list of environment variables.
 
+char	**ft_add_env(char *new);
+// The ft_add_new() function adds a new environment variable to the list of
+// environment variables. It takes one argument: a string. It returns a pointer
+// to an array of strings.
+
 // ------- ft_free_utils.c
 
 void    ft_free_cmd(t_cmd *cmd);
 // The ft_free_cmd() function frees the memory allocated for a t_cmd structure.
+
+void    ft_free_vector(char **str);
+// The ft_free_vector() function frees the memory allocated for an array of
+// strings.
 
 // ------- ft_handling.c 
 
@@ -175,6 +184,11 @@ void    ft_mem_in(t_cmd *cmd, char **split_cmd);
 // strings. 
 
 // ------- ft_remove.c
+
+char    **ft_remove_last(char **vector);
+// The ft_remove_last() function removes the last element from an array of
+// strings. It takes one argument: an array of strings. It returns a new array
+// of strings.
 
 void    ft_remove_quotes(char *str);
 // The ft_remove_quotes() function removes the single and double quotes from a
@@ -281,5 +295,9 @@ char    *proess_tokens(char *str, int *i);
 int     ft_vector_len(char **vector);
 // The ft_vector_len() function takes one argument: an array of strings. It
 // returns the number of strings in the array.
+
+// ------- Signals ---------------------------------------------------------- //
+
+
 
 #endif
