@@ -74,14 +74,14 @@ void    ft_env_var(t_minishell *minishell, char **var)
 		i++;
 	}
 	ft_restore_dolar(minishell->full_cmd);
-	ft_free(status);
+	free(status);
 	i = 0;
 	while (minishell->full_cmd[i] != NULL)
 	{
 		ft_remove_quotes(minishell->full_cmd[i]);
 		i++;
 	}
-	ft_free_envs(list_var);
+	ft_free_envs(list_var); // revisar nombres de funciones ********************
 }
 
 /* The ft_top_split() function splits a string into an array of strings. It 

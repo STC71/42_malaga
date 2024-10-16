@@ -81,6 +81,17 @@ char    *ft_delete_str(char *str, size_t init, size_t end)
     return (out);
 }
 
+void    ft_remove_matrix(char **matrix)
+{
+    int     i;
+
+    i = 0;
+    while (matrix[i])
+        free(matrix[i++]);
+        i++;
+    free(matrix);
+}
+
 /* The ft_remove_last() function removes the last element from an array of strings.
     It takes one argument: an array of strings. It returns a new array of strings
     with the last element removed. */
@@ -91,3 +102,8 @@ char    *ft_delete_str(char *str, size_t init, size_t end)
 /* The ft_delete_str() function deletes a substring from a string. It takes 
     three arguments: a string, an initial position, and an end position. It
     returns a new string with the substring removed. */
+
+/* The ft_remove_matrix() function frees the memory allocated for a matrix of
+    strings. It takes one argument: a matrix of strings. The function frees the
+    memory allocated for each string in the matrix and then frees the memory
+    allocated for the matrix. */

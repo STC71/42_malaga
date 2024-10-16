@@ -19,6 +19,26 @@
 
 // ------- Parser Functions ------------------------------------------------- //
 
+// ------- ft_action.c
+
+void    ft_parse_input(t_minishell *minishell);
+// The ft_parse_input() function reads the input from the user, parses it into
+// tokens, and prints the tokens to the screen. It takes a pointer to a
+// t_minishell structure as an argument.
+
+void    ft_action_parse(t_minishell *minishell, char *line);
+// The ft_action_parse() function processes the input from the user. It takes
+// two arguments: a pointer to a t_minishell structure and a string. It calls
+// the ft_spc_remove() function to remove the spaces from the input, the
+// ft_check_cmd() function to check if the command is valid, the ft_parse_
+// input() function to parse the input, the ft_copy_mtx() function to copy the
+// matrix of strings, and the ft_free_vector() function to free the memory
+// allocated for the matrix of strings.
+
+void    ft_spc_remove(char *spaces);
+// The ft_spc_remove() function removes the spaces from the input. It takes one
+// argument: a string. It returns void.
+
 // ------- ft_checkers.c
 
 int     ft_check_cmd(t_minishell *minishell);
@@ -199,6 +219,10 @@ char    *ft_delete_str(char *str, size_t init, size_t end);
 // three arguments: a string, an initial position, and an end position. It
 // returns a pointer to the modified string.
 
+void    ft_remove_matrix(char **matrix);
+// The ft_remove_matrix() function frees the memory allocated for a matrix of
+// strings. It takes one argument: a matrix of strings. 
+
 // ------- ft_struct_len.c
 
 int     ft_len_double(char *str, int i);
@@ -295,6 +319,10 @@ char    *proess_tokens(char *str, int *i);
 int     ft_vector_len(char **vector);
 // The ft_vector_len() function takes one argument: an array of strings. It
 // returns the number of strings in the array.
+
+char    **ft_copy_mtx(char **mtx);
+// The ft_copy_mtx() function copies a matrix of strings. It takes one argument:
+// a matrix of strings. It returns a copy of the matrix of strings. 
 
 // ------- Signals ---------------------------------------------------------- //
 
