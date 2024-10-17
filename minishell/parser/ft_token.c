@@ -85,7 +85,8 @@ void    ft_env_var(t_minishell *minishell, char **var)
 }
 
 /* The ft_top_split() function splits a string into an array of strings. It 
-    takes one argument: a string. It returns an array of strings. */
+    takes one argument: a string. It used to split the input into tokens, and
+    returns an array of strings. */
 
 /* The process_tokens() function extracts a word from a string. It takes two
     arguments: a string and a pointer to an index. It returns a pointer to the

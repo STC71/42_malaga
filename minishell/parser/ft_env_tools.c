@@ -85,6 +85,31 @@ char    *ft_insert_str(char *str, char *ins, size_t pos)
     return (out[npos] = '\0', out);
 }
 
+char    **ft_add_str(char **vector, char *str)
+{
+    int     i;
+    char    **out;
+
+    i = 0;
+    while (vector[i])
+        i++;
+    out = ft_calloc(sizeof(char *), i + 2);
+    if (!out)
+        return (NULL);
+    i = 0;
+    while (vector[i])
+        out[i] = vector[i++];
+    out[i] = ft_strdup(str);
+    if (!out[i])
+    {
+        free(out);
+        return (NULL);
+    }
+    out[i + 1] = NULL;
+    free(vector);
+    return (out);
+}
+
 /* The ft_breaking_lines() function breaks the command into lines. It takes a
     pointer to a t_minishell structure as an argument. It allocates memory for
     the commands and calls the ft_parse_command() function to parse the command.
@@ -100,3 +125,7 @@ char    *ft_insert_str(char *str, char *ins, size_t pos)
 /* The ft_insert_str() function inserts a string into another string. It takes
     three arguments: two strings and a position. It returns a pointer to the new
     string. */
+
+/* The ft_add_str() function adds a new string to an array of strings. It takes
+    two arguments: an array of strings and a string. It returns a pointer to the
+    new array of strings. */

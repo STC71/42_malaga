@@ -14,7 +14,7 @@
 
 void    ft_parse_input(t_minishell *minishell)
 {
-    minishell->full_cmd = super_split(minishell->prompt); //no implementada ****
+    minishell->full_cmd = ft_shell_split(minishell->prompt);
     if (minishell->prompt[ft_strlen(minishell->prompt) - 1] == ' ')
         minishell->full_cmd = ft_remove_last(minishell->full_cmd);
     ft_env_var(minishell, minishell->env);
@@ -52,7 +52,11 @@ void    ft_spc_remove(char *spaces)
     spaces[rmv] = '\0';
 }
 
-/* The ft_parse_input() function is used to */
+/* The ft_parse_input() function is used to parse the input from the user. It
+   takes one argument: a pointer to a t_minishell structure. It calls the
+   ft_shell_split() function to split the input, the ft_remove_last() function
+   to remove the last element of the matrix of strings, and the ft_env_var()
+   function to substitute the environment variables. */
 
 /* The ft_action_parse() function processes the input from the user. It takes
    two arguments: a pointer to a t_minishell structure and a string. It calls
@@ -63,4 +67,5 @@ void    ft_spc_remove(char *spaces)
    allocated for the matrix of strings. */
 
 /* The ft_spc_remove() function removes the spaces from the input. It takes one
-    argument: a string. It returns void. */
+    argument: a string that contains the input, and using a while loop, it
+    removes the spaces from the end of the string. */
