@@ -37,7 +37,7 @@ char    **ft_top_split(char *str)
     return (top);
 }
 
-char    *proess_tokens(char *str, int *i)
+char    *ft_process_tokens(char *str, int *i)
 {
     char    *word;
     int     len;
@@ -56,6 +56,30 @@ char    *proess_tokens(char *str, int *i)
     }
     word[j] = '\0';
     return (word);
+}
+
+char    ft_tokenize_vector(char *vector, int *pos)
+{
+    char    *out;
+    char    *tmp;
+    char    *txt;
+
+    out = NULL;
+    while (vector[*pos] && vector[*pos] != ' ' && vector[*pos] != '>'
+        && vector[*pos] != '<' && vector[*pos] != '|')
+    {
+        if (vector[*pos] == '\'')
+            txt = ft_process_single(vector, pos);
+        else if (vector[*pos] == '\"')
+            txt = ft_process_double(vector, pos);
+        else
+            txt = ft_extract_token(vector, (*pos)++, 1);
+        tmp = ft_strjoin(out, txt);
+        free(out);
+        free(txt);
+        out = tmp;
+    }
+        return (out);
 }
 
 void    ft_env_var(t_minishell *minishell, char **var)
@@ -91,6 +115,14 @@ void    ft_env_var(t_minishell *minishell, char **var)
 /* The process_tokens() function extracts a word from a string. It takes two
     arguments: a string and a pointer to an index. It returns a pointer to the
     word extracted from the string. */
+
+/* The ft_tokenize_vector() function processes the tokens in the vector. It 
+    takes two arguments: a string and a pointer to an index. In the while loop,
+    it checks if the character in the string is a space, a redirection character,
+    or a pipe character. If the character is a single quote or a double quote,
+    it calls the ft_process_single() or ft_process_double() function to extract
+    the word. If the character is a token, it calls the ft_process_token()
+    function to extract the word. */
 
 /* The ft_env_var() function processes the environment variables. It takes two
     arguments: a pointer to a t_minishell structure and an array of strings. 

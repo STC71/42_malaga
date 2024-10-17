@@ -21,6 +21,13 @@
 
 // ------- ft_action.c
 
+char    ft_break_down(char *str, int *i);
+// The ft_break_down() function breaks down the command into tokens. It takes
+// two arguments: a string and a pointer to an index. It returns a pointer to
+// the word extracted from the string. The function uses the ft_redirection_1(),
+// ft_redirection_2(), ft_process_pipe(), and ft_break_down() functions to break
+// down the command into tokens.
+
 void    ft_parse_input(t_minishell *minishell);
 // The ft_parse_input() function reads the input from the user, parses it into
 // tokens, and prints the tokens to the screen. It takes a pointer to a
@@ -309,10 +316,24 @@ char    **ft_top_split(char *str);
 // The ft_top_split() function splits a string into an array of strings. It 
 // takes one argument: a string. It returns an array of strings.
 
-char    *proess_tokens(char *str, int *i);
+char    *ft_process_tokens(char *str, int *i);
 // The process_tokens() function extracts a word from a string. It takes two
 // arguments: a string and a pointer to an index. It returns a pointer to the
 // word extracted from the string.
+
+char    *ft_tokenize_vector(char *vector, int *pos);
+// The ft_tokenize_vector() function processes the tokens in the vector. It
+// takes two arguments: a string and a pointer to an index. In the while loop,
+// it checks if the character in the string is a space, a redirection character,
+// or a pipe character. If the character is a single quote or a double quote,
+// it calls the ft_process_single() or ft_process_double() function to extract
+// the tokens.
+
+void    ft_env_var(t_minishell *minishell, char **var);
+// The ft_env_var() function substitutes the environment variables in the 
+// command. It takes two arguments: a pointer to a t_minishell structure and an
+// array of strings. It is used to substitute and process the environment
+// variables in the command.
 
 // ------- ft_tools.c
 
@@ -323,6 +344,15 @@ int     ft_vector_len(char **vector);
 char    **ft_copy_mtx(char **mtx);
 // The ft_copy_mtx() function copies a matrix of strings. It takes one argument:
 // a matrix of strings. It returns a copy of the matrix of strings. 
+
+char    **ft_shell_split(char *vector);
+// The ft_shell_split() function splits a string into an array of strings. It
+// takes one argument: a string. It returns an array of strings.
+
+char    *ft_extract_token(const char *str, unsigned int ini, size_t len);
+// The ft_extract_token() function extracts a token from a string. It takes three
+// arguments: a string, an initial position, and a length. It returns a pointer
+// to the token extracted from the string.
 
 // ------- Signals ---------------------------------------------------------- //
 

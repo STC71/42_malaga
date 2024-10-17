@@ -17,6 +17,8 @@ int     ft_vector_len(char **vector)
     int i;
 
     i = 0;
+    if (!vector)
+        return (0);
     while (vector[i])
         i++;
     return (i);
@@ -71,6 +73,25 @@ char    **ft_shell_split(char *vector)
             out = ft_str_add(out, tmp);
         free(tmp);
     }
+    return (out);
+}
+
+char    *ft_extract_token(const char *str, unsigned int ini, size_t len)
+{
+    char    *out;
+    size_t  i;
+
+   if (!str)
+        return (NULL);
+    out = ft_strlen(str);
+    if (ini >= out)
+        return (NULL);
+    if (len > out - ini)
+        len = out - ini;
+    out = ft_calloc(sizeof(char), len + 1);
+    if (!out)
+        return (NULL);
+    ft_strlcpy(out, str + ini, len + 1);
     return (out);
 }
 
