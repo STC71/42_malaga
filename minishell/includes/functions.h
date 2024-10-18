@@ -65,11 +65,12 @@ int     ft_check_last_pipe(char *str);
 // contains a pipe character at the end, and 0 if the string does not contain a
 // pipe character at the end.
 
-int     ft_check_mixes(char *str, int i);
+int     ft_check_mixes(char *str, int *i);
 // The ft_chek_mixes() function checks if a string contains a mix of pipe and
 // redirection characters. It takes two arguments: a string and an index. It
-// returns 1 if the string contains a mix of pipe and redirection characters, and
-// 0 if the string does not contain a mix of pipe and redirection characters.
+// returns 1 if the string contains a mix of pipe and redirection characters, 0
+// if the string does not contain a mix of pipe and redirection characters, and
+// -1 if the string contains invalid characters.
 
 int     ft_validating_pipes(char *str);
 // The ft_validating_pipes() function checks if a string contains valid pipe
@@ -304,6 +305,12 @@ char    *ft_process_redirection_2(char *str, int *i);
 
 // ------- ft_struct_start.c
 
+void    ft_pipe_direction(t_pipe_red *direction, int i);
+// The ft_pipe_direction() function initializes the pipe and redirection flags.
+// It takes two arguments: a pointer to a t_pipe_red structure and an integer.
+// It is used to gestionate the pipe and redirection flags. And does permit
+// config diferent pipe combinations and redirections. Flexibility is the key.
+
 void    ft_struct_start(t_pipe_red *pipe_red);
 // The ft_struct_start() function initializes the pipe and redirection flags. It
 // takes one argument: a pointer to a t_pipe_red structure. It initializes the
@@ -337,6 +344,12 @@ void    ft_env_var(t_minishell *minishell, char **var);
 
 // ------- ft_tools.c
 
+int     ft_check_invalid_pipe(char *str);
+// The ft_check_invalid_pipe() function checks if a string contains a pipe
+// character at the end. It takes one argument: a string. It returns 1 if the
+// string does not contain a pipe character at the end, and 0 if the string
+// contains a pipe character at the end.
+
 int     ft_vector_len(char **vector);
 // The ft_vector_len() function takes one argument: an array of strings. It
 // returns the number of strings in the array.
@@ -350,9 +363,10 @@ char    **ft_shell_split(char *vector);
 // takes one argument: a string. It returns an array of strings.
 
 char    *ft_extract_token(const char *str, unsigned int ini, size_t len);
-// The ft_extract_token() function extracts a token from a string. It takes three
-// arguments: a string, an initial position, and a length. It returns a pointer
-// to the token extracted from the string.
+// The ft_extract_token() functionº extracts a token from a string. It is used
+// to extract the tokens from the string. It does not modify the original string,
+// but creates a new string with the extracted token. It takes three arguments:
+// a string, an index, and a length. It returns a pointer to the new string.
 
 // ------- Signals ---------------------------------------------------------- //
 

@@ -59,15 +59,27 @@ int     ft_check_last_pipe (char *str)
     return (0);
 }
 
-int     ft_check_mixes(char *str, int i)
+int     ft_check_mixes(char *str, int *i)
 {
-    if (str[i] == '|')
-        return (1);
-    if (str[i] == '>')
-        return (2);
-    if (str[i] == '<')
-        return (3);
-    return (0);
+    if (str[*i] == '>') 
+    {
+        if (str[*i + 1] == '>')
+            return (2);
+        else
+            return (1);
+    }
+    if (str[*i] == '<')
+    {
+        if (str[*i + 1] == '<')
+            return (4);
+        else
+            return (3);
+    }
+    while (str[*i] == ' ' || str[*i] == '\t')
+        (*i)++;
+    if (str[*i] == '>' || str[*i] == '<' || str[*i] == '|')
+        return (0);
+    return (-1);
 }
 
 int     ft_validating_pipes(char *str)
@@ -103,11 +115,15 @@ int     ft_validating_pipes(char *str)
     contains a pipe character at the end, and 0 if the string does not contain a
     pipe character at the end. */
 
-/* The ft_check_mixes() function checks if a string contains a mix of pipe and
-    redirection characters. It takes two arguments: a string and an index. It
-    returns 1 if the string contains a pipe character, 2 if the string contains a
-    redirection character, 3 if the string contains a redirection character, and 0
-    if the string does not contain a mix of pipe and redirection characters. */
+/* The ft_check_mixes() function checks if a string contains valid pipe characters.
+    It takes two arguments: a string and a pointer to an integer. It returns 0 if
+    the string contains valid pipe characters, 1 if the string contains a single
+    right pipe character, 2 if the string contains a double right pipe character,
+    3 if the string contains a single left pipe character, 4 if the string contains
+    a double left pipe character, and -1 if the string does not contain valid pipe
+    characters. After checking for valid pipe characters, the function skips any
+    whitespace characters or tabs. Finaly it checks if the string contains a pipe
+    character. */ 
 
 /* The ft_validating_pipes() function checks if a string contains valid pipe
     characters. It takes one argument: a string. It returns 1 if the string

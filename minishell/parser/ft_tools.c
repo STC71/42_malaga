@@ -12,6 +12,22 @@
 
 #include "../includes/minishell.h"
 
+int     ft_check_invalid_pipe(char *str)
+{
+    int     i;
+
+    i = 0;
+    if (ft_strlen(str) > 0)
+        i = ft_strlen(str) - 1;
+    else
+        i = 0;
+    while (i >= 0 && (str[i] == ' ' || str[i] == '\t'))
+        i--;
+    if (i >= 0 && str[i] == '|' || str[i] == '<' || str[i] == '>')
+        return (0);
+    return (1);
+}
+
 int     ft_vector_len(char **vector)
 {
     int i;
@@ -95,6 +111,11 @@ char    *ft_extract_token(const char *str, unsigned int ini, size_t len)
     return (out);
 }
 
+/* The ft_check_invalid_pipe() function checks if a string contains a pipe 
+    character at the end. It takes one argument: a string. It returns 1 if the
+    string does not contain a pipe character at the end, and 0 if the string
+    contains a pipe character at the end. */
+
 /* The ft_vector_len() function takes one argument: an array of strings. 
     It returns the number of strings in the array. */
 
@@ -103,3 +124,9 @@ char    *ft_extract_token(const char *str, unsigned int ini, size_t len)
 
 /* The ft_shell_split() function splits a string into an array of strings.
     It takes one argument: a string. It returns an array of strings. */
+
+/* The ft_extract_token() function extracts a token from a string. It is
+    used to extract the tokens from the string. It does not modify the
+    original string, but creates a new string with the extracted token. It
+    take three arguments: a string, an index, and a length. It returns a
+    pointer to the new string. */
