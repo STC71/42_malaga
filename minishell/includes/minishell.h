@@ -33,5 +33,6 @@
 # include <stdio.h>                        // Standard input/output 
 # include <sys/types.h>                    // System types
 # include <sys/wait.h>                     // Wait for process to change state
+# include <termios.h>                      // Terminal I/O interface
 
 #endif

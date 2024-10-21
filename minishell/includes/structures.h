@@ -45,6 +45,8 @@ typedef struct s_var
 {
     char        *name;
     char        *value;
+    struct s_var    *right;
+    struct s_var    *left;
 }               t_var;
 
 // The structure t_var is used to store the variables. It has two members: name
@@ -61,6 +63,13 @@ typedef struct s_pipe_redir
 // It has two members: pipe and redir. The pipe member is a flag that indicates 
 // if the pipe is present, and the redir member is a flag that indicates
 // if the redirection is present.
+
+typedef struct	s_siganation
+{
+	int				sigint;
+	int				sigquit;
+	int				exit;
+}				t_signation;
 
 typedef struct s_minishell
 {

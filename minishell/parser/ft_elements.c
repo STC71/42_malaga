@@ -12,15 +12,6 @@
 
 #include "../includes/minishell.h"
 
-int     ft_check_quotes(char *str, int i)
-{
-    if (str[i] == '"')
-        return (DQ_OPEN);
-    if (str[i] == '\'')
-        return (SQ_OPEN);
-    return (NO_QUOTE);
-}
-
 int     ft_chck_pipe(char *str)
 {
     int i;
@@ -59,11 +50,6 @@ int     ft_num_pipe(char *str)
     }
     return (n_pipe);
 }
-
-/* The ft_check_quotes() function checks if a character is a quote. It takes two
-    arguments: a string and an index. It returns DQ_OPEN if the character is a
-    double quote, SQ_OPEN if the character is a single quote, and NO_QUOTE if 
-    the character is not a quote.*/
 
 /* The ft_chck_pipe() function checks if a string contains a pipe character. It
     takes one argument: a string. It returns 1 if the string contains a pipe

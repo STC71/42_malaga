@@ -27,8 +27,8 @@
     700 // Used to define the version of the X/Open Portability Guide.
         // and to enable the use of certain functions.
 
-# define EXIT_SUCCESS 0
-# define EXIT_FAILURE 1
+# define SUCCESS 0
+# define FAILURE 1
 // Used to gestion errors in the main function.
 
 # define SHELL_NAME "minishell"

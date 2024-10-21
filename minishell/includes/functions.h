@@ -80,12 +80,6 @@ int     ft_validating_pipes(char *str);
 
 // ------- ft_elements.c
 
-int     ft_check_quotes(char *str, int i);
-// The ft_check_quotes() function checks if a character is a quote. It takes two
-// arguments: a string and an index. It returns DQ_OPEN if the character is a
-// double quote, SQ_OPEN if the character is a single quote, and NO_QUOTE if
-// the character is not a quote.
-
 int     ft_chck_pipe(char *str);
 // The ft_chck_pipe() function checks if a string contains a pipe character. It
 // takes one argument: a string. It returns 1 if the string contains a pipe
@@ -210,6 +204,26 @@ void    ft_mem_in(t_cmd *cmd, char **split_cmd);
 // The ft_mem_in() function allocates memory for the input redirection command.
 // It takes two arguments: a pointer to a t_cmd structure and an array of 
 // strings. 
+
+// ------- ft_quotes.c
+
+int     ft_check_quotes(char *str, int i);
+// The ft_check_quotes() function checks if a character is a quote. It takes two
+// arguments: a string and an index. It returns DQ_OPEN if the character is a
+// double quote, SQ_OPEN if the character is a single quote, and NO_QUOTE if the
+// character is not a quote.
+
+int     ft_using_single(char *str);
+// The ft_using_single() function checks if a character is a single quote. It
+// takes one argument: a string. It returns SQ_OPEN if the character is a single
+// quote, NO_QUOTE if the character is not a quote, and the character if the
+// character is a double quote.
+
+int     ft_using_double(char *str);
+// The ft_using_double() function checks if a character is a double quote. It
+// takes one argument: a string. It returns DQ_OPEN if the character is a double
+// quote, NO_QUOTE if the character is not a quote, and the character if the
+// character is a single quote.
 
 // ------- ft_remove.c
 
@@ -370,6 +384,85 @@ char    *ft_extract_token(const char *str, unsigned int ini, size_t len);
 
 // ------- Signals ---------------------------------------------------------- //
 
+void	ft_signal_ctrl_c_child(void);
+// The signal_ctrl_c_child() function initializes the ctrl_c sigaction structure
+// for this the SIG_DFL handler is assigned, which causes the signal to be 
+// handled in the default way by the system. Then, the SA_RESTART flag is
+// assigned, which means that if a system call is interrupted by a signal, the
+// system call will be restarted. Subsequently, the signal set is cleared and
+// the sigaction() function is called, with the parameters: SIGINT, which is
+// the interrupt signal (Ctrl+C); &ctrl_c, which is the sigaction structure that
+// has been initialized; and NULL, which is a pointer to the sigaction structure
+// that is used to store the previous action for the signal. In summary: this
+// function is responsible for handling the SIGINT (Ctrl+C) signal in the child
+// process.
 
+void	ft_signal_ctrl_backslash_child(void);
+// The signal_ctrl_backslash_child() function initializes the ctrl_back_slash
+// sigaction structure for this the SIG_DFL handler is assigned, which causes
+// the signal to be handled in the default way by the system. Then, the
+// SA_RESTART flag is assigned, which means that if a system call is interrupted
+// by a signal, the system call will be restarted. Subsequently, the signal set
+// is cleared and the sigaction() function is called, with the parameters: 
+// SIGQUIT, which is the quit signal (Ctrl+\); &ctrl_back_slash, which is the
+// sigaction structure that has been initialized; and NULL, which is a pointer
+// to the sigaction structure that is used to store the previous action for the
+// signal. In summary: this function is responsible for handling the SIGQUIT
+// (Ctrl+\) signal in the child process.
+
+void	ft_signals_child(struct termios *mirror_termios);
+// The signals_child() function calls the signal_ctrl_c_child() and
+// signal_ctrl_backslash_child() functions to handle the SIGINT (Ctrl+C) and
+// SIGQUIT (Ctrl+\) signals in the child process. This way, the signal handlers
+// are set for the child process. signal_ctrl_c_child() handles the SIGINT
+// (Ctrl+C) signal and signal_ctrl_backslash_child() handles the SIGQUIT 
+// (Ctrl+\) signal.
+
+void	ft_signal_ctrl_c_parent(void);
+// The signal_ctrl_c_parent() function initializes the ctrl_c 
+// sigaction structure by assigning the handle_sigint_parent handler to it,
+// setting the SA_RESTART flag, which means that if a system call is interrupted
+// by a signal, the system call will be restarted. Then the signal set is 
+// cleared and the sigaction() function is called to set the action for the 
+// SIGINT signal. In summary: this function is responsible for handling the
+// SIGINT (Ctrl+C) signal in the parent process.
+
+void	ft_handle_sigint_parent(int sig_num);
+// The handle_sigint_parent() function handles the SIGINT (Ctrl+C) signal in the
+// parent process. If the received signal is SIGINT, "^C\n" is written to the
+// standard output, rl_on_new_line() function is called to place the cursor on
+// a new line, and rl_replace_line() function is called to replace the current
+// line with an empty string.
+
+void	ft_signals_parent(void);
+// The signals_parent() function calls the signal_ctrl_c_parent() and
+// signal_ctrl_backslash() functions to handle the SIGINT (Ctrl+C) and SIGQUIT
+// (Ctrl+\) signals in the parent process. This way, the signal handlers are
+// set for the parent process. signal_ctrl_c_parent() handles the SIGINT 
+// (Ctrl+C) signal and signal_ctrl_backslash() handles the SIGQUIT (Ctrl+\)
+// signal.
+
+void	ft_signal_ctrl_c_parent(void);
+// The signal_ctrl_c_parent() function initializes the ctrl_c sigaction structure
+// by assigning the handle_sigint_parent handler to it, setting the SA_RESTART
+// flag, which means that if a system call is interrupted by a signal, the
+// system call will be restarted. Then the signal set is cleared and the
+// sigaction() function is called to set the action for the SIGINT signal. In
+// summary: this function is responsible for handling the SIGINT (Ctrl+C) signal
+// in the parent process.
+
+void	ft_handle_sigint_parent(int sig_num);
+// The handle_sigint_parent() function handles the SIGINT (Ctrl+C) signal in the
+// parent process. If the received signal is SIGINT, "^C\n" is written to the
+// standard output, rl_on_new_line() function is called to place the cursor on
+// a new line, and rl_replace_line() function is called to replace the current
+// line with an empty string.
+
+void	ft_signals_parent(void);
+// The signals_parent() function calls the signal_ctrl_c_parent() and
+// signal_ctrl_backslash() functions to handle the SIGINT (Ctrl+C) and SIGQUIT
+// (Ctrl+\) signals in the parent process. This way, the signal handlers are
+// set for the parent process. signal_ctrl_c_parent() handles the SIGINT (Ctrl+C)
+// signal and signal_ctrl_backslash() handles the SIGQUIT (Ctrl+\) signal.
 
 #endif
