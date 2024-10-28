@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
+/*   By: druiz-ca <druiz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-23 11:47:37 by sternero          #+#    #+#             */
-/*   Updated: 2024-09-23 11:47:37 by sternero         ###   ########.fr       */
+/*   Created: 2024/09/23 11:47:37 by sternero          #+#    #+#             */
+/*   Updated: 2024/10/27 13:59:10 by druiz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 // ------- ft_action.c
 
-char    ft_break_down(char *str, int *i);
+char    *ft_break_down(char *str, int *i);
 // The ft_break_down() function breaks down the command into tokens. It takes
 // two arguments: a string and a pointer to an index. It returns a pointer to
 // the word extracted from the string. The function uses the ft_redirection_1(),
@@ -119,13 +119,13 @@ char    *ft_insert_str(char *str, char *ins, size_t pos);
 
 // ------- ft_environment.c
 
-static void	ft_replace_vars(char **str, int *i, char *status, t_var **list_var);
+//static void	ft_replace_vars(char **str, int *i, char *status, t_var **list_var);
 // The ft_replace_vars() function replaces the environment variables in the 
 // command with their values. It takes three arguments: a pointer to a char
 // array, a pointer to an index, a pointer to a char array, and a pointer to a
 // t_var structure.
 
-static void	ft_do_cmd(char **str, t_var **list_var, char *status);
+//static void	ft_do_cmd(char **str, t_var **list_var, char *status);
 // The ft_do_cmd() function processes the command. It takes three arguments: a
 // pointer to a char array, a pointer to a t_var structure, and a pointer to a
 // char array.
@@ -305,13 +305,13 @@ char    *ft_process_pipe(char *str, int *i);
 // arguments: a string and a pointer to an index. It returns a pointer to the
 // word extracted from the string. The | character is used to extract the word.
 
-char    *ft_process_redirection_1(char *str, int *i);
+char    *ft_redirection_1(char *str, int *i);
 // The ft_process_redirection_1() function extracts a word from a string. It
 // takes two arguments: a string and a pointer to an index. It returns a pointer
 // to the word extracted from the string. The > character is used to extract the
 // word.
 
-char    *ft_process_redirection_2(char *str, int *i);
+char    *ft_redirection_2(char *str, int *i);
 // The ft_process_redirection_2() function extracts a word from a string. It
 // takes two arguments: a string and a pointer to an index. It returns a pointer
 // to the word extracted from the string. The < character is used to extract the
@@ -331,7 +331,34 @@ void    ft_struct_start(t_pipe_red *pipe_red);
 // pipe and redirection flags to 0. This is necessary to avoid undefined behavior
 // when the flags are used in the program.
 
+// ------- ft_token_tools.c
+
+char	**ft_str_add(char **out, char *token);
+// The ft_str_add() function adds a string to an array of strings. It takes two
+// arguments: an array of strings and a string. It returns an array of strings.
+
+char	*ft_process_token(char *vector, int *pos);
+// The ft_process_token() function extracts a word from a string. It takes two
+// arguments: a string and a pointer to an index. It returns a pointer to the
+// word extracted from the string.
+
+void	ft_do_command(char **str, t_var **list_var, char *status);
+// The ft_do_command() function processes the command. It takes three arguments:
+// a pointer to a char array, a pointer to a t_var structure, and a pointer to a
+// char array. It processes the command by replacing the environment variables
+
+t_var	**ft_init_env(char **var);
+// The ft_init_env() function initializes the environment variables. It takes
+// one argument: an array of strings. It returns a pointer to a list of
+// environment variables. The function allocates memory for the list of
+// environment variables and copies the environment variables from the array of
+// strings to the list of environment variables.
+
 // ------- ft_token.c
+
+int		ft_count_top(char *str);
+// The ft_count_top() function counts the number of tokens in the string. It
+// takes one argument: a string. It returns the number of tokens in the string.
 
 char    **ft_top_split(char *str);
 // The ft_top_split() function splits a string into an array of strings. It 
@@ -464,5 +491,119 @@ void	ft_signals_parent(void);
 // (Ctrl+\) signals in the parent process. This way, the signal handlers are
 // set for the parent process. signal_ctrl_c_parent() handles the SIGINT (Ctrl+C)
 // signal and signal_ctrl_backslash() handles the SIGQUIT (Ctrl+\) signal.
+
+
+
+// -------------------------------- Execution --------------------------------//
+
+//---------------------------------  builtins  -------------------------------//
+
+// cd_errors
+
+void    write_oldpwd_error(t_minishell *shell);
+void    write_too_many_args(t_minishell *shell);
+void    write_cdhome_error(char *home_path, t_minishell *shell);
+void    write_backpwd_err(char *back_path, t_minishell *shell);
+void    write_cd_err(t_minishell *shell);
+
+// cd
+
+void	ft_cd(char **full_command, t_minishell *shell); // el mio 
+char	*ft_get_environment(char *str_pwd, char **env_paths);
+void	exec_cd_home(t_minishell *shell);
+void	back_pwd(t_minishell *shell);
+void	renew_path(t_minishell *shell);
+
+// delete_env_unset
+
+void    ft_delete_env_unset(char **name_var, t_minishell *shell);
+
+// echo
+
+void    ft_echo(char **full_command, t_minishell *shell);
+
+//  exit
+
+void    ft_exit(char **full_command, t_minishell *shell);
+
+// env
+
+void    ft_print_env(t_minishell *shell);
+int     ft_check_path(t_minishell *shell, char **paths);
+void    ft_print_env_err(t_minishell *shell, char *path);
+
+//  pwd
+
+void    ft_pwd(t_minishell *shell);
+
+//  some _errors
+
+void    write_pwd_err(t_minishell *shell);
+void    write_numeric_err(t_minishell *shell, char **command);
+void    write_exit_toomany_err(t_minishell *shell);
+
+// update_env_errors
+
+void    env_err0(char *command, int i);
+void    env_err1(char *command, int i);
+void    env_err2(char *command, int i);
+void    env_err3(char *command);
+
+
+// export
+
+void    ft_update_env_export(t_minishell *shell, char **commands);
+int     check_env(char *env);
+void    ft_print_env(t_minishell *shell);
+void    ft_print_env_err(t_minishell *shell, char *path);
+
+// env2
+
+void    ft_free_env(char **env);
+char    *ft_new_env(char *name, char *value);
+void    ft_create_env(char *name, char *value, t_minishell *shell);
+int     ft_check_update_env(char *name, char *value, t_minishell *shell);
+void    ft_update_env(char *command, t_minishell *shell);
+
+//----------------------------  executor fts  -------------------------------//
+
+// execute_bin
+
+void    execute_bin_cmd_main(t_minishell *shell, t_cmd **commands, int i);
+char    **get_bin_paths(t_minishell *shell);
+int     write_bin_error(char *cmd, t_minishell *shell);
+char    *join_binpath_and_cmd(char *cmd, char *bin_path);
+
+// execute_bin2
+
+void    execute_bin_cmd(char *cmd_path, char **commands, t_minishell *shell, int i);
+char    **create_matrix_cmd_and_args(t_cmd **commands, int i);
+void    execute_child_proces(char *path, char **exc, t_minishell *shell);
+
+// execute_builtins
+
+void    execute(t_cmd **commands, t_minishell *shell);
+void    config_pipe(t_minishell *shell);
+void    check_if_bultin(t_cmd **commands, t_minishell *shell, int i);
+void    reset_oldpwd_and_lastcmd(t_minishell *shell, t_cmd **commands);
+void    reset_oldpwd(t_minishell *shell, int i);
+
+// heredoc
+
+void    apply_heredoc(char *delimiter, t_minishell *shell);
+void    error_pipe(t_minishell *shell);
+
+// redirections
+
+void    choose_redirections(char **cmd, t_minishell *shell);
+void    save_fds(t_minishell *shell);
+void    redir_outfile(char *cmd, t_minishell *shell, int i);
+void    redir_infile(char *cmd, t_minishell *shell, int i);
+void    reset_redirections(t_minishell *shell);
+
+// check_and_exec_builtins
+
+void    choose_builtin(t_minishell *shell, t_cmd **commands, int i);
+int     check_if_is_builtin(char *command);
 
 #endif

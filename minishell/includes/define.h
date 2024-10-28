@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
+/*   By: druiz-ca <druiz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-03 10:49:59 by sternero          #+#    #+#             */
-/*   Updated: 2024-10-03 10:49:59 by sternero         ###   ########.fr       */
+/*   Created: 2024/10/03 10:49:59 by sternero          #+#    #+#             */
+/*   Updated: 2024/10/26 14:05:14 by druiz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@
 // SQ_OPEN = Single Quote Open. Used to gestion the single quotes.
 // NO_QUOTE = No Quote. Used to gestion the absence of quotes.
 // quotes: cite, call...
+
+# define PATH_MAX 4096
 
 #endif

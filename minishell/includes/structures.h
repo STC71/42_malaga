@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
+/*   By: druiz-ca <druiz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-03 10:26:03 by sternero          #+#    #+#             */
-/*   Updated: 2024-10-03 10:26:03 by sternero         ###   ########.fr       */
+/*   Created: 2024/10/03 10:26:03 by sternero          #+#    #+#             */
+/*   Updated: 2024/10/27 13:39:30 by druiz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct s_minishell
     int         error_parse;
     int         outfile;
     int         status;
-    char        *cmds;
+    char        *commands;
     char        *old_pwd;
     char        *parsed_prompt;
     char        *path_cmd;
@@ -92,6 +92,13 @@ typedef struct s_minishell
     char        **split_cmd;
     pid_t       pid;
     t_cmd       **cmds;
+    char	    *cmd_path;
+	int		    g_status;
+	int		    fdin;
+	int		    fdout;
+	int		    fdnextin;
+	char	    *oldpwd;
+   	int         infile;
 }               t_minishell;
 
 // The structure t_minishell is used to store:
