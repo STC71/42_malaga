@@ -26,22 +26,22 @@ int     ft_check_quotes(char *str, int i)
 
 int     ft_using_single(char *str)
 {
-    if (str == NO_QUOTE)
+    if (*str == NO_QUOTE)
         return (SQ_OPEN);
-    else if (str == SQ_OPEN)
+    else if (*str == SQ_OPEN)
         return (NO_QUOTE);
     else
-        return (str);
+        return (*str);
 }
 
 int     ft_using_double(char *str)
 {
-    if (str == NO_QUOTE)
+    if (*str == NO_QUOTE)
         return (DQ_OPEN);
-    else if (str == DQ_OPEN)
+    else if (*str == DQ_OPEN)
         return (NO_QUOTE);
     else
-        return (str);
+        return (*str);
 }
 
 /* The ft_check_quotes() function checks if a character is a quote. It used to

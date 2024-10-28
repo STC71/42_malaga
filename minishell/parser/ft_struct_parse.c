@@ -18,6 +18,7 @@ void    ft_parse_input(t_minishell *minishell)
     char    **tokens;
     int     i;
 
+    minishell = minishell;
     input = readline(SHELL_PROMPT);
     if (!input)
         return ;

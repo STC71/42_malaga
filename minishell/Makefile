@@ -38,7 +38,44 @@ MK_				= && make
 
 # ***** DIRECTORIES ********************************************************** #
 
-SRCS			= parse/ft_action.c \
+SRCS			= parser/ft_action.c \
+				  parser/ft_checkers.c \
+				  parser/ft_elements.c \
+				  parser/ft_env_tools.c \
+				  parser/ft_environment.c \
+				  parser/ft_envp.c \
+				  parser/ft_free_utils.c \
+				  parser/ft_handling.c \
+				  parser/ft_mem_utils.c \
+				  parser/ft_quotes.c \
+				  parser/ft_remove.c \
+				  parser/ft_struct_len.c \
+				  parser/ft_struct_parse.c \
+				  parser/ft_struct_process.c \
+				  parser/ft_struct_start.c \
+				  parser/ft_token.c \
+				  parser/ft_tools.c \
+				  signals/ft_c_signals.c \
+				  signals/ft_p_signals.c \
+				  signals/ft_signals.c \
+				  executor/builtins/cd_error.c \
+				  executor/builtins/cd.c \
+				  executor/builtins/delete_env_unset.c \
+				  executor/builtins/echo.c \
+				  executor/builtins/exit.c \
+				  executor/builtins/print_env.c \
+				  executor/builtins/pwd.c \
+				  executor/builtins/some_errors.c \
+				  executor/builtins/update_env_errors.c \
+				  executor/builtins/update_env_export.c \
+				  executor/builtins/update_env2.c \
+				  executor/check_and_exec_bultins.c \
+				  executor/ft_execute_bin.c \
+				  executor/ft_execute_bin2.c\
+				  executor/ft_execute_builtins.c \
+				  executer/ft_heredoc.c \
+				  executor/ft_redirections.c \
+
 				
 # The variable SRCS is used to get all the source files in the SRCS directory.
 
@@ -59,13 +96,14 @@ INCLUDES		= ./includes
 all: $(NAME) # $(NAME_BONUS)
 # The all rule is used to compile the project
 
+
 $(NAME): clean_screen $(OBJS)
 	@echo "${DARK_YELLOW}${BOLD}Compiling my ${NAME}...${DEF_COLOR}"
-
+	
 # The @ symbol is used to hide the command from the terminal.	
-
-	@${MAKE} -C ${LIBFT_DIR} 
-	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} -L${LIBFT_DIR} -lft -I${INCLUDES}
+	@${MAKE} -C ${LIBFT_DIR}
+	@${MAKE} -C ${FT_PRINTF_DIR}
+	@${CC} ${CFLAGS} -o ${NAME} ${OBJS} -L${LIBFT_DIR} -lft -L${FT_PRINTF_DIR} -lftprintf -I${INCLUDES}
 
 # To compile the project:
 # ${CC} command is used to compile the project.

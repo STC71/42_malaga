@@ -27,7 +27,7 @@ char    *ft_process_double(char *str, int *i)
     {
         word[j] = str[*i];
         j++;
-        *i++;
+        *i = *i + 1;
     }
     word[j] = '\0';
     return (word);
@@ -39,7 +39,7 @@ char    *ft_process_singel(char *str, int *i)
     int     len;
     int     j;
 
-    len = ft_len_singel(str, *i);
+    len = ft_len_single(str, *i);
     word = (char *)malloc(sizeof(char) * (len + 1));
     if (!word)
         return (NULL);
@@ -48,7 +48,7 @@ char    *ft_process_singel(char *str, int *i)
     {
         word[j] = str[*i];
         j++;
-        *i++;
+        *i = *i + 1;
     }
     word[j] = '\0';
     return (word);
@@ -69,7 +69,7 @@ char    *ft_process_pipe(char *str, int *i)
     {
         word[j] = str[*i];
         j++;
-        *i++;
+        *i = *i + 1;
     }
     word[j] = '\0';
     return (word);
@@ -90,7 +90,7 @@ char    *ft_redirection_1(char *str, int *i)
     {
         word[j] = str[*i];
         j++;
-        *i++;
+        *i = *i + 1;
     }
     word[j] = '\0';
     return (word);
@@ -111,7 +111,7 @@ char    *ft_redirection_2(char *str, int *i)
     {
         word[j] = str[*i];
         j++;
-        *i++;
+        *i = *i + 1;
     }
     word[j] = '\0';
     return (word);

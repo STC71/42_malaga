@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_tools.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
+/*   By: druiz-ca <druiz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-03 17:51:45 by sternero          #+#    #+#             */
-/*   Updated: 2024-10-03 17:51:45 by sternero         ###   ########.fr       */
+/*   Created: 2024/10/03 17:51:45 by sternero          #+#    #+#             */
+/*   Updated: 2024/10/27 14:36:17 by druiz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void    ft_breaking_lines(t_minishell *minishell)
     int     n_pipe;
     int     i;
     int     index;
-    t_cmd   *cmds;
+    t_cmd   **cmds;
 
     index = 0;
     i = 0;
-    n_pipe = ft_num_pipes(minishell->split_cmd);
+    n_pipe = ft_num_pipe(minishell->split_cmd[0]);
     cmds = ft_calloc(n_pipe + 1, sizeof(t_cmd *));
     ft_mem_alloc(cmds, minishell->split_cmd);
     while (minishell->split_cmd[i])
@@ -33,11 +33,11 @@ void    ft_breaking_lines(t_minishell *minishell)
         index++;
     }
     i = 0;
-    if (minishell->cmds)
+    if (minishell->commands)
     {
-        while (minishell->cmds[i])
-            ft_free_cmd(minishell->cmds[i++]);
-        free(minishell->cmds);
+        //while (minishell->commands[i])
+            //ft_free_cmd(minishell->commands[i++]);
+        free(minishell->commands);
     }
 }
 
@@ -98,7 +98,10 @@ char    **ft_add_str(char **vector, char *str)
         return (NULL);
     i = 0;
     while (vector[i])
-        out[i] = vector[i++];
+    {
+        out[i] = vector[i];
+        i++;
+    }
     out[i] = ft_strdup(str);
     if (!out[i])
     {

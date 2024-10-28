@@ -49,7 +49,7 @@ char    *ft_process_word(char *str, int *i)
     {
         word[j] = str[*i];
         j++;
-        *i++;
+        *i = *i + 1;
     }
     word[j] = '\0';
     return (word);

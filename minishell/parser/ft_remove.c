@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-char    ft_remove_last(char **vector)
+char    **ft_remove_last(char **vector)
 {
 	int     i;
 	int     len;
@@ -44,14 +44,12 @@ void    ft_remove_quotes(char *str)
 			i++;
 			while (str[i] && str[i] != '\'')
 				str[j++] = str[i++];
-				i++;
 		}
 		else if (str[i] == '\"')
 		{
 			i++;
 			while (str[i] && str[i] != '\"')
 				str[j++] = str[i++];
-				i++;
 		}
 		else
 			str[j++] = str[i++];
@@ -88,7 +86,6 @@ void    ft_remove_matrix(char **matrix)
 	i = 0;
 	while (matrix[i])
 		free(matrix[i++]);
-		i++;
 	free(matrix);
 }
 

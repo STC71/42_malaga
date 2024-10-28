@@ -23,7 +23,7 @@ int     ft_check_invalid_pipe(char *str)
         i = 0;
     while (i >= 0 && (str[i] == ' ' || str[i] == '\t'))
         i--;
-    if (i >= 0 && str[i] == '|' || str[i] == '<' || str[i] == '>')
+    if ((i >= 0 && str[i] == '|' ) || str[i] == '<' || str[i] == '>')
         return (0);
     return (1);
 }
@@ -82,7 +82,7 @@ char    **ft_shell_split(char *vector)
             i++;
         if (!vector[i])
             break ;
-        tmp = process_token(vector, &i);   // pendiente de implementar
+        tmp = ft_process_token(vector, &i);
         if (!out)
             out = ft_add_env(tmp);
         else
@@ -95,15 +95,15 @@ char    **ft_shell_split(char *vector)
 char    *ft_extract_token(const char *str, unsigned int ini, size_t len)
 {
     char    *out;
-    size_t  i;
-
-   if (!str)
+    int     len_str;
+    
+    if (!str)
         return (NULL);
-    out = ft_strlen(str);
-    if (ini >= out)
+    len_str = ft_strlen(str);
+    if (ini >= (size_t)len_str)
         return (NULL);
-    if (len > out - ini)
-        len = out - ini;
+    if (len > len_str - ini)
+        len = len_str - ini;
     out = ft_calloc(sizeof(char), len + 1);
     if (!out)
         return (NULL);

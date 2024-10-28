@@ -12,6 +12,27 @@
 
 #include "../includes/minishell.h"
 
+int     ft_count_top(char *str)
+{
+    int     i;
+    int     count;
+
+    i = 0;
+    count = 0;
+    while (str[i])
+    {
+        if (str[i] == ' ')
+            i++;
+        else
+        {
+            count++;
+            while (str[i] && str[i] != ' ')
+                i++;
+        }
+    }
+    return (count);
+}
+
 char    **ft_top_split(char *str)
 {
     char    **top;
@@ -52,13 +73,13 @@ char    *ft_process_tokens(char *str, int *i)
     {
         word[j] = str[*i];
         j++;
-        *i++;
+        *i = *i + 1;
     }
     word[j] = '\0';
     return (word);
 }
 
-char    ft_tokenize_vector(char *vector, int *pos)
+char    *ft_tokenize_vector(char *vector, int *pos)
 {
     char    *out;
     char    *tmp;
@@ -69,7 +90,7 @@ char    ft_tokenize_vector(char *vector, int *pos)
         && vector[*pos] != '<' && vector[*pos] != '|')
     {
         if (vector[*pos] == '\'')
-            txt = ft_process_single(vector, pos);
+            txt = ft_process_singel(vector, pos);
         else if (vector[*pos] == '\"')
             txt = ft_process_double(vector, pos);
         else
@@ -105,8 +126,12 @@ void    ft_env_var(t_minishell *minishell, char **var)
 		ft_remove_quotes(minishell->full_cmd[i]);
 		i++;
 	}
-	ft_free_envs(list_var); // revisar nombres de funciones ********************
+	free(list_var);
 }
+
+/* The ft_count_top() function counts the number of tokens in the string. It 
+    takes one argument: a string. It returns the number of tokens in the string. 
+    */
 
 /* The ft_top_split() function splits a string into an array of strings. It 
     takes one argument: a string. It used to split the input into tokens, and

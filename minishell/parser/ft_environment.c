@@ -12,6 +12,7 @@
 
 #include "../includes/minishell.h"
 
+/*
 static void	ft_replace_vars(char **str, int *i, char *status, t_var **list_var)
 {
 	char	*abc;
@@ -40,7 +41,9 @@ static void	ft_replace_vars(char **str, int *i, char *status, t_var **list_var)
 		free(var);
 	}
 }
+*/
 
+/*
 static void	ft_do_cmd(char **str, t_var **list_var, char *status)
 {
 	int		i;
@@ -61,6 +64,7 @@ static void	ft_do_cmd(char **str, t_var **list_var, char *status)
 		i++;
 	}
 }
+*/
 
 void	ft_restore_dolar(char **dolar)
 {

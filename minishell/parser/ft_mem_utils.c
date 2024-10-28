@@ -19,7 +19,7 @@ void    ft_mem_alloc(t_cmd **cmds, char **split_cmd)
 
     i = 0;
     n_cmd = 0;
-    n_cmd = ft_num_pipes(split_cmd);
+    n_cmd = ft_num_pipe(*split_cmd);
     while (i < n_cmd)
     {
         cmds[i] = ft_calloc(1, sizeof(t_cmd));
@@ -43,11 +43,12 @@ void    ft_mem_args(t_cmd *cmd, char **split_cmd)
 
     i = 0;
     n_args = 0;
+    cmd = cmd;
     while (split_cmd[i] && strcmp(split_cmd[i], "|") != 0)
     {
         if (i > 0)
         {
-            if (strcmp(split_cmd[i], ">" == 0) || strcmp(split_cmd[i], ">>") 
+            if (strcmp(split_cmd[i], ">") || strcmp(split_cmd[i], ">>") 
                 == 0 || strcmp(split_cmd[i], "<") == 0)
                 i+=2;
             else
@@ -69,6 +70,7 @@ void    ft_mem_out(t_cmd *cmd, char **split_cmd)
     int     i;
     int     n_out;
 
+    cmd = cmd;
     i = 0;
     n_out = 0;
     while (split_cmd[i] && strcmp(split_cmd[i], "|") != 0)
@@ -97,6 +99,7 @@ void    ft_mem_in(t_cmd *cmd, char **split_cmd)
     int     i;
     int     n_in;
 
+    cmd = cmd;
     i = 0;
     n_in = 0;
     while (split_cmd[i] && strcmp(split_cmd[i], "|") != 0)

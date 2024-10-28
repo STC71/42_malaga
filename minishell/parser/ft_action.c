@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_action.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
+/*   By: druiz-ca <druiz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-10-16 15:22:38 by sternero          #+#    #+#             */
-/*   Updated: 2024-10-16 15:22:38 by sternero         ###   ########.fr       */
+/*   Created: 2024/10/16 15:22:38 by sternero          #+#    #+#             */
+/*   Updated: 2024/10/27 13:58:40 by druiz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-char    ft_break_down(char *str, int *i)
+char    *ft_break_down(char *str, int *i)
 {
 	if (str[*i] == '>')
 		return (ft_redirection_1(str, i));
@@ -68,7 +68,7 @@ void    ft_spc_remove_plus(char **vector, char *spaces)
 {
 	char *tmp;
 
-	*tmp = ft_strjoin(vector[ft_vector_len(vector) - 1], spaces);
+	tmp = ft_strjoin(vector[ft_vector_len(vector) - 1], spaces);
 	free(vector[ft_vector_len(vector) - 1]);
 	vector[ft_vector_len(vector) - 1] = tmp;
 }
