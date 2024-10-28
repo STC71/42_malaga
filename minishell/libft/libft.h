@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
+/*   By: druiz-ca <druiz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-04-13 14:06:30 by sternero          #+#    #+#             */
-/*   Updated: 2024-04-13 14:06:30 by sternero         ###   ########.fr       */
+/*   Created: 2024/04/13 14:06:30 by sternero          #+#    #+#             */
+/*   Updated: 2024/10/27 14:25:08 by druiz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ size_t	ft_strlen(const char *str);
 	char) in the string pointed to by s.*/
 char	*ft_strchr(const char *str, int c);
 
+int ft_strcmp(const char *str1, const char *str2);
+
+
 /*The tolower() function converts an upper-case letter to the corresponding
 	lower-case letter.  The argument must be representable as an unsigned
 	char.*/
@@ -71,6 +74,8 @@ int		ft_tolower(int c);
 	upper-case letter.  The argument must be representable as an unsigned
 	char.*/
 int		ft_toupper(int c);
+
+char *ft_strndup(const char *s1, size_t n);
 
 /*The strchr() function locates the first occurrence of c (converted to a
 	char) in the string pointed to by s. The strrchr() function is 
