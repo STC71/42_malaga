@@ -13,10 +13,6 @@
 #ifndef FUNCTIONS_H
 # define FUNCTIONS_H
 
-// ------- Execution Functions ---------------------------------------------- //
-
-
-
 // ------- Parser Functions ------------------------------------------------- //
 
 // ------- ft_action.c
@@ -434,6 +430,8 @@ char    *ft_extract_token(const char *str, unsigned int ini, size_t len);
 
 // ------- Signals ---------------------------------------------------------- //
 
+// ------- ft_c_signals.c
+
 void	ft_signal_ctrl_c_child(void);
 // The signal_ctrl_c_child() function initializes the ctrl_c sigaction structure
 // for this the SIG_DFL handler is assigned, which causes the signal to be 
@@ -468,6 +466,24 @@ void	ft_signals_child(struct termios *mirror_termios);
 // (Ctrl+C) signal and signal_ctrl_backslash_child() handles the SIGQUIT 
 // (Ctrl+\) signal.
 
+void	ft_handle_sigquit(int sig_num);
+// The handle_sigquit() function handles the SIGQUIT (Ctrl+\) signal in the 
+// child process. If the received signal is SIGQUIT, "^\\Quit\n" is written to
+// the standard output, rl_on_new_line() function is called to place the cursor
+// on a new line, and rl_replace_line() function is called to replace the 
+// current line with an empty string.
+
+void	ft_signals_child(struct termios *mirror_termios);
+/*	The ft_signal_child function initializes the ctrl_c sigaction structure by
+	assigning the handle_sigint_child handler to it, setting the SA_RESTART 
+	flag, which means that if a system call is interrupted by a signal, the 
+	system call will be restarted. Then the signal set is cleared and the 
+	sigaction() function is called to set the action for the SIGINT signal. 
+	In summary: this function is responsible for handling the SIGINT (Ctrl+C) 
+	signal in the child process. */
+
+// ------- ft_p_signals.c
+
 void	ft_signal_ctrl_c_parent(void);
 // The signal_ctrl_c_parent() function initializes the ctrl_c 
 // sigaction structure by assigning the handle_sigint_parent handler to it,
@@ -491,6 +507,8 @@ void	ft_signals_parent(void);
 // set for the parent process. signal_ctrl_c_parent() handles the SIGINT 
 // (Ctrl+C) signal and signal_ctrl_backslash() handles the SIGQUIT (Ctrl+\)
 // signal.
+
+// ------- ft_signals.c
 
 void	ft_signal_ctrl_c_parent(void);
 // The signal_ctrl_c_parent() function initializes the ctrl_c sigaction structure

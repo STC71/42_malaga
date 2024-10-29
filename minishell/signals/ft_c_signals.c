@@ -61,23 +61,34 @@ void	ft_signal_ctrl_backslash_child(void)
 }
 
 /*
-	La función signals_child() llama a las funciones signal_ctrl_c_child() y
-	signal_ctrl_backslash_child() para manejar las señales SIGINT (Ctrl+C) y
-	SIGQUIT (Ctrl+\) en el proceso hijo. De este modo, se establecen los
-	manejadores de señales para el proceso hijo. signal_ctrl_c_child() maneja
-	la señal SIGINT (Ctrl+C) y signal_ctrl_backslash_child() maneja la señal
-	SIGQUIT (Ctrl+\). struct termios *mirror_termios es una estructura que
-	almacena los atributos del terminal, dicha estructura se utiliza para
-	restaurar los atributos del terminal después de que el proceso hijo haya
-	terminado de ejecutarse; se declara aquí y no en el .h porque es una
-	estructura que solo se utiliza en este archivo; y se pasa como argumento
-	a la función para que pueda ser utilizada en la función tcsetattr().
+	La función ft_handle_sigquit() maneja la señal SIGQUIT (Ctrl+\) en el 
+	proceso hijo. Si la señal recibida es SIGQUIT, "^\\Quit\n" se escribe en la
+	salida estándar y se llama a la función ft_signal_ctrl_backslash_child() 
+	para manejar la señal SIGQUIT (Ctrl+\) en el proceso hijo.
 */
 
+void	ft_handle_sigquit(int sig_num)
+{
+	(void)sig_num;
+}
+
+/*
+	La función ft_signals_child() llama a las funciones ft_signal_ctrl_c_child()
+	y ft_signal_ctrl_backslash_child() para manejar las señales SIGINT (Ctrl+C) y
+	SIGQUIT (Ctrl+\) en el proceso hijo. De esta forma, se establecen los 
+	manejadores de señales para el proceso hijo. ft_signal_ctrl_c_child() maneja
+	la señal SIGINT (Ctrl+C) y ft_signal_ctrl_backslash_child() maneja la señal
+	SIGQUIT (Ctrl+\). struct termios *mirror_termios es una estructura que almacena
+	los atributos del terminal, esta estructura se utiliza para restaurar los
+	atributos del terminal después de que el proceso hijo haya terminado de
+	ejecutarlo; se declara aquí y no en el .h porque es una estructura que solo
+	se utiliza en este archivo; y se pasa como argumento a la función para que
+	pueda ser utilizada en la función tcsetattr().
+*/
 void	ft_signals_child(struct termios *mirror_termios)
 {
 	tcsetattr(1, TCSAFLUSH, mirror_termios);
-	ft_signal_ctrl_backslash();
+	signal (SIGQUIT, ft_handle_sigquit);
 	ft_signal_ctrl_c_child();
 }
 
@@ -116,3 +127,16 @@ void	ft_signals_child(struct termios *mirror_termios)
 	here and not in the .h because it is a structure that is only used in this
 	file; and it is passed as an argument to the function so that it can be used
 	in the tcsetattr() function. */
+
+/*	The ft_handle_sigquit() function handles the SIGQUIT (Ctrl+\) signal in the
+	child process. If the received signal is SIGQUIT, "^\\Quit\n" is written to
+	the standard output and ft_signal_ctrl_backslash_child() function is called
+	to handle the SIGQUIT (Ctrl+\) signal in the child process. */
+
+/*	The ft_signal_child function initializes the ctrl_c sigaction structure by
+	assigning the handle_sigint_child handler to it, setting the SA_RESTART 
+	flag, which means that if a system call is interrupted by a signal, the 
+	system call will be restarted. Then the signal set is cleared and the 
+	sigaction() function is called to set the action for the SIGINT signal. 
+	In summary: this function is responsible for handling the SIGINT (Ctrl+C) 
+	signal in the child process. */
