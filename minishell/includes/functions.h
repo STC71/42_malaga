@@ -331,7 +331,30 @@ void    ft_struct_start(t_pipe_red *pipe_red);
 // pipe and redirection flags to 0. This is necessary to avoid undefined behavior
 // when the flags are used in the program.
 
+// ------- ft_token_tools_2.c
+
+char    *ft_get_name(char *str);
+// The ft_get_name() function extracts the name of an environment variable. It
+// takes one argument: a string. It returns a pointer to the string.
+
+char    *ft_get_value(char *str);
+// The ft_get_value() function extracts the value of an environment variable. It
+// takes one argument: a string. It returns a pointer to the string. The 
+// difference between ft_get_name() and ft_get_value() is that ft_get_name() 
+// extracts the name of the environment variable, while ft_get_value() extracts
+// the value of the environment variable.
+
+void    ft_add_var(t_var ***list_var, char *str, char *value);
+// The ft_add_var() function adds a variable to the list of environment 
+// variables. It takes three arguments: a pointer to a pointer to a t_var
+// structure, a string, and a string. It returns void.
+
 // ------- ft_token_tools.c
+
+char	*ft_replace_str(char *str, char *ins, int pos);
+// The ft_replace_str() function replaces a substring in a string. It takes 
+// three arguments: a string, a string, and a position. It returns a string.
+// The function replaces the substring in the string with the new string.
 
 char	**ft_str_add(char **out, char *token);
 // The ft_str_add() function adds a string to an array of strings. It takes two

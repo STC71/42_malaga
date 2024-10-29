@@ -12,6 +12,24 @@
 
 #include "../includes/minishell.h"
 
+char	*ft_replace_str(char *str, char *new, int i)
+{
+	char	*tmp;
+	char	*tmp2;
+	char	*tmp3;
+
+	tmp = ft_substr(str, 0, i);
+	tmp2 = ft_substr(str, i + 1, ft_strlen(str + i + 1));
+	tmp3 = ft_strjoin(tmp, new);
+	free(tmp);
+	free(tmp2);
+	free(str);
+	return (ft_strjoin(tmp3, tmp2));
+}
+
+/* The ft_replace_str() function replaces a string with another string. It takes
+	three arguments: a string, a string, and an integer. It returns a string. */
+
 char	**ft_str_add(char **out, char *token)
 {
 	int len = 0;
@@ -57,6 +75,7 @@ void	ft_do_command(char **str, t_var **list_var, char *status)
 	char	*tmp;
 	char	*tmp2;
 
+	(void)status;
 	i = 0;
 	while ((*str)[i])
 	{
