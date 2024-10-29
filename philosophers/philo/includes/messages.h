@@ -22,6 +22,21 @@
 # define ERROR_ARGS_5 "Error: Time to sleep must be at least 60 ms\n"
 # define ERROR_ARGS_6 "Error: Number of meals must be at least 1\n"
 
+// ------- Error Codes ---------------------------------------------------------
+
+# define WRONG_INPUT 1
+# define MALLOC_ERROR 2
+
+// ------- Messages ------------------------------------------------------------
+
+# define EAT "is eating"
+# define DIED "is died"
+# define SLEEP "is sleeping"
+# define TAKE_FORKS "has taken a fork"
+# define THINK "is thinking"
+
+// ------- Return Codes --------------------------------------------------------
+
 # define FAILURE 1
 # define SUCCESS 0
 

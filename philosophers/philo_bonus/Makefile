@@ -32,7 +32,7 @@ RM 				= rm -f
 
 # ***** DIRECTORIES ********************************************************** #
 
-SRCS			= srcs/philo.c \
+SRCS			= srcs/philo_bonus.c \
                 	srcs/ft_check.c \
 					srcs/ft_tools.c 
                     
