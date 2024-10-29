@@ -53,6 +53,7 @@ SRCS			= parser/ft_action.c \
 				  parser/ft_struct_parse.c \
 				  parser/ft_struct_process.c \
 				  parser/ft_struct_start.c \
+				  parser/ft_token_tools.c \
 				  parser/ft_token.c \
 				  parser/ft_tools.c \
 				  signals/ft_c_signals.c \
