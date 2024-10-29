@@ -64,6 +64,21 @@ void	ft_signals_parent(void)
 	ft_signal_ctrl_backslash();
 }
 
+void    ft_handle_sigquit(int sig)
+{
+    (void)sig;
+}
+
+void    ft_signal_ctrl_backslash(void)
+{
+    struct sigaction    ctrl_backslash;
+
+    ctrl_backslash.sa_handler = ft_handle_sigquit;
+    ctrl_backslash.sa_flags = SA_RESTART;
+    sigemptyset(&ctrl_backslash.sa_mask);
+    sigaction(SIGQUIT, &ctrl_backslash, NULL);
+}
+
 /*  The signal_ctrl_c_parent() function initializes the ctrl_c sigaction 
     structure for this the SIG_DFL handler is assigned, which causes the signal
     to be handled in the default way by the system. After that, the SA_RESTART
@@ -85,3 +100,21 @@ void	ft_signals_parent(void)
     set for the parent process. signal_ctrl_c_parent() handles the SIGINT 
     (Ctrl+C) signal and signal_ctrl_backslash() handles the SIGQUIT (Ctrl+\) 
     signal. */
+
+/*  The ft_handle_sigquit() function handles the SIGQUIT (Ctrl+\) signal in the 
+    parent process. If the received signal is SIGQUIT, "^\\Quit\n" is written to
+    the standard output, rl_on_new_line() function is called to place the cursor
+    on a new line, and rl_replace_line() function is called to replace the 
+    current line with an empty string. */
+
+/*  The ft_signal_ctrl_backslash() function initializes the ctrl_backslash
+    sigaction structure for this the SIG_DFL handler is assigned, which causes
+    the signal to be handled in the default way by the system. Then, the
+    SA_RESTART flag is assigned, which means that if a system call is interrupted
+    by a signal, the system call will be restarted. Subsequently, the signal set
+    is cleared and the sigaction() function is called, with the parameters: 
+    SIGQUIT, which is the quit signal (Ctrl+\); &ctrl_backslash, which is the
+    sigaction structure that has been initialized; and NULL, which is a pointer
+    to the sigaction structure that is used to store the previous action for the
+    signal. In summary: this function is responsible for handling the SIGQUIT
+    (Ctrl+\) signal in the parent process. */

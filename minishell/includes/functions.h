@@ -508,6 +508,22 @@ void	ft_signals_parent(void);
 // (Ctrl+C) signal and signal_ctrl_backslash() handles the SIGQUIT (Ctrl+\)
 // signal.
 
+void	ft_handle_sigquit(int sig);
+// The handle_sigquit() function handles the SIGQUIT (Ctrl+\) signal in the
+// parent process. If the received signal is SIGQUIT, "^\\Quit\n" is written to
+// the standard output, rl_on_new_line() function is called to place the cursor
+// on a new line, and rl_replace_line() function is called to replace the 
+// current line with an empty string.
+
+void    ft_signal_ctrl_backslash(void);
+// The signal_ctrl_backslash() function initializes the ctrl_back_slash 
+// sigaction structure by assigning the handle_sigquit handler to it, setting
+// the SA_RESTART flag, which means that if a system call is interrupted by a
+// signal, the system call will be restarted. Then the signal set is cleared
+// and the sigaction() function is called to set the action for the SIGQUIT
+// signal. In summary: this function is responsible for handling the SIGQUIT
+// (Ctrl+\) signal in the parent process.
+
 // ------- ft_signals.c
 
 void	ft_signal_ctrl_c_parent(void);
