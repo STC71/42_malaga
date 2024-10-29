@@ -1,0 +1,31 @@
+Threads in C: https://www.geeksforgeeks.org/multithreading-in-c/
+Mutex: https://www.geeksforgeeks.org/mutex-lock-for-linux-thread-synchronization/
+Semaphores: https://www.geeksforgeeks.org/semaphores-in-process-synchronization/
+POSIX implementation of semaphores in C: https://www.geeksforgeeks.org/use-posix-semaphores-c/
+
+Videos:
+
+    Programar en C con Hilos pthreads
+        https://youtu.be/NAKrOZCcJ4A?si=tmkTzTuVghDMLmVU
+    Como crear hilos en C usando Pthread (POSIX)
+        https://youtu.be/ROzCbSwrltA?si=-76wBcchhhMLSnPa
+    Paso de Argumentos a Hilos en C (POSIX)
+        https://youtu.be/Q6sJaVs0cbA?si=YtIht545Y16RqBXz
+        
+    Programar en C: Semaforos POSIX
+        https://youtu.be/YC61729PThw?si=NM9OBziBzhKDSBMT
+    Mutex. Sincronización de hilos. Programar en C, Linux
+        https://youtu.be/faZEhIHdJx8?si=8yKjMn-O9ZmuCHec
+    Aprende a sincronizar hilos en C con Mutex
+        https://youtu.be/q66qT0f60Ko?si=EjiU55i2v7Tqei6g
+    Cómo usar la función wait en C para el control de procesos:
+        https://youtu.be/vj3pXk6MoSY?si=bFkxCYg8U8CN2rF7
+
+    fork(). Parte I: ,Creación de un nuevo proceso, hijos, padres, zombies y huérfanos
+        https://youtu.be/VwjP-KFuZCM?si=xTRFUsnVnIrXGomU
+    fork(). Parte II. wait, fork , exit status, múltiples hijos
+        https://youtu.be/Dt9z_ohQWHI?si=p7djOpkspi2B9LlZ
+    
+    Philosophers, 42 School Project. Dining Philosophers Project. C Implementation
+        https://youtu.be/UGQsvVKwe90?si=vXA9UBqR8afEVb1b
+            https://github.com/Jamshidbek2000/philosophers_42
