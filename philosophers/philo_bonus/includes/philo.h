@@ -28,8 +28,10 @@
 
 // ------------------------- Own libraries --------------------------------- //
 
+# include "structures.h"                /* Structures */
 # include "colors.h"                    /* colors */
 # include "functions.h"                 /* Functions */
 # include "messages.h"                  /* Messages */
+
 
 #endif

@@ -21,12 +21,6 @@ int	ft_get_fork_l(t_philo *philo)
 	return (SUCCESS);
 }
 
-/*	The function ft_get_fork_l() gets the left fork of the philosopher. It 
-	receives a philosopher as an argument. If the philosopher is dead or 
-	the philosopher is dying, it returns a failure message. Else, it locks 
-	the mutex of the left fork, writes the message that the philosopher has 
-	taken the forks, and returns a success message. */
-
 int	ft_get_fork_r(t_philo *philo)
 {
 	if (ft_rip(philo) || ft_how_are_you(philo) == DIE)
@@ -35,12 +29,6 @@ int	ft_get_fork_r(t_philo *philo)
 	ft_writing(philo->data, philo->id, TAKE_FORKS);
 	return (SUCCESS);
 }
-
-/*	The function ft_get_fork_r() gets the right fork of the philosopher. It 
-	receives a philosopher as an argument. If the philosopher is dead or the 
-	philosopher is dying, it returns a failure message. Else, it locks the 
-	mutex of the right fork, writes the message that the philosopher has taken 
-	the forks, and returns a success message. */
 
 int	get_forks(t_philo *philo)
 {
@@ -55,11 +43,3 @@ int	get_forks(t_philo *philo)
 	}
 	return (SUCCESS);
 }
-
-/*	The function get_forks() gets the forks of the philosopher. It receives a 
-	philosopher as an argument. If there is only one philosopher, it calls the 
-	function ft_only_one(). Else, it gets the right fork of the philosopher. 
-	If the philosopher cannot get the right fork, it returns a failure message. 
-	Else, it gets the left fork of the philosopher. If the philosopher cannot 
-	get the left fork, it drops the right fork and returns a failure message. 
-	Finally, it returns a success message. */

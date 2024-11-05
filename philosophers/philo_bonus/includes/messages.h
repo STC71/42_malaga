@@ -24,21 +24,20 @@
 
 // ------- Error Codes ---------------------------------------------------------
 
-# define WRONG_INPUT 1
+# define INPUT_ERROR 1
 # define MALLOC_ERROR 2
 
 // ------- Messages ------------------------------------------------------------
 
-# define EAT "is eating"
-# define DIED "died"
-# define SLEEP "is sleeping"
-# define TAKE_FORKS "has taken a fork"
-# define THINK "is thinking"
+# define EAT "is eating 🤤"
+# define DIED "is died 💀"
+# define SLEEP "is sleeping 😴"
+# define TAKE_FORKS "has taken a fork 🍴"
+# define THINK "is thinking 🤯"
 
 // ------- Return Codes --------------------------------------------------------
 
 # define FAILURE 1
 # define SUCCESS 0
-
 
 #endif
