@@ -10,14 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
-
-int	ft_check_args(int c, char **v)
-{
-	if (c < 5 || c > 6 || ft_argv_num(c, v) != 0 || ft_error_argv(c, v))
-		return (INPUT_ERROR);
-	return (SUCCESS);
-}
+#include "../includes/philo_bonus.h"
 
 int	ft_error_argv(int argc, char **argv)
 {
@@ -25,73 +18,47 @@ int	ft_error_argv(int argc, char **argv)
 
 	i = 1;
 	if (argc == 6 && ft_atoi(argv[5]) <= 0)
-		return (INPUT_ERROR);
+		return (ERROR_INPUT);
 	if (ft_atoi(argv[i]) < 1 || ft_atoi(argv[i]) > 200)
-		return (INPUT_ERROR);
+		return (ERROR_INPUT);
 	while (++i < 5)
 	{
 		if (ft_atoi(argv[i]) < 60)
-			return (INPUT_ERROR);
+			return (ERROR_INPUT);
 	}
 	return (SUCCESS);
 }
 
-int	ft_argv_num(int argc, char **argv)
-{
-	int	i;
-	int	j;
-
-	i = 1;
-	while (i < argc)
-	{
-		j = 0;
-		while (argv[i][j] != '\0')
-		{
-			if (argv[i][j] < '0' || argv[i][j] > '9')
-			{
-				return (INPUT_ERROR);
-			}
-			j++;
-		}
-		i++;
-	}
-	return (SUCCESS);
-}
-
-t_state	ft_how_are_you(t_philo *philo)
+t_state	ft_how_are_you(t_data *data)
 {
 	t_state	state;
 
-	pthread_mutex_lock(&philo->mut_state);
-	state = philo->state;
-	pthread_mutex_unlock(&philo->mut_state);
+	sem_wait(data->philo.philo_sem);
+	state = data->philo.state;
+	sem_post(data->philo.philo_sem);
 	return (state);
 }
 
-void	*ft_are_you_dead(void *data)
+bool	ft_everyone_ok(void)
 {
-	int		i;
-	int		j;
-	t_data	*value;
-	t_philo	*philos;
+	sem_t	*death;
 
-	i = -1;
-	value = (t_data *)data;
-	philos = value->philos;
-	j = ft_num_philos(value);
-	while (++i < j && ft_keep_or_not(value))
-	{
-		if (ft_rip(&philos[i]) && ft_keep_or_not(value))
-		{
-			ft_writing(value, philos[i].id, DIED);
-			ft_keep_flag(value, false);
-			ft_game_over(value);
-			break ;
-		}
-		if (i == j - 1)
-			i = -1;
-		usleep(1000);
-	}
-	return (NULL);
+	death = sem_open("/death", 0, 0);
+	if (death == SEM_FAILED)
+		return (false);
+	sem_close(death);
+	return (true);
 }
 
+void	ft_philo_dep(void)
+{
+	sem_open("/death", O_CREAT, 0644, 0);
+}
+
+bool	ft_rip(t_data *data)
+{
+	if (ft_how_are_you(data) != EATING
+		&& ft_my_watch() - ft_get_last_eat(data) > data->die_time)
+		return (true);
+	return (false);
+}

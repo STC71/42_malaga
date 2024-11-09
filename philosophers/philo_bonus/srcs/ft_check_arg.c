@@ -1,44 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_forks.c                                         :+:      :+:    :+:   */
+/*   ft_check_arg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-11-01 23:27:51 by sternero          #+#    #+#             */
-/*   Updated: 2024-11-01 23:27:51 by sternero         ###   ########.fr       */
+/*   Created: 2024-11-08 16:07:45 by sternero          #+#    #+#             */
+/*   Updated: 2024-11-08 16:07:45 by sternero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
 
-int	ft_drop_forks(t_data *data)
+int	ft_argv_num(int argc, char **argv)
 {
-	sem_post(data->forks_sem);
-	sem_post(data->forks_sem);
+	int	i;
+	int	j;
+
+	i = 1;
+	while (i < argc)
+	{
+		j = 0;
+		while (argv[i][j] != '\0')
+		{
+			if (argv[i][j] < '0' || argv[i][j] > '9')
+			{
+				return (ERROR_INPUT);
+			}
+			j++;
+		}
+		i++;
+	}
 	return (SUCCESS);
 }
 
-int	ft_get_forks(t_data *data)
+int	ft_check_args(int c, char **v)
 {
-	sem_wait(data->forks_sem);
-	if (ft_writing(data, TAKE_FORKS))
-	{
-		sem_post(data->forks_sem);
-		return (FAILURE);
-	}
-	if (data->philos_num == 1)
-		return (FAILURE);
-	sem_wait(data->forks_sem);
-	if (ft_suspend(ft_how_are_you(data)))
-	{
-		ft_drop_forks(data);
-		return (FAILURE);
-	}
-	if (ft_writing(data, TAKE_FORKS))
-	{
-		ft_drop_forks(data);
-		return (FAILURE);
-	}
+	if (c < 5 || c > 6 || ft_argv_num(c, v) != 0 || ft_error_argv(c, v))
+		return (ERROR_INPUT);
 	return (SUCCESS);
 }

@@ -10,20 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
-int		ft_sleeping(t_philo *philo)
+void	ft_sleeping_for_eating(t_data *data)
 {
-	ft_status(philo, SLEEPING);
-	if (ft_how_are_you(philo) == DIE)
-		return (FAILURE);
-	ft_writing(philo->data, philo->id, SLEEP);
-	ft_delay(ft_get_sleep(philo->data));
-	return (SUCCESS);
+	ft_delay(data->eat_time);
 }
 
-void	ft_sleep_for_eating(t_philo *philo)
+int	ft_sleeping(t_data *data)
 {
-	ft_delay(ft_get_eat(philo->data));
+	ft_status(data, SLEEPING);
+	if (ft_writing(data, SLEEP))
+		return (1);
+	ft_delay(data->sleep_time);
+	return (0);
 }
-

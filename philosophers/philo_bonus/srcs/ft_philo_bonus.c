@@ -10,90 +10,51 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
-int		main(int argc, char **argv)
+int	ft_run_all(t_data *data, int id)
+{
+	if (ft_philo_struct(data, id))
+		exit(1);
+	ft_delay_even(data);
+	if (pthread_create(&data->watchdog, NULL, &ft_cerberus, data))
+		return (ERROR_THREAD);
+	while (true)
+	{
+		if (ft_eating(data) || ft_suspend(ft_how_are_you(data))
+			|| ft_sleeping(data) || ft_suspend(ft_how_are_you(data))
+			|| ft_thinking(data))
+			break ;
+	}
+	if (pthread_join(data->watchdog, NULL))
+		exit(FAILURE);
+	sem_close(data->philo.philo_sem);
+	exit(SUCCESS);
+}
+
+int	ft_philo_struct(t_data *data, int id)
+{
+	char	*sem_name;
+
+	sem_name = ft_init_sem_name(id);
+	if (sem_name == NULL)
+		exit(ERROR_MALLOC);
+	sem_unlink(sem_name);
+	data->philo.philo_sem = sem_open(sem_name, O_CREAT, 0644, 1);
+	sem_unlink(sem_name);
+	free(sem_name);
+	data->philo.id = id;
+	ft_get_last_meal(data);
+	return (SUCCESS);
+}
+
+int	main(int argc, char **argv)
 {
 	if (ft_check_args(argc, argv) != 0)
 	{
 		ft_instruction();
-		return (INPUT_ERROR);
+		return (ERROR_INPUT);
 	}
-	if (ft_init_philos(argc, argv) != 0)
-		return (MALLOC_ERROR);
-	return (SUCCESS);
-}
-
-void	*ft_the_core(void *philo)
-{
-	t_philo	*value;
-
-	value = (t_philo *) philo;
-	ft_get_last_meal(value);
-	if (value->id % 2 == 0)
-		ft_delay(value->data->eat_time - 10);
-	while (ft_how_are_you(value) != DIE)
-	{
-		if (ft_eating(value) != 0)
-			break;
-		if (ft_thinking(value) != 0)
-			break;
-		if (ft_sleeping(value) != 0)
-			break;			
-		if (ft_how_are_you(value) == DIE)
-			break;
-	}
-	return (NULL);
-}
-
-int	ft_only_one(t_philo *philo)
-{
-	ft_get_fork_l(philo);
-	ft_delay(ft_get_die(philo->data));
-	ft_status(philo, DIE);
-	return (1);
-}
-
-void	*ft_the_watchdog(void *phi_value)
-{
-	int		i;
-	int		j;
-	t_data	*value;
-		
-	i = -1;
-	value = (t_data *)phi_value;	
-	j = ft_num_philos(value);
-
-	while (++i < j && ft_keep_or_not(value))
-	{
-		usleep(1000);
-		if (ft_has_eaten(value, &value->philos[i]) == false)
-			i = -1;
-	}
-	if (ft_keep_or_not(value) == true)
-	{
-		ft_keep_flag(value, false);
-		ft_game_over(value);
-	}
-	return (NULL);
-}
-
-int	ft_sincro(t_data *data)
-{
-	int	i;
-	int	j;
-
-	i = -1;
-	j = ft_num_philos(data);
-	if (pthread_join(data->monit_all_alive, NULL))
-		return (FAILURE);
-	if (ft_num_meals(data) == true
-		&& pthread_join(data->monit_all_full, NULL))
-		return (FAILURE);
-	while (++i < j)
-	{
-		if (pthread_join(data->philo_ths[i], NULL))
-			return (FAILURE);
-	}
+	ft_init_philo(argc, argv);
 	return (SUCCESS);
 }

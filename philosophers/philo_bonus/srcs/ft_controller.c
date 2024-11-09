@@ -10,47 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
-bool	ft_keep_or_not(t_data *data)
+void	*ft_cerberus(void *data_p)
 {
-	bool	keep;
+	t_data	*data;
 
-	pthread_mutex_lock(&data->mut_keep_iter);
-	keep = data->keep_iterating;
-	pthread_mutex_unlock(&data->mut_keep_iter);
-	return (keep);
-}
-
-bool	ft_has_eaten(t_data *value, t_philo *philo)
-{
-	bool	res;
-
-	res = false;
-	if (ft_times_eating(philo) >= value->nb_meals)
-		res = true;
-	return (res);
-}
-
-bool	ft_rip(t_philo *philo)
-{
-	bool		res;
-	t_data		*data;
-
-	data = philo->data;
-	res = false;
-	if (ft_my_watch() - ft_get_last_eat(philo) > ft_get_die(data)
-		&& ft_how_are_you(philo) != EATING)
+	data = (t_data *)data_p;
+	while (ft_suspend(ft_how_are_you(data)) == false)
 	{
-		ft_status(philo, DIE);
-		res = true;
+		if (ft_everyone_ok())
+			return (ft_status(data, FINISHED), NULL);
+		if (ft_rip(data))
+		{
+			sem_wait(data->print_sem);
+			if (ft_rip(data) && ft_everyone_ok() == false)
+			{
+				ft_status(data, DIE);
+				ft_philo_dep();
+				printf("%lu %d %s\n", ft_my_watch() - ft_get_start(data),
+					data->philo.id, DIED);
+				sem_post(data->print_sem);
+				break ;
+			}
+			sem_post(data->print_sem);
+		}
+		usleep(1000);
 	}
-	return (res);
-}
-
-bool	ft_num_meals(t_data *value)
-{
-	if (value->nb_meals > 0)
-		return (true);
-	return (false);
+	return (NULL);
 }

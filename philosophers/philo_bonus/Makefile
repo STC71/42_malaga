@@ -32,14 +32,13 @@ RM 				= rm -f
 
 # ***** DIRECTORIES ********************************************************** #
 
-SRCS			= srcs/ft_check.c \
-                	srcs/ft_controller.c \
+SRCS			= srcs/ft_check_arg.c \
+					srcs/ft_check.c \
+					srcs/ft_controller.c \
 					srcs/ft_eat_n_think.c \
 					srcs/ft_forks.c \
 					srcs/ft_free_tools.c \
 					srcs/ft_gettering_a.c \
-					srcs/ft_gettering_b.c \
-					srcs/ft_gettering_c.c \
 					srcs/ft_init.c \
 					srcs/ft_philo_bonus.c \
 					srcs/ft_printing.c \

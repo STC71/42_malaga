@@ -24,8 +24,11 @@
 
 // ------- Error Codes ---------------------------------------------------------
 
-# define INPUT_ERROR 1
-# define MALLOC_ERROR 2
+# define ERROR_THREAD 5		// The thread is not available
+# define ERROR_SEM 4		// The semaphore is not available
+# define ERROR_FORK 3		// The fork is not available
+# define ERROR_MALLOC 2		// The memory allocation failed
+# define ERROR_INPUT 1		// The input is not valid
 
 // ------- Messages ------------------------------------------------------------
 
@@ -37,7 +40,7 @@
 
 // ------- Return Codes --------------------------------------------------------
 
-# define FAILURE 1
-# define SUCCESS 0
+# define FAILURE 1			// The program failed
+# define SUCCESS 0			// The program succeeded
 
 #endif

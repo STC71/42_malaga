@@ -13,49 +13,50 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-typedef enum s_state
+typedef enum e_state
 {
-	EATING = 0,						// Philosopher is eating
-	SLEEPING = 1,					// Philosopher is sleeping
-	THINKING = 2,					// Philosopher is thinking
-	DIE = 3,						// Philosopher is dead
-	FULL = 4,						// Philosopher is full
-	OFF = 5							// Philosopher is idle, is doing nothing
+	DIE,						// Philosopher is dead
+	EATING,						// Philosopher is eating
+	FINISHED,					// Philosopher has finished eating
+	FULL,						// Philosopher is full
+	OFF,						// Philosopher is idle, is doing nothing
+	SLEEPING,					// Philosopher is sleeping
+	THINKING,					// Philosopher is thinking
 }	t_state;
 
 /*	This t_state enumeration represents the possible states of a philosopher in 
-	the dining philosophers problem. It includes states like eating, sleeping, 
-	thinking, and dead.	It is used to track the current state of a philosopher
-	and determine their behavior in the simulation. 
-	
-	This code defines an enumeration type named t_state that represents the 
-	different possible states a philosopher can be in during the Dining 
-	Philosophers problem simulation. Let's break down each state:
+	the dining philosophers problem. It includes states like EATING, SLEEPING,
+	and THINKING, as well as additional states like DIE, FINISHED, and FULL.
 
-	EATING: The philosopher is currently eating.
-	SLEEPING: The philosopher is currently sleeping.
-	THINKING: The philosopher is currently thinking.
-	DIE: The philosopher has finished eating all their meals and is considered 
-		dead.
-	FULL: The philosopher has finished eating the current meal and is waiting 
-		for the next one.
-	OFF: The philosopher is idle and not doing anything.
+	Each state corresponds to a specific activity or condition of the philosopher
+	during the simulation. For example, EATING indicates that the philosopher is
+	currently eating, while THINKING indicates that the philosopher is thinking.
 
-	This enumeration is used to track the current state of each philosopher and 
-	to determine the next action they should take. For example, a philosopher in 
-	the "EATING" state will eventually transition to the "SLEEPING" state, and 
-	so on. The enumeration provides a clear and concise way to represent the
-	possible states of a philosopher in the simulation. */
+	The additional states DIE, FINISHED, and FULL may be used to represent
+	special conditions, such as when a philosopher has died, finished eating all
+	meals, or is full and no longer needs to eat.
+
+	Overall, this enumeration provides a clear and concise way to represent the
+	various states that a philosopher can be in during the simulation. It helps
+	organize the logic of the program and makes it easier to understand the
+	philosopher's behavior based on their current state.
+*/
+
+struct	s_data;
+
+/*	Forward declaration of the t_data structure to allow the t_philo structure 
+	to reference it. This is necessary because the t_philo structure contains a 
+	pointer to the t_data structure, and the t_data structure is defined later 
+	in the file. By using a forward declaration, we can inform the compiler that
+	the t_data structure exists without providing the full definition at this 
+	point. This allows us to define the t_philo structure with a pointer to the 
+	t_data structure before the t_data structure is fully defined.	*/
 
 typedef struct s_philo
 {
 	int				id;				// Philosopher's id
 	int				meals;			// Number of meals eaten
-	pthread_mutex_t	*fork_l;		// Left fork
-	pthread_mutex_t	*fork_r;		// Right fork
-	pthread_mutex_t mut_last_eat;	// Mutex for the last time the philos ate
-	pthread_mutex_t	mut_num_meals;	// Mutex for the number of meals	
-	pthread_mutex_t mut_state;		// Mutex for the state
+	sem_t			*philo_sem;		// Semaphore for the philosopher	
 	struct s_data	*data;			// Pointer to the main data structure
 	t_state			state;			// Current state of the philosopher
 	uint64_t		last_eat;		// Last time the philosopher ate
@@ -68,24 +69,13 @@ typedef struct s_philo
 	
 	Let's break down each member of the structure:
 
-	id: A unique identifier for each philosopher.
-	meals: A counter to track the number of meals a philosopher has eaten.
-	fork_l and fork_r: Pointers to mutexes representing the left and right 
-		forks, respectively. These mutexes are used to synchronize access 
-		to the forks.
-	mut_last_eat: A mutex to protect the last_eat variable. This is likely used 
-		to implement a timeout mechanism to prevent deadlock.
-	mut_num_meals: A mutex to protect the meals variable. This ensures that the 
-		meal count is updated atomically.
-	mut_state: A mutex to protect the state variable. This is used to ensure 
-		that the philosopher's state is updated atomically.
-	data: A pointer to the main data structure, which likely contains global 
-		information about the simulation, such as the total number of 
-		philosophers and the simulation time.
-	state: The current state of the philosopher. This could be one of the 
-		following: THINKING, EATING, or SLEEPING.
-	last_eat: A timestamp indicating the last time the philosopher finished 
-		eating.
+	id: An integer representing the unique identifier of the philosopher.
+	meals: An integer tracking the number of meals the philosopher has eaten.
+	philo_sem: A semaphore used to synchronize access to shared resources.
+	data: A pointer to the main data structure containing information about the 
+		simulation.
+	state: An enumeration representing the current state of the philosopher.
+	last_eat: A 64-bit unsigned integer storing the timestamp of the last meal.
 
 	Purpose of the Structure:
 
@@ -109,26 +99,16 @@ typedef struct s_philo
 
 typedef struct s_data
 {
-	int				nb_philos;			
-	int				nb_meals;			
-	int				nb_full_p;			
-	bool			keep_iterating;
+	int				philos_num;		
+	int				meals_num;
+	pthread_t		watchdog;	
+	sem_t			*forks_sem;
+	sem_t			*print_sem;
 	uint64_t		eat_time;
 	uint64_t		die_time;				
 	uint64_t		sleep_time;
 	uint64_t		start_time;
-	pthread_mutex_t	mut_eat_t;
-	pthread_mutex_t	mut_die_t;				
-	pthread_mutex_t	mut_sleep_t;
-	pthread_mutex_t	mut_print;
-	pthread_mutex_t	mut_nb_philos;
-	pthread_mutex_t	mut_keep_iter;
-	pthread_mutex_t	mut_start_time;
-	pthread_t		monit_all_alive;
-	pthread_t		monit_all_full;
-	pthread_t		*philo_ths;
-	pthread_mutex_t	*forks;
-	t_philo			*philos;
+	t_philo			philo;
 }	t_data;
 
 /*	This s_date structure is designed to hold various parameters and 
@@ -140,28 +120,18 @@ typedef struct s_data
 		simulation.
 	nb_meals: An integer specifying the number of meals each philosopher 
 		should eat.
-	nb_full_p: An integer to track the number of philosophers who have 
-		finished eating.
-	keep_iterating: A boolean flag to control the overall iteration of the 
-		simulation.
-	eat_time: A 64-bit unsigned integer representing the time a philosopher 
-		spends eating.
-	die_time: A 64-bit unsigned integer representing the time a philosopher 
-		spends dying.
-	sleep_time: A 64-bit unsigned integer representing the time a philosopher 
-		spends sleeping.
-	start_time: A 64-bit unsigned integer to store the start time of the 
-		simulation.
-	mut_eat_t, mut_die_t, mut_sleep_t, mut_print, mut_nb_philos, mut_keep_iter,
-		mut_start_time: These are mutex locks used to synchronize access to 
-		shared resources, preventing race conditions.
-	monit_all_alive, monit_all_full: These are thread handles for threads 
-		responsible for monitoring the state of the philosophers.
-	philo_ths: An array of thread handles for the philosopher threads.
-	forks: An array of mutex locks, representing the forks used by the 
-		philosophers.
-	philos: An array of structures, each representing a philosopher with its 
-		own state and thread handle.
+	watchdor: A thread responsible for monitoring the philosophers and
+		ensuring they are alive and eating correctly.
+	forks_sem: An array of semaphores representing the forks that the
+		philosophers will use to eat.
+	print_sem: A semaphore used to synchronize the output of the program.
+	eat_time: The time it takes for a philosopher to eat a meal.
+	die_time: The time it takes for a philosopher to die if they haven't
+		eaten.
+	sleep_time: The time it takes for a philosopher to sleep after eating.
+	start_time: The timestamp when the simulation started.
+	philos: An array of philosopher structures representing each philosopher
+		in the simulation.
 
 	Overall Function:
 

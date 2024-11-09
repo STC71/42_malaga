@@ -10,36 +10,59 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
-int	ft_times_eating(t_philo *philo)
+bool	ft_num_meals(t_data *data)
 {
-	int	res;
-
-	pthread_mutex_lock(&philo->mut_num_meals);
-	res = philo->meals;
-	pthread_mutex_unlock(&philo->mut_num_meals);
-	return (res);
+	if (data->meals_num > 0)
+		return (true);
+	return (false);
 }
 
-int	ft_eating(t_philo *philo)
+bool	ft_has_eaten(t_data *data)
 {
-	if (get_forks(philo) != 0)
+	if (ft_num_meals(data) == false)
+		return (false);
+	if (data->meals_num <= data->philo.meals)
+	{
+		ft_status(data, FULL);
+		return (true);
+	}
+	return (false);
+}
+
+int	ft_eating(t_data *data)
+{
+	if (ft_get_forks(data))
 		return (FAILURE);
-	ft_status(philo, EATING);
-	ft_writing(philo->data, philo->id, EAT);
-	ft_get_last_meal(philo);
-	ft_sleep_for_eating(philo);
-	ft_get_num_meals(philo);
-	ft_drop_fork(philo);
+	ft_get_last_meal(data);
+	ft_status(data, EATING);
+	if (ft_writing(data, EAT))
+	{
+		ft_drop_forks(data);
+		return (FAILURE);
+	}
+	ft_sleeping_for_eating(data);
+	ft_drop_forks(data);
+	data->philo.meals++;
+	if (ft_has_eaten(data))
+		return (FAILURE);
 	return (SUCCESS);
 }
 
-int		ft_thinking(t_philo *philo)
+int	ft_thinking(t_data *data)
 {
-	ft_status(philo, THINKING);
-	if (ft_how_are_you(philo) == DIE)
+	if (ft_writing(data, THINK))
 		return (1);
-	ft_writing(philo->data, philo->id, THINK);
-	return (SUCCESS);
+	return (0);
+}
+
+uint64_t	ft_get_last_eat(t_data *data)
+{
+	uint64_t	time;
+
+	sem_wait(data->philo.philo_sem);
+	time = data->philo.last_eat;
+	sem_post(data->philo.philo_sem);
+	return (time);
 }

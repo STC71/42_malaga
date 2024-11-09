@@ -10,33 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 
-void	ft_writing(t_data *data, int id, char *src)
+int	ft_writing(t_data *data, char *msg)
 {
-	uint64_t	i;
-
-	i = ft_my_watch() - ft_get_start(data);
-	pthread_mutex_lock(&data->mut_print);
-	if (ft_keep_or_not(data))
-		printf("%lu %d %s\n", i, id, src);
-	/* {
-		if (ft_atoi(src) == DIE)
-			printf("%lu" BDRED"Philosopher %d -> %s\n"RESET, i, id, src);
-		else
-			printf("%lu Philosopher %d -> %s\n", i, id, src);
-	} */
-	pthread_mutex_unlock(&data->mut_print);
+	sem_wait(data->print_sem);
+	if (ft_everyone_ok())
+	{
+		sem_post(data->print_sem);
+		return (1);
+	}
+	printf("%lu %d %s\n", ft_my_watch() - ft_get_start(data),
+		data->philo.id, msg);
+	sem_post(data->print_sem);
+	return (0);
 }
 
 void	ft_instruction(void)
 {
 	printf(BDBLUE"\n\n");
-    printf("█████ █  █ █ █    ████      ███  ████ █   █ █  █ ████\n");
-    printf("█   █ █  █ █ █    █  █      █  █ █  █ ██  █ █  █ █   \n");
-    printf("█████ ████ █ █    █  █      ███  █  █ █ █ █ █  █ ████\n");
-    printf("█     █  █ █ █    █  █      █  █ █  █ █  ██ █  █    █\n");
-    printf("█     █  █ █ ████ ████ ████ ███  ████ █   █ ████ ████\n\n");
+	printf("█████ █  █ ███ █    ████       ███  ████ █   █ █  █ ████\n");
+	printf("█   █ █  █  █  █    █  █       █  █ █  █ ██  █ █  █ █   \n");
+	printf("█████ ████  █  █    █  █       ███  █  █ █ █ █ █  █ ████\n");
+	printf("█     █  █  █  █    █  █       █  █ █  █ █  ██ █  █    █\n");
+	printf("█     █  █ ███ ████ ████       ███  ████ █   █ ████ ████\n\n");
 	printf(RESET"                 by sternero(nov.2024)              \n\n");
 	printf(BDYELLOW "\tRemember, 😡 you must enter...\n\n" RESET);
 	printf("./philo_bonus +\n");
@@ -52,5 +49,6 @@ void	ft_instruction(void)
 	printf("each with a time to die 😭 of 800 ms,\n");
 	printf("a time to eat 🤤 of 200 ms, a time to sleep 🥱 of 200 ms,\n");
 	printf("and each philosopher must eat 5 times.\n\n");
-	printf(BDRED"😵‍💫 Don't be confused"RESET"... and enjoy the experience. 🤪\n\n");
+	printf(BDRED"😵‍💫 Don't be confused"RESET);
+	printf("... and enjoy the experience. 🤪\n\n");
 }

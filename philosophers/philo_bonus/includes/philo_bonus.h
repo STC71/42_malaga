@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_bonus.h                                            :+:      :+:    :+:   */
+/*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,22 +15,28 @@
 
 // ------------------------- External libraries ----------------------------- //
 
-# include <pthread.h>       
-/* pthread_create, pthread_join, pthread_mutex_init, pthread_mutex_lock, 
+# include <fcntl.h>
+/*  O_CREAT to create a file if it doesn't exist.
+    O_RDWR to open the file for reading and writing.
+    O_TRUNC to truncate the file to zero bytes. */
+# include <pthread.h>
+/*  pthread_create, pthread_join, pthread_mutex_init, pthread_mutex_lock, 
     pthread_mutex_unlock, pthread_mutex_destroy */
-# include <stdbool.h>       /* bool, true, false */
-# include <stdint.h>        /* uint64_t, uint32_t, uint16_t, uint8_t */
-# include <stdio.h>         /* printf, NULL... */ 
-# include <stdlib.h>        /* malloc, free, exit */
-# include <string.h>        /* strerror */
-# include <sys/time.h>  
-# include <unistd.h>        /* usleep, write, fork, execve... */
+# include <semaphore.h>      /* sem_open, sem_close, sem_post, sem_wait */
+# include <stdbool.h>        /* bool, true, false */
+# include <stdint.h>         /* uint64_t, uint32_t, uint16_t, uint8_t */
+# include <stdio.h>          /* printf, NULL... */ 
+# include <stdlib.h>         /* malloc, free, exit */
+# include <string.h>         /* strerror */
+# include <sys/time.h>       /* gettimeofday */
+# include <sys/wait.h>       /* waitpid */ 
+# include <unistd.h>         /* usleep, write, fork, execve... */
 
 // ------------------------- Own libraries --------------------------------- //
 
-# include "colors.h"                    /* colors */
-# include "functions.h"                 /* Functions */
-# include "messages.h"                  /* Messages */
 # include "structures.h"                /* Structures */
+# include "colors.h"                    /* colors */
+# include "messages.h"                  /* Messages */
+# include "functions.h"                 /* Functions */
 
 #endif
