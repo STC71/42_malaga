@@ -32,6 +32,12 @@ int	ft_run_all(t_data *data, int id)
 	exit(SUCCESS);
 }
 
+/* 	This code starts a philosopher's life cycle. It initializes the philosopher,
+	delays if needed, creates a watchdog thread to monitor the philosopher, and 
+	then repeatedly makes the philosopher eat, sleep, and think until a 
+	termination condition is met. Finally, it joins the watchdog thread and 
+	cleans up resources.	*/
+
 int	ft_philo_struct(t_data *data, int id)
 {
 	char	*sem_name;
@@ -48,6 +54,11 @@ int	ft_philo_struct(t_data *data, int id)
 	return (SUCCESS);
 }
 
+/* 	This code sets up a philosopher's information. It creates a unique name for 
+	a semaphore, which is used for synchronization. Then, it initializes the 
+	philosopher's ID and other necessary data. Finally, it records the time of 
+	the philosopher's last meal.	*/
+
 int	main(int argc, char **argv)
 {
 	if (ft_check_args(argc, argv) != 0)
@@ -58,3 +69,8 @@ int	main(int argc, char **argv)
 	ft_init_philo(argc, argv);
 	return (SUCCESS);
 }
+
+/* 	This code starts the dining philosophers simulation. It first checks if the 
+	command-line arguments are correct. If they are, it initializes the 
+	simulation, setting up all the necessary data structures and starting the 
+	philosopher processes.	*/

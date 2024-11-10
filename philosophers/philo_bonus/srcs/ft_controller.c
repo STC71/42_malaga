@@ -39,3 +39,19 @@ void	*ft_cerberus(void *data_p)
 	}
 	return (NULL);
 }
+
+/* 	The ft_cerberus function acts as a watchdog, continuously monitoring the 
+	philosophers. It checks if any philosopher has died and, if so, it prints a 
+	message indicating the death and stops the simulation. If everyone has 
+	finished eating, the simulation also ends successfully."
+	Breaking it down further:
+	Watchdog: This function is like a guardian, constantly watching over the 
+		philosophers.
+	Monitoring: It checks the status of each philosopher to see if anyone has 
+		died.
+	Termination: If a philosopher dies, it prints a message and stops the 
+		simulation.
+	Completion: If all philosophers have finished eating, the simulation ends 
+		successfully.
+	In essence, ft_cerberus ensures the fair and timely completion of the Dining
+	Philosophers simulation. 	*/

@@ -26,6 +26,11 @@ int	ft_writing(t_data *data, char *msg)
 	return (0);
 }
 
+/* 	This function is responsible for printing a message to the console related 
+	to the philosopher's actions in a synchronized manner.
+	It ensures that only one philosopher prints at a time using a semaphore, 
+	and checks if all philosophers are still running before printing.	*/
+
 void	ft_instruction(void)
 {
 	printf(BDBLUE"\n\n");
@@ -52,3 +57,8 @@ void	ft_instruction(void)
 	printf(BDRED"😵‍💫 Don't be confused"RESET);
 	printf("... and enjoy the experience. 🤪\n\n");
 }
+
+/* 	This code defines a function ft_instruction that prints instructions to the 
+	user on how to run the Philosophers 42 bonus project.
+	In essence, this function guides the user on how to properly input arguments
+	and run the simulation, ensuring a smooth user experience.	*/

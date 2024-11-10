@@ -34,9 +34,19 @@ int	ft_argv_num(int argc, char **argv)
 	return (SUCCESS);
 }
 
+/* 	This code checks if all command-line arguments (after the program name) are 
+	valid numbers.
+	The code makes sure that you only typed numbers when you ran the program. 
+	If you typed anything else (like letters or symbols), it will say you made 
+	a mistake.	*/
+
 int	ft_check_args(int c, char **v)
 {
 	if (c < 5 || c > 6 || ft_argv_num(c, v) != 0 || ft_error_argv(c, v))
 		return (ERROR_INPUT);
 	return (SUCCESS);
 }
+
+/* 	This code checks if the command-line arguments given to the program are 
+	correct. It verifies the number of arguments and their content to ensure 
+	the program can run properly. */

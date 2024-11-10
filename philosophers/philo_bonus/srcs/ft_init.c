@@ -35,6 +35,15 @@ int	ft_init_all(t_data *data)
 	return (SUCCESS);
 }
 
+/* 	This part of the code is like starting multiple robots to do a task. 
+	Each robot (philosopher process) does its job (eating, thinking, sleeping) 
+	and the main program waits for all robots to finish their work.
+	First, the code initializes the start time of the simulation. Then, it
+	creates a new process for each philosopher. If the process is a child,
+	it runs the philosopher's life cycle. If the process is a parent, it waits
+	for the child to finish. Finally, the code waits for all the philosophers
+	to finish their work before exiting.	*/
+
 int	ft_init_philo(int argc, char **argv)
 {
 	t_data	data;
@@ -46,10 +55,22 @@ int	ft_init_philo(int argc, char **argv)
 	return (0);
 }
 
+/* 	This code sets up the entire simulation. It takes input from the user, 
+	initializes all the necessary data, and then cleans up after the 
+	simulation is finished.
+ */
 char	*ft_init_sem_name(int id)
 {
 	return (ft_strjoin("/philo_", ft_itoa(id)));
 }
+
+/*	This code creates a unique name for a semaphore.
+ 	Think of a semaphore as a traffic light for processes. 
+	This code builds a name for that traffic light using the philosopher's ID. 
+	It does this by combining the string "/philo_" with the philosopher's ID 
+	converted to a string. So, if the philosopher's ID is 3, the name would be 
+	"/philo_3". This unique name helps the program keep track of each 
+	philosopher's semaphore.	*/
 
 int	ft_init_sem(t_data *data)
 {
@@ -73,6 +94,11 @@ int	ft_init_sem(t_data *data)
 	return (0);
 }
 
+/* 	This code sets up shared memory areas (semaphores). It creates two 
+	semaphores: one for controlling access to the forks and another for managing
+	access to the printing function. These semaphores are used to synchronize 
+	the philosophers' actions and prevent deadlocks.	*/
+
 int	ft_init_values(t_data *data, int argc, char **argv)
 {
 	data->philos_num = ft_atoi(argv[1]);
@@ -87,3 +113,8 @@ int	ft_init_values(t_data *data, int argc, char **argv)
 	data->philo.state = OFF;
 	return (ft_init_sem(data));
 }
+
+/* 	This code sets up the initial values. It takes the number of philosophers, 
+	time values for actions (eating, sleeping, dying), and optional meal count 
+	from the command-line arguments. It then stores these values in a data 
+	structure and initializes other necessary variables for the simulation.	*/
