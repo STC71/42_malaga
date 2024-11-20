@@ -31,11 +31,6 @@ void	ft_parse_cmd(char **split_cmd, int *i, t_cmd *cmd_struct)
 			ft_handles_out_redir(split_cmd, i, cmd_struct, &out);
 		else
 		{
-			/* if (!cmd_struct)
-			{
-				cmd_struct = ft_calloc(1, sizeof(t_cmd));
-				cmd_struct->cmd = ft_strdup(split_cmd[*i]);
-			} PROPUESTA SERGIO AROCA*/
 			if (cmd_struct->cmd == NULL)
 				cmd_struct->cmd = strdup(split_cmd[*i]);
 			else
@@ -43,7 +38,11 @@ void	ft_parse_cmd(char **split_cmd, int *i, t_cmd *cmd_struct)
 			(*i)++;
 		}
 	}
-} // una vez que se ha parseado el comando, se almacena en la estructura cmd_struct.
+}
+
+/*	ft_parse_cmd() function is used to parse the command and store it in the 
+	cmd_struct structure. When the command is parsed, it is stored in the
+	cmd_struct structure. */
 
 void	ft_parse_split(t_shell *shell)
 {
@@ -72,5 +71,8 @@ void	ft_parse_split(t_shell *shell)
 		free(shell->cmds);
 	}
 	shell->cmds = cmds;
-} // una vez que se ha parseado el comando, se almacena en la estructura cmd_struct.
+}
 
+/*	ft_parse_split() function is used to parse the split_cmd and store it in the 
+	cmds structure. When the split_cmd is parsed, it is stored in the cmds 
+	structure. */

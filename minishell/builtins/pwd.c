@@ -12,13 +12,17 @@
 
 #include "../includes/minishell.h"
 
-/* Imprime el directorio de trabajo actual */
 void ft_pwd(t_shell *shell)
 {
-    char cwd[PATH_MAX];
+	char cwd[PATH_MAX];
 
-    if (getcwd(cwd, PATH_MAX) == NULL)
-        return (write_pwd_err(shell));
-    write(shell->fdout, cwd, ft_strlen(cwd));
-    write(shell->fdout, "\n", 2);
+	if (getcwd(cwd, PATH_MAX) == NULL)
+		return (write_pwd_err(shell));
+	write(shell->fdout, cwd, ft_strlen(cwd));
+	write(shell->fdout, "\n", 2);
 }
+
+/*	ft_pwd function is used to print the current working directory to the 
+	standard output. It uses getcwd to get the current working directory and 
+	then writes it to the standard output. If getcwd fails, it writes an error 
+	message to the standard output.*/

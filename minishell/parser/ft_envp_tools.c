@@ -12,10 +12,6 @@
 
 #include "../includes/minishell.h"
 
-/*dsdf
-	Busca en la lista de variables de entorno (list_var) un key (key) y
-	devuelve su valor. So no lo encuentra no devuelve nada.
-*/
 char	*ft_get_value_envp(t_var **list_var, char *key)
 {
 	int	i;
@@ -30,10 +26,10 @@ char	*ft_get_value_envp(t_var **list_var, char *key)
 	return (ft_strdup(""));
 }
 
-/*
-	Encuentra una variable de entorno dentro de un string (str) a partir
-	de una posicion determinada (pos).
-*/
+/*	ft_get_value_envp() function is used to find a key in the list of 
+	environment	variables and return its value. If it does not find it, 
+	it returns an empty string. */
+
 char	*ft_find_envp(char *str, int pos)
 {
 	char	*key;
@@ -45,6 +41,9 @@ char	*ft_find_envp(char *str, int pos)
 	key = ft_strndup(str + i, pos - i);
 	return (key);
 }
+
+/*	ft_find_envp() function is used to find an environment variable within a 
+	string starting from a determined position. */
 
 void	ft_add_dollar(char **dollar)
 {
@@ -63,7 +62,11 @@ void	ft_add_dollar(char **dollar)
 		}
 		i++;
 	}
-} // una vez que se ha parseado el comando, se almacena en la estructura cmd_struct.
+}
+
+/*	ft_add_dollar() function is used to replace the character 1 with the 
+	dollar sign in the command. If the command is parsed, it is stored in 
+	the cmd_struct. */
 
 void	ft_expand_envp(t_shell *shell, char **envp)
 {
@@ -89,4 +92,8 @@ void	ft_expand_envp(t_shell *shell, char **envp)
 		i++;
 	}
 	ft_free_env_vars(list);
-} // expande las variables de entorno en el prompt.
+}
+
+/*	ft_expand_envp() function is used to expand the environment variables in 
+	the prompt. It replaces the status variable with the value of the status 
+	and deletes the quotes. */

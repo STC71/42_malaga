@@ -12,7 +12,6 @@
 
 #include "../includes/minishell.h"
 
-/* Comprueba que no haya espacios ni tabuladores, sino devuelve 1(error)*/
 int		ft_check_line(char *line)
 {
 	int	i;
@@ -26,6 +25,10 @@ int		ft_check_line(char *line)
 	}
 	return (FAILURE);
 }
+
+/*	ft_check_line() function is used to check that there are no spaces or tabs 
+	in the line. If there are spaces or tabs, it will return 1, otherwise it will
+	return 0. This is important when parsing the line. */
 
 int	ft_check_cmd(t_shell *shell)
 {
@@ -50,3 +53,10 @@ int	ft_check_cmd(t_shell *shell)
 			// comprueba Que las pipes sean las permitidas y las redirecciones 
 			// esten bien abiertas y cerradas 
 } // comprueba que no haya pipes ni redirecciones en la primera posición.
+
+/*	ft_check_cmd() function begins state at 0 (no quotes). It then checks if the
+	character is a quote and updates the state accordingly (0, 1, or 2). It then
+	checks that the pipes are allowed and the redirections are well opened and 
+	closed. 
+	The function watches if the pipes are allowed and the redirections are well
+	opened and closed. */

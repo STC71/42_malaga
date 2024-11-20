@@ -12,100 +12,114 @@
 
 #include "../includes/minishell.h"
 
-/*actualiza la variable de entorno OLDPWD a la posición anterior */
 void    reset_oldpwd(t_shell *shell, int i)
 {
-    if (shell->oldpwd != NULL && ft_strncmp(shell->env[i], "OLDPWD=", 7) == 0)
-    {
-        free(shell->env[i]);
-        shell->env[i] = ft_strjoin("OLDPWD=", shell->oldpwd);
-    }
-    //free(shell->oldpwd); // quito este free porque me da error de doble free
+	if (shell->oldpwd != NULL && ft_strncmp(shell->env[i], "OLDPWD=", 7) == 0)
+	{
+		free(shell->env[i]);
+		shell->env[i] = ft_strjoin("OLDPWD=", shell->oldpwd);
+	}
+	//free(shell->oldpwd); // quito este free porque me da error de doble free
 }
 
-/* resetea las variables de entorno OLDPWD y "_"(último comando
-ejecutado), si el último comando ejecutado tenía argumentos, se mostrará
-solamente el último argumento (ni el comando ni los arg intermedios), 
-y si no tení args, se mostrará el comando solo */
+/*  reset_oldpwd() function is used to reset the OLDPWD environment variable to 
+	the previous position. */
+
 void    reset_old_pwd_and_lastcmd(t_shell *shell, t_cmd **commands)
 {
-    int i;
-    int j;
+	int i;
+	int j;
 
-    i = 0;
-    j = 0;
-    while (shell->env[i])
-    {
-        reset_oldpwd(shell, i);
-        if(ft_strncmp(shell->env[i], "_=", 2) == 0)
-        {
-            if (commands[0]->args && commands[0]->args[0] != NULL)
-            {
-                while (commands[0]->args[j] != NULL)
-                    j++;
-                free(shell->env[i]);
-                shell->env[i] = ft_strjoin("_=", commands[0]->args[j - 1]);
-            }
-            else if (commands[0]->cmd != NULL)
-            {
-                free(shell->env[i]);
-                shell->env[i] = ft_strjoin("_=", commands[0]->cmd);
-            }
-        }
-        i++;
-    }
+	i = 0;
+	j = 0;
+	while (shell->env[i])
+	{
+		reset_oldpwd(shell, i);
+		if(ft_strncmp(shell->env[i], "_=", 2) == 0)
+		{
+			if (commands[0]->args && commands[0]->args[0] != NULL)
+			{
+				while (commands[0]->args[j] != NULL)
+					j++;
+				free(shell->env[i]);
+				shell->env[i] = ft_strjoin("_=", commands[0]->args[j - 1]);
+			}
+			else if (commands[0]->cmd != NULL)
+			{
+				free(shell->env[i]);
+				shell->env[i] = ft_strjoin("_=", commands[0]->cmd);
+			}
+		}
+		i++;
+	}
 }
 
-/* Comprueba si el comando es un builtin o un comando del sistema  (bin)*/
+/*  reset_old_pwd_and_lastcmd() function is used to reset the OLDPWD and "_" 
+	environment variables to the previous position. If the last command executed 
+	had arguments, only the last argument will be shown (neither the command nor 
+	the intermediate args), and if it didn't have args, only the command will be 
+	shown. */
+
 void    check_if_builtin(t_cmd **commands, t_shell *shell, int i)
 {
-    shell->g_status = 0;
-    if (commands[i]->cmd && check_if_is_builtin(commands[i]->cmd) == 1)
-        choose_builtin(shell, commands, i);
-    else if (commands[i]->cmd)
-        execute_bin_cmd_main(commands, shell, i);
+	shell->g_status = 0;
+	if (commands[i]->cmd && check_if_is_builtin(commands[i]->cmd) == 1)
+		choose_builtin(shell, commands, i);
+	else if (commands[i]->cmd)
+		execute_bin_cmd_main(commands, shell, i);
 }
 
-/* Crea la tubería y guarda los fd en la estructura */
+/*  check_if_builtin() functión checks if the command is a builtin or a system 
+	command (bin). If it is a builtin, it will execute the command, otherwise 
+	it will execute the system command. */
+
 void    config_pipe(t_shell *shell)
 {
-    int fd[2];
+	int fd[2];
 
-    if (pipe(fd) == -1)
-    {
-        write(STDERR_FILENO, "pipe: error creating pipe\n", 27);
-        shell->exec_signal = 1;
-        shell->g_status = 1;
-    }
-    else
-    {
-        shell->fdnextin = fd[0];
-        shell->fdout = fd[1];
-    }
+	if (pipe(fd) == -1)
+	{
+		write(STDERR_FILENO, "pipe: error creating pipe\n", 27);
+		shell->exec_signal = 1;
+		shell->g_status = 1;
+	}
+	else
+	{
+		shell->fdnextin = fd[0];
+		shell->fdout = fd[1];
+	}
 }
+
+/*  config_pipe() function is used to create a pipe and save the file descriptors 
+	in the structure. It is important to create a pipe to communicate the
+	commands. */
 
 void    execute(t_cmd **commands, t_shell *shell)
 {
-    int i;
+	int i;
 
-    i = 0;
-    save_fds(shell);
+	i = 0;
+	save_fds(shell);
 /*     if (commands[i] == NULL)
-        return ; */
-    while (commands[i] != NULL)
-    {
-        shell->fdnextin = -1;
-        if (commands[i + 1] != NULL)
-            config_pipe(shell);
-        else
-            shell->fdout = STDOUT_FILENO;
-        choose_redirections(commands[i]->incmd, shell);
-        choose_redirections(commands[i]->outcmd, shell);
-        if (commands[i]->cmd != NULL)
-            check_if_builtin(commands, shell, i);
-        shell->fdin = shell->fdnextin;
-        i++;
-    }
-    reset_old_pwd_and_lastcmd(shell, commands);
-    reset_redirections(shell);
+		return ; */
+	while (commands[i] != NULL)
+	{
+		shell->fdnextin = -1;
+		if (commands[i + 1] != NULL)
+			config_pipe(shell);
+		else
+			shell->fdout = STDOUT_FILENO;
+		choose_redirections(commands[i]->incmd, shell);
+		choose_redirections(commands[i]->outcmd, shell);
+		if (commands[i]->cmd != NULL)
+			check_if_builtin(commands, shell, i);
+		shell->fdin = shell->fdnextin;
+		i++;
+	}
+	reset_old_pwd_and_lastcmd(shell, commands);
+	reset_redirections(shell);
 }
+
+/*  execute() function is used to execute the commands. It saves the file 
+	descriptors, configures the pipes, checks the redirections, checks if the 
+	command is a builtin or a system command, and resets the redirections. */

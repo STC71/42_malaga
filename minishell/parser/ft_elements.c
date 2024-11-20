@@ -12,36 +12,30 @@
 
 #include "../includes/minishell.h"
 
-/* Manejar los pipes y la redirecciones (sino tiene comillas)*/
 int	ft_pipe_redir(char c, t_pipe_red *val, char *prompt, int *in)
 {
 	if (c == '|')
 	{
 		if (val->pipe == 1 || !ft_check_pipe_in(prompt))
-			// si hay una pipe y está en la primera posición
 			return (SUCCESS);
 		ft_check_red_or_pipe(val, 1); 
-			// marca en la estrcutura q hay una pipe
 	}
 	else if (c == '<' || c == '>')
 	{
 		if (val->red == 1 || !ft_check_pipe_n_red_mixes(prompt, in))
-			// si hay redirecciónes y las mezclas son incorrectas
 			return (SUCCESS);
 		ft_check_red_or_pipe(val, 2); 
-			// marca en la estrcutura q hay una redirección
 	}
-	else // si no hay ni pipe ni redirección
+	else
 		ft_check_red_or_pipe(val, 3);
-			// marca en la estrcutura q no hay ni pipe ni redirección
 	return (FAILURE);
 }
 
-/*
-	Calcula la longuitud de una palabra dentro de prompt, empezando en pos y
-	terminando cuando encuentre un espacio, "|", "<" o ">".
-	NO SE USA. ¿¿¿¿...????
-*/
+/*	ft_pip_redir() function is used to handle pipes and redirections. If there 
+	is a pipe, it will check that the pipes are allowed and the redirections are
+	well opened and closed. If there is a redirection, it will check that the 
+	combination	of pipes and redirections is correct. */
+
 int	ft_len_word(char *prompt, int i)
 {
 	int	len;
@@ -56,7 +50,9 @@ int	ft_len_word(char *prompt, int i)
 	return (len);
 }
 
-// NO SE USA ¿¿¿...??? 
+/*	ft_len_word() function is used to calculate the length of a word within the
+	prompt, starting at pos and ending when it finds a space, "|", "<" or ">".*/
+
 void	ft_no_spc_entry(char **new, char *old)
 {
 	char	*aux;
@@ -66,8 +62,8 @@ void	ft_no_spc_entry(char **new, char *old)
 	new[ft_string_len(new) - 1] = aux;
 }
 
-/* Inicializa a 0 la estructura val para controlar los pipes y redicrecciones (red).
-No se usa. ¿¿¿¿...???? */
+/*	ft_no_spc_entry() function is used to join the last two strings in the array
+	new. This is necessary when there is no space between the strings. */
 
 void	ft_action_pipe_redir(t_pipe_red *val)
 {
@@ -75,9 +71,9 @@ void	ft_action_pipe_redir(t_pipe_red *val)
 	val->red = 0;
 }
 
-/*
-	Nuestro ft_shell_split: separamos el prompt por grupos de string.
-*/
+/*	ft_action_pipe_redir() function is used to initialize the structure with the
+	values of the pipes and redirections. */
+
 char	**ft_shell_split(char *prompt)
 {
 	int		i;
@@ -101,3 +97,6 @@ char	**ft_shell_split(char *prompt)
 	}
 	return (new);
 }
+
+/*	ft_shell_split() function is used to split the prompt into words. It is used
+	by the ft_action_prompt() function to split the prompt into words. */

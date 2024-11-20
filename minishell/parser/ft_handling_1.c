@@ -24,9 +24,10 @@ char	*ft_token_director(char *prompt, int *i)
 		return (ft_handles_characters(prompt, i));
 }
 
-/*
-	Procesa una parte de caracteres que sean pipes consecutivos.
-*/
+/*	ft_token_director() function is used to handle the different types of tokens
+	that can be found in the prompt. It will call the corresponding function to
+	handle the token. */
+
 char	*ft_handles_pipe(char *prompt, int *i)
 {
 	char	*tmp;
@@ -45,9 +46,11 @@ char	*ft_handles_pipe(char *prompt, int *i)
 	return (tmp);
 }
 
-/*
-	Procesa una parte de caracteres que sean "<" consecutivos.
-*/
+/*	ft_handles_pipe() function is used to handle a part of consecutive "|" 
+	characters. It recieves the prompt and the position of the character to 
+	start reading, and returns a substring with the consecutive "|" characters.
+	*/
+
 char	*ft_handles_redir_in(char *prompt, int *i)
 {
 	char	*tmp;
@@ -66,9 +69,11 @@ char	*ft_handles_redir_in(char *prompt, int *i)
 	return (tmp);
 }
 
-/*
-	Procesa una parte de caracteres que sean ">" consecutivos.
-*/
+/*	ft_handles_redir_in() function is used to handle a part of consecutive "<" 
+	characters. It recieves the prompt and the position of the character to 
+	start reading, and returns a substring with the consecutive "<" characters.
+	*/
+
 char	*ft_handles_redir_out(char *prompt, int *i)
 {
 	char	*tmp;
@@ -87,9 +92,11 @@ char	*ft_handles_redir_out(char *prompt, int *i)
 	return (tmp);
 }
 
-/*
-	Procesa una subcadena de caracteres "normales" consecutivos.
-*/
+/*	ft_handles_redir_out() function is used to handle a part of consecutive ">" 
+	characters. It recieves the prompt and the position of the character to 
+	start reading, and returns a substring with the consecutive ">" characters.
+	*/
+
 char	*ft_handles_characters(char *prompt, int *i)
 {
 	char	*c;
@@ -113,3 +120,8 @@ char	*ft_handles_characters(char *prompt, int *i)
 	}
 	return (res);
 }
+
+/*	ft_handles_characters() function is used to handle the characters that 
+	are not pipes or redirections. It will read the characters until it 
+	finds a space, pipe, "<" or ">". It will return a substring with the 
+	characters read. */

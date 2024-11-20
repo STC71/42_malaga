@@ -12,56 +12,56 @@
 
 #include "../includes/minishell.h"
 
-/* Imprime en stdout los argumentos que recibe */
-
 void ft_echo(char **args, t_shell *shell)
 {
-    int i;
-    int j;
-    int new_line;
+	int i;
+	int j;
+	int new_line;
 
-    i = 0;
-    j = 1;
-    new_line = 1;
-    if (!args[i]) // a;ado esto para que si no hay argumentos imprima un salto de linea
-    {
-        write(shell->fdout, "\n", 1);
-        return ;
-    }
-    if (args[i])
-    {    
-        if (args[i][0] == '-' && args[i][1] == 'n' && args[i])
-        {    
-            while (args[i][j] == 'n')
-                j++;
-            // esta parte del codigo se tiene que hacer en una funcionexterna pq se llama 2 veces 
-            if (args[i][j] != '\0') 
-            {
-                while (args[i])
-                {
-                    write(shell->fdout, args[i], ft_strlen(args[i]));
-                    if (args[i + 1] && args[i][0] != '\0')
-                        write(shell->fdout, " ", 1);
-                    i++;
-                    if (new_line)
-                        write(shell->fdout, "\n", 1);
-                }
-                return ;
-            }        
-            new_line = 0;
-            i++;
-        }
-    }
-    // llamar a la funcion externa q contenga este codigo de abajo
-    while (args[i])
-    {
-        write(shell->fdout, args[i], ft_strlen(args[i]));
-        if (args[i + 1] && args[i][0] != '\0')
-            write(shell->fdout, " ", 1);
-        i++;
-    }
-    if (new_line)
-        write(shell->fdout, "\n", 1);
+	i = 0;
+	j = 1;
+	new_line = 1;
+	if (!args[i])
+	{
+		write(shell->fdout, "\n", 1);
+		return ;
+	}
+	if (args[i])
+	{    
+		if (args[i][0] == '-' && args[i][1] == 'n' && args[i])
+		{    
+			while (args[i][j] == 'n')
+				j++;
+			if (args[i][j] != '\0') 
+			{
+				while (args[i])
+				{
+					write(shell->fdout, args[i], ft_strlen(args[i]));
+					if (args[i + 1] && args[i][0] != '\0')
+						write(shell->fdout, " ", 1);
+					i++;
+					if (new_line)
+						write(shell->fdout, "\n", 1);
+				}
+				return ;
+			}        
+			new_line = 0;
+			i++;
+		}
+	}
+	while (args[i])
+	{
+		write(shell->fdout, args[i], ft_strlen(args[i]));
+		if (args[i + 1] && args[i][0] != '\0')
+			write(shell->fdout, " ", 1);
+		i++;
+	}
+	if (new_line)
+		write(shell->fdout, "\n", 1);
 }
-/* -n se usa en la ft echo para suprimir la nueva línea final que de forma
-normal se imprimiría */
+
+/*	ft_echo function is used to write arguments to the standard output. 
+	It takes the arguments and the shell structure as arguments. 
+	It then writes the arguments to the standard output, separated by a space. 
+	If the -n option is present, it does not write a newline character at 
+		the end.*/

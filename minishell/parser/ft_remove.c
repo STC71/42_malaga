@@ -23,3 +23,6 @@ void	ft_remove_spcs(char *str)
 		i--;
 	str[i] = '\0';
 }
+
+/*	ft_remove_spcs() function is used to remove the spaces at the end of the 
+	string. */

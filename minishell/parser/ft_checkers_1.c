@@ -12,7 +12,6 @@
 
 #include "../includes/minishell.h"
 
-/* Comprobamos que las combinaciones de pipes y redirecciones son correctas. */
 int	ft_check_pipe_n_red_mixes(char *prompt, int *pos)
 {
 	if (prompt[*pos] == '<')
@@ -36,7 +35,11 @@ int	ft_check_pipe_n_red_mixes(char *prompt, int *pos)
 	return (1);
 }
 
-/* Verificamos que el ultimo caracter valido no sea ni "|" ni "<" ni ">". */
+/* ft_check_pipe_n_red_mixes() function is used to check if the combination of
+	pipes and redirections is correct. This is necessary to avoid errors in the
+	parsing. For example, if there is a pipe, there cannot be a redirection, and
+	if there is a redirection, there cannot be a pipe. */
+
 int	ft_check_last(char *prompt)
 {
 	int	i;
@@ -52,8 +55,10 @@ int	ft_check_last(char *prompt)
 	return (1);
 }
 
-/* Comprueba q las pipes sean las permitidas y las redirecciones
-estén bien abiertas y cerradas */
+/*	ft_check_last() function is used to check that the last valid character is
+	neither a pipe nor a redirection. This is important to avoid errors in the
+	parsing. */
+
 int	ft_check_red_and_pipe(char *prompt)
 {
 	int			i;
@@ -63,24 +68,23 @@ int	ft_check_red_and_pipe(char *prompt)
 	i = 0;
 	state = NO_QUOTE; // (0)
 	ft_action_pipe_redir(&val);
-		// Inicializa la estructura para controlar los pipes y redicrecciones (red).
 	while (prompt[i])
 	{
 		state = ft_quotes_state(prompt[i], state);
-			// actualiza el estado de las comillas (quote) revisando todo el prompt.
-		if (state == NO_QUOTE) // si no tiene comillas (NO_QUOTE)
+		if (state == NO_QUOTE)
 		{
 			if (ft_pipe_redir(prompt[i], &val, prompt, &i) == 0)
-				// si devuelve 0 es q hay un error en las pipes o redirecciones
 				return (0);
 		}
 		i++;
 	}
 	return (ft_check_last(prompt));
-		// verifica q el último carácter no sea una pipe o redirección.
 }
 
-/* Comprobamos que no haya un pipe en el primer caracter valido */
+/*	ft_check_red_and_pipe() function is used to check that the pipes are allowed
+	and the redirections are well opened and closed. This is necessary to avoid
+	errors in the parsing. */
+
 int	ft_check_pipe_in(char *prompt)
 {
 	int	i;
@@ -95,7 +99,9 @@ int	ft_check_pipe_in(char *prompt)
 	return (1);
 }
 
-/* Va cambiando el estado de los pipes y redireciones.*/
+/*	ft_check_pipe_in() function is used to check that there is no pipe in the
+	first valid character. This is necessary to avoid errors in the parsing. */
+
 void	ft_check_red_or_pipe(t_pipe_red *val, int i)
 {
 	if (i == 1) // si flag = 1 es q hay una pipe
@@ -114,3 +120,7 @@ void	ft_check_red_or_pipe(t_pipe_red *val, int i)
 		val->red = 0;
 	}
 }
+
+/*	ft_check_red_or_pipe() function is used to change the state of the pipes and
+	redirections. For example, if there is a pipe, the pipe flag will be set to 
+	1, and the redirection flag will be set to 0. */

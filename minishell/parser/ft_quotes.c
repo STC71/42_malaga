@@ -12,7 +12,6 @@
 
 #include "../includes/minishell.h"
 
-/* Cambiamos el chequeo de las comillas dobles (dq : doble quote). */
 int	ft_check_double_quotes(int val)
 {
 	if (val == NO_QUOTE)
@@ -23,7 +22,9 @@ int	ft_check_double_quotes(int val)
 		return (val);
 }
 
-/* Cambiamos el chequeo de las comillas simples (sq = simple quote). */
+/*	ft_check_double_quotes() function is used to check if the quote character is
+	a double quote and update the state accordingly. */
+
 int	ft_check_single_quotes(int val)
 {
 	if (val == NO_QUOTE)
@@ -34,8 +35,9 @@ int	ft_check_single_quotes(int val)
 		return (val);
 }
 
-/* verifica si el carácter quote es una comilla simple o doble y actualiza 
-   el estado en consecuencia. */
+/*	ft_check_single_quotes() function is used to check if the quote character is
+	a single quote and update the state accordingly. */
+
 int	ft_check_quotes(char quotes, int old)
 {
 	int	new;
@@ -48,16 +50,16 @@ int	ft_check_quotes(char quotes, int old)
 	return (new);
 }
 
-/* Actualiza el estado de las comillas */
+/*	ft_check_quotes() function is used to check if the quote character is a 
+	single or double quote and update the state accordingly. */
+
 int	ft_quotes_state(char c, int state)
 {
 	return (ft_check_quotes(c, state));
 }
 
-/*
-	Borra las comillas, simples o dobles, de un string (str)
-	y da lo mismo donde esten.
-*/
+/*	ft_quotes_state() function is used to update the state of the quotes. */
+
 void	ft_del_quotes(char *str)
 {
 	int	i;
@@ -86,3 +88,6 @@ void	ft_del_quotes(char *str)
 	}
 	str[j] = '\0';
 }
+
+/*	ft_del_quotes() function is used to delete the quotes, single or double, 
+	from a string where they are. */

@@ -37,6 +37,11 @@ void	renew_path(t_shell *shell)
 	}
 }
 
+/*	renew_path function is used to update the PWD environment variable after 
+	a cd command. It uses getcwd to get the current working directory and then 
+	searches for the PWD variable in the environment. 
+	Once it finds it, it frees the old value and replaces it with the new one.*/
+
 void	exec_back_pwd(t_shell *shell)
 {
 	char *back_path;
@@ -50,6 +55,11 @@ void	exec_back_pwd(t_shell *shell)
 	write(shell->fdout, "\n", 2);
 	free(back_path);	
 }
+
+/*	exec_back_pwd function is used to go back to the previous directory. 
+	It uses the OLDPWD environment variable to get the previous directory path. 
+	Then it changes the current directory to the previous one using chdir. 
+	If the chdir fails, it writes an error message to the standard output.*/
 
 char	*ft_get_environment(char *str_pwd, char **env_paths)
 {
@@ -76,6 +86,11 @@ char	*ft_get_environment(char *str_pwd, char **env_paths)
 	return (NULL);
 }
 
+/*	ft_get_environment function is used to get the value of an environment 
+	variable. It takes the name of the variable and the environment as 
+	arguments. It then searches for the variable in the environment and 
+	returns its value.*/
+
 void	exec_cd_home(t_shell *shell)
 {
 	char *home_path;
@@ -87,6 +102,12 @@ void	exec_cd_home(t_shell *shell)
 		write_cdhome_error(home_path, shell);
 	free(home_path);
 }
+
+/*	exec_cd_home function is used to change the current directory to the 
+	home directory. It uses the HOME environment variable to get the home 
+	directory path. Then it changes the current directory to the home directory 
+	using chdir. If the chdir fails, it writes an error message to the standard 
+	output.*/
 
 void	ft_cd(char **full_command, t_shell *shell)
 {
@@ -117,3 +138,14 @@ void	ft_cd(char **full_command, t_shell *shell)
 	else
 		renew_path(shell);
 }
+
+/*	ft_cd function is used to change the current directory. It takes the 
+	command arguments and the shell structure as arguments. It first checks 
+	if there are too many arguments. Then it gets the current directory path 
+	and saves it in the oldpwd variable. It then checks if the command is 
+	empty or starts with a tilde (~) or a dash (-). If it is empty or starts 
+	with a tilde, it changes the current directory to the home directory. 
+	If it starts with a dash, it goes back to the previous directory. 
+	Otherwise, it changes the current directory to the specified directory. 
+	If the chdir fails, it writes an error message to the standard output. 
+	Finally, it updates the PWD environment variable with the new path.*/

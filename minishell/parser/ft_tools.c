@@ -34,7 +34,10 @@ char	*ft_delete_str(char *old, size_t start, size_t finish)
 		new[new_pos++] = old[old_pos++];
 	new[new_pos] = '\0';
 	return (new);
-} // elimina una parte de la cadena old desde start hasta finish.
+}
+
+/*	ft_delete_str() function is used to delete a part of the string old from 
+	start to finish, and return the new string. */
 
 char	*ft_insert_str(char *old, char *part, size_t pos)
 {
@@ -63,7 +66,10 @@ char	*ft_insert_str(char *old, char *part, size_t pos)
 		pos++;
 	}
 	return (new[new_pos] = '\0', new);
-} // inserta la cadena part en la cadena old en la posición pos.
+}
+
+/*	ft_insert_str() function is used to insert a part of the string part into 
+	the string old at the position pos, and return the new string. */
 
 void	ft_replace_envp(char **cmd, int *j, char *status, t_var **list)
 {
@@ -92,7 +98,10 @@ void	ft_replace_envp(char **cmd, int *j, char *status, t_var **list)
 		free(tmp);
 		free(var);
 	}
-} // reemplaza las variables de entorno en el comando por su valor.
+}
+
+/*	ft_replace_envp() function is used to replace the environment variables 
+	in a command and update the status. */
 
 void	ft_replace_status(char **cmd, t_var **list, char *status)
 {
@@ -113,4 +122,7 @@ void	ft_replace_status(char **cmd, t_var **list, char *status)
 			ft_replace_envp(cmd, &i, status, list);
 		i++;
 	}
-} // reemplaza las variables de entorno en un comando y actualiza el status.
+}
+
+/*	ft_replace_status() function is used to replace the environment variables 
+	in a command and update the status. */

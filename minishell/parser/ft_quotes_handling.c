@@ -12,9 +12,6 @@
 
 #include "../includes/minishell.h"
 
-/*
-	Procesa la parte de un array que está encerrada entre comillas dobles.
-*/
 char	*ft_handles_double_quotes(char *prompt, int *i)
 {
 	int		j;
@@ -34,9 +31,9 @@ char	*ft_handles_double_quotes(char *prompt, int *i)
 	return (tmp);
 }
 
-/*
-	Procesa la parte de un array que está encerrada entre comillas simples.
-*/
+/*	ft_handles_double_quotes() function is used to process the part of an array
+	that is enclosed in double quotes. */
+
 char	*ft_handles_single_quotes(char *prompt, int *i)
 {
 	int		j;
@@ -59,3 +56,5 @@ char	*ft_handles_single_quotes(char *prompt, int *i)
 	return (tmp);
 }
 
+/*	ft_handles_single_quotes() function is used to process the part of an array
+	that is enclosed in single quotes. */

@@ -11,34 +11,40 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-/* Función que elige el builtin a ejecutar */
+
 void choose_builtin(t_shell *shell, t_cmd **commands, int i)
 {
-    char *builtin;
-    //en la mia extaigo el comando de la estructura
-    builtin = commands[i]->cmd;
-    if (!ft_strcmp(builtin, "echo"))
-        ft_echo(commands[i]->args, shell);
-    else if (!ft_strcmp(builtin, "cd"))
-        ft_cd(commands[i]->args, shell);
-    else if (!ft_strcmp(builtin, "env"))
-        ft_print_env(shell, commands[i]->args);
-    else if (!ft_strcmp(builtin, "exit"))
-        ft_exit(commands[i]->args, shell);
-    else if (!ft_strcmp(builtin, "export"))
-        ft_update_env_export(shell, commands[i]->args);
-    else if (!ft_strcmp(builtin, "unset"))
-        ft_delete_env_unset(commands[i]->args, shell);
-    else if (!ft_strcmp(builtin, "pwd"))
-        ft_pwd(shell);
+	char *builtin;
+	builtin = commands[i]->cmd;
+	if (!ft_strcmp(builtin, "echo"))
+		ft_echo(commands[i]->args, shell);
+	else if (!ft_strcmp(builtin, "cd"))
+		ft_cd(commands[i]->args, shell);
+	else if (!ft_strcmp(builtin, "env"))
+		ft_print_env(shell, commands[i]->args);
+	else if (!ft_strcmp(builtin, "exit"))
+		ft_exit(commands[i]->args, shell);
+	else if (!ft_strcmp(builtin, "export"))
+		ft_update_env_export(shell, commands[i]->args);
+	else if (!ft_strcmp(builtin, "unset"))
+		ft_delete_env_unset(commands[i]->args, shell);
+	else if (!ft_strcmp(builtin, "pwd"))
+		ft_pwd(shell);
 }
 
-/* Función que comprueba si es un builtin */
+/*  choose_builtin() function is called in the main function, it will execute 
+	the builtin command that is passed as an argument. */
+
 int check_if_is_builtin(char *command)
 {
-    if (!ft_strcmp(command, "echo") || !ft_strcmp(command, "cd") || !ft_strcmp(command,
-            "env") || !ft_strcmp(command, "exit") || !ft_strcmp(command, "export")
-        || !ft_strcmp(command, "unset") || !ft_strcmp(command, "pwd"))
-        return (1);
-    return (0);
+	if (!ft_strcmp(command, "echo") || !ft_strcmp(command, "cd") || !ft_strcmp(command,
+			"env") || !ft_strcmp(command, "exit") || !ft_strcmp(command, "export")
+		|| !ft_strcmp(command, "unset") || !ft_strcmp(command, "pwd"))
+		return (1);
+	return (0);
 }
+
+/*  check_if_is_builtin() function is called in the main function, in the case 
+	that the command is a builtin, it will return 1, otherwise it will 
+	return 0. */
+	

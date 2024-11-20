@@ -25,6 +25,9 @@ void	ft_free_array(char **array)
 	free(array);
 }
 
+/*	ft_free_array() function is used to free the memory allocated for the 
+	array. */
+
 void	ft_free_commands(t_cmd *commands)
 {
 	if (!commands)
@@ -35,6 +38,9 @@ void	ft_free_commands(t_cmd *commands)
 	ft_free_array(commands->outcmd);
 	free(commands);
 }
+
+/*	ft_free_commands() function is used to free the memory allocated for the 
+	commands. */
 
 void	ft_free_env_vars(t_var **vars)
 {
@@ -50,6 +56,9 @@ void	ft_free_env_vars(t_var **vars)
 	}
 	free(vars);
 }
+
+/*	ft_free_env_vars() function is used to free the memory allocated for the 
+	environment variables. */
 
 void	ft_free_structures(t_shell *shell)
 {
@@ -69,6 +78,9 @@ void	ft_free_structures(t_shell *shell)
 	}
 }
 
+/*	ft_free_structures() function is used to free the memory allocated for the 
+	structures. */
+
 void	ft_free_vars(t_var *vars)
 {
 	if (!vars)
@@ -77,3 +89,6 @@ void	ft_free_vars(t_var *vars)
 	free(vars->value);
 	free(vars);
 }
+
+/*	ft_free_vars() function is used to free the memory allocated for the 
+	environment variables. */

@@ -38,7 +38,10 @@ void	ft_mem_args(t_cmd *cmds, char **split)
 			i++;
 	}
 	cmds->args = ft_calloc(arg + 1, sizeof(char *));
-} // reserva memoria para los argumentos de un comando.
+}
+
+/*	ft_mem_args() function is used to reserve memory for the arguments of a 
+	command. */
 
 void	ft_mem_in(t_cmd *cmds, char **split)
 {
@@ -63,7 +66,10 @@ void	ft_mem_in(t_cmd *cmds, char **split)
 			i++;
 	}
 	cmds->incmd = ft_calloc(in + 1, sizeof(char *));
-} // reserva memoria para las redirecciones de entrada de un comando.
+}
+
+/*	ft_mem_in() function is used to reserve memory for the input redirections 
+	of a command. */
 
 void	ft_mem_out(t_cmd *cmds, char **split)
 {
@@ -88,7 +94,10 @@ void	ft_mem_out(t_cmd *cmds, char **split)
 			i++;
 	}
 	cmds->outcmd = ft_calloc(out + 1, sizeof(char *));
-} // reserva memoria para las redirecciones de salida de un comando.
+}
+
+/*	ft_mem_out() function is used to reserve memory for the output redirections
+	of a command. */
 
 void	ft_mem_cmds(t_cmd **cmds, char **split)
 {
@@ -106,4 +115,6 @@ void	ft_mem_cmds(t_cmd **cmds, char **split)
 		ft_mem_out(cmds[i], split);
 		i++;
 	}
-} // reserva memoria para los comandos.
+}
+
+/*	ft_mem_cmds() function is used to reserve memory for the commands. */
