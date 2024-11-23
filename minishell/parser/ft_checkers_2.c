@@ -12,6 +12,32 @@
 
 #include "../includes/minishell.h"
 
+void	ft_check_env(char *str)
+{
+		if (!str)
+	{
+		ft_putstr_fd(RED"Error: No environment variables\n"RESET, 
+			STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+}
+
+/*	ft_check_emv() function is used to check if there are environment variables.
+	If there are no environment variables, it will print an error message and 
+	exit. */
+
+void	ft_check_args(int argc, char *argv)
+{
+	if (argc != 1 || argv != NULL)
+	{
+		ft_putstr_fd(RED"Invalid arguments\n"RESET, STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+}
+
+/*	ft_check_args() function is used to check if there are invalid arguments. 
+	If there are invalid arguments, it will print an error message and exit. */
+
 int		ft_check_line(char *line)
 {
 	int	i;
@@ -37,22 +63,17 @@ int	ft_check_cmd(t_shell *shell)
 
 	i = 0;
 	state = NO_QUOTE;
-		// empieza estableciendo el estado de las comillas en 0 (sin comillas).
 	while (shell->prompt[i])
 	{
 		if (shell->prompt[i] == '\"' || shell->prompt[i] == '\'')
 			state = ft_check_quotes(shell->prompt[i], state);
-				// compruebe si el carácter quote es una comilla simple o doble 
-				// y actualiza el estado en consecuencia ( 0 , 1 o 2).
 		i++;
 	}
 	if (ft_check_pipe_in(shell->prompt) == 0)
 		return (SUCCESS);
 	else
 		return (ft_check_red_and_pipe(shell->prompt));
-			// comprueba Que las pipes sean las permitidas y las redirecciones 
-			// esten bien abiertas y cerradas 
-} // comprueba que no haya pipes ni redirecciones en la primera posición.
+}
 
 /*	ft_check_cmd() function begins state at 0 (no quotes). It then checks if the
 	character is a quote and updates the state accordingly (0, 1, or 2). It then

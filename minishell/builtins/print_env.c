@@ -80,6 +80,7 @@ void ft_print_env(t_shell *shell, char **paths)
 			write(shell->fdout, "\n", 1);
 			i++;
 		}
+		i = 0;
 		while (paths[i])
 		{
 			write(shell->fdout, paths[i], ft_strlen(paths[i]));

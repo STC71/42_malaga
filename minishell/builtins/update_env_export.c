@@ -49,6 +49,7 @@ int check_env(char *env)
 		return (-3);
 	while (env[i])
 	{
+		printf("env[i + 1] = %c y env[i + 2] = %c\n", env[i + 1], env[i + 2]); //debug
 		if (env[i + 1] == '=' && env[i + 2] != '\0')
 			return (-2);
 		i++;
@@ -97,6 +98,7 @@ void ft_update_env_export(t_shell *shell, char **commands)
 {
 	int i;
 	
+	printf("estoy en ft_update_env_export, y el commands[0] = %s\n", commands[0]); //debug
 	if (commands[0] == 0)
 		ft_print_env2(shell);
 	else
@@ -104,10 +106,17 @@ void ft_update_env_export(t_shell *shell, char **commands)
 		i = 0;
 		while (commands[i] != NULL)
 		{
+			printf("check_env(commands[i]) = %d\n", check_env(commands[i]));
 			if (check_env(commands[i]) > 0)
+			{
 				ft_update_env(commands[i], shell);
+				printf("estoy en if de ft_update_env_export, y el commands[i] = %s\n", commands[i]); //debug
+			}
 			else
+			{
+				printf("estoy en else de ft_update_env_export, y el commands[i] = %s\n", commands[i]); //debug
 				ft_print_env_err2(shell, check_env(commands[i]), commands[i]);
+			}
 			i++;
 		}
 	}

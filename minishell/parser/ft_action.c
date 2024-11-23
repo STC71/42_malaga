@@ -118,29 +118,23 @@ int	main(int argc, char **argv, char **envp)
 	char	*line;
 	t_shell	shell;
 
-	if (argc != 1 || argv[1] != NULL)
-		return (ft_putstr_fd(RED "Invalid arguments\n" NC, STDERR_FILENO), EXIT_FAILURE);
+	ft_check_env(envp[0]);
+	ft_check_args(argc, argv[1]);
 	ft_action_structures(&shell, envp);	
 	while (shell.exit == 0)
 	{
 		if_signal();
 		line = readline("minishell ~ % ");
-			//muestra un prompt ("Minishell$~ ") y espera a que el usuario escriba una línea de texto y presione Enter.
-			//Este prompt indica al usuario que el shell está listo para recibir comandos
-			//devuelve un puntero a una cadena que contiene la línea de texto ingresada por el usuario
 		if (line == NULL)
 			break ;
-		else if (ft_check_line(line) == 0) // comprueba q no hay espacios ni tabuladores
+		else if (ft_check_line(line) == 0)
 		{
 			add_history(line);
-				// agregar el comando más recientemente ingresado a la lista de historial.
-				// sirve para q al presionar la flecha arriba para recuperar el comando 
-				// ls -l del historial y pueda ejecutarlo nuevamente o modificarlo.
 			ft_action_prompt(&shell, line);
 			if (shell.parse_error == 0)
 				execute(shell.cmds, &shell);
 		}
-		if (line) // liberamos la memoria de la linea
+		if (line)
 			free(line);
 	}
 	ft_free_structures(&shell);
@@ -151,7 +145,11 @@ int	main(int argc, char **argv, char **envp)
 	structure with the environment variables and the prompt. It reads the line 
 	entered by the user and checks if the line is valid. If the line is not
 	valid, it will print an error message. It will add the line to the history
-	if it is valid and execute the command. 
+	if it is valid and execute the command.
+	- ft_check_env() function is used to check if there are environment
+		variables. If there are no environment variables, it will print an error
+		message and exit.
+	- ft_check_args() function is used to check if there are invalid arguments.
 	- ft_action_structures() function is used to initialize the structure with 
 		the environment variables.
 	- if_signal() function is used to check if the signal is received, for 

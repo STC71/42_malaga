@@ -27,7 +27,7 @@ DARK_YELLOW 	= \033[38;5;143m
 # ***** VALUES ************************************************************** #
 
 CC 				= gcc
-CFLAGS 			= -Wall -Werror -Wextra
+CFLAGS 			= -g -Wall -Werror -Wextra
 AR 				= ar rcs
 RM 				= rm -rf
 MK 				= make -C

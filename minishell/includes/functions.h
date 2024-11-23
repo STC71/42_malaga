@@ -153,6 +153,8 @@ void	ft_check_red_or_pipe(t_pipe_red *val, int i);
 
 // ------- ft_checkers_2.c
 
+void	ft_check_env(char *str);
+void	ft_check_args(int argc, char *argv);
 int		ft_check_line(char *line);
 int		ft_check_cmd(t_shell *shell);
 
