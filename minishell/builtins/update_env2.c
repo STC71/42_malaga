@@ -18,7 +18,10 @@ void	ft_free_env(char **env)
 
 	i = 0;
 	while (env[i])
+	{
 		free(env[i]);
+		i++;
+	}
 	free(env);
 }
 
@@ -62,7 +65,7 @@ void    ft_create_env(char *name, char *value, t_shell *shell)
 	new_env[i] = NULL;
 	ft_free_env(shell->env);
 	shell->env = new_env;
-	free(new_env);
+	//free(new_env);
 }
 
 /*  ft_create_env function is used to create a new environment variable. 
