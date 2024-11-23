@@ -27,9 +27,9 @@ void	ft_str_free(char **str)
 
 /*  ft_str_free function is used to free the memory allocated for the string. */
 
-char    *join_binpath_and_cmd(char *cmd, char *bin_path)
+char	*join_binpath_and_cmd(char *cmd, char *bin_path)
 {
-	char *joined_path;
+	char	*joined_path;
 
 	joined_path = malloc(ft_strlen(bin_path) + ft_strlen(cmd) + 2);
 	if (joined_path == NULL)
@@ -46,15 +46,15 @@ char    *join_binpath_and_cmd(char *cmd, char *bin_path)
 	}
 }
 
-/*  join_binpath_and_cmd() function is used to join the path of the bin with the 
-	name of the command adding "/" in the middle of both. Once joined, it 
+/*  join_binpath_and_cmd() function is used to join the path of the bin with the
+	name of the command adding "/" in the middle of both. Once joined, it
 	verifies if that path exists with ACCESS and the F_OK mode. If it exists,
 	it returns the path, otherwise it frees the memory and returns NULL. */
 
-int    write_bin_error(char *path, t_shell *shell)
+int	write_bin_error(char *path, t_shell *shell)
 {
-	DIR *dir;
-	int status;
+	DIR	*dir;
+	int	status;
 
 	status = 0;
 	shell->g_status = 1;
@@ -86,9 +86,9 @@ int    write_bin_error(char *path, t_shell *shell)
 	directories not found, directories and permissions denied and returns a 
 	code with the type of error. */
 
-char **get_bin_paths(t_shell *shell)
+char	**get_bin_paths(t_shell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (shell->env && shell->env[i])
@@ -105,11 +105,11 @@ char **get_bin_paths(t_shell *shell)
 	search for the command in the directories of the PATH, and if it is not
 	found, it will return NULL. */
 
-void    execute_bin_cmd_main(t_cmd **commands, t_shell *shell, int i)
+void	execute_bin_cmd_main(t_cmd **commands, t_shell *shell, int i)
 {
-	char **bin_paths;
-	int j;
-	
+	char	**bin_paths;
+	int		j;
+
 	j = 0;
 	bin_paths = get_bin_paths(shell);
 	if (!commands[i]->cmd || !bin_paths)
@@ -134,4 +134,3 @@ void    execute_bin_cmd_main(t_cmd **commands, t_shell *shell, int i)
 /*  execute_bin_cmd_main() function is the main function that contains the 
 	sub-functions for the execution of the system command (bin, not builtin) 
 	received by the user. */
-	

@@ -12,30 +12,29 @@
 
 #include "../includes/minishell.h"
 
-void    reset_oldpwd(t_shell *shell, int i)
+void	reset_oldpwd(t_shell *shell, int i)
 {
 	if (shell->oldpwd != NULL && ft_strncmp(shell->env[i], "OLDPWD=", 7) == 0)
 	{
 		free(shell->env[i]);
 		shell->env[i] = ft_strjoin("OLDPWD=", shell->oldpwd);
 	}
-	//free(shell->oldpwd); // quito este free porque me da error de doble free
 }
 
 /*  reset_oldpwd() function is used to reset the OLDPWD environment variable to 
 	the previous position. */
 
-void    reset_old_pwd_and_lastcmd(t_shell *shell, t_cmd **commands)
+void	reset_old_pwd_and_lastcmd(t_shell *shell, t_cmd **commands)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
 	while (shell->env[i])
 	{
 		reset_oldpwd(shell, i);
-		if(ft_strncmp(shell->env[i], "_=", 2) == 0)
+		if (ft_strncmp(shell->env[i], "_=", 2) == 0)
 		{
 			if (commands[0]->args && commands[0]->args[0] != NULL)
 			{
@@ -55,12 +54,12 @@ void    reset_old_pwd_and_lastcmd(t_shell *shell, t_cmd **commands)
 }
 
 /*  reset_old_pwd_and_lastcmd() function is used to reset the OLDPWD and "_" 
-	environment variables to the previous position. If the last command executed 
-	had arguments, only the last argument will be shown (neither the command nor 
-	the intermediate args), and if it didn't have args, only the command will be 
+	environment variables to the previous position. If the last command executed
+	had arguments, only the last argument will be shown (neither the command nor
+	the intermediate args), and if it didn't have args, only the command will be
 	shown. */
 
-void    check_if_builtin(t_cmd **commands, t_shell *shell, int i)
+void	check_if_builtin(t_cmd **commands, t_shell *shell, int i)
 {
 	shell->g_status = 0;
 	if (commands[i]->cmd && check_if_is_builtin(commands[i]->cmd) == 1)
@@ -69,13 +68,13 @@ void    check_if_builtin(t_cmd **commands, t_shell *shell, int i)
 		execute_bin_cmd_main(commands, shell, i);
 }
 
-/*  check_if_builtin() functión checks if the command is a builtin or a system 
-	command (bin). If it is a builtin, it will execute the command, otherwise 
+/*  check_if_builtin() functión checks if the command is a builtin or a system
+	command (bin). If it is a builtin, it will execute the command, otherwise
 	it will execute the system command. */
 
-void    config_pipe(t_shell *shell)
+void	config_pipe(t_shell *shell)
 {
-	int fd[2];
+	int	fd[2];
 
 	if (pipe(fd) == -1)
 	{
@@ -90,18 +89,16 @@ void    config_pipe(t_shell *shell)
 	}
 }
 
-/*  config_pipe() function is used to create a pipe and save the file descriptors 
-	in the structure. It is important to create a pipe to communicate the
-	commands. */
+/*  config_pipe() function is used to create a pipe and save the file
+	descriptors	in the structure. It is important to create a pipe to
+	communicate the	commands. */
 
-void    execute(t_cmd **commands, t_shell *shell)
+void	execute(t_cmd **commands, t_shell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	save_fds(shell);
-/*     if (commands[i] == NULL)
-		return ; */
 	while (commands[i] != NULL)
 	{
 		shell->fdnextin = -1;

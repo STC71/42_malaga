@@ -13,7 +13,7 @@
 #include "../includes/minishell.h"
 
 /* Vuelve las redirecciones a su estado original */
-void    reset_redirections(t_shell *shell)
+void	reset_redirections(t_shell *shell)
 {
 	dup2(shell->infile, STDIN_FILENO);
 	dup2(shell->outfile, STDOUT_FILENO);
@@ -25,7 +25,7 @@ void    reset_redirections(t_shell *shell)
 	to the original values. For example, if the standard input was changed to a 
 	file, this function will reset it to the original value. */
 
-void redir_infile(char **cmd, t_shell *shell, int i)
+void	redir_infile(char **cmd, t_shell *shell, int i)
 {
 	if (shell->fdin > 2)
 		close(shell->fdin);
@@ -47,7 +47,7 @@ void redir_infile(char **cmd, t_shell *shell, int i)
 	otherwise it will open the file and save the file descriptor in the 
 	structure. */
 
-void    redir_outfile(char **cmd, t_shell *shell, int i)
+void	redir_outfile(char **cmd, t_shell *shell, int i)
 {
 	if (shell->fdout > 2)
 		close(shell->fdout);
@@ -68,7 +68,7 @@ void    redir_outfile(char **cmd, t_shell *shell, int i)
 	If the redirection is >>, it will open the file in append mode, otherwise 
 	it will open the file in write mode. */
 
-void    save_fds(t_shell *shell)
+void	save_fds(t_shell *shell)
 {
 	shell->exec_signal = 0;
 	shell->infile = dup(STDIN_FILENO);
@@ -81,9 +81,9 @@ void    save_fds(t_shell *shell)
 
 /* Ejemplo de lo que debe contener cmd:
 char *redirrections[] = {"<", "entrada.txt", ">", "salida.txt", NULL};*/
-void    choose_redirections(char **cmd, t_shell *shell)
+void	choose_redirections(char **cmd, t_shell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (cmd[i] != NULL && cmd != NULL)
@@ -104,4 +104,3 @@ void    choose_redirections(char **cmd, t_shell *shell)
 	">", "output.txt", NULL};
 	Whith this example, the function will redirect the input to input.txt and
 	the output to output.txt. */
-	

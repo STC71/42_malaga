@@ -18,13 +18,13 @@ int	ft_pipe_redir(char c, t_pipe_red *val, char *prompt, int *in)
 	{
 		if (val->pipe == 1 || !ft_check_pipe_in(prompt))
 			return (SUCCESS);
-		ft_check_red_or_pipe(val, 1); 
+		ft_check_red_or_pipe(val, 1);
 	}
 	else if (c == '<' || c == '>')
 	{
 		if (val->red == 1 || !ft_check_pipe_n_red_mixes(prompt, in))
 			return (SUCCESS);
-		ft_check_red_or_pipe(val, 2); 
+		ft_check_red_or_pipe(val, 2);
 	}
 	else
 		ft_check_red_or_pipe(val, 3);

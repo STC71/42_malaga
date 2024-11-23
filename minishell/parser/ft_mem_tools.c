@@ -23,7 +23,7 @@ void	ft_mem_args(t_cmd *cmds, char **split)
 	{
 		if (i > 0)
 		{
-			if (strcmp(split[i], ">") == 0 || strcmp(split[i], ">>") == 0 
+			if (strcmp(split[i], ">") == 0 || strcmp(split[i], ">>") == 0
 				|| strcmp(split[i], "<") == 0)
 			{
 				i += 2;

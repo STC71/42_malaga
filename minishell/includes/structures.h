@@ -18,37 +18,37 @@
 
 // ------- Structures ------------------------------------------------------- //
 
-typedef struct  s_env
+typedef struct s_env
 {
-    char        *name;
-    char        *value;
-    struct s_env *next;
-}               t_env;
+	char			*name;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
 
 // The structure t_env is used to store the environment variables. It has three
 // members: name, value and next. The name member stores the name of the 
 // environment variable, the value member stores the value of the environment
 // variable, and the next member is a pointer to the next element of the list.
 
-typedef struct  s_cmd
+typedef struct s_cmd
 {
-    char        *cmd;
-    char        **args;
-    char        **incmd;
-    char        **outcmd;
-}               t_cmd;
+	char	*cmd;
+	char	**args;
+	char	**incmd;
+	char	**outcmd;
+}	t_cmd;
 
 // The structure t_cmd is used to store the commands entered by the user. It has
 // four members: cmd, args, incmd and outcmd. The cmd member stores the name
-// of the command, the args member stores the arguments of the command, the in_cmd
-// member stores the input redirection command, and the out_cmd member stores the
-// output redirection command.
+// of the command, the args member stores the arguments of the command, the in_
+// cmd member stores the input redirection command, and the out_cmd member 
+// stores the output redirection command.
 
 typedef struct s_var
 {
-    char        *key;
-    char        *value;
-}               t_var;
+	char	*key;
+	char	*value;
+}	t_var;
 
 // The structure t_var is used to store the variables. It has two members: key
 // and value. The key member stores the name of the variable, and the value
@@ -56,14 +56,14 @@ typedef struct s_var
 
 typedef struct s_pipe_redirection
 {
-    int         pipe;
-    int         red;
-}               t_pipe_red;
+	int	pipe;
+	int	red;
+}	t_pipe_red;
 
 // The structure t_pipe_redirection is used to store the pipe and redirection
 // flags. It has two members: pipe and redir. The pipe member is a flag that
-// indicates if the pipe is present, and the redir member is a flag that indicates
-// if the redirection is present.
+// indicates if the pipe is present, and the redir member is a flag that 
+// indicates if the redirection is present.
 
 typedef struct s_shell
 {

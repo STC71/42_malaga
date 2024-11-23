@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void    execute_child_proces(char *path, char **exc, t_shell *shell)
+void	execute_child_proces(char *path, char **exc, t_shell *shell)
 {
 	if (shell->fdin > 2)
 	{
@@ -36,10 +36,10 @@ void    execute_child_proces(char *path, char **exc, t_shell *shell)
 	contains a "/" and executes it and exits the child process with EXIT.
 	The function is necessary to execute the command in the child process. */
 
-char **create_matrix_cmd_and_args(t_cmd **commands, int i)
+char	**create_matrix_cmd_and_args(t_cmd **commands, int i)
 {
-	char **matrix;
-	int j;
+	char	**matrix;
+	int		j;
 
 	j = 0;
 	while (commands[i]->args[j] != NULL && commands[i]->args != NULL)
@@ -65,11 +65,11 @@ char **create_matrix_cmd_and_args(t_cmd **commands, int i)
 	It is used by the execute_bin_cmd() function to execute the command in the
 	child process. */
 
-void    execute_bin_cmd(char *cmd_path, t_cmd **commands, t_shell *shell, int i)
+void	execute_bin_cmd(char *cmd_path, t_cmd **commands, t_shell *shell, int i)
 {
-	pid_t   child_id;
-	int     status_of_process;
-	char    **command_args;
+	pid_t	child_id;
+	int		status_of_process;
+	char	**command_args;
 
 	command_args = create_matrix_cmd_and_args(commands, i);
 	child_id = fork();

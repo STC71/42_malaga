@@ -123,7 +123,7 @@ char	*ft_strndup(const char *s1, size_t n);
 /*The ft_strcmp() function compares the strings s1 and s2. It returns an 
 	integer less than, equal to, or greater than zero if s1 is found, 
 	respectively, to be less than, to match, or be greater than s2.*/
-int ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 
 /*strlcpy() copies up to dstsize - 1 characters from the string src to dst, 
 	NUL-terminating the result if dstsize is not 0.*/
@@ -307,9 +307,10 @@ char	**ft_string_new(char *str);
 void	ft_string_free(char **str);
 
 /*The ft_matrix_free and ft_matrixdup functions are used to duplicate and free
-	a matrix of strings. The ft_matrixdup function duplicates the matrix of strings
-	passed as an argument and returns a pointer to the new matrix. The ft_matrix_free
-	function frees the memory of the matrix of strings passed as an argument.*/
+	a matrix of strings. The ft_matrixdup function duplicates the matrix of 
+	strings passed as an argument and returns a pointer to the new matrix. 
+	The ft_matrix_free function frees the memory of the matrix of strings passed
+	as an argument.*/
 void	ft_matrix_free(char **str);
 char	**ft_matrixdup(char **matrix);
 

@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-void ft_print_env_err2(t_shell *shell, int env_err, char *command)
+void	ft_print_env_err2(t_shell *shell, int env_err, char *command)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	shell->g_status = 1;
@@ -38,9 +38,9 @@ void ft_print_env_err2(t_shell *shell, int env_err, char *command)
 	It takes the command and the index of the invalid character as arguments. 
 	It then writes the error message to the standard output.*/
 
-int check_env(char *env)
+int	check_env(char *env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (ft_isdigit(env[i]))
@@ -77,9 +77,9 @@ int check_env(char *env)
 		not a null character, it returns -2.
 	Otherwise, it returns 1.*/
 
-void ft_print_env2(t_shell *shell)
+void	ft_print_env2(t_shell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (shell->env[i])
@@ -96,10 +96,10 @@ void ft_print_env2(t_shell *shell)
 	iterates over the environment variables, writing each one to the standard 
 	output.*/
 
-void ft_update_env_export(t_shell *shell, char **commands)
+void	ft_update_env_export(t_shell *shell, char **commands)
 {
-	int i;
-	
+	int	i;
+
 	if (commands[0] == 0)
 		ft_print_env2(shell);
 	else

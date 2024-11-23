@@ -12,9 +12,10 @@
 
 #include "../includes/minishell.h"
 
-void choose_builtin(t_shell *shell, t_cmd **commands, int i)
+void	choose_builtin(t_shell *shell, t_cmd **commands, int i)
 {
-	char *builtin;
+	char	*builtin;
+
 	builtin = commands[i]->cmd;
 	if (!ft_strcmp(builtin, "echo"))
 		ft_echo(commands[i]->args, shell);
@@ -32,14 +33,15 @@ void choose_builtin(t_shell *shell, t_cmd **commands, int i)
 		ft_pwd(shell);
 }
 
-/*  choose_builtin() function is called in the main function, it will execute 
+/*  choose_builtin() function is called in the main function, it will execute
 	the builtin command that is passed as an argument. */
 
-int check_if_is_builtin(char *command)
+int	check_if_is_builtin(char *command)
 {
-	if (!ft_strcmp(command, "echo") || !ft_strcmp(command, "cd") || !ft_strcmp(command,
-			"env") || !ft_strcmp(command, "exit") || !ft_strcmp(command, "export")
-		|| !ft_strcmp(command, "unset") || !ft_strcmp(command, "pwd"))
+	if (!ft_strcmp(command, "echo") || !ft_strcmp(command, "cd")
+		|| !ft_strcmp(command, "env") || !ft_strcmp(command, "exit")
+		|| !ft_strcmp(command, "export") || !ft_strcmp(command, "unset")
+		|| !ft_strcmp(command, "pwd"))
 		return (1);
 	return (0);
 }
@@ -47,4 +49,3 @@ int check_if_is_builtin(char *command)
 /*  check_if_is_builtin() function is called in the main function, in the case 
 	that the command is a builtin, it will return 1, otherwise it will 
 	return 0. */
-	

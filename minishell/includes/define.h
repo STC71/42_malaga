@@ -16,8 +16,8 @@
 # include "minishell.h"
 
 # define _XOPEN_SOURCE \
-    700 // Used to define the version of the X/Open Portability Guide.
-        // and to enable the use of certain functions.
+	700 // Used to define the version of the X/Open Portability Guide.
+	// and to enable the use of certain functions.
 
 # define EXIT_SUCCESS 0
 # define EXIT_FAILURE 1

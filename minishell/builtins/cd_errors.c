@@ -14,7 +14,6 @@
 
 void	write_cd_err(t_shell *shell)
 {
-	
 	write(STDERR_FILENO, "pwd: error retrieving current directory: ", 41);
 	write(STDERR_FILENO, strerror(errno), ft_strlen(strerror(errno)));
 	write(STDERR_FILENO, "\n", 2);
@@ -60,7 +59,7 @@ void	write_backpwd_err(char *back_path, t_shell *shell)
 	Return Value: The function returns 1 to signal that an error occurred, 
 		which can be used for further error handling or reporting. */
 
-void 	write_cdhome_error(char *home_path, t_shell *shell)
+void	write_cdhome_error(char *home_path, t_shell *shell)
 {
 	write(STDERR_FILENO, "cd: no such file or directory: ", 29);
 	write(STDERR_FILENO, home_path, ft_strlen(home_path));
@@ -83,7 +82,7 @@ void 	write_cdhome_error(char *home_path, t_shell *shell)
 	Return Value: The function returns 1 to signal that an error occurred, 
 		which can be used for further error handling or reporting. */
 
-void write_too_many_args(t_shell *shell)
+void	write_too_many_args(t_shell *shell)
 {
 	write(STDERR_FILENO, "cd: too many arguments\n", 23);
 	shell->g_status = 1;
@@ -101,7 +100,7 @@ void write_too_many_args(t_shell *shell)
 	Return Value: The function returns 1 to signal that an error occurred, 
 		which can be used for further error handling or reporting. */
 
-void write_oldpwd_error(t_shell *shell)
+void	write_oldpwd_error(t_shell *shell)
 {
 	write(STDERR_FILENO, "cd: OLDPWD not set\n", 20);
 	shell->g_status = 1;

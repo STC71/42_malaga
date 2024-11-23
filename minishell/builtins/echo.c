@@ -12,11 +12,11 @@
 
 #include "../includes/minishell.h"
 
-void ft_echo(char **args, t_shell *shell)
+void	ft_echo(char **args, t_shell *shell)
 {
-	int i;
-	int j;
-	int new_line;
+	int	i;
+	int	j;
+	int	new_line;
 
 	i = 0;
 	j = 1;
@@ -27,12 +27,12 @@ void ft_echo(char **args, t_shell *shell)
 		return ;
 	}
 	if (args[i])
-	{    
+	{
 		if (args[i][0] == '-' && args[i][1] == 'n' && args[i])
-		{    
+		{
 			while (args[i][j] == 'n')
 				j++;
-			if (args[i][j] != '\0') 
+			if (args[i][j] != '\0')
 			{
 				while (args[i])
 				{
@@ -44,7 +44,7 @@ void ft_echo(char **args, t_shell *shell)
 						write(shell->fdout, "\n", 1);
 				}
 				return ;
-			}        
+			}
 			new_line = 0;
 			i++;
 		}

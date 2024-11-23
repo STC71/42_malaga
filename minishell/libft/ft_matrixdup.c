@@ -53,7 +53,8 @@ char	**ft_matrixdup(char **matrix)
 	return (new);
 }
 
-/*	The ft_matrixdup and ft_matrix_free functions are used to duplicate and free
-	a matrix of strings. The ft_matrixdup function duplicates the matrix of strings
-	passed as an argument and returns a pointer to the new matrix. The ft_matrix_free
-	function frees the memory of the matrix of strings passed as an argument.*/
+/*	The ft_matrixdup and ft_matrix_free functions are used to duplicate and 
+	free a matrix of strings. The ft_matrixdup function duplicates the matrix
+	of strings passed as an argument and returns a pointer to the new matrix.
+	The ft_matrix_free function frees the memory of the matrix of strings
+	passed as an argument.*/

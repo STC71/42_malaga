@@ -73,6 +73,6 @@ void	ft_parse_split(t_shell *shell)
 	shell->cmds = cmds;
 }
 
-/*	ft_parse_split() function is used to parse the split_cmd and store it in the 
+/*	ft_parse_split() function is used to parse the split_cmd and store it in the
 	cmds structure. When the split_cmd is parsed, it is stored in the cmds 
 	structure. */

@@ -14,7 +14,7 @@
 
 void	ft_free_env(char **env)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (env[i])
@@ -29,9 +29,9 @@ void	ft_free_env(char **env)
 	environment variables. It takes the environment as an argument and 
 	then iterates over the environment, freeing each variable.*/
 
-char *ft_new_env(char *name, char *value)
+char	*ft_new_env(char *name, char *value)
 {
-	char *new_env;
+	char	*new_env;
 
 	new_env = ft_strjoin(name, "=");
 	if (value)
@@ -44,10 +44,10 @@ char *ft_new_env(char *name, char *value)
 	them with an equal sign in between. It then returns the new environment 
 	variable.*/
 
-void    ft_create_env(char *name, char *value, t_shell *shell)
+void	ft_create_env(char *name, char *value, t_shell *shell)
 {
-	int i;
-	char **new_env;
+	int		i;
+	char	**new_env;
 
 	i = 0;
 	while (shell->env[i])
@@ -65,7 +65,6 @@ void    ft_create_env(char *name, char *value, t_shell *shell)
 	new_env[i] = NULL;
 	ft_free_env(shell->env);
 	shell->env = new_env;
-	//free(new_env);
 }
 
 /*  ft_create_env function is used to create a new environment variable. 
@@ -73,9 +72,9 @@ void    ft_create_env(char *name, char *value, t_shell *shell)
 	environment variable by merging the name and value. It then adds the new 
 	variable to the environment.*/
 
-int ft_check_update_env(char *name, char *value, t_shell *shell)
+int	ft_check_update_env(char *name, char *value, t_shell *shell)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (shell->env[i])
@@ -102,12 +101,11 @@ int ft_check_update_env(char *name, char *value, t_shell *shell)
 	with the name argument. If a match is found, it updates the value of the 
 	variable and returns 1. Otherwise, it returns 0.*/
 
-void ft_update_env(char *command, t_shell *shell)
+void	ft_update_env(char *command, t_shell *shell)
 {
-	char *equal;
-	char *name;
-	char *value;
-	
+	char	*equal;
+	char	*name;
+	char	*value;
 
 	equal = ft_strchr(command, '=');
 	if (equal)
@@ -125,4 +123,3 @@ void ft_update_env(char *command, t_shell *shell)
 	then splits the command into the name and value of the environment variable.
 	If the variable already exists, it updates the value. Otherwise, it creates 
 	a new environment variable.*/
-	

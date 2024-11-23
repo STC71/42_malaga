@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void   error_pipe(t_shell *shell)
+void	error_pipe(t_shell *shell)
 {
 	write(STDERR_FILENO, "heredoc: error creating pipe\n", 27);
 	shell->exec_signal = 1;
@@ -22,16 +22,16 @@ void   error_pipe(t_shell *shell)
 /*  error_pipe() function is used to print an error message when the pipe 
 	creation fails. */
 
-void apply_heredoc(char *delimiter, t_shell *shell)
+void	apply_heredoc(char *delimiter, t_shell *shell)
 {
-	int fdpipe[2];
-	char *line;
+	int		fdpipe[2];
+	char	*line;
 
-	if(pipe(fdpipe) == -1)
+	if (pipe(fdpipe) == -1)
 		return (error_pipe(shell));
 	while (1)
 	{
-		write(1,"Minishell> ", 11);
+		write (1, "Minishell> ", 11);
 		line = get_next_line(STDIN_FILENO);
 		if (!line || ft_strcmp(line, delimiter) == 0)
 			break ;
@@ -50,7 +50,7 @@ void apply_heredoc(char *delimiter, t_shell *shell)
 	dup2(shell->fdin, STDIN_FILENO);
 }
 
-/*  apply_heredoc() function is used to write several lines of text and wait for 
+/*  apply_heredoc() function is used to write several lines of text and wait for
 	the "delimiter: letter or phrase specified at the beginning after putting 
 	the <" and save that written content in a temporary file, unless it is 
 	redirected to another file with >. */
@@ -63,7 +63,7 @@ void	update_shlvl(t_shell *shell)
 
 	i = 0;
 	while (shell->env[i] != NULL)
-	{	
+	{
 		if (ft_strncmp(shell->env[i], "SHLVL=", 6) == 0)
 		{
 			shlvl = ft_strdup(shell->env[i] + 6);
@@ -71,7 +71,7 @@ void	update_shlvl(t_shell *shell)
 			free(shlvl);
 			level++;
 			shlvl = ft_itoa(level);
-			free(shell->env[i]); 
+			free(shell->env[i]);
 			shell->env[i] = ft_strjoin("SHLVL=", shlvl);
 			free(shlvl);
 			return ;

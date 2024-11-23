@@ -66,7 +66,7 @@ int	ft_check_red_and_pipe(char *prompt)
 	t_pipe_red	val;
 
 	i = 0;
-	state = NO_QUOTE; // (0)
+	state = NO_QUOTE;
 	ft_action_pipe_redir(&val);
 	while (prompt[i])
 	{
@@ -91,10 +91,8 @@ int	ft_check_pipe_in(char *prompt)
 
 	i = 0;
 	while (prompt[i] == ' ' || prompt[i] == '\t')
-		// salta los espacios y tabuladores
 		i++;
-	if (prompt[i] == '|') 
-		// si el primer caracter es un pipe
+	if (prompt[i] == '|')
 		return (0);
 	return (1);
 }
@@ -104,17 +102,17 @@ int	ft_check_pipe_in(char *prompt)
 
 void	ft_check_red_or_pipe(t_pipe_red *val, int i)
 {
-	if (i == 1) // si flag = 1 es q hay una pipe
+	if (i == 1)
 	{
 		val->pipe = 1;
 		val->red = 0;
 	}
-	else if (i == 2) // si flag = 2 es q hay una redirección
+	else if (i == 2)
 	{
 		val->pipe = 0;
 		val->red = 1;
 	}
-	else if (i == 3) // si flag = 3 es q no hay ni pipe ni redirección
+	else if (i == 3)
 	{
 		val->pipe = 0;
 		val->red = 0;

@@ -14,9 +14,9 @@
 
 void	ft_check_env(char *str)
 {
-		if (!str)
+	if (!str)
 	{
-		ft_putstr_fd(RED"Error: No environment variables\n"RESET, 
+		ft_putstr_fd(RED"Error: No environment variables\n"RESET,
 			STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
@@ -38,7 +38,7 @@ void	ft_check_args(int argc, char *argv)
 /*	ft_check_args() function is used to check if there are invalid arguments. 
 	If there are invalid arguments, it will print an error message and exit. */
 
-int		ft_check_line(char *line)
+int	ft_check_line(char *line)
 {
 	int	i;
 

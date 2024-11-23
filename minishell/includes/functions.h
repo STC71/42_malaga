@@ -66,7 +66,7 @@ void	write_pwd_err(t_shell *shell);
 void	env_err0(char *command, int i);
 void	env_err1(char *command, int i);
 void	env_err2(char *command, int i);
-void	env_err3();
+void	env_err3(void);
 
 // ------- update_env_export.c
 
@@ -81,7 +81,7 @@ void	ft_free_env(char **env);
 char	*ft_new_env(char *name, char *value);
 void	ft_create_env(char *name, char *value, t_shell *shell);
 int		ft_check_update_env(char *name, char *value, t_shell *shell);
-void 	ft_update_env(char *command, t_shell *shell);
+void	ft_update_env(char *command, t_shell *shell);
 
 // ------- Executor Functions ----------------------------------------------- //
 
@@ -114,24 +114,24 @@ void	execute_bin_cmd(char *cmd_path, t_cmd **commands, t_shell *shell, int i);
 // ------- execute_builtins.c
 
 void	reset_oldpwd(t_shell *shell, int i);
-void    reset_old_pwd_and_lastcmd(t_shell *shell, t_cmd **commands);
-void    check_if_builtin(t_cmd **commands, t_shell *shell, int i);
-void    config_pipe(t_shell *shell);
-void    execute(t_cmd **commands, t_shell *shell);
+void	reset_old_pwd_and_lastcmd(t_shell *shell, t_cmd **commands);
+void	check_if_builtin(t_cmd **commands, t_shell *shell, int i);
+void	config_pipe(t_shell *shell);
+void	execute(t_cmd **commands, t_shell *shell);
 
 // ------- heredoc.c
 
-void   error_pipe(t_shell *shell);
-void   apply_heredoc(char *delimiter, t_shell *shell);
-void   update_shlvl(t_shell *shell);
+void	error_pipe(t_shell *shell);
+void	apply_heredoc(char *delimiter, t_shell *shell);
+void	update_shlvl(t_shell *shell);
 
 // ------- redirections.c
 
-void    reset_redirections(t_shell *shell);
-void    redir_infile(char **cmd, t_shell *shell, int i);
-void    redir_outfile(char **cmd, t_shell *shell, int i);
-void    save_fds(t_shell *shell);
-void    choose_redirections(char **cmd, t_shell *shell);
+void	reset_redirections(t_shell *shell);
+void	redir_infile(char **cmd, t_shell *shell, int i);
+void	redir_outfile(char **cmd, t_shell *shell, int i);
+void	save_fds(t_shell *shell);
+void	choose_redirections(char **cmd, t_shell *shell);
 
 // ------- Parser Functions ------------------------------------------------- //
 

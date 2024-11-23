@@ -12,9 +12,9 @@
 
 #include "../includes/minishell.h"
 
-void ft_pwd(t_shell *shell)
+void	ft_pwd(t_shell *shell)
 {
-	char cwd[PATH_MAX];
+	char	cwd[PATH_MAX];
 
 	if (getcwd(cwd, PATH_MAX) == NULL)
 		return (write_pwd_err(shell));

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void ft_exit(char **command, t_shell *shell)
+void	ft_exit(char **command, t_shell *shell)
 {
 	shell->exit = 1;
 	write(shell->fdout, "exit\n", 5);

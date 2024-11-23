@@ -37,9 +37,9 @@ int	ft_print_env_err(t_shell *shell, char *path)
 
 int	ft_check_path(t_shell *shell, char **paths)
 {
-	int i;
-	int j;
-	int flag;
+	int	i;
+	int	j;
+	int	flag;
 
 	i = 0;
 	while (paths[i] != NULL)
@@ -66,12 +66,11 @@ int	ft_check_path(t_shell *shell, char **paths)
 	Return Value: The function returns 0 if the path exists, otherwise it returns
 	a failure status using the ft_print_env_err() function. */
 
-void ft_print_env(t_shell *shell, char **paths)
+void	ft_print_env(t_shell *shell, char **paths)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	
 	if (ft_check_path(shell, paths) == 0)
 	{
 		while (shell->env[i])

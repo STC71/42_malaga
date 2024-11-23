@@ -30,7 +30,7 @@ char	**ft_string_del_last(char **str)
 	return (new);
 }
 
-/*	The ft_string_del_last() function deletes the last element of a string array.
+/*	The ft_string_del_last() function deletes the last element of a string array
 	Parameters:
 		- str: the string array to delete the last element.
 	Return value:

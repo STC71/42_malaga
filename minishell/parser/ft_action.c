@@ -40,7 +40,7 @@ void	ft_action_structures(t_shell *shell, char **envp)
 	update_shlvl(shell);
 }
 
-/* 	ft_action_structures() function is used to initialize the structure with the 
+/* 	ft_action_structures() function is used to initialize the structure with the
 	environment variables. It allocates memory for the structure and copies the 
 	environment variables to the structure. */
 
@@ -88,7 +88,7 @@ void	ft_action_prompt(t_shell *shell, char *line)
 	ft_free_array(shell->split_cmd);
 }
 
-/* 	ft_action_prompt() function is used to initialize the prompt. It removes the 
+/* 	ft_action_prompt() function is used to initialize the prompt. It removes the
 	spaces at the end of the prompt and checks if the command is valid. If the 
 	command is not valid, it will print an error message.
 	We begin by parsing the arguments (grammatically analyzing).
@@ -120,7 +120,7 @@ int	main(int argc, char **argv, char **envp)
 
 	ft_check_env(envp[0]);
 	ft_check_args(argc, argv[1]);
-	ft_action_structures(&shell, envp);	
+	ft_action_structures(&shell, envp);
 	while (shell.exit == 0)
 	{
 		if_signal();

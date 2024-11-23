@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-void ft_delete_env_unset(char **name_var, t_shell *shell)
+void	ft_delete_env_unset(char **name_var, t_shell *shell)
 {
 	int	x;
 	int	i;
@@ -24,8 +24,8 @@ void ft_delete_env_unset(char **name_var, t_shell *shell)
 		i = -1;
 		while (shell->env[++i] != NULL)
 		{
-			if (!ft_strncmp(shell->env[i], name_var[x], ft_strlen(name_var[x])) 
-			&& shell->env[i][ft_strlen(name_var[x])] == '=')
+			if (!ft_strncmp(shell->env[i], name_var[x], ft_strlen(name_var[x]))
+				&& shell->env[i][ft_strlen(name_var[x])] == '=')
 			{
 				free(shell->env[i]);
 				j = i;
@@ -35,7 +35,7 @@ void ft_delete_env_unset(char **name_var, t_shell *shell)
 					j++;
 				}
 				shell->env[j] = NULL;
-				i--; 
+				i--;
 			}
 		}
 	}

@@ -14,8 +14,8 @@
 
 void	renew_path(t_shell *shell)
 {
-	char cwd[PATH_MAX];
-	int i;
+	char	cwd[PATH_MAX];
+	int		i;
 
 	i = 0;
 	if (getcwd(cwd, PATH_MAX) == NULL)
@@ -24,7 +24,7 @@ void	renew_path(t_shell *shell)
 	{
 		if (strncmp(shell->env[i], "PWD", 4) == 0)
 		{
-		free(shell->env[i]);
+			free(shell->env[i]);
 			shell->env[i] = ft_strjoin("PWD=", cwd);
 			if (shell->env[i] == NULL)
 			{
@@ -44,7 +44,7 @@ void	renew_path(t_shell *shell)
 
 void	exec_back_pwd(t_shell *shell)
 {
-	char *back_path;
+	char	*back_path;
 
 	back_path = ft_get_environment("OLDPWD", shell->env);
 	if (back_path == NULL)
@@ -53,7 +53,7 @@ void	exec_back_pwd(t_shell *shell)
 		write_backpwd_err(back_path, shell);
 	write(shell->fdout, back_path, ft_strlen(back_path));
 	write(shell->fdout, "\n", 2);
-	free(back_path);	
+	free(back_path);
 }
 
 /*	exec_back_pwd function is used to go back to the previous directory. 
@@ -63,10 +63,10 @@ void	exec_back_pwd(t_shell *shell)
 
 char	*ft_get_environment(char *str_pwd, char **env_paths)
 {
-	int i;
-	int j;
-	char *full_path;
-	
+	int		i;
+	int		j;
+	char	*full_path;
+
 	i = 0;
 	while (env_paths[i] != NULL)
 	{
@@ -93,12 +93,12 @@ char	*ft_get_environment(char *str_pwd, char **env_paths)
 
 void	exec_cd_home(t_shell *shell)
 {
-	char *home_path;
+	char	*home_path;
 
 	home_path = ft_get_environment("HOME", shell->env);
 	if (home_path == NULL)
 		return ;
-	if(chdir(home_path) == -1)
+	if (chdir(home_path) == -1)
 		write_cdhome_error(home_path, shell);
 	free(home_path);
 }
@@ -112,7 +112,7 @@ void	exec_cd_home(t_shell *shell)
 void	ft_cd(char **full_command, t_shell *shell)
 {
 	if (full_command[1] != NULL)
-		return(write_too_many_args(shell));
+		return (write_too_many_args(shell));
 	shell->oldpwd = ft_get_environment("PWD", shell->env);
 	if (full_command[0] == NULL)
 		exec_cd_home(shell);
@@ -120,10 +120,10 @@ void	ft_cd(char **full_command, t_shell *shell)
 		exec_cd_home(shell);
 	else if (full_command[0][0] == '-')
 		exec_back_pwd(shell);
-	else  
+	else
 	{
 		if (chdir(full_command[0]) == -1)
-		{	
+		{
 			write(STDERR_FILENO, "cd: no such file or directory: ", 31);
 			write(STDERR_FILENO, full_command[0], ft_strlen(full_command[0]));
 			write(STDERR_FILENO, "\n", 2);
