@@ -6,7 +6,7 @@
 /*   By: druiz-ca <druiz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 17:19:32 by druiz-ca          #+#    #+#             */
-/*   Updated: 2024/11/09 14:09:10 by druiz-ca         ###   ########.fr       */
+/*   Updated: 2024/11/24 10:33:35 by druiz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,7 @@ void	ft_cd(char **full_command, t_shell *shell)
 	if (full_command[1] != NULL)
 		return (write_too_many_args(shell));
 	shell->oldpwd = ft_get_environment("PWD", shell->env);
-	if (full_command[0] == NULL)
-		exec_cd_home(shell);
-	else if (full_command[0][0] == '~')
+	if (full_command[0] == NULL || full_command[0][0] == '~')
 		exec_cd_home(shell);
 	else if (full_command[0][0] == '-')
 		exec_back_pwd(shell);

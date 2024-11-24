@@ -6,7 +6,7 @@
 /*   By: druiz-ca <druiz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 18:10:16 by druiz-ca          #+#    #+#             */
-/*   Updated: 2024/11/09 14:41:13 by druiz-ca         ###   ########.fr       */
+/*   Updated: 2024/11/24 10:42:40 by druiz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_str_free(char **str)
 
 /*  ft_str_free function is used to free the memory allocated for the string. */
 
-char	*join_binpath_and_cmd(char *cmd, char *bin_path)
+char	*join_binpath_andcmd(char *cmd, char *bin_path)
 {
 	char	*joined_path;
 
@@ -65,10 +65,7 @@ int	write_bin_error(char *path, t_shell *shell)
 	else if (access(path, F_OK) == -1)
 		write(STDERR_FILENO, ": No such file or directory", 27);
 	else if (dir == NULL)
-	{
-		write(STDERR_FILENO, ": is a directory", 16);
-		closedir(dir);
-	}
+		write_err_isdirectory(dir);
 	else if (access(path, X_OK) == -1)
 		write(STDERR_FILENO, ": Permission denied", 19);
 	if (ft_strchr(path, '/') == NULL || (dir == NULL))
@@ -119,14 +116,14 @@ void	execute_bin_cmd_main(t_cmd **commands, t_shell *shell, int i)
 	}
 	while (bin_paths[j])
 	{
-		shell->cmd_path = join_binpath_and_cmd(commands[i]->cmd, bin_paths[j++]);
+		shell->cmd_path = join_binpath_andcmd(commands[i]->cmd, bin_paths[j++]);
 		if (shell->cmd_path != NULL)
 			break ;
 	}
 	if (shell->cmd_path != NULL)
-		execute_bin_cmd(shell->cmd_path, commands, shell, i);
+		exec_bin_cmd(shell->cmd_path, commands, shell, i);
 	else
-		execute_bin_cmd(commands[i]->cmd, commands, shell, i);
+		exec_bin_cmd(commands[i]->cmd, commands, shell, i);
 	ft_str_free(bin_paths);
 	free(shell->cmd_path);
 }

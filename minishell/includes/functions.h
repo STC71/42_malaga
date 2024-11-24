@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   functions.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sternero <sternero@student.42malaga.com>   #+#  +:+       +#+        */
+/*   By: druiz-ca <druiz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024-09-23 11:47:37 by sternero          #+#    #+#             */
-/*   Updated: 2024-09-23 11:47:37 by sternero         ###   ########.fr       */
+/*   Created: 2024/09/23 11:47:37 by sternero          #+#    #+#             */
+/*   Updated: 2024/11/24 11:03:28 by druiz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_delete_env_unset(char **name_var, t_shell *shell);
 
 // ------- echo.c
 
+void	ft_write_newline(char **args, t_shell *shell, int i, int new_line);
 void	ft_echo(char **args, t_shell *shell);
 
 // ------- exit.c
@@ -100,16 +101,17 @@ void	ft_close_resets(t_shell *shell);
 // ------- execute_bin.c
 
 void	ft_str_free(char **str);
-char	*join_binpath_and_cmd(char *cmd, char *bin_path);
+char	*join_binpath_andcmd(char *cmd, char *bin_path);
 int		write_bin_error(char *cmd, t_shell *shell);
 char	**get_bin_paths(t_shell *shell);
 void	execute_bin_cmd_main(t_cmd **commands, t_shell *shell, int i);
 
 // ------- execute_bin2.c
 
+void	write_err_isdirectory(DIR *dir);
 void	execute_child_proces(char *path, char **exc, t_shell *shell);
 char	**create_matrix_cmd_and_args(t_cmd **commands, int i);
-void	execute_bin_cmd(char *cmd_path, t_cmd **commands, t_shell *shell, int i);
+void	exec_bin_cmd(char *cmd_path, t_cmd **commands, t_shell *shell, int i);
 
 // ------- execute_builtins.c
 

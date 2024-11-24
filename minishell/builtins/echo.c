@@ -6,11 +6,24 @@
 /*   By: druiz-ca <druiz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:15:57 by druiz-ca          #+#    #+#             */
-/*   Updated: 2024/11/09 12:36:23 by druiz-ca         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:07:57 by druiz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	ft_write_newline(char **args, t_shell *shell, int i, int new_line)
+{
+	while (args[i])
+	{
+		write(shell->fdout, args[i], ft_strlen(args[i]));
+		if (args[i + 1] && args[i][0] != '\0')
+			write(shell->fdout, " ", 1);
+		i++;
+	}
+	if (new_line)
+		write(shell->fdout, "\n", 1);
+}
 
 void	ft_echo(char **args, t_shell *shell)
 {
@@ -33,31 +46,12 @@ void	ft_echo(char **args, t_shell *shell)
 			while (args[i][j] == 'n')
 				j++;
 			if (args[i][j] != '\0')
-			{
-				while (args[i])
-				{
-					write(shell->fdout, args[i], ft_strlen(args[i]));
-					if (args[i + 1] && args[i][0] != '\0')
-						write(shell->fdout, " ", 1);
-					i++;
-					if (new_line)
-						write(shell->fdout, "\n", 1);
-				}
-				return ;
-			}
+				return (ft_write_newline(args, shell, i, new_line));
 			new_line = 0;
 			i++;
 		}
 	}
-	while (args[i])
-	{
-		write(shell->fdout, args[i], ft_strlen(args[i]));
-		if (args[i + 1] && args[i][0] != '\0')
-			write(shell->fdout, " ", 1);
-		i++;
-	}
-	if (new_line)
-		write(shell->fdout, "\n", 1);
+	ft_write_newline(args, shell, i, new_line);
 }
 
 /*	ft_echo function is used to write arguments to the standard output. 

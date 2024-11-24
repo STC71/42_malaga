@@ -6,11 +6,17 @@
 /*   By: druiz-ca <druiz-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 15:56:11 by druiz-ca          #+#    #+#             */
-/*   Updated: 2024/11/09 14:39:22 by druiz-ca         ###   ########.fr       */
+/*   Updated: 2024/11/24 10:42:03 by druiz-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	write_err_isdirectory(DIR *dir)
+{
+	write(STDERR_FILENO, ": is a directory", 16);
+	closedir(dir);
+}
 
 void	execute_child_proces(char *path, char **exc, t_shell *shell)
 {
@@ -65,7 +71,7 @@ char	**create_matrix_cmd_and_args(t_cmd **commands, int i)
 	It is used by the execute_bin_cmd() function to execute the command in the
 	child process. */
 
-void	execute_bin_cmd(char *cmd_path, t_cmd **commands, t_shell *shell, int i)
+void	exec_bin_cmd(char *cmd_path, t_cmd **commands, t_shell *shell, int i)
 {
 	pid_t	child_id;
 	int		status_of_process;
