@@ -169,8 +169,8 @@ int main(int argc, char **argv, char **envp)	// ./microshell "ls", "-l", ";", "e
 												// if i = 4 => argv[4] = "echo"
 												// if i = 5 => argv[5] = "hello"
 	{
-		argv += i + 1;							// To begin the value of argv is 1
-												// In the second loop, i = 3 + 1, so the pointer will be at argv[4]
+		argv += i + 1;							// To begin the value of argv is 1 (argv[1] = "ls")
+												// In the second loop, i = 3, so argv will be 4 (argv[4] = "echo")
 		i = 0;									
 		while (argv[i] && strcmp(argv[i], "|") && strcmp(argv[i], ";"))	// The loop will run until it finds a pipe or a semicolon, until strcmp returns 0.
 			i++;								// 1. When the lop finds ";" i will be 3

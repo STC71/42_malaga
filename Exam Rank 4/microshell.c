@@ -10,15 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdlib.h>
+#include <string.h>			// to use strcmp
+#include <unistd.h>			// to use write, dup2, close, execve, fork, exit
+#include <sys/wait.h>		// to use waitpid in exec
+#include <stdlib.h>			// to use exit in exec
 
 void err(char *str)
 {
 	while (*str)
-		write(2, str++, 1);
+		write(2, str++, 1); // 2 is the file descriptor for stderr (standard error)
 }
 
 int cd(char **argv, int i)
