@@ -13,7 +13,7 @@
 #include <string.h>			// to use strcmp
 #include <unistd.h>			// to use write, dup2, close, execve, fork, exit
 #include <sys/wait.h>		// to use waitpid in exec
-#include <stdlib.h>			// to use exit in exec
+#include <stdlib.h>			// to use exit
 
 void err(char *str)
 {
@@ -39,22 +39,22 @@ void set_pipe(int has_pipe, int *fd, int end)
 int	exec(char **argv, int i, char **envp)
 {
 	int has_pipe, fd[2], pid, status;
-	has_pipe = argv[i] && !strcmp(argv[i], "|");
+	has_pipe = argv[i] && !strcmp(argv[i], "|"); // check if the command has a pipe. If it does, set has_pipe to 1
 
-	if (!has_pipe && !strcmp(*argv, "cd"))
-		return cd(argv, i);
-	if (has_pipe && pipe(fd) == -1)
-		err("error: fatal\n"), exit(1);
-	if ((pid = fork()) == -1)
-		err("error: fatal\n"), exit(1);
-	if (!pid)
+	if (!has_pipe && !strcmp(*argv, "cd"))	// if the command does not have a pipe and is cd,
+		return cd(argv, i);					// call the cd function and return the result
+	if (has_pipe && pipe(fd) == -1)		// if the command has a pipe, create a pipe to communicate between the parent and child processes,
+		err("error: fatal\n"), exit(1); // if the pipe fails to create, print an error message and exit
+	if ((pid = fork()) == -1)			// if pid is -1, the fork failed to create a new process, 
+		err("error: fatal\n"), exit(1); // if this happens, print an error message and exit
+	if (!pid)	// if the process is the child process, if pid is 0, the child process will execute the command
 	{
 		argv[i] = 0;
-		set_pipe(has_pipe, fd, 1);
+		set_pipe(has_pipe, fd, 1); // set the pipe for the child process. 1 is the write end of the pipe. fd is the file descriptor for the pipe
 		if (!strcmp(*argv, "cd"))
 			exit(cd(argv, i));
-		execve(*argv, argv, envp);
-		err("error: cannot execute "), err(*argv), err("\n"), exit(1);
+		execve(*argv, argv, envp);		// execute the command to replace the current process with the command, 
+		err("error: cannot execute "), err(*argv), err("\n"), exit(1);  // if the command fails to execute, print an error message and exit
 	}
 	waitpid(pid, &status, 0);
 	set_pipe(has_pipe, fd, 0);
@@ -68,8 +68,8 @@ int main(int argc, char **argv, char **envp)
 
 	while (argv[i])
 	{
-		argv += i + 1;
-		i = 0;
+		argv += i + 1;	// move the pointer to the next argument
+		i = 0;			// reset the index for the next command
 		while (argv[i] && strcmp(argv[i], "|") && strcmp(argv[i], ";"))
 			i++;
 		if (i)
