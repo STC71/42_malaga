@@ -1,0 +1,16 @@
+NO ./textures/coal_ore.png
+SO ./textures/stone_wall.png
+EA ./textures/stone_wall.png
+WE ./textures/stone_wall.png
+
+DO ./textures/diamond_ore.png
+C 105, 105, 105
+F 127, 127, 127
+
+111111111111
+100000000001
+100010011101
+1001000D0101
+1010000S1101
+100000000001
+111111111111

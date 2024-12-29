@@ -1,0 +1,16 @@
+SO ./textures/neon_broken_wall.png
+WE ./textures/neon_wall1.png
+EA ./textures/neon_wall2.png
+NO ./textures/neon_wall3.png
+
+C 9, 24, 51
+F 48, 27, 104
+
+111111111111
+100000000001
+100010011101
+100000000101
+
+1011100S1101
+100000000001
+111111111111
