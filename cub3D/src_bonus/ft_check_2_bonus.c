@@ -88,7 +88,7 @@ int	ft_check_bad_argument(char **c, int i)
 	if (c && c[2] && ft_strcmp(c[0], "C")
 		&& ft_strcmp(c[0], "F") && c[0][0] != '1')
 	{
-		printf(RED"Extra argument in file"RESET);
+		printf(RED"Extra argument in file\n"RESET);
 		return (FAILURE);
 	}
 	return (SUCCESS);

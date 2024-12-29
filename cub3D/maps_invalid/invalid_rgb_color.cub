@@ -1,7 +1,7 @@
-SO ./textures/neon_wall1.png
-WE ./textures/neon_broken_wall.png
-EA ./textures/neon_wall2.png
-NO ./textures/neon_wall3.png
+SO ./imgs/malaca_01.png
+WE ./imgs/malaca_02.png
+EA ./imgs/malaca_03.png
+NO ./imgs/malaca_04.png
 
 F 20,20,-20
 C 290,200,200

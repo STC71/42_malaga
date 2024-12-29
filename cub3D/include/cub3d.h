@@ -81,12 +81,12 @@ typedef struct s_point
 
 typedef struct s_line
 {
-	int	x; 					// the x coordinate of line relative to screen
-	int	y; 					// the current pixel index of the line (along y axis)
-	int	y0; 				// y start index of drawing texture
-	int	y1; 				// y end index of drawing texture
-	int	tex_x; 				// x coordinate of texture to draw
-	int	tex_y; 				// y coordinate of texture to draw
+	int	x;				// the x coordinate of line relative to screen
+	int	y;				// the current pixel index of the line (along y axis)
+	int	y0;				// y start index of drawing texture
+	int	y1;				// y end index of drawing texture
+	int	tex_x;			// x coordinate of texture to draw
+	int	tex_y;			// y coordinate of texture to draw
 }	t_line;
 
 typedef struct s_ray
@@ -100,10 +100,10 @@ typedef struct s_ray
 	double		pos_y;				// the y coordinate of the player
 	double		ray_dir_x;			// the x coordinate of the ray direction
 	double		ray_dir_y;			// the y coordinate of the ray direction
-	double		delta_dist_x;		// the distance of the ray to the next x side
-	double		delta_dist_y;		// the distance of the ray to the next y side
-	double		side_dist_x;		// the distance of the ray to the next x side
-	double		side_dist_y;		// the distance of the ray to the next y side
+	double		delta_dist_x;		// distance of the ray to the next x side
+	double		delta_dist_y;		// distance of the ray to the next y side
+	double		side_dist_x;		// distance of the ray to the next x side
+	double		side_dist_y;		// distance of the ray to the next y side
 	double		perp_wall_dist;		// the distance of the ray to the wall
 	double		pixel_width_impact;	// the width of the pixel to draw
 	double		hit;				// the hit point of the ray in the map
@@ -202,18 +202,11 @@ int		ft_check_extra(char *map);
 
 // ----- ft_colors_1.c
 
-int			ft_check_colors(char **c, int i);
-void		ft_error_color(char **path, int r, int g, int b);
-int			ft_check_colors_num(char **c, int line);
-uint32_t	ft_rgba(uint8_t pixels[4]);
+int		ft_check_colors(char **c, int i);
+void	ft_error_color(char **path, int r, int g, int b);
+int		ft_check_colors_num(char **c, int line);
 
 // ----- ft_colors_2.c
-
-unsigned int	ft_rgb_get(char **c);
-unsigned int	ft_rgb_to_hex_split(char **c);
-unsigned int	ft_rgb_to_hex(char **c);
-uint32_t		ft_get_color(double x, double size, mlx_texture_t *txt);
-uint32_t		ft_color_wall(t_data *info, t_ray *ray, double size);
 
 // ----- ft_errors.c
 
@@ -290,5 +283,15 @@ int		ft_get_imgs_info(t_data *info, int *res, int *fd);
 int		ft_get_walls(t_data *info, int *fd, int *res);
 double	ft_size_wall(t_ray *ray);
 void	ft_load_imgs(t_data *info);
+
+// ----- other.c
+
+unsigned int	ft_rgb_get(char **c);
+unsigned int	ft_rgb_to_hex_split(char **c);
+unsigned int	ft_rgb_to_hex(char **c);
+
+uint32_t		ft_get_color(double x, double size, mlx_texture_t *txt);
+uint32_t		ft_color_wall(t_data *info, t_ray *ray, double size);
+uint32_t		ft_rgba(uint8_t pixels[4]);
 
 #endif

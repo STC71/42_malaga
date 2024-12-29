@@ -39,7 +39,7 @@ int	ft_check_colors(char **c, int i)
 
 void	ft_error_color(char **path, int r, int g, int b)
 {
-	printf(RED"Bad RGB value"RESET" for ");
+	printf(RED"Bad RGB value\n"RESET);
 	ft_putstr_fd(path[0], 2);
 	ft_putstr_fd(". ", 2);
 	if (r > 255 || r < 0)
@@ -128,20 +128,20 @@ uint32_t	ft_color_door(t_data *info, t_ray *ray, double size)
 	if (ray->flag == 0)
 	{
 		if (ray->ray_dir_x > 0)
-			c = get_pixel_color(ray->hit \
+			c = ft_get_color(ray->hit \
 				- (int)ray->hit, size, info->textures.do_texture);
 		if (ray->ray_dir_x < 0)
-			c = get_pixel_color(ray->hit \
+			c = ft_get_color(ray->hit \
 				- (int)ray->hit, size, info->textures.do_texture);
 		return (c);
 	}
 	else if (ray->flag == 1)
 	{
 		if (ray->ray_dir_y > 0)
-			c = get_pixel_color(ray->hit \
+			c = ft_get_color(ray->hit \
 				- (int)ray->hit, size, info->textures.do_texture);
 		if (ray->ray_dir_y < 0)
-			c = get_pixel_color(ray->hit \
+			c = ft_get_color(ray->hit \
 				- (int)ray->hit, size, info->textures.do_texture);
 		return (c);
 	}

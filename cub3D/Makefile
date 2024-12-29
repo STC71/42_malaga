@@ -55,7 +55,7 @@ BNS_FILES = ft_action_bonus \
 					ft_check_5_bonus \
 					ft_colors_1_bonus \
 					ft_colors_2_bonus \
-					ft_colors_3_bonus \
+					ft_door_bonus \
 					ft_errors_bonus \
 					ft_impact_ray_bonus \
 					ft_init_1_bonus \

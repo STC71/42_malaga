@@ -170,11 +170,11 @@ void	ft_start(t_data *info);
 
 // ----- ft_animation_bonus.c
 
-void		ft_init_animation(t_data *info);
+void	ft_init_animation(t_data *info);
 uint32_t	ft_get_sprite(double x, double y, mlx_texture_t *text);
-void		ft_draw_anim(t_data *info, mlx_texture_t *text);
-void		ft_charge_anim(t_data *info);
-void		ft_loop_anim(t_data *info);
+void	ft_draw_anim(t_data *info, mlx_texture_t *text);
+void	ft_charge_anim(t_data *info);
+void	ft_loop_anim(t_data *info);
 
 // ----- ft_calculations_bonus.c
 
@@ -226,9 +226,9 @@ int		ft_check_extra(char *map);
 
 // ----- ft_colors_1_bonus.c
 
-int			ft_check_colors(char **c, int i);
-void		ft_error_color(char **path, int r, int g, int b);
-int			ft_check_colors_num(char **c, int line);
+int		ft_check_colors(char **c, int i);
+void	ft_error_color(char **path, int r, int g, int b);
+int		ft_check_colors_num(char **c, int line);
 uint32_t	ft_rgba(uint8_t pixels[4]);
 uint32_t	ft_color_door(t_data *info, t_ray *ray, double size);
 

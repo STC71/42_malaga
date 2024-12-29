@@ -52,7 +52,7 @@ void	ft_error_bad_spc(int line, int i)
 
 void	ft_error_rgb_num(char **rgb, int i, int j, int line)
 {
-	printf(RED"Bad argument: "RESET "\"");
+	printf(RED"Bad argument:\n" RESET);
 	ft_putchar_fd(rgb[i][j], 2);
 	ft_putstr_fd("\" in line ", 2);
 	ft_putnbr_fd(line, 2);

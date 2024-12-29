@@ -54,7 +54,7 @@ int	ft_check_cardinal(char **c, int line)
 		&& ft_strcmp(c[0], "WE") && ft_strcmp(c[0], "EA")
 		&& ft_strcmp(c[0], "F") && ft_strcmp(c[0], "C"))
 	{
-		printf(RED"Invalid identifier"RESET);
+		printf(RED"Invalid identifier\n"RESET);
 		return (FAILURE);
 	}
 	return (SUCCESS);
@@ -69,8 +69,8 @@ int	ft_check_path(char **c, int i)
 {
 	if (!c[1])
 	{
-		printf(RED"Bad texture format"RESET" in line: ");
-		ft_putnbr_fd(i, 2);
+		printf(RED"Bad texture format in line: %d", i);
+		printf("\n");
 		return (FAILURE);
 	}
 	return (SUCCESS);
@@ -87,7 +87,7 @@ int	ft_check_bad_argument(char **c, int i)
 	if (c && c[2] && ft_strcmp(c[0], "C")
 		&& ft_strcmp(c[0], "F") && c[0][0] != '1')
 	{
-		printf(RED"Extra argument in file"RESET);
+		printf(RED"Extra argument in file\n"RESET);
 		return (FAILURE);
 	}
 	return (SUCCESS);

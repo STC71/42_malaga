@@ -115,7 +115,7 @@ int	ft_check_file(char *file, char *img, int i)
 	fd = open(img, O_RDONLY);
 	if (fd < 0)
 	{
-		printf(RED"Failed to open the texture file"RESET);
+		printf(RED"Failed to open the texture file\n"RESET);
 		return (FAILURE);
 	}
 	close(fd);

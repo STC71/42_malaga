@@ -1,9 +1,9 @@
-NO ./textures/coal_ore.png
-SO ./textures/stone_wall.png
-EA ./textures/stone_wall.png
-WE ./textures/stone_wall.png
+NO ./imgs/wooden-wall_2_colt.png
+SO ./imgs/wooden-wall_2_native_american.png
+EA ./imgs/wooden-wall_2_derringer.png
+WE ./imgs/wooden-wall_2_winchester.png
 
-DO ./textures/diamond_ore.png
+DO ./imgs/wooden-wall_2_door.png
 C 105, 105, 105
 F 127, 127, 127
 

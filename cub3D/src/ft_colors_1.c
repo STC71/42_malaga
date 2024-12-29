@@ -39,7 +39,7 @@ int	ft_check_colors(char **c, int i)
 
 void	ft_error_color(char **path, int r, int g, int b)
 {
-	printf(RED"Bad rgb value"RESET" for ");
+	printf(RED"Bad rgb value\n"RESET);
 	ft_putstr_fd(path[0], 2);
 	ft_putstr_fd(". ", 2);
 	if (r > 255 || r < 0)

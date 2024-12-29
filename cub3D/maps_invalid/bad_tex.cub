@@ -1,6 +1,6 @@
-SO ./textures/neon_broken_wall.png
-WEa ./textures/neon_wall1.png
-EA ./textures/n eon_wall2.png
+NO ./imgs/wooden_wall_chopper.png
+EA ./imgs/wooden_wall_monkey.png
+WEe ./imgs/wooden_wall_nico.png
 
 C 9, 24, 51
 F 48, 27, 104
