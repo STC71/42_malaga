@@ -18,13 +18,19 @@ void	ft_callback(void *value)
 
 	info = value;
 	if (info->player.ray[0].delta_dist_y)
+	{
 		mlx_delete_image(info->mlx, info->walls);
+		mlx_delete_image(info->mlx, info->bonus);
+	}
 	if (mlx_is_key_down(info->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(info->mlx);
 	ft_movements(info);
 	ft_handle_rot(info);
 	ft_init_walls(info, &info->walls);
+	ft_init_walls(info, &info->bonus);
 	ft_shoot_ray(info, &info->player);
+	ft_minimap(info);
+	ft_loop_anim(info);
 }
 
 /*	The ft_callback function is divided into 3 parts:
@@ -75,7 +81,7 @@ void	ft_start(t_data *info)
 	ft_charge_anim(info);
 	info->animation_loop = 0;
 	mlx_loop_hook(info->mlx, ft_callback, info);
-	mlx_cursor_hook(info->mlx, ft_mouse_move, info);
+	mlx_cursor_hook(info->mlx, &ft_mouse_move, info);
 	mlx_key_hook(info->mlx, ft_key, info);
 	mlx_loop(info->mlx);
 	mlx_terminate(info->mlx);

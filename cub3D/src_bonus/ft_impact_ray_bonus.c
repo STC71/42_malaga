@@ -44,23 +44,27 @@ void	ft_init_ray(t_data *info)
 
 void	ft_impact_ver(t_ray *ray)
 {
-	if (ray->ray_dir_x > 0 && ray->ray_dir_y >= 0)
-	{
-		ray->pixel_width_impact = (ray->hit - ray->map_y) * 1920;
-	}
-	else if (ray->ray_dir_x <= 0 && ray->ray_dir_y > 0)
-	{
-		ray->pixel_width_impact = (ray->hit - ray->map_y) * 1920;
-	}
-	else if (ray->ray_dir_x >= 0 && ray->ray_dir_y < 0)
-	{
-		ray->pixel_width_impact = (ray->hit - ray->map_y) * 1920;
-	}
-	else if (ray->ray_dir_x < 0 && ray->ray_dir_y <= 0)
-	{
-		ray->pixel_width_impact = (ray->hit - ray->map_y) * 1920;
-	}
+	ray->pixel_width_impact = (ray->hit - ray->map_y) * 1920;
 }
+
+// {
+// 	if (ray->ray_dir_x > 0 && ray->ray_dir_y >= 0)
+// 	{
+// 		ray->pixel_width_impact = (ray->hit - ray->map_y) * 1920;
+// 	}
+// 	else if (ray->ray_dir_x <= 0 && ray->ray_dir_y > 0)
+// 	{
+// 		ray->pixel_width_impact = (ray->hit - ray->map_y) * 1920;
+// 	}
+// 	else if (ray->ray_dir_x >= 0 && ray->ray_dir_y < 0)
+// 	{
+// 		ray->pixel_width_impact = (ray->hit - ray->map_y) * 1920;
+// 	}
+// 	else if (ray->ray_dir_x < 0 && ray->ray_dir_y <= 0)
+// 	{
+// 		ray->pixel_width_impact = (ray->hit - ray->map_y) * 1920;
+// 	}
+// }
 
 /*	This function calculates the vertical impact of the ray in terms of pixels
 	in the screen width. It uses the ray direction and the impact position to
@@ -69,23 +73,27 @@ void	ft_impact_ver(t_ray *ray)
 
 void	ft_impact_hor(t_ray *ray)
 {
-	if (ray->ray_dir_x > 0 && ray->ray_dir_y >= 0)
-	{
-		ray->pixel_width_impact = (ray->hit - ray->map_x) * 1920;
-	}
-	else if (ray->ray_dir_x <= 0 && ray->ray_dir_y > 0)
-	{
-		ray->pixel_width_impact = (ray->hit - ray->map_x) * 1920;
-	}
-	else if (ray->ray_dir_x >= 0 && ray->ray_dir_y < 0)
-	{
-		ray->pixel_width_impact = (ray->hit - ray->map_x) * 1920;
-	}
-	else if (ray->ray_dir_x < 0 && ray->ray_dir_y <= 0)
-	{
-		ray->pixel_width_impact = (ray->hit - ray->map_x) * 1920;
-	}
+	ray->pixel_width_impact = (ray->hit - ray->map_x) * 1920;
 }
+
+// {
+// 	if (ray->ray_dir_x > 0 && ray->ray_dir_y >= 0)
+// 	{
+// 		ray->pixel_width_impact = (ray->hit - ray->map_x) * 1920;
+// 	}
+// 	else if (ray->ray_dir_x <= 0 && ray->ray_dir_y > 0)
+// 	{
+// 		ray->pixel_width_impact = (ray->hit - ray->map_x) * 1920;
+// 	}
+// 	else if (ray->ray_dir_x >= 0 && ray->ray_dir_y < 0)
+// 	{
+// 		ray->pixel_width_impact = (ray->hit - ray->map_x) * 1920;
+// 	}
+// 	else if (ray->ray_dir_x < 0 && ray->ray_dir_y <= 0)
+// 	{
+// 		ray->pixel_width_impact = (ray->hit - ray->map_x) * 1920;
+// 	}
+// }
 
 /*	This function calculates the horizontal impact of the ray in terms of pixels
 	in the screen width. It uses the ray direction and the impact position to

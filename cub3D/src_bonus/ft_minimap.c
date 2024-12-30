@@ -75,8 +75,8 @@ bool	ft_check_point(int x, int y)
 	cy = 160;
 	r = 16;
 	if ((x - cx) * (x - cx) + (y - cy) * (y - cy) <= r * r)
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }
 
 /*	This function checks if the point received as an argument is inside the

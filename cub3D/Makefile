@@ -143,9 +143,10 @@ clean:
 #@make -C $(MLX_PATH) clean
 	@$(RM) $(OBJS_DIR)/charge_flag_makefile/bonus.flag:
 	@echo
-	@echo "$(RED)Cleaning Cub3D objects. $(RESET)"
+	@echo "$(RED)🧹 Cleaning Cub3D objects 🧹 $(RESET)"
 	$(shell rm -rf ./src/obj)
 	$(shell rm -rf ./src_bonus/obj)
+	@echo "$(DARK_GREEN)🌪️💥 Cleaned Cub3D objects ✅ $(RESET)"
 
 # ----- Fclean --------------------------------------------------------------- #
 
@@ -153,7 +154,9 @@ fclean: clean
 	@$(RM) $(NAME) $(NAME_BNS) 
 #$(MLX)
 	@make -C $(LIBFT_PATH) fclean
-	@echo "$(RED)Cleaning Cub3D executables.$(RESET)"
+	@echo
+	@echo "$(RED)🧹 Cleaning Cub3D executables 🧹$(RESET)"
+	@echo "$(DARK_GREEN)🌪️💥 Cleaned Cub3D executables ✅$(RESET)"
 	@echo
 
 # ----- Recompilation -------------------------------------------------------- #
