@@ -46,16 +46,22 @@ void	Harl::filterComplaint(std::string level){
 		if (level == logLevels[i]){
 			switch (i){
 				case 0:
-					(this->*logFunctions[i])();
+					(this->*logFunctions[0])();
+					(this->*logFunctions[1])();
+					(this->*logFunctions[2])();
+					(this->*logFunctions[3])();
 					break;
 				case 1:
-					(this->*logFunctions[i])();
+					(this->*logFunctions[1])();
+					(this->*logFunctions[2])();
+					(this->*logFunctions[3])();
 					break;
 				case 2:
-					(this->*logFunctions[i])();
+					(this->*logFunctions[2])();
+					(this->*logFunctions[3])();
 					break;
 				case 3:
-					(this->*logFunctions[i])();
+					(this->*logFunctions[3])();
 					break;
 				default:
 					break;
