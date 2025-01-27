@@ -1,10 +1,8 @@
 # ---- MAKEFILE ----------------------------------------------------------------
 
-NAME = harl
+NAME = fixed
 
-TITLE = "🔥 [CPP_01] [EX05] Harl 2.0 "
-
-SRC = *.cpp
+TITLE = "🔥 [CPP_02] [EX01] Towards a more useful fixed-point number class "
 
 # ---- rules -------------------------------------------------------------------
 

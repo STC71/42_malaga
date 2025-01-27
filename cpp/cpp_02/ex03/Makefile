@@ -1,23 +1,33 @@
 # ---- MAKEFILE ----------------------------------------------------------------
 
-NAME = harl
+NAME = bsp
 
-TITLE = "🔥 [CPP_01] [EX05] Harl 2.0 "
+TITLE = "🔥 [CPP_02] [EX03] BSP - Binary Space Partitioning "
+
+SRC = bsp.cpp Fixed.cpp main.cpp Point.cpp
+
+OBJ = $(SRC:.cpp=.o)
+
+CXX = c++ 
+
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 
 
 # ---- rules -------------------------------------------------------------------
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
-all:
+all: $(NAME)
 
+$(NAME): $(OBJ)
 	@echo "Compiling $(TITLE) 🛠️"
-	c++ *.cpp -Wall -Wextra -Werror -std=c++98 -o $(NAME)
+	@$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
 	@echo "$(NAME) is ready ✅"
 	@echo ""
-	./$(NAME)
+	@./$(NAME)
 	@echo ""
 	@echo "Cleaning $(TITLE) 🧹"
+	@rm -rf $(OBJ)
 	@rm -rf $(NAME)
 	@echo "$(NAME) is cleaned ✅"
 
