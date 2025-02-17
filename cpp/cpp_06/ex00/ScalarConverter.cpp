@@ -12,111 +12,138 @@
 
 #include "ScalarConverter.hpp"
 
-using std::cout; using std::endl;
+using std::cout; using std::endl; using std::cerr;
 
 static int ft_atoi(const std::string &str) {		// Function to convert a string to an integer
-	int i = 0;										// Initialize an integer to store the result
+	char *end;										// Initialize a pointer to store the end of the string
+	errno = 0;										// Initialize errno to 0
+	long i = std::strtol(str.c_str(), &end, 10);	// Convert the string to an integer
+	if (*end != '\0' || errno == ERANGE || i < std::numeric_limits<int>::min() 
+	|| i > std::numeric_limits<int>::max()) {
+		cerr << RED << "Error" << RESET << ": out of range !!!" << endl;	// Print an error message
+		exit (1);									// If the conversion failed, exit the program
+		//return 0;									// If the conversion failed, return 0
+	}
+	return static_cast<int>(i);						// Return the integer	
+	/*int i = 0;									// Initialize an integer to store the result
 	std::stringstream ss(str);						// Create a stringstream object to convert the string to an integer	
 	ss >> i;										// Convert the string to an integer
-	return i;										// Return the integer
+	return i;*/										// Return the integer
 }
 
 static float ft_atof(const std::string &str) {		// Function to convert a string to a float
-	float f = 0;									// Initialize a float to store the result
+	char *end;										// Initialize a pointer to store the end of the string
+	errno = 0;										// Initialize errno to 0
+	float f = std::strtof(str.c_str(), &end);		// Convert the string to a float
+	if (*end != 'f' || errno == ERANGE) {
+	//|| f < std::numeric_limits<float>::min() 
+	//|| f > std::numeric_limits<float>::max()) {
+		cerr << RED << "Error" << RESET << ": out of range !!!" << endl;	// Print an error message
+		return 0.0f;								// If the conversion failed, return 0.0f
+	}
+	return f;										// Return the float
+	/*float f = 0;									// Initialize a float to store the result
 	std::stringstream ss(str);						// Create a stringstream object to convert the string to a float
 	ss >> f;										// Convert the string to a float
-	return f;										// Return the float
+	return f;*/										// Return the float
 }
 
 static double ft_atod(const std::string &str) {		// Function to convert a string to a double
-	double d = 0;									// Initialize a double to store the result
+	char *end;										// Initialize a pointer to store the end of the string
+	errno = 0;										// Initialize errno to 0
+	double d = std::strtod(str.c_str(), &end);		// Convert the string to a double
+	if (*end != '\0' || errno == ERANGE ) {
+	//|| d < std::numeric_limits<double>::min() 
+	//|| d > std::numeric_limits<double>::max()) {
+		cerr << RED << "Error" << RESET << ": out of range !!!" << endl;	// Print an error message
+		return 0.0;									// If the conversion failed, return 0.0
+	}
+	return d;										// Return the double
+	/*double d = 0;									// Initialize a double to store the result
 	std::stringstream ss(str);						// Create a stringstream object to convert the string to a double
 	ss >> d;										// Convert the string to a double
-	return d;										// Return the double
+	return d;*/										// Return the double
 }
 
 enum Type { 
-	ERROR,					// The value is not a valid type. For example, a string that is not a number.
-	PSEUDO,					// The value is a pseudo value. For example, a string that is a number but not a valid type.
-	CHAR, 					// The value is a char. For example, 'a'.
-	INT, 					// The value is an integer. For example, 42.
-	FLOAT, 					// The value is a float. For example, 42.42f.
-	DOUBLE 					// The value is a double. For example, 42.42.
-};							// Enumeration to store the type of the value to convert
+	ERROR,											// The value is not a valid type. For example, a string that is not a number.
+	PSEUDO,											// The value is a pseudo value. For example, a string that is a number but not a valid type.
+	CHAR, 											// The value is a char. For example, 'a'.
+	INT, 											// The value is an integer. For example, 42.
+	FLOAT, 											// The value is a float. For example, 42.42f.
+	DOUBLE,											// The value is a double. For example, 42.42.
+};													// Enumeration to store the type of the value to convert
 
-static bool isChar(const std::string &str) {		// Function to check if the string is a char
-	if (str.length() != 1)							// If the string has more than one character
+static bool isChar(const std::string &input) {		// Function to check if the string is a char
+	if (input.length() != 1)						// If the string has more than one character
 		return false;								// Return false
-	if (str.at(0) < std::numeric_limits<char>::min() 
-	|| str.at(0) > std::numeric_limits<char>::max()
-	|| !std::isdigit(str.at(0)))
+	if (input.at(0) < std::numeric_limits<char>::min() 
+	|| input.at(0) > std::numeric_limits<char>::max()
+	|| isdigit(input.at(0)))
 		return false;								// If the character is not in the range of a char
 	return true;									// Return true if the string is a char
 }
 
-static bool isInt(const std::string &str) {			// Function to check if the string is an integer
-	for (size_t i = 0; i < str.length(); i++) {		// Iterate over the string
-		if (!std::isdigit(str.at(i)))				// If a character is not a digit
+static bool isInt(const std::string &input) {		// Function to check if the string is an integer
+	for (size_t i = input.at(0) == '-' 
+	? 1 : 0; i < input.length(); i++) {				// Iterate over the string
+		if (!isdigit(input.at(i)))					// If a character is not a digit
 			return false;							// Return false
 	}
 	return true;									// Return true if the string is an integer
 }
 
-static bool isFloat(const std::string &str) {		// Function to check if the string is a float
-	bool point = false;								// Initialize a boolean to store if the point has been found
-	if (str == "-inff" || str == "+inff" || str == "nanf")
-		return true;								// Return true if the string is a pseudo float
-	if (str.at(str.length() - 1) != 'f')			// If the last character is not 'f'
-		return false;								// Return false
-	for (size_t i = 0; i < str.length() - 1; i++) {	// Iterate over the string
-		if (str.at(i) == '.' && point)				// If a point is found and it is not the first one
-			return false;							// Return false
-	else if (str.at(i) == '.') {
-		point = true;								// Set the point to true
-		continue;									// Continue to the next iteration
-	}
-	if (!isdigit(str.at(i)))						// If a character is not a digit
-		return false;								// Return false
-	}
-	return true;									// Return true if the string is a float
-}
-
-static bool isDouble(const std::string &str) {		// Function to check if the string is a double
-	bool point = false;								// Initialize a boolean to store if the point has been found
-	if (str == "-inf" || str == "+inf" || str == "nan")
-		return true;								// Return true if the string is a pseudo double
-	for (size_t i = 0; i < str.length(); i++) {		// Iterate over the string
-		if (str.at(i) == '.' && point)				// If a point is found and it is not the first one
-			return false;							// Return false
-		else if (str.at(i) == '.') {
-			point = true;							// Set the point to true
-			continue;								// Continue to the next iteration
+static bool isFloat(const std::string &input) {			// Function to check if the string is a float
+	bool point = false;									// Initialize a boolean to store if the point has been found
+	if (input == "-inff" || input == "+inff" || input == "nanf")
+		return true;									// Return true if the string is a pseudo float
+	if (input.at(input.length() - 1) != 'f')			// If the last character is not 'f'
+		return false;									// Return false
+	for (size_t i = 0; i < input.length() - 1; i++) {	// Iterate over the string
+		if (input.at(i) == '.' && point)				// If a point is found and it is not the first one
+			return false;								// Return false
+		else if (input.at(i) == '.') {
+			point = true;								// Set the point to true
+			continue;									// Continue to the next iteration
 		}
-		if (!isdigit(str.at(i)))					// If a character is not a digit
-			return false;							// Return false
+		if (!isdigit(input.at(i)) && input.at(i) != '-' && input.at(i) != '+')	// If a character is not a digit, a minus or a plus
+			return false;								// Return false
 	}
-	return true;									// Return true if the string is a double
+	return true;										// Return true if the string is a float
 }
 
-static bool isPseudo(const std::string &str) {		// Function to check if the string is a pseudo value
-	if (str == "-inff" || str == "+inff" || str == "nanf"
-	|| str == "-inf" || str == "+inf" || str == "nan")
-		return true;								// Return true if the string is a pseudo value
-	return false;									// Return false
+static bool isDouble(const std::string &input) {		// Function to check if the string is a double
+	bool point = false;									// Initialize a boolean to store if the point has been found
+	if (input == "-inf" || input == "+inf" || input == "nan")
+		return true;									// Return true if the string is a pseudo double
+	for (size_t i = 0; i < input.length(); i++) {		// Iterate over the string
+		if (input.at(i) == '.' && point)				// If a point is found and it is not the first one
+			return false;								// Return false
+		else if (input.at(i) == '.') {
+			point = true;								// Set the point to true
+			continue;									// Continue to the next iteration
+		}
+		if (!isdigit(input.at(i)) && input.at(i) != '-' && input.at(i) != '+')	// If a character is not a digit, a minus or a plus
+			return false;								// Return false
+	}
+	return true;										// Return true if the string is a double
 }
 
-static Type getType(const std::string &str) {		// Function to get the type of the value
-	if (isChar(str))								// If the string is a char
-		return CHAR;								// Return the type char
-	if (isInt(str))									// If the string is an integer
-		return INT;									// Return the type int
-	if (isFloat(str))								// If the string is a float
-		return FLOAT;								// Return the type float
-	if (isDouble(str))								// If the string is a double
-		return DOUBLE;								// Return the type double
-	if (isPseudo(str))								// If the string is a pseudo value
-		return PSEUDO;								// Return the type pseudo
-	return ERROR;									// Return the type error
+static bool isPseudo(const std::string &input) {		// Function to check if the string is a pseudo value
+	return (input == "-inff" || input == "+inff" || input == "nanf"
+	|| input == "-inf" || input == "+inf" || input == "nan");	// Return true if the string is a pseudo value
+}
+
+static Type getType(const std::string &input) {						// Function to get the type of the value
+	if (isChar(input))												// If the string is a char
+		return CHAR;												// Return the type char
+	if (isInt(input))												// If the string is an integer
+		return INT;													// Return the type int
+	if (isFloat(input))												// If the string is a float
+		return FLOAT;												// Return the type float
+	if (isDouble(input))											// If the string is a double
+		return DOUBLE;												// Return the type double
+	return ERROR;													// Return the type error
 }
 
 static void printChar(char c) {										// Function to print a char
@@ -126,9 +153,12 @@ static void printChar(char c) {										// Function to print a char
 	cout << "double: " << static_cast<double>(c) << ".0" << endl;	// Print the double
 }
 
-static void printInt(int i) {										// Function to print an int
-	if (isprint(i))													// If the int is printable
+static void printInt(int i) {
+	if (i >= std::numeric_limits<char>::min() && i <= std::numeric_limits<char>::max()
+	&& isprint(static_cast<unsigned char>(i)))						// If the int is printable
 		cout << "char: '" << static_cast<char>(i) << "'" << endl;	// Print the char
+	//if (isprint(static_cast<unsigned char>(i)))						// If the int is printable
+	//	cout << "char: '" << static_cast<char>(i) << "'" << endl;	// Print the char
 	else
 		cout << "char: Non displayable" << endl;					// Print that the char is not displayable
 	cout << "int: " << i << endl;									// Print the int
@@ -137,35 +167,49 @@ static void printInt(int i) {										// Function to print an int
 }
 
 static void printFloat(float f) {									// Function to print a float
-	if (isprint(f))													// If the float is printable
-		cout << "char: '" << static_cast<char>(f) << "'" << endl;	// Print the char
-	else
-		cout << "char: Non displayable" << endl;					// Print that the char is not displayable
-	cout << "int: " << static_cast<int>(f) << endl;					// Print the int
-	cout << "float: " << f << ".0f" << endl;						// Print the float
-	cout << "double: " << static_cast<double>(f) << ".0" << endl;	// Print the double
+	if (f <= std::numeric_limits<char>::min()
+	|| f >= std::numeric_limits<char>::max()) {
+		cerr << RED << "Error" << RESET << ": out of range !!!" << endl;	// Print an error message
+		exit (1);															
+	}
+	else {
+		if (isprint(f))													// If the float is printable
+			cout << "char: '" << static_cast<char>(f) << "'" << endl;	// Print the char
+		else
+			cout << "char: Non displayable" << endl;					// Print that the char is not displayable
+		cout << "int: " << static_cast<int>(f) << endl;					// Print the int
+		cout << "float: " << f << ".0f" << endl;						// Print the float
+		cout << "double: " << static_cast<double>(f) << ".0" << endl;	// Print the double
+	}
 }
 
 static void printDouble(double d) {									// Function to print a double
-	if (isprint(d))													// If the double is printable
-		cout << "char: '" << static_cast<char>(d) << "'" << endl;	// Print the char
-	else
-		cout << "char: Non displayable" << endl;					// Print that the char is not displayable
-	cout << "int: " << static_cast<int>(d) << endl;					// Print the int
-	cout << "float: " << static_cast<float>(d) << ".0f" << endl;	// Print the float
-	cout << "double: " << d << ".0" << endl;						// Print the double
+	if (d <= std::numeric_limits<char>::min() 
+	|| d >= std::numeric_limits<char>::max()) {
+		cerr << RED << "Error" << RESET << ": out of range !!!" << endl;	// Print an error message
+		exit (1);
+	}
+	else {
+		if (isprint(d))													// If the double is printable
+			cout << "char: '" << static_cast<char>(d) << "'" << endl;	// Print the char
+		else
+			cout << "char: Non displayable" << endl;					// Print that the char is not displayable
+		cout << "int: " << static_cast<int>(d) << endl;					// Print the int
+		cout << "float: " << static_cast<float>(d) << ".0f" << endl;	// Print the float
+		cout << "double: " << d << ".0" << endl;						// Print the double
+	}
 }
 
-static void pseudo(Type destType, const std::string &str) {			// Function to convert a pseudo value
-	cout << "char: impossible" << endl;								// Print that it is impossible to convert to char
-	cout << "int: impossible" << endl;								// Print that it is impossible to convert to int
-	if (destType == FLOAT) {										// If the destination type is float
-		cout << "float: " << str << endl;							// Print the float
-		cout << "double: " << str.substr(0, str.length() - 1) << endl;	// Print the double
+static void pseudo(Type destType, const std::string &pseudoInput) {			// Function to convert a pseudo value
+	cout << "char: impossible" << endl;										// Print that it is impossible to convert to char
+	cout << "int: impossible" << endl;										// Print that it is impossible to convert to int
+	if (destType == FLOAT) {												// If the destination type is float
+		cout << "float: " << pseudoInput << endl;							// Print the float
+		cout << "double: " << pseudoInput.substr(0, pseudoInput.length() - 1) << endl;	// Print the double
 	}
-	else if (destType == DOUBLE) {									// If the destination type is double
-		cout << "float: " << str << "f" << endl;					// Print the float
-		cout << "double: " << str << endl;							// Print the double
+	else if (destType == DOUBLE) {											// If the destination type is double
+		cout << "float: " << pseudoInput << "f" << endl;					// Print the float
+		cout << "double: " << pseudoInput << endl;							// Print the double
 	}
 }
 
@@ -190,7 +234,13 @@ void ScalarConverter::convert(const std::string &input) {			// Function to conve
 				printDouble(ft_atod(input));						// Print the double
 			break;
 		default:
-			cout << "Error: invalid input" << endl;					// Print an error message
+			cout << RED << "Error" << RESET << ": invalid input" << endl;		// Print an error message
 			break;
 	}
 }
+
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &) {	// Assignment operator (does nothing)
+	return *this;
+}
+
+ScalarConverter::~ScalarConverter() {}									// Destructor (does nothing)
