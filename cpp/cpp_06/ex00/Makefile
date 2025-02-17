@@ -2,12 +2,12 @@
 
 # ---- compiler and flags ------------------------------------------------------
 
-NAME = harlFilter
+NAME = convert
 
-TITLE = "🔥 [CPP_01] [EX06] Harl Filter 2.0 "
+TITLE = "🔥 [CPP_06] [EX00] Conversion of scalar types"
 
-SRC = Harl.cpp \
-	  main.cpp \
+SRC = main.cpp \
+		ScalarConverter.cpp
 
 CXX = c++ 
 
