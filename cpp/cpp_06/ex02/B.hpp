@@ -9,3 +9,9 @@
 /*   Updated: 2025-02-16 15:20:54 by sternero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#pragma once
+
+#include "Base.hpp"
+
+class B : public Base {};						// Class B inherits from Base

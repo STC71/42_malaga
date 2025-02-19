@@ -25,10 +25,6 @@ static int ft_atoi(const std::string &str) {		// Function to convert a string to
 		//return 0;									// If the conversion failed, return 0
 	}
 	return static_cast<int>(i);						// Return the integer	
-	/*int i = 0;									// Initialize an integer to store the result
-	std::stringstream ss(str);						// Create a stringstream object to convert the string to an integer	
-	ss >> i;										// Convert the string to an integer
-	return i;*/										// Return the integer
 }
 
 static float ft_atof(const std::string &str) {		// Function to convert a string to a float
@@ -36,16 +32,10 @@ static float ft_atof(const std::string &str) {		// Function to convert a string 
 	errno = 0;										// Initialize errno to 0
 	float f = std::strtof(str.c_str(), &end);		// Convert the string to a float
 	if (*end != 'f' || errno == ERANGE) {
-	//|| f < std::numeric_limits<float>::min() 
-	//|| f > std::numeric_limits<float>::max()) {
 		cerr << RED << "Error" << RESET << ": out of range !!!" << endl;	// Print an error message
 		return 0.0f;								// If the conversion failed, return 0.0f
 	}
 	return f;										// Return the float
-	/*float f = 0;									// Initialize a float to store the result
-	std::stringstream ss(str);						// Create a stringstream object to convert the string to a float
-	ss >> f;										// Convert the string to a float
-	return f;*/										// Return the float
 }
 
 static double ft_atod(const std::string &str) {		// Function to convert a string to a double
@@ -53,16 +43,10 @@ static double ft_atod(const std::string &str) {		// Function to convert a string
 	errno = 0;										// Initialize errno to 0
 	double d = std::strtod(str.c_str(), &end);		// Convert the string to a double
 	if (*end != '\0' || errno == ERANGE ) {
-	//|| d < std::numeric_limits<double>::min() 
-	//|| d > std::numeric_limits<double>::max()) {
 		cerr << RED << "Error" << RESET << ": out of range !!!" << endl;	// Print an error message
 		return 0.0;									// If the conversion failed, return 0.0
 	}
 	return d;										// Return the double
-	/*double d = 0;									// Initialize a double to store the result
-	std::stringstream ss(str);						// Create a stringstream object to convert the string to a double
-	ss >> d;										// Convert the string to a double
-	return d;*/										// Return the double
 }
 
 enum Type { 
@@ -178,12 +162,12 @@ static void printFloat(float f) {									// Function to print a float
 		else
 			cout << "char: Non displayable" << endl;					// Print that the char is not displayable
 		cout << "int: " << static_cast<int>(f) << endl;					// Print the int
-		cout << "float: " << f << ".0f" << endl;						// Print the float
-		cout << "double: " << static_cast<double>(f) << ".0" << endl;	// Print the double
+		cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << endl;	// Print the float
+		cout << "double: " << static_cast<double>(f) << endl;			// Print the double
 	}
 }
 
-static void printDouble(double d) {									// Function to print a double
+static void printDouble(double d) {											// Function to print a double
 	if (d <= std::numeric_limits<char>::min() 
 	|| d >= std::numeric_limits<char>::max()) {
 		cerr << RED << "Error" << RESET << ": out of range !!!" << endl;	// Print an error message
@@ -195,8 +179,8 @@ static void printDouble(double d) {									// Function to print a double
 		else
 			cout << "char: Non displayable" << endl;					// Print that the char is not displayable
 		cout << "int: " << static_cast<int>(d) << endl;					// Print the int
-		cout << "float: " << static_cast<float>(d) << ".0f" << endl;	// Print the float
-		cout << "double: " << d << ".0" << endl;						// Print the double
+		cout << "float: " << static_cast<float>(d) << std::setprecision(1) << "f" << endl;		// Print the float
+		cout << "double: " << std::fixed << std::setprecision(1) << d << endl;		// Print the double
 	}
 }
 
