@@ -1,23 +1,34 @@
 # ---- MAKEFILE ----------------------------------------------------------------
 
-NAME = harl
+NAME = start
 
-TITLE = "🔥 [CPP_01] [EX05] Harl 2.0 "
+TITLE = "🔥 [CPP_07] [EX0] Start with a few functions 💫"
+
+SRC = main.cpp
+
+OBJ = $(SRC:.cpp=.o)
+
+CXX = c++ 
+
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 
 
 # ---- rules -------------------------------------------------------------------
 
 %.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
-all:
+all: $(NAME)
+
+$(NAME): $(OBJ)
 
 	@echo "Compiling $(TITLE) 🛠️"
-	c++ *.cpp -Wall -Wextra -Werror -std=c++98 -o $(NAME)
+	@$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJ)
 	@echo "$(NAME) is ready ✅"
 	@echo ""
 	./$(NAME)
 	@echo ""
 	@echo "Cleaning $(TITLE) 🧹"
+	@rm -rf $(OBJ)
 	@rm -rf $(NAME)
 	@echo "$(NAME) is cleaned ✅"
 
