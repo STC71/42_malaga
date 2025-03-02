@@ -2,16 +2,17 @@
 
 # ---- compiler and flags ------------------------------------------------------
 
-NAME = harlFilter
+NAME = RPN
 
-TITLE = "🔥 [CPP_01] [EX06] Harl Filter 2.0 "
+TITLE = "🔥 [CPP_09] [EX01] Reverse Polish Notation"
 
-SRC = Harl.cpp \
-	  main.cpp \
+SRC = main.cpp \
+		RPN.cpp
+		
 
 CXX = c++ 
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -fsanitize=address
 
 # ---- rules -------------------------------------------------------------------
 
@@ -24,6 +25,16 @@ $(NAME): $(SRC)
 	@echo "$(RED)Compiling $(TITLE) 🛠️ $(RESET)"
 	$(CXX) $(CXXFLAGS) -o $(NAME) $(SRC)
 	@echo "$(GREEN)$(NAME) is ready ✅$(RESET)"
+
+	@echo "$(BLUE) ____  ____  _   _ "
+	@echo "|  _ \|  _ \| \ | |"
+	@echo "| |_) | |_) |  \| |"
+	@echo "|  _ <|  __/| |\  |"
+	@echo "|_| \_\_|   |_| \_|"
+	@echo "$(YELLOW) Reverse Polish Notation "
+	@echo "$(RESET)"
+	@echo " Usage:$(BLUE) ./RPN ''operations''"
+	@echo "$(RESET)"
 
 clean: 
 	@echo "$(RED)Cleaning $(TITLE) 🧹 $(RESET)"

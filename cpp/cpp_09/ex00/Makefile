@@ -2,16 +2,17 @@
 
 # ---- compiler and flags ------------------------------------------------------
 
-NAME = harlFilter
+NAME = btc
 
-TITLE = "🔥 [CPP_01] [EX06] Harl Filter 2.0 "
+TITLE = "🔥 [CPP_09] [EX00] Bitcoin Exchange"
 
-SRC = Harl.cpp \
-	  main.cpp \
+SRC = BitcoinExchange.cpp \
+		main.cpp
+		
 
 CXX = c++ 
 
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98 
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98 #-fsanitize=address
 
 # ---- rules -------------------------------------------------------------------
 
