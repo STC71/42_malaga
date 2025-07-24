@@ -75,9 +75,9 @@ make re       # Recompilar completamente
 make && ./webserv config/default.conf
 
 # 2. Probar en otra terminal
-curl http://localhost:8080/
-curl -X POST -d "test" http://localhost:8080/upload/
-curl http://localhost:8080/cgi-bin/test.php
+curl http://localhost:9000/
+curl -X POST -d "test" http://localhost:9000/upload/
+curl http://localhost:9000/cgi-bin/test.php
 ```
 
 ## 📁 Estructura del Proyecto
@@ -104,10 +104,10 @@ webserv/
 │   └── Server.cpp                 # Core del servidor con select()
 ├── 📁 www/                        # Directorio web por defecto
 │   ├── index.html                 # Página principal
-│   ├── 📁 cgi-bin/               # Scripts CGI
-│   ├── 📁 errors/                # Páginas de error
-│   ├── 📁 files/                 # Archivos servidos
-│   └── 📁 Uploads/               # Directorio de uploads
+│   ├── 📁 cgi-bin/                # Scripts CGI
+│   ├── 📁 errors/                 # Páginas de error
+│   ├── 📁 files/                  # Archivos servidos
+│   └── 📁 Uploads/                # Directorio de uploads
 ├── 📁 www2/                       # Segundo sitio virtual
 ├── 📁 evaluation_test/            # Suite de evaluación automatizada
 ├── 📁 evaluation_ask/             # Documentación de evaluación
@@ -123,7 +123,7 @@ El servidor utiliza un sistema de configuración similar a nginx:
 
 ```nginx
 server {
-    listen 8080;
+    listen 9000;
     server_name localhost;
     root ./www;
     index index.html;
@@ -165,6 +165,9 @@ cd evaluation_test/ && ./run_all_evaluations.sh
 # Tests de estrés y rendimiento
 ./stress_tests.sh
 ./siege_test.sh
+
+# Funcionamiento con distintos navegadores (Chrome & Firefox)
+./browser_test.sh
 ```
 
 ### Ejemplos de Uso
@@ -173,10 +176,10 @@ cd evaluation_test/ && ./run_all_evaluations.sh
 ./webserv config/default.conf
 
 # Tests básicos
-curl http://localhost:8080/
-curl -X POST -d "test" http://localhost:8080/upload/
-curl -X DELETE http://localhost:8080/files/test.txt
-curl http://localhost:8080/cgi-bin/test.php
+curl http://localhost:9000/
+curl -X POST -d "test" http://localhost:9000/upload/
+curl -X DELETE http://localhost:9000/files/test.txt
+curl http://localhost:9000/cgi-bin/test.php
 ```
 
 **📋 Para testing detallado y verificación de puntos críticos, consulta `evaluation_test/README.md`**
@@ -253,10 +256,16 @@ make
 ./webserv config/default.conf
 
 # 3. Probar
-curl http://localhost:8080/
+curl http://localhost:9000/
 
 # 4. Evaluar
 ./evaluation.sh
+
+# 5. Tester
+./siege_test.sh
+./stress_tests.sh
+./evaluation_test/run_all_evaluations.sh
+./browser_test.sh
 ```
 
 **🎯 ¡Ready for evaluation!** Este servidor HTTP está completamente preparado para superar la evaluación de 42 School con flying colors! 🌟
