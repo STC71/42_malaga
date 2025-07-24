@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesión y Cookies | WEBSERV</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('/imgs/polo-digital.jpg') center center fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.45);
+            backdrop-filter: blur(1px);
+            z-index: -1;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.3);
+            position: relative;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        h1 {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .subtitle {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        .cookie-section {
+            background: #e8f4f8;
+            border-radius: 15px;
+            padding: 30px 25px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+            text-align: center;
+        }
+        .cookie-label {
+            font-size: 1.1em;
+            color: #34495e;
+            margin-bottom: 10px;
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        .cookie-label .cookie-tooltip {
+            position: absolute;
+            top: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            line-height: 1.5;
+            white-space: pre-line;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            margin-top: 8px;
+            min-width: 440px;
+            max-width: 640px;
+            text-align: left;
+        }
+        .cookie-label .cookie-tooltip::after {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-bottom-color: rgba(44, 62, 80, 0.95);
+        }
+        .cookie-label:hover .cookie-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(5px);
+        }
+        .cookie-value {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            word-break: break-all;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0 8px;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            color: white;
+        }
+        .btn:hover {
+            background: linear-gradient(45deg, #2980b9, #27ae60);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52,152,219,0.2);
+        }
+        .footer-info {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            color: #7f8c8d;
+            font-size: 0.9em;
+            text-align: center;
+        }
+        .tech-info {
+            display: inline-block;
+            background: #f8f9fa;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.8em;
+            color: #6c757d;
+            border: 1px solid #e9ecef;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            gap: 8px;
+        }
+        .nav-btn:hover {
+            background: rgba(41,128,185,0.95);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52,152,219,0.3);
+        }
+        .nav-btn.current {
+            background: rgba(46,204,113,0.9);
+            pointer-events: none;
+        }
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.5em; }
+            .cookie-section { padding: 18px 10px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🍪</div>
+            <h1>Sesión y Cookies</h1>
+            <p class="subtitle">Demostración de manejo de cookies de sesión en el navegador</p>
+        </div>
+        <div class="nav-links">
+            <a href="/index.html" class="nav-btn">🏠 Inicio</a>
+        </div>
+        <div class="cookie-section">
+            <div class="cookie-label">
+                Valor actual de la cookie <strong>session_id</strong>:
+                <span class="cookie-tooltip">
+                    <strong>¿Qué es una cookie de sesión?</strong><br>
+                    Una cookie de sesión es un pequeño dato que el servidor puede pedir al navegador que almacene y reenvíe en cada petición.
+                    En esta demo, puedes crear, ver y borrar la cookie <strong>session_id</strong> manualmente.
+                    - Si existe, su valor se muestra abajo.
+                    - Si la borras, la próxima visita no tendrá valor.
+                    - Puedes cambiar el valor tantas veces como quieras.
+                    Las cookies permiten identificar usuarios, mantener sesiones abiertas o personalizar la experiencia web.
+                </span>
+            </div>
+            <div class="cookie-value" id="cookieValue">(sin cookie)</div>
+            <button class="btn" onclick="setSessionCookie()">Crear/Cambiar cookie</button>
+            <button class="btn" onclick="deleteSessionCookie()">Borrar cookie</button>
+        </div>
+        <div class="footer-info">
+            <div class="tech-info">HTTP/1.1</div>
+            <div class="tech-info">C++98</div>
+            <div class="tech-info">Cookies</div>
+            <div class="tech-info">42 School</div>
+            <p style="margin-top: 20px;">
+                <strong>WEBSERV - Servidor HTTP Principal</strong><br>
+                Desarrollado por: druiz-ca, rdel-olm, sternero
+            </p>
+        </div>
+    </div>
+    <script>
+        function getSessionCookie() {
+            const match = document.cookie.match(/(?:^|; )session_id=([^;]*)/);
+            return match ? decodeURIComponent(match[1]) : null;
+        }
+        function setSessionCookie() {
+            const value = prompt('Introduce un valor para la cookie de sesión:', Math.random().toString(36).substring(2, 12));
+            if (value) {
+                document.cookie = `session_id=${encodeURIComponent(value)}; path=/; SameSite=Lax`;
+                updateCookieDisplay();
+            }
+        }
+        function deleteSessionCookie() {
+            document.cookie = 'session_id=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
+            updateCookieDisplay();
+        }
+        function updateCookieDisplay() {
+            const val = getSessionCookie();
+            document.getElementById('cookieValue').textContent = val ? val : '(sin cookie)';
+        }
+        document.addEventListener('DOMContentLoaded', updateCookieDisplay);
+    </script>
+</body>
+</html>

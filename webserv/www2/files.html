@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archivos de Virtual Host 2 | WEBSERV</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('/imgs/polo-digital.jpg') center center fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.45);
+            backdrop-filter: blur(1px);
+            z-index: -1;
+        }
+        .container {
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 700px;
+            margin: 20px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        h1 {
+            font-size: 2.2em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .subtitle {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+        .files-list {
+            margin: 0 auto 30px auto;
+            max-width: 600px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 24px 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            text-align: left;
+        }
+        .files-list ul {
+            padding-left: 1.2em;
+        }
+        .files-list li {
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+        .links {
+            margin-top: 30px;
+        }
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        .btn.secondary { background: #95a5a6; }
+        .btn.secondary:hover { box-shadow: 0 5px 15px rgba(149, 165, 166, 0.4); }
+        .btn .btn-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.75em;
+            line-height: 1.3;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1004;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            margin-bottom: 8px;
+            font-weight: 500;
+            min-width: 200px;
+        }
+        .btn .btn-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: rgba(44, 62, 80, 0.95);
+        }
+        .btn:hover .btn-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Archivos de Virtual Host 2</h1>
+        <p class="subtitle">Archivos estáticos y de prueba para VH2</p>
+        <div class="files-list">
+            <!-- Aquí se mostraría el listado de archivos estáticos de VH2 -->
+            <ul>
+                <li>file3.txt</li>
+                <li>ejemplo.html</li>
+                <li>demo.pdf</li>
+                <!-- Demo: reemplazar por listado real si es necesario -->
+            </ul>
+        </div>
+        <div class="links">
+            <a href="/index.html" class="btn">🏠 Inicio
+                <div class="btn-tooltip">Volver a la página principal de VH2</div>
+            </a>
+            <a href="/about.html" class="btn">ℹ️ Acerca de VH2
+                <div class="btn-tooltip">Información sobre Virtual Host 2<br>Descripción, diferencias y propósito de VH2</div>
+            </a>
+            <a href="/cgi-bin/" class="btn">⚙️ Scripts CGI
+                <div class="btn-tooltip">Ejecutar scripts PHP y Python en VH2<br>Common Gateway Interface en acción</div>
+            </a>
+            <a href="/upload.html" class="btn" style="background: linear-gradient(45deg, #f39c12, #e67e22);">📤 Subir Archivos
+                <div class="btn-tooltip">Formulario de upload con POST multipart/form-data<br>Demostración de uploads en VH2</div>
+            </a>
+            <a href="/uploads.html" class="btn secondary">📂 Ver Uploads
+                <div class="btn-tooltip">Directorio de archivos subidos via POST en VH2<br>Validación y almacenamiento seguro</div>
+            </a>
+            <a href="/session.html" class="btn" style="background: linear-gradient(45deg, #16a085, #27ae60);">🍪 Sesión & Cookies
+                <div class="btn-tooltip">Demostración de manejo de cookies de sesión en VH2<br>Crear, ver y borrar la cookie <strong>session_id</strong></div>
+            </a>
+        </div>
+        <div class="footer">
+            <p><strong>Virtual Host 2</strong> - 42 Málaga (2025)</p>
+            <p>Desarrollado por: <strong>druiz-ca</strong>, <strong>rdel-olm</strong>, <strong>sternero</strong></p>
+        </div>
+    </div>
+</body>
+</html>

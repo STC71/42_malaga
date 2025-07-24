@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Error interno del servidor | 42 Málaga</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,20 80,80 20,80" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="35" r="3" fill="rgba(255,255,255,0.1)"/><rect x="47" y="45" width="6" height="20" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            background-size: 90px 90px;
+            animation: glitch 4s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        .error-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 60px 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 600px;
+            margin: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-section {
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #34495e, #2c3e50);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: alarm 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes alarm {
+            from { transform: scale(1) rotate(-2deg); }
+            to { transform: scale(1.1) rotate(2deg); }
+        }
+
+        .brand-title {
+            font-size: 2.2em;
+            color: #2c3e50;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .brand-subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .error-code {
+            font-size: 8em;
+            font-weight: 900;
+            background: linear-gradient(45deg, #34495e, #2c3e50);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 20px 0;
+            animation: error-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes error-pulse {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.05); filter: brightness(1.2); }
+        }
+
+        .error-title {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .error-message {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #34495e, #2c3e50);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(52, 73, 94, 0.4);
+        }
+
+        .btn.secondary {
+            background: linear-gradient(45deg, #27ae60, #2ecc71);
+        }
+
+        .btn.secondary:hover {
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.4);
+        }
+
+        .footer-info {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .tech-info {
+            display: inline-block;
+            background: #f8f9fa;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.8em;
+            color: #6c757d;
+            border: 1px solid #e9ecef;
+        }
+
+        @media (max-width: 768px) {
+            .error-container {
+                padding: 40px 20px;
+                margin: 10px;
+            }
+            
+            .error-code {
+                font-size: 6em;
+            }
+            
+            .error-title {
+                font-size: 2em;
+            }
+            
+            .brand-title {
+                font-size: 1.8em;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="logo-section">
+            <div class="logo">⚠️</div>
+            <h1 class="brand-title">WEBSERV</h1>
+            <p class="brand-subtitle">42 Málaga • Servidor HTTP Principal</p>
+        </div>
+
+        <div class="error-code">500</div>
+        <h2 class="error-title">Error interno del servidor</h2>
+        <p class="error-message">
+            Se ha producido un error interno en el servidor.<br>
+            El equipo de desarrollo ha sido notificado automáticamente.
+        </p>
+
+        <div class="btn-container">
+            <a href="/" class="btn">🏠 Volver al inicio</a>
+            <a href="/cgi-bin/" class="btn secondary">⚙️ Scripts CGI</a>
+        </div>
+
+        <div class="footer-info">
+            <div class="tech-info">HTTP/1.1</div>
+            <div class="tech-info">C++98</div>
+            <div class="tech-info">I/O Multiplexing</div>
+            <div class="tech-info">42 School</div>
+            <p style="margin-top: 20px;">
+                <strong>WEBSERV - Servidor HTTP Principal</strong><br>
+                Desarrollado por: druiz-ca, rdel-olm, sternero
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.querySelector('.error-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(30px) scale(0.9)';
+            
+            setTimeout(() => {
+                container.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0) scale(1)';
+            }, 100);
+        });
+
+        // Efecto de parpadeo ocasional para simular error del servidor
+        setInterval(() => {
+            const container = document.querySelector('.error-container');
+            if (Math.random() < 0.1) { // 10% probabilidad cada 3 segundos
+                container.style.filter = 'brightness(0.8)';
+                setTimeout(() => {
+                    container.style.filter = 'brightness(1)';
+                }, 100);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>

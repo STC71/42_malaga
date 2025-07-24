@@ -1,0 +1,162 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerca de WEBSERV</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('/imgs/polo-digital.jpg') center center fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(1px);
+            z-index: -1;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 600px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .info-box {
+            background-color: #e0f7fa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .info-box h3 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+        .info-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .info-box ul li {
+            margin: 5px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Acerca de WEBSERV</h1>
+        <p>Un servidor HTTP/1.1 desarrollado desde cero para 42 Málaga</p>
+
+        <div class="info-box">
+            <h3>🚀 Sobre el Proyecto</h3>
+            <p><strong>WEBSERV</strong> es un servidor HTTP implementado en C++98, diseñado para cumplir con el protocolo HTTP/1.1 (RFC 2616). Soporta:</p>
+            <ul>
+                <li>📡 Métodos GET, POST y DELETE</li>
+                <li>📤 Uploads con multipart/form-data</li>
+                <li>⚙️ Ejecución de scripts CGI (PHP y Python)</li>
+                <li>🔄 I/O multiplexing con select() para manejo non-blocking</li>
+                <li>🛡️ Páginas de error personalizadas (400, 403, 404, etc.)</li>
+            </ul>
+            <p>Construido sin librerías externas, utilizando solo system calls de UNIX para un máximo rendimiento y aprendizaje.</p>
+        </div>
+
+        <div class="info-box">
+            <h3>👥 Equipo de Desarrollo 👥</h3>
+            <p>Desarrollado por estudiantes de 42 Málaga:</p>
+            <ul>
+                <li>druiz-ca</li>
+                <li>rdel-olm</li>
+                <li>sternero</li>
+            </ul>
+            <p>Un proyecto colaborativo que combina pasión por la programación, trabajo en equipo y la metodología peer-to-peer de 42.</p>
+        </div>
+
+        <div class="info-box">
+            <h3>🎯 42 Málaga</h3>
+            <p>WEBSERV es parte del currículo de 42, una escuela de programación disruptiva que fomenta el aprendizaje a través del fracaso y la colaboración. ¡Desde Málaga hasta el mundo!</p>
+        </div>
+
+        <button onclick="window.location.href='index.html'">🏠 Volver al inicio</button>
+
+        <div class="footer">
+            <p>HTTP/1.1 | C++98 | 42 Málaga (2025)</p>
+            <p><strong>WEBSERV - Servidor HTTP Principal</strong></p>
+        </div>
+    </div>
+</body>
+</html>

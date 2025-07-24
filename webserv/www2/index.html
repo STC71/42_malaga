@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌐 WEBSERV Virtual Host 2</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('/imgs/polo-digital.jpg') center center fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(1px);
+            z-index: -1;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 648px;
+            margin: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 4em;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            cursor: help;
+            transition: all 0.3s ease;
+        }
+
+        h1:hover {
+            color: #3498db;
+            transform: scale(1.02);
+        }
+
+        /* Title tooltip styles */
+        h1 .title-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-size: 0.4em;
+            line-height: 1.4;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1003;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            margin-bottom: 12px;
+            font-weight: 500;
+            min-width: 350px;
+        }
+
+        h1 .title-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(44, 62, 80, 0.95);
+        }
+
+        h1:hover .title-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-8px);
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px;
+            font-weight: 600;
+            position: relative;
+            cursor: help;
+            transition: all 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .badge.virtual { background: #e74c3c; }
+        .badge.host { background: #27ae60; }
+        .badge.secondary { background: #2c3e50; }
+
+        /* Badge tooltip styles */
+        .badge .badge-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            line-height: 1.4;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            font-weight: 500;
+            min-width: 250px;
+        }
+
+        .badge .badge-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(44, 62, 80, 0.95);
+        }
+
+        .badge:hover .badge-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        /* Responsive badge tooltip */
+        @media (max-width: 768px) {
+            .badge .badge-tooltip {
+                white-space: normal;
+                max-width: 280px;
+                min-width: 200px;
+                font-size: 0.75em;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #3498db;
+            position: relative;
+            cursor: help;
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Feature tooltip styles */
+        .feature .feature-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            line-height: 1.4;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1002;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            margin-bottom: 10px;
+            font-weight: 500;
+            min-width: 280px;
+        }
+
+        .feature .feature-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(44, 62, 80, 0.95);
+        }
+
+        .feature:hover .feature-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        /* Responsive feature tooltip */
+        @media (max-width: 768px) {
+            .feature .feature-tooltip {
+                white-space: normal;
+                max-width: 300px;
+                min-width: 220px;
+                font-size: 0.75em;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        .feature h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .feature p {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .links {
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            margin: 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn.secondary {
+            background: #95a5a6;
+        }
+
+        .btn.secondary:hover {
+            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.4);
+        }
+
+        /* Button tooltip styles */
+        .btn .btn-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.75em;
+            line-height: 1.3;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1004;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 8px;
+            font-weight: 500;
+            min-width: 200px;
+        }
+
+        .btn .btn-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: rgba(44, 62, 80, 0.95);
+        }
+
+        .btn:hover .btn-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        /* Responsive button tooltip */
+        @media (max-width: 768px) {
+            .btn .btn-tooltip {
+                white-space: normal;
+                max-width: 220px;
+                min-width: 180px;
+                font-size: 0.7em;
+            }
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 10px;
+            color: #155724;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+            margin: 10px;
+            position: relative;
+            cursor: help;
+        }
+
+        .stat .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        .stat .label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        /* Tooltip styles */
+        .stat .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            line-height: 1.4;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 8px;
+        }
+
+        .stat .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(44, 62, 80, 0.95);
+        }
+
+        .stat:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        /* Responsive tooltip */
+        @media (max-width: 768px) {
+            .stat .tooltip {
+                white-space: normal;
+                max-width: 200px;
+                font-size: 0.8em;
+            }
+        }
+
+        /* Force 2x2 grid on larger screens */
+        @media (min-width: 769px) {
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h1 .title-tooltip {
+                white-space: normal;
+                max-width: 320px;
+                min-width: 250px;
+                font-size: 0.35em;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🌐</div>
+            <h1>WEBSERV VH2
+                <div class="title-tooltip">🌐 Virtual Host secundario del proyecto webserv<br>🔄 Mismo servidor, diferente configuración<br>📁 Contenido y rutas específicas para testing<br>🎯 Demuestra soporte multi-host en HTTP/1.1</div>
+            </h1>
+            <p class="subtitle">Servidor Virtual Host 2 - Configuración alternativa</p>
+            
+            <div>
+                <span class="badge virtual">
+                    Virtual Host
+                    <div class="badge-tooltip">🌐 Host virtual independiente<br>📍 Misma IP, diferente contenido<br>🔀 Ruteo basado en Host header</div>
+                </span>
+                <span class="badge host">
+                    Name-based
+                    <div class="badge-tooltip">📝 Virtual hosting basado en nombres<br>🏷️ Header "Host" determina el contenido<br>⚡ Múltiples sitios en una sola IP</div>
+                </span>
+                <span class="badge secondary">
+                    Testing
+                    <div class="badge-tooltip">🧪 Configuración para pruebas<br>🔍 Validación de funcionalidades<br>📊 Diferente estructura de directorios</div>
+                </span>
+            </div>
+        </div>
+
+        <div class="status">
+            <strong>🌐 Virtual Host 2 activo</strong><br>
+            Configuración independiente del servidor principal
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="number">1</div>
+                <div class="label">Virtual Host</div>
+                <div class="tooltip">Configuración secundaria<br>independiente del servidor principal</div>
+            </div>
+            <div class="stat">
+                <div class="number">3</div>
+                <div class="label">Métodos HTTP</div>
+                <div class="tooltip">GET, POST, DELETE<br>según configuración específica</div>
+            </div>
+            <div class="stat">
+                <div class="number">2</div>
+                <div class="label">Sistemas CGI</div>
+                <div class="tooltip">PHP (.php) y Python (.py)<br>ejecutables en /cgi-bin/</div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h3>🔄 I/O Multiplexing</h3>
+                <p>select() para manejo eficiente de múltiples clientes</p>
+                <div class="feature-tooltip">⚡ Función select() de UNIX<br>� Monitoreo simultáneo de múltiples file descriptors<br>🚀 Sin threads: un solo proceso maneja todo<br>🎯 Arquitectura event-driven non-blocking</div>
+            </div>
+            <div class="feature">
+                <h3>⚙️ CGI Support</h3>
+                <p>Ejecución de scripts PHP y Python</p>
+                <div class="feature-tooltip">🐍 Common Gateway Interface (RFC 3875)<br>� Fork + execve para ejecutar scripts externos<br>� Variables de entorno (REQUEST_METHOD, QUERY_STRING)<br>⚡ Comunicación via pipes con STDIN/STDOUT</div>
+            </div>
+            <div class="feature">
+                <h3>� File Management</h3>
+                <p>Upload, download y directory listing</p>
+                <div class="feature-tooltip">� POST multipart/form-data para uploads<br>� GET con Content-Type correcto para downloads<br>� Directory listing con HTML generado dinámicamente<br>🛡️ Validación de paths y permisos de seguridad</div>
+            </div>
+            <div class="feature">
+                <h3>🛡️ Error Handling</h3>
+                <p>Páginas de error personalizadas</p>
+                <div class="feature-tooltip">🎨 Páginas HTML customizadas (400, 403, 404, 405, 413, 500)<br>⚙️ Configurables via directiva error_page<br>� Logging detallado de errores y requests<br>�️ Manejo graceful de errores de sistema</div>
+            </div>
+        </div>
+
+        <div class="links">
+            <a href="/about.html" class="btn">ℹ️ Acerca de VH2
+                <div class="btn-tooltip">Información sobre Virtual Host 2<br>Descripción, diferencias y propósito de VH2</div>
+            </a>
+            <a href="/files/" class="btn">📁 Ver Archivos
+                <div class="btn-tooltip">Explorar archivos estáticos de VH2<br>Directory listing automático e independiente</div>
+            </a>
+            <a href="/cgi-bin/" class="btn">⚙️ Scripts CGI
+                <div class="btn-tooltip">Ejecutar scripts PHP y Python en VH2<br>Common Gateway Interface en acción</div>
+            </a>
+            <a href="/upload.html" class="btn" style="background: linear-gradient(45deg, #f39c12, #e67e22);">📤 Subir Archivos
+                <div class="btn-tooltip">Formulario de upload con POST multipart/form-data<br>Demostración de uploads en VH2</div>
+            </a>
+            <a href="/uploads.html" class="btn secondary">📂 Ver Uploads
+                <div class="btn-tooltip">Directorio de archivos subidos via POST en VH2<br>Validación y almacenamiento seguro</div>
+            </a>
+            <a href="/session.html" class="btn" style="background: linear-gradient(45deg, #16a085, #27ae60);">🍪 Sesión & Cookies
+                <div class="btn-tooltip">Demostración de manejo de cookies de sesión en VH2<br>Crear, ver y borrar la cookie <strong>session_id</strong></div>
+            </a>
+        </div>
+
+        <div class="footer">
+            <p><strong>Virtual Host 2</strong> - 42 Málaga (2025)</p>
+            <p>Desarrollado por: <strong>druiz-ca</strong>, <strong>rdel-olm</strong>, <strong>sternero</strong></p>
+        </div>
+    </div>
+
+    <script>
+        // Agregar interactividad
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animación de entrada
+            const container = document.querySelector('.container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                container.style.transition = 'all 0.6s ease';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 100);
+
+            // Efecto hover en las estadísticas
+            const stats = document.querySelectorAll('.stat');
+            stats.forEach(stat => {
+                stat.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                stat.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de Archivos | WEBSERV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: url('/imgs/polo-digital.jpg') center center fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(1px);
+            z-index: -1;
+        }
+
+        .upload-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 700px;
+            margin: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.1), transparent);
+            animation: shine 4s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 4em;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px;
+            font-weight: 600;
+            position: relative;
+            cursor: help;
+        }
+
+        .badge.method { background: #27ae60; }
+        .badge.format { background: #f39c12; }
+
+        /* Tooltip styles for badges */
+        .badge .badge-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 0.75em;
+            line-height: 1.3;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 6px;
+            font-weight: 500;
+            min-width: 180px;
+        }
+
+        .badge .badge-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: rgba(44, 62, 80, 0.95);
+        }
+
+        .badge:hover .badge-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-3px);
+        }
+
+        .upload-form {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            border: 2px dashed #3498db;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-form:hover {
+            border-color: #2980b9;
+            background: #f1f3f4;
+            transform: translateY(-2px);
+        }
+
+        .file-input-container {
+            position: relative;
+            margin: 20px 0;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .file-input:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+        }
+
+        .file-info {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+            text-align: left;
+        }
+
+        .file-info h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .file-info ul {
+            color: #34495e;
+            padding-left: 20px;
+        }
+
+        .file-info li {
+            margin: 5px 0;
+        }
+
+        .upload-btn {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 10px;
+        }
+
+        .upload-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
+        }
+
+        .upload-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .progress-container {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 5px;
+        }
+
+        .links {
+            margin-top: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #95a5a6, #7f8c8d);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(149, 165, 166, 0.4);
+        }
+
+        .btn.primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+        }
+
+        .btn.primary:hover {
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* Tooltip styles for buttons */
+        .btn .btn-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(44, 62, 80, 0.95);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            line-height: 1.4;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 8px;
+            font-weight: 500;
+            min-width: 200px;
+            text-transform: none;
+            letter-spacing: normal;
+        }
+
+        .btn .btn-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: rgba(44, 62, 80, 0.95);
+        }
+
+        .btn:hover .btn-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-5px);
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ecf0f1;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+
+        .tech-info {
+            display: inline-block;
+            background: #f8f9fa;
+            padding: 6px 12px;
+            border-radius: 15px;
+            margin: 3px;
+            font-size: 0.8em;
+            color: #6c757d;
+            border: 1px solid #e9ecef;
+        }
+
+        @media (max-width: 768px) {
+            .upload-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .upload-form {
+                padding: 20px;
+            }
+            
+            .links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        .upload-zone {
+            border: 3px dashed #3498db;
+            border-radius: 15px;
+            padding: 40px 20px;
+            margin: 20px 0;
+            background: rgba(52, 152, 219, 0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .upload-zone:hover {
+            background: rgba(52, 152, 219, 0.1);
+            border-color: #2980b9;
+        }
+
+        .upload-zone.dragover {
+            background: rgba(52, 152, 219, 0.15);
+            border-color: #2980b9;
+            transform: scale(1.02);
+        }
+
+        .upload-icon {
+            font-size: 3em;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+
+        .upload-text {
+            font-size: 1.2em;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+
+        .upload-subtext {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <div class="header">
+            <div class="logo">📤</div>
+            <h1>Upload de Archivos</h1>
+            <p class="subtitle">Sube archivos al servidor WEBSERV usando HTTP POST con multipart/form-data</p>
+            
+            <div>
+                <span class="badge method">POST
+                    <div class="badge-tooltip">Método HTTP para envío de datos<br>Permite el upload de archivos al servidor</div>
+                </span>
+                <span class="badge format">multipart/form-data
+                    <div class="badge-tooltip">Codificación para formularios con archivos<br>Soporte para boundaries y uploads binarios</div>
+                </span>
+                <span class="badge">HTTP/1.1
+                    <div class="badge-tooltip">Protocolo HTTP versión 1.1<br>Implementado en el servidor webserv</div>
+                </span>
+            </div>
+        </div>
+
+        <form action="/Uploads" method="POST" enctype="multipart/form-data" id="uploadForm">
+            <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click();">
+                <div class="upload-icon">📁</div>
+                <div class="upload-text">Haz clic para seleccionar</div>
+                <div class="upload-subtext">Formatos soportados: txt, html, css, js, jpg, png, pdf</div>
+                <input type="file" name="file" id="fileInput" style="display: none;" multiple>
+            </div>
+
+            <div class="file-info">
+                <h3>📋 Información de Upload</h3>
+                <ul>
+                    <li><strong>Directorio destino:</strong> /Uploads/</li>
+                    <li><strong>Tamaño máximo:</strong> 2048 bytes - 2KB por archivo</li>
+                    <li><strong>Método HTTP:</strong> POST con enctype="multipart/form-data"</li>
+                    <li><strong>Headers requeridos:</strong> Content-Type, Content-Length</li>
+                </ul>
+            </div>
+
+            <div id="fileList" style="display: none;">
+                <h3>Archivos seleccionados:</h3>
+                <div id="selectedFiles"></div>
+            </div>
+
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">0%</p>
+            </div>
+
+            <button type="submit" class="upload-btn" id="uploadBtn">
+                🚀 Subir Archivos
+            </button>
+        </form>
+
+        <div class="links">
+            <a href="/index.html" class="btn primary">🏠 Volver al inicio
+                <div class="btn-tooltip">🏠 Regresar a la página principal del servidor<br>📋 Ver resumen del proyecto webserv</div>
+            </a>
+            <a href="/uploads.html" class="btn">📂 Ver Archivos Subidos
+                <div class="btn-tooltip">📤 Directorio con archivos subidos por usuarios<br>🗂️ Gestionar y descargar uploads realizados</div>
+            </a>
+        </div>
+
+        <div class="footer">
+            <div class="tech-info">HTTP/1.1</div>
+            <div class="tech-info">C++98</div>
+            <div class="tech-info">POST Method</div>
+            <div class="tech-info">Multipart Form</div>
+            <div class="tech-info">42 School</div>
+            <p style="margin-top: 15px;">
+                <strong>WEBSERV - Servidor HTTP Principal</strong><br>
+                Desarrollado por: druiz-ca, rdel-olm, sternero
+            </p>
+        </div>
+    </div>
+
+    <script>
+        console.log('Script iniciado');
+        
+        // Esperar a que la página cargue completamente
+        window.addEventListener('load', function() {
+            console.log('Página cargada');
+            
+            // Obtener elementos
+            const uploadZone = document.getElementById('uploadZone');
+            const fileInput = document.getElementById('fileInput');
+            const uploadForm = document.getElementById('uploadForm');
+            const uploadBtn = document.getElementById('uploadBtn');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            const fileList = document.getElementById('fileList');
+            const selectedFiles = document.getElementById('selectedFiles');
+
+            // Animación de entrada
+            const container = document.querySelector('.upload-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(30px) scale(0.95)';
+            
+            setTimeout(() => {
+                container.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0) scale(1)';
+            }, 100);
+
+            // Configurar drag and drop (que ya funciona)
+            if (uploadZone && fileInput) {
+                // Drag and drop
+                uploadZone.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    uploadZone.classList.add('dragover');
+                });
+
+                uploadZone.addEventListener('dragleave', function(e) {
+                    e.preventDefault();
+                    uploadZone.classList.remove('dragover');
+                });
+
+                uploadZone.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    uploadZone.classList.remove('dragover');
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0) {
+                        handleFiles(files);
+                    }
+                });
+
+                // Cuando se seleccionan archivos
+                fileInput.addEventListener('change', function(e) {
+                    if (e.target.files.length > 0) {
+                        handleFiles(e.target.files);
+                    }
+                });
+            }
+
+            // Función para manejar archivos
+            function handleFiles(files) {
+                // Mostrar archivos seleccionados
+                selectedFiles.innerHTML = '';
+                fileList.style.display = 'block';
+                
+                Array.from(files).forEach(file => {
+                    const fileDiv = document.createElement('div');
+                    fileDiv.style.cssText = 'background: #e8f4f8; padding: 10px; margin: 5px 0; border-radius: 8px; text-align: left;';
+                    fileDiv.innerHTML = `
+                        <strong>📄 ${file.name}</strong><br>
+                        <small>Tamaño: ${(file.size / 1024).toFixed(1)} KB | Tipo: ${file.type || 'Desconocido'}</small>
+                    `;
+                    selectedFiles.appendChild(fileDiv);
+                });
+                
+                uploadBtn.disabled = false;
+            }
+
+            // Función para actualizar progreso
+            function updateProgress(percent) {
+                progressFill.style.width = percent + '%';
+                progressText.textContent = Math.round(percent) + '%';
+            }
+
+            // Envío del formulario
+            if (uploadForm) {
+                uploadForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const files = fileInput.files;
+                    
+                    if (files.length === 0) {
+                        alert('Por favor selecciona al menos un archivo');
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    Array.from(files).forEach(file => {
+                        formData.append('file', file);
+                    });
+
+                    // Mostrar progreso
+                    progressContainer.style.display = 'block';
+                    uploadBtn.disabled = true;
+                    uploadBtn.textContent = '⏳ Subiendo...';
+
+                    try {
+                        // Simular progreso
+                        let progress = 0;
+                        const progressInterval = setInterval(() => {
+                            progress += Math.random() * 20;
+                            if (progress >= 90) {
+                                clearInterval(progressInterval);
+                            }
+                            updateProgress(Math.min(progress, 90));
+                        }, 200);
+
+                        // Enviar archivos
+                        const response = await fetch('/Uploads', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        clearInterval(progressInterval);
+                        updateProgress(100);
+
+                        if (response.ok) {
+                            setTimeout(() => {
+                                alert('✅ Archivos subidos correctamente!');
+                                uploadForm.reset();
+                                fileList.style.display = 'none';
+                                progressContainer.style.display = 'none';
+                                uploadBtn.disabled = false;
+                                uploadBtn.textContent = '🚀 Subir Archivos';
+                            }, 500);
+                        } else {
+                            throw new Error(`Error ${response.status}: ${response.statusText}`);
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('❌ Error al subir archivos: ' + error.message);
+                        uploadBtn.disabled = false;
+                        uploadBtn.textContent = '🚀 Subir Archivos';
+                        progressContainer.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,263 @@
+# 📝 CONFIGURACIÓN DEL SERVIDOR WEBSERV
+
+Esta carpeta contiene los **archivos de configuración** para el servidor HTTP webserv. La sintaxis es similar a **Nginx** para facilitar la comprensión y mantenimiento.
+
+## 📂 **ARCHIVOS DE CONFIGURACIÓN**
+
+### 🎯 **default.conf**
+Archivo de configuración principal que define:
+- **Virtual hosts** múltiples
+- **Puertos de escucha**
+- **Rutas y ubicaciones**
+- **Directivas de comportamiento**
+
+## 🔧 **SINTAXIS DE CONFIGURACIÓN**
+
+### 📋 **Estructura General**
+
+```nginx
+server {
+    # Directivas del servidor
+    listen puerto;
+    server_name nombre;
+    root directorio_raiz;
+    
+    # Ubicaciones específicas
+    location /ruta/ {
+        # Directivas de ubicación
+    }
+}
+```
+
+### 🎮 **Directivas Principales**
+
+| Directiva              | Descripción                     | Ejemplo                            | Obligatorio |
+|------------------------|---------------------------------|------------------------------------|-------------|
+| `listen`               | Puertos de escucha              | `listen 9000 9001;`                |      ✅     |
+| `server_name`          | Nombre del virtual host         | `server_name localhost;`           |      ✅     |
+| `root`                 | Directorio raíz                 | `root www;`                        |      ✅     |
+| `index`                | Archivo índice por defecto      | `index index.html;`                |      ❌     |
+| `client_max_body_size` | Tamaño máximo del request       | `client_max_body_size 1024;`       |      ❌     |
+| `error_page`           | Páginas de error personalizadas | `error_page 404 /errors/404.html;` |      ❌     |
+
+### 📍 **Directivas de Location**
+
+| Directiva              | Descripción                      | Ejemplo                      | Valor por Defecto |
+|------------------------|----------------------------------|------------------------------|-------------------|
+| `methods`              | Métodos HTTP permitidos          | `methods GET POST;`          | `GET`             |
+| `root`                 | Override del root del servidor   | `root www/files;`            | Hereda del server |
+| `directory_listing`    | Habilitar listado de directorios | `directory_listing on;`      | `off`             |
+| `upload_path`          | Directorio para uploads          | `upload_path www/Uploads;`   | No definido       |
+| `client_max_body_size` | Override del tamaño máximo       | `client_max_body_size 2048;` | Hereda del server |
+
+## 🌐 **CONFIGURACIÓN DE VIRTUAL HOSTS**
+
+### 🎯 **Servidor Principal**
+
+```nginx
+server {
+    listen 9000 9005;              # Múltiples puertos
+    server_name localhost;          # Nombre del host
+    root www;                       # Directorio raíz
+    index index.html;               # Página principal
+    client_max_body_size 1024;     # Límite de tamaño (bytes)
+    
+    # Páginas de error personalizadas
+    error_page 400 /errors/400.html;
+    error_page 403 /errors/403.html;
+    error_page 404 /errors/404.html;
+    error_page 405 /errors/405.html;
+    error_page 413 /errors/413.html;
+    error_page 500 /errors/500.html;
+}
+```
+
+### 🔄 **Virtual Host Secundario**
+
+```nginx
+server {
+    listen 9000 9001 9002 9003;    # Otros puertos
+    server_name site2.local;       # Nombre diferente
+    root www2;                      # Directorio diferente
+    index index.html;
+    client_max_body_size 2048;     # Límite mayor
+}
+```
+
+## 📂 **CONFIGURACIÓN DE UBICACIONES**
+
+### 🏠 **Ubicación Raíz**
+
+```nginx
+location / {
+    methods GET;                    # Solo lectura
+    directory_listing on;           # Mostrar archivos
+}
+```
+
+### ⬆️ **Ubicación de Uploads**
+
+```nginx
+location /Uploads {
+    root www;                       # Base directory
+    methods GET POST DELETE;        # Operaciones completas
+    upload_path www/Uploads;        # Destino de uploads
+    directory_listing on;           # Ver archivos subidos
+    client_max_body_size 2048;     # Límite específico
+}
+```
+
+### 📄 **Ubicación de Archivos Estáticos**
+
+```nginx
+location /files {
+    methods GET;                    # Solo lectura
+    root www/files;                 # Directorio específico
+    directory_listing on;           # Mostrar contenido
+}
+```
+
+### 🐍 **Ubicación CGI**
+
+```nginx
+location /cgi-bin {
+    methods GET POST;               # Ejecución y datos
+    root www/cgi-bin;              # Scripts CGI
+    directory_listing off;          # No mostrar scripts
+}
+```
+
+## 🎯 **EJEMPLOS DE CONFIGURACIÓN**
+
+### 📝 **Configuración Mínima**
+
+```nginx
+server {
+    listen 8080;
+    server_name localhost;
+    root www;
+    
+    location / {
+        methods GET;
+    }
+}
+```
+
+### 🔧 **Configuración Completa**
+
+```nginx
+server {
+    listen 9000 9005;
+    server_name localhost;
+    root www;
+    index index.html;
+    client_max_body_size 1024;
+    
+    error_page 404 /errors/404.html;
+    error_page 500 /errors/500.html;
+    
+    location / {
+        methods GET;
+        directory_listing on;
+    }
+    
+    location /Uploads {
+        root www;
+        methods GET POST DELETE;
+        upload_path www/Uploads;
+        directory_listing on;
+        client_max_body_size 2048;
+    }
+    
+    location /files {
+        methods GET;
+        root www/files;
+        directory_listing on;
+    }
+    
+    location /cgi-bin {
+        methods GET POST;
+        root www/cgi-bin;
+        directory_listing off;
+    }
+}
+```
+
+## 🚨 **NOTAS IMPORTANTES**
+
+### ✅ **Buenas Prácticas**
+
+1. **🔒 Seguridad**: No habilitar `directory_listing` en ubicaciones sensibles
+2. **📏 Límites**: Definir `client_max_body_size` apropiado para uploads
+3. **🎯 Métodos**: Restringir métodos HTTP según funcionalidad necesaria
+4. **📝 Errores**: Definir páginas de error personalizadas
+5. **🗂️ Organización**: Usar ubicaciones específicas para diferentes tipos de contenido
+
+### ⚠️ **Errores Comunes**
+
+- **❌ Falta de `;`** al final de las directivas
+- **❌ Rutas incorrectas** en `root` o `upload_path`
+- **❌ Puertos duplicados** entre virtual hosts
+- **❌ Métodos no válidos** (solo GET, POST, DELETE están soportados)
+- **❌ Archivos de error inexistentes** en `error_page`
+
+## 🔍 **VALIDACIÓN DE CONFIGURACIÓN**
+
+### 🧪 **Testing de Configuración**
+
+```bash
+# Verificar sintaxis
+./webserv config/default.conf
+
+# Testing específico
+curl -X GET http://localhost:9000/
+curl -X POST -F "file=@test.txt" http://localhost:9000/Uploads
+curl -X DELETE http://localhost:9000/files/test.txt
+
+# Verificar virtual hosts
+curl -H "Host: localhost" http://localhost:9000/
+curl -H "Host: site2.local" http://localhost:9001/
+```
+
+### 📊 **Debugging**
+
+```bash
+# Logs del servidor (salida estándar)
+./webserv config/default.conf
+
+# Verificar puertos en uso
+netstat -tulpn | grep :9000
+
+# Testing con diferentes métodos
+curl -X OPTIONS http://localhost:9000/
+```
+
+## 🎓 **RECURSOS ADICIONALES**
+
+### 📚 **Documentación**
+
+- **Sintaxis**: Similar a Nginx configuration
+- **Métodos HTTP**: RFC 7231 - HTTP/1.1 Semantics
+- **CGI**: RFC 3875 - Common Gateway Interface
+- **Upload**: RFC 1867 - Form-based File Upload
+
+### 🔗 **Referencias**
+
+- [Nginx Configuration Guide](https://nginx.org/en/docs/beginners_guide.html)
+- [HTTP Methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
+- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+
+---
+
+## 📋 **RESUMEN EJECUTIVO**
+
+| 🎯 Elemento           | 📊 Estado            | 📝 Notas                        |
+|-----------------------|----------------------|---------------------------------|
+| **Virtual Hosts**     | ✅ Soportado         | Múltiples sitios en un servidor |
+| **Métodos HTTP**      | ✅ GET, POST, DELETE | Métodos estándar implementados  |
+| **File Uploads**      | ✅ Soportado         | Con límites configurables       |
+| **CGI Support**       | ✅ Soportado         | Python y PHP scripts            |
+| **Error Pages**       | ✅ Personalizables   | Páginas de error custom         |
+| **Directory Listing** | ✅ Configurable      | Por ubicación específica        |
+
+**🚀 Configuración lista para producción con todas las funcionalidades del webserv implementadas.**
