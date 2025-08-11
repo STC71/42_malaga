@@ -11,8 +11,5 @@ echo "${FTP_USER}" > /etc/vsftpd.userlist
 mkdir -p /home/${FTP_USER}/ftp
 chown ${FTP_USER}:${FTP_USER} /home/${FTP_USER}/ftp
 
-# Add FTP user to www-data group for write access to /var/www/html
-usermod -aG www-data ${FTP_USER}
-
 # Start vsftpd
 exec vsftpd /etc/vsftpd.conf
