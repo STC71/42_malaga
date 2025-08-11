@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sternero Portfolio - Inception Project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h1>sternero</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2>Welcome to my Inception Project</h2>
+                <p>A Docker-based infrastructure with multiple services</p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn primary">View Projects</a>
+                    <a href="#about" class="btn secondary">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About This Project</h2>
+                <p>This is a static website built as part of the Inception project bonus requirements. 
+                   The project demonstrates containerization using Docker and orchestration with Docker Compose.</p>
+                
+                <div class="tech-stack">
+                    <h3>Technologies Used:</h3>
+                    <ul>
+                        <li>Docker & Docker Compose</li>
+                        <li>NGINX with TLS</li>
+                        <li>WordPress with PHP-FPM</li>
+                        <li>MariaDB</li>
+                        <li>Redis Cache</li>
+                        <li>Adminer</li>
+                        <li>FTP Server</li>
+                        <li>HTML/CSS/JavaScript</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2>Project Components</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <h3>WordPress Site</h3>
+                        <p>Main WordPress website with custom configuration</p>
+                        <a href="https://sternero.42.fr" class="project-link">Visit Site</a>
+                    </div>
+                    <div class="project-card">
+                        <h3>Adminer</h3>
+                        <p>Database management interface</p>
+                        <a href="https://sternero.42.fr/adminer/" class="project-link">Access Adminer</a>
+                    </div>
+                    <div class="project-card">
+                        <h3>Redis Cache</h3>
+                        <p>Caching service for improved performance</p>
+                        <span class="project-status">Running</span>
+                    </div>
+                    <div class="project-card">
+                        <h3>FTP Server</h3>
+                        <p>File transfer protocol server</p>
+                        <span class="project-status">Available</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Contact Information</h2>
+                <p>This project was created for the 42 School Inception assignment.</p>
+                <div class="contact-info">
+                    <p><strong>Student:</strong> sternero</p>
+                    <p><strong>Email:</strong> sternero@student.42malaga.com</p>
+                    <p><strong>Project:</strong> Inception (System Administration)</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 sternero - Inception Project. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

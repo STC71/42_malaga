@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-website",
+  "version": "1.0.0",
+  "description": "Static portfolio website for Inception project",
+  "scripts": {
+    "build": "mkdir -p build && cp -r public/* build/",
+    "start": "serve -s build -l 3000"
+  },
+  "devDependencies": {
+    "serve": "^14.0.0"
+  }
+}

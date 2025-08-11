@@ -1,0 +1,160 @@
+#version: '3.8'
+services:
+  mariadb:
+    build: requirements/mariadb
+    image: mariadb:1.0.0
+    container_name: mariadb
+    env_file:
+      - ../.env
+    volumes:
+      - database:/var/lib/mysql
+    restart: always
+    networks:
+      - inception
+
+  wordpress:
+    build: requirements/wordpress
+    image: wordpress:1.0.0
+    container_name: wordpress
+    depends_on:
+      - mariadb
+      - redis
+    env_file:
+      - ../.env
+    volumes:
+      - wordpress:/var/www/html
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: mariadb
+      WORDPRESS_DB_NAME: ${MARIADB_DATABASE}
+      WORDPRESS_DB_USER: ${MARIADB_USER}
+      WORDPRESS_DB_PASSWORD: ${MARIADB_PASSWORD}
+    networks: 
+      - inception
+    expose:
+      - "9000"
+
+  nginx:
+    container_name: nginx
+    build: requirements/nginx
+    image: nginx:1.0.0
+    depends_on:
+      - wordpress
+    env_file:
+      - ../.env
+    volumes:
+      - wordpress:/var/www/html
+      - ssl-certs:/etc/nginx/ssl
+    ports:
+      - "443:443"
+    restart: always
+    networks:
+      - inception
+
+  # Bonus services
+  redis:
+    container_name: redis
+    build: requirements/bonus/redis
+    image: redis:1.0.0
+    env_file:
+      - ../.env
+    restart: always
+    expose:
+      - "6379"
+    networks:
+      - inception
+
+  adminer:
+    container_name: adminer
+    build: requirements/bonus/adminer
+    image: adminer:1.0.0
+    depends_on:
+      - mariadb
+    env_file:
+      - ../.env
+    environment:
+      - MARIADB_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      - MARIADB_DATABASE=${MARIADB_DATABASE}
+      - MARIADB_USER=${MARIADB_USER}
+      - MARIADB_PASSWORD=${MARIADB_PASSWORD}
+    restart: always
+    expose:
+      - "8080"
+    networks:
+      - inception
+
+  ftp-server:
+    container_name: ftp-server
+    build: requirements/bonus/ftp-server
+    image: ftp-server:1.0.0
+    env_file:
+      - ../.env
+    restart: always
+    ports:
+      - "2121:21"
+      - "21000-21010:21000-21010"
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - inception
+
+  website:
+    container_name: website
+    build: requirements/bonus/website
+    image: website:1.0.0
+    env_file:
+      - ../.env
+    restart: always
+    expose:
+      - "3000"
+    networks:
+      - inception
+
+  portainer:
+    container_name: portainer
+    build: requirements/bonus/portainer
+    image: portainer:1.0.0
+    env_file:
+      - ../.env
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-data:/data
+    networks:
+      - inception
+
+networks:
+  inception:
+    driver: bridge
+
+volumes:
+  database:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${MARIADB_DATA_LOCATION}
+
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${WORDPRESS_DATA_LOCATION}
+
+  portainer-data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PORTAINER_DATA_LOCATION}
+
+  ssl-certs:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${SSL_CERTS_LOCATION}
+
