@@ -1,0 +1,26 @@
+# Ignore git and local env
+.git
+.gitignore
+
+# Node/npm builds
+node_modules
+dist
+build
+
+# OS files
+.DS_Store
+*.log
+
+# Vault / sensitive storage (excluye el árbol que rompe el build)
+srcs/data/vault/file/
+srcs/data/vault/logical/
+data/vault/file
+!srcs/data/vault/config/
+
+# Large or unneeded data
+tmp/
+.vscode/
+.idea/
+
+# Docker files (so we don't send images etc.)
+*.tar

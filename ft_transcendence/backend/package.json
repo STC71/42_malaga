@@ -1,0 +1,35 @@
+{
+  "name": "transcendence-backend",
+  "version": "1.0.0",
+  "main": "pon-server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --enable-source-maps --trace-warnings --unhandled-rejections=strict pon-server.js",
+    "dev": "nodemon",
+    "setup": "mkdir -p ./tmp/app/data && ln -sf \"$(pwd)/tmp/app\" /app",
+    "cleanup": "rm -rf /app && rm -rf ./tmp",
+    "dev:verbose": "nodemon --verbose",
+    "dev:debug": "nodemon --inspect"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^9.4.0",
+    "@fastify/cors": "^8.4.0",
+    "@fastify/formbody": "^7.4.0",
+    "@fastify/jwt": "^7.2.0",
+    "@fastify/multipart": "^8.3.1",
+    "@fastify/oauth2": "^7.4.0",
+    "@fastify/static": "^6.12.0",
+    "bcrypt": "^5.1.1",
+    "better-sqlite3": "^8.6.0",
+    "cookie": "^1.1.1",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.15.0",
+    "fastify": "^4.25.2",
+    "sequelize": "^6.32.1",
+    "socket.io": "^4.7.4",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

@@ -1,0 +1,94 @@
+#version: "3.8"
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: transcendence-backend
+    restart: unless-stopped
+    networks:
+      - transcendence
+    # ports:
+    #   - "3000:3000"
+    env_file:
+      - ./srcs/secrets/.env    
+    volumes:
+      - backend_data:/app/data
+      - scripts:/scripts:ro
+      - secrets:/app/secrets:ro
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: transcendence-frontend
+    restart: unless-stopped
+    # ports:
+    #   - "2323:80" # Direct access to the frontend
+    networks:
+      - transcendence
+    depends_on:
+      - backend # ← WAIT for backend to finish starting
+    volumes:     
+      - scripts:/scripts:ro
+      - secrets:/app/secrets:ro
+  nginx:    
+    build:
+      context: .
+      dockerfile: srcs/conf/nginx/Dockerfile
+    container_name: nginx-waf
+    restart: unless-stopped
+    user: "0" 
+    ports:
+      - "8080:80"
+      - "8443:443"
+    cap_add:
+      - NET_BIND_SERVICE
+    env_file:
+      - ./srcs/secrets/.env 
+    volumes:  
+      - nginx_logs:/var/log/nginx
+      - modsec_logs:/var/log/modsecurity
+      - secrets:/srcs/secrets:ro
+      - scripts:/scripts:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - transcendence  
+  vault:
+    build:
+      context: .
+      dockerfile: srcs/data/vault/Dockerfile
+    container_name: vault
+    restart: unless-stopped
+    ports:
+        - "8200:8200"
+    cap_add:
+        - IPC_LOCK
+    env_file:
+      - ./srcs/secrets/.env   
+    volumes:      
+      - secrets:/app/secrets:ro
+      - scripts:/scripts:ro
+      - vault_file:/vault/file
+      - vault_secrets:/srcs/secrets/vault
+    command: ["vault", "server", "-config=/vault/config/vault.hcl"]
+    networks:
+      - transcendence
+
+volumes:
+  backend_data:
+  secrets:
+  scripts:
+  nginx_logs:
+  modsec_logs:
+  nginx_config:
+  modsec_config:
+  vault_file:
+  vault_secrets:
+
+networks:
+  transcendence:
+    name: transcendence
+    driver: bridge

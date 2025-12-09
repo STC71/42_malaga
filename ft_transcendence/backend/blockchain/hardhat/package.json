@@ -1,0 +1,28 @@
+{
+  "name": "tournament-registry-blockchain",
+  "version": "1.0.0",
+  "description": "Blockchain module for immutable tournament records on Avalanche-compatible network",
+  "main": "hardhat.config.js",
+  "scripts": {
+    "compile": "hardhat compile",
+    "deploy": "hardhat run scripts/deploy.js --network localhost",
+    "deploy:hardhat": "hardhat run scripts/deploy.js --network hardhat",
+    "node": "hardhat node --hostname 0.0.0.0",
+    "test": "hardhat test",
+    "clean": "hardhat clean"
+  },
+  "keywords": [
+    "blockchain",
+    "avalanche",
+    "tournament",
+    "pong",
+    "smart-contract",
+    "solidity"
+  ],
+  "author": "Transcendence Team",
+  "license": "MIT",
+  "dependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.19.4"
+  }
+}

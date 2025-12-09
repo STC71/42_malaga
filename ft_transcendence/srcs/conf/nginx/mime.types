@@ -1,0 +1,19 @@
+types {
+    text/html                             html htm shtml;
+    text/css                              css;
+    text/xml                              xml;
+    image/gif                             gif;
+    image/jpeg                            jpeg jpg;
+    application/javascript                js;
+    application/atom+xml                  atom;
+    application/rss+xml                   rss;
+    text/plain                            txt;
+    image/png                             png;
+    image/tiff                            tif tiff;
+    image/svg+xml                         svg svgz;
+    application/json                      json;
+    application/pdf                       pdf;
+    application/zip                       zip;
+    audio/mpeg                            mp3;
+    video/mp4                             mp4;
+}

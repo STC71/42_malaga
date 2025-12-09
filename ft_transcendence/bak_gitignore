@@ -1,0 +1,55 @@
+# Ignore environment files
+.env
+srcs/.env
+
+# Ignore secrets folders
+secrets/
+srcs/secrets/
+
+# Ignore certificate and key files
+*.pem
+*.key
+
+# Node modules (if you use Node.js)
+node_modules/
+
+# Temporary system files
+*.swp
+*.swo
+*.tmp
+
+# Log files generated during development
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Ignore VS Code settings
+.vscode
+.vscode/*
+!.vscode/extensions.json
+
+# Vault runtime data
+srcs/data/vault/file/
+srcs/data/vault/file.RUNTIME/
+
+# Ignore Vault data
+srcs/data/vault/file/
+
+# Build output directories
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.sqlite
+coverage

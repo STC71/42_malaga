@@ -1,0 +1,67 @@
+{
+  "name": "@fastify/multipart",
+  "version": "8.3.1",
+  "description": "Multipart plugin for Fastify",
+  "main": "index.js",
+  "type": "commonjs",
+  "types": "types/index.d.ts",
+  "dependencies": {
+    "@fastify/busboy": "^3.0.0",
+    "@fastify/deepmerge": "^2.0.0",
+    "@fastify/error": "^4.0.0",
+    "fastify-plugin": "^4.0.0",
+    "secure-json-parse": "^2.4.0",
+    "stream-wormhole": "^1.1.0"
+  },
+  "devDependencies": {
+    "@fastify/pre-commit": "^2.0.2",
+    "@fastify/swagger": "^8.10.1",
+    "@fastify/swagger-ui": "^4.0.0",
+    "@types/node": "^20.1.0",
+    "@typescript-eslint/eslint-plugin": "^7.1.0",
+    "@typescript-eslint/parser": "^7.1.0",
+    "benchmark": "^2.1.4",
+    "climem": "^2.0.0",
+    "concat-stream": "^2.0.0",
+    "eslint": "^8.20.0",
+    "fastify": "^4.0.0",
+    "form-data": "^4.0.0",
+    "h2url": "^0.2.0",
+    "noop-stream": "^0.1.0",
+    "pump": "^3.0.0",
+    "readable-stream": "^4.5.1",
+    "snazzy": "^9.0.0",
+    "standard": "^17.0.0",
+    "tap": "^16.0.0",
+    "tsd": "^0.31.0"
+  },
+  "scripts": {
+    "coverage": "npm run test:unit -- --coverage-report=html",
+    "climem": "climem 8999 localhost",
+    "lint": "npm run lint:javascript && npm run lint:typescript",
+    "lint:javascript": "standard | snazzy",
+    "lint:fix": "standard --fix && npm run lint:typescript -- --fix",
+    "lint:typescript": "eslint -c .eslintrc.json types/**/*.d.ts types/**/*.test-d.ts",
+    "start": "CLIMEM=8999 node -r climem ./examples/example",
+    "test": "npm run test:unit && npm run test:typescript",
+    "test:typescript": "tsd",
+    "test:unit": "tap -t 90"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fastify/fastify-multipart.git"
+  },
+  "keywords": [
+    "fastify",
+    "multipart",
+    "form"
+  ],
+  "author": "Matteo Collina <hello@matteocollina.com>",
+  "license": "MIT",
+  "tsd": {
+    "directory": "test"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

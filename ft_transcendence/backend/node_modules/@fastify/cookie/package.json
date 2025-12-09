@@ -1,0 +1,63 @@
+{
+  "name": "@fastify/cookie",
+  "version": "9.4.0",
+  "description": "Plugin for fastify to add support for cookies",
+  "main": "plugin.js",
+  "type": "commonjs",
+  "types": "types/plugin.d.ts",
+  "scripts": {
+    "coverage": "npm run test:unit -- --coverage-report=html",
+    "lint": "standard | snazzy",
+    "lint:ci": "standard",
+    "lint:fix": "standard --fix",
+    "test": "npm run test:unit && npm run test:typescript",
+    "test:typescript": "tsd",
+    "test:unit": "tap",
+    "test:unit:verbose": "npm run test:unit -- -Rspec"
+  },
+  "precommit": [
+    "lint",
+    "test"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/fastify/fastify-cookie.git"
+  },
+  "keywords": [
+    "fastify",
+    "cookie"
+  ],
+  "author": "James Sumners <james.sumners@gmail.com>",
+  "contributors": [
+    {
+      "name": "Salman Mitha",
+      "email": "SalmanMitha@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fastify/fastify-cookie/issues"
+  },
+  "homepage": "https://github.com/fastify/fastify-cookie#readme",
+  "devDependencies": {
+    "@fastify/pre-commit": "^2.0.2",
+    "@types/node": "^20.1.0",
+    "benchmark": "^2.1.4",
+    "fastify": "^4.0.0",
+    "sinon": "^18.0.0",
+    "snazzy": "^9.0.0",
+    "standard": "^17.0.0",
+    "tap": "^16.0.0",
+    "tsd": "^0.31.0"
+  },
+  "dependencies": {
+    "fastify-plugin": "^4.0.0",
+    "cookie-signature": "^1.1.0"
+  },
+  "tsd": {
+    "directory": "test"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

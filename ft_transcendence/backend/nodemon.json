@@ -1,0 +1,44 @@
+{
+  "exec": "node pon-server.js",
+  "watch": [
+    ".",
+    "../secrets"
+  ],
+  "ext": "js,json,env",
+  "ignore": [
+    "node_modules/*",
+    "*.log",
+    "data/*",
+    "public/*",
+    "*.sqlite",
+    "*.db",
+    ".git/*",
+    "coverage/*",
+    "dist/*",
+    "tmp/*",
+    "*.tmp",
+    "uploads/*",
+    "*.md",
+    "test/*",
+    "tests/*",
+    ".env.example",
+    "package-lock.json"
+  ],
+  "delay": 1000,
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "restartable": "rs",
+  "verbose": false,
+  "colours": true,
+  "legacyWatch": false,
+  "polling": false,
+  "runOnChangeOnly": false,
+  "signal": "SIGTERM",
+  "stdout": true,
+  "stderr": true,
+  "events": {
+    "restart": "echo '🔄 Backend restarted'",
+    "crash": "echo '💥 Backend crashed, restarting...'"
+  }
+}
