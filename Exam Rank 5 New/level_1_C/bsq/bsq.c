@@ -1,86 +1,97 @@
 #include "bsq.h"
 
-int     min3(int a, int b, int c) { return (a <= b && a <= c) ? a : (b <= a && b <= c) ? b : c; }
+int	ft_is_printable(char c) { return (c >= 32 && c <= 126); }
 
-char *read_c89_line(FILE *file, int *out_len) {
-    int capacity = 128, len = 0, c;
-    char *buffer = malloc(capacity); if (!buffer) return NULL;
-    while ((c = fgetc(file)) != EOF) {
-        if (c == '\n') break;
-        buffer[len++] = (char)c;
-        if (len >= capacity - 1) {
-            char *new_buf; capacity *= 2; new_buf = malloc(capacity);
-            if (!new_buf) { free(buffer); return NULL; }
-            memcpy(new_buf, buffer, len); free(buffer); buffer = new_buf;
-        }
-    }
-    if (len == 0 && c == EOF) { free(buffer); return NULL; }
-    buffer[len] = '\0'; if (out_len) *out_len = len; return buffer;
+int	ft_atoi_custom(const char *str, int len) {
+	int res = 0, i;
+	if (len <= 0) return (-1);
+	for (i = 0; i < len; i++) {
+		if (str[i] < '0' || str[i] > '9') return (-1);
+		res = res * 10 + (str[i] - '0');
+	}
+	return (res);
 }
 
-int     read_map(FILE *file, t_map *map) {
-    char *line; int read_bytes, i, j;
-    if (fscanf(file, "%d %c %c %c\n", &map->rows, &map->empty, &map->obstacle, &map->full) != 4 || map->rows < 1) {return (0); }
-    if (map->empty == map->obstacle || map->empty == map->full || map->obstacle == map->full) { return (0); }
-    for (i = 0; i < map->rows; i++) {
-                line = read_c89_line(file, &read_bytes);
-                if (!line) { return (0); }
-                if (i == 0) { map->cols = read_bytes; }
-                if (read_bytes != map->cols || read_bytes == 0) { free(line); return (0); }
-                for (j = 0; j < read_bytes; j++) {
-                    if (line[j] != map->empty && line[j] != map->obstacle) { free(line); return (0); }
-                    map->map[i][j] = line[j];
-                }
-                free(line);
-            }
-            return (1);
-        }
-        
-void    solve_bsq(t_map *map) {
-    int dp[MAX_Y][MAX_X]; int max = 0, max_i = 0, max_j = 0, i, j;
-        for (i = 0; i < MAX_Y; i++) { for (j = 0; j < MAX_X; j++) { dp[i][j] = 0; } }
-        for (i = 0; i < map->rows; i++) {
-                for (j = 0; j < map->cols; j++) {
-                        if (map->map[i][j] == map->obstacle) { dp[i][j] = 0; }
-                        else if (i == 0 || j == 0) { dp[i][j] = 1; }
-                        else { dp[i][j] = 1 + min3(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]); }
-                        if (dp[i][j] > max) { max = dp[i][j]; max_i = i; max_j = j; }
-                    }
-        }
-        for (i = max_i - max + 1; i <= max_i; i++)
-        for (j = max_j - max + 1; j <= max_j; j++) { map->map[i][j] = map->full; }
-    }
-    
-    void    print_map(t_map *map) {
-        int i, j;
-        for (i = 0; i < map->rows; i++) {
-                for (j = 0; j < map->cols; j++) { printf("%c", map->map[i][j]); }
-                printf("\n");
-        }
+void	free_map(t_map *map) {
+	int i;
+	if (map->map) {
+		for (i = 0; i < map->rows; i++) { if (map->map[i]) free(map->map[i]); }
+		free(map->map); map->map = NULL;
+	}
 }
 
-int     process_file(const char *filename) {
-    FILE *f; t_map m; memset(&m, 0, sizeof(t_map)); f = filename ? fopen(filename, "r") : stdin;
-    if (!f) { printf("Error: cannot open file\n"); return (1); }
-    if (!read_map(f, &m)) {
-        printf("Error: invalid map\n");
-        if (filename) { fclose(f); }
-        return (1);
-    }
-        solve_bsq(&m); print_map(&m);
-        if (filename) { fclose(f); }
-        return (0);
-    }
-    
-    int     main(int argc, char *argv[]) {
-        if (argc == 1) { process_file(NULL); }
-        else if(argc == 2) { process_file(argv[1]); }
-        else { printf("Error: to many arguments.\n"); return 1; }
-        return 0;
-    }
-    
-    /* 
-     * Refactorizacion C89:
-     * - Se elimina el uso de getline y ssize_t (extensiones POSIX).
-     * - Las variables se declaran al inicio de los bloques funcionales en lugar de dentro de for() o a la mitad del codigo.
-     */
+int	parse_first_line(FILE *file, t_map *map) {
+	char *line = NULL; size_t len = 0; long read_bytes;
+	read_bytes = getline(&line, &len, file);
+	if (read_bytes <= 0 || !line) { free(line); return (0); }
+	if (line[read_bytes - 1] == '\n') line[--read_bytes] = '\0';
+	if (read_bytes < 4) { free(line); return (0); }
+	map->full = line[read_bytes - 1]; map->obstacle = line[read_bytes - 2]; map->empty = line[read_bytes - 3];
+	if (!ft_is_printable(map->full) || !ft_is_printable(map->obstacle) || !ft_is_printable(map->empty)) return (free(line), 0);
+	if (map->empty == map->obstacle || map->empty == map->full || map->obstacle == map->full) return (free(line), 0);
+	map->rows = ft_atoi_custom(line, read_bytes - 3); free(line);
+	return (map->rows > 0);
+}
+
+int	read_map_content(FILE *file, t_map *map) {
+	char *line = NULL; size_t len = 0; long r_bytes; int i, j;
+	map->map = calloc(map->rows, sizeof(char *));
+	if (!map->map) return (0);
+	for (i = 0; i < map->rows; i++) {
+		line = NULL; len = 0; r_bytes = getline(&line, &len, file);
+		if (r_bytes <= 0 || !line) return (free(line), 0);
+		if (line[r_bytes - 1] == '\n') line[--r_bytes] = '\0';
+		if (i == 0) { map->cols = r_bytes; if (map->cols == 0) return (free(line), 0); }
+		else if (r_bytes != map->cols) return (free(line), 0);
+		map->map[i] = malloc(map->cols + 1);
+		if (!map->map[i]) return (free(line), 0);
+		for (j = 0; j < map->cols; j++) {
+			if (line[j] != map->empty && line[j] != map->obstacle) return (free(line), 0);
+			map->map[i][j] = line[j];
+		}
+		map->map[i][map->cols] = '\0'; free(line);
+	}
+	return (1);
+}
+
+int	min3_func(int a, int b, int c) { int min = a; if (b < min) min = b; if (c < min) min = c; return min; }
+
+void	solve_and_print(t_map *map) {
+	int **dp, max_sz = 0, max_i = 0, max_j = 0, i, j;
+	dp = calloc(map->rows, sizeof(int *)); if (!dp) return ;
+	for (i = 0; i < map->rows; i++) { dp[i] = calloc(map->cols, sizeof(int)); if (!dp[i]) return ; }
+	for (i = 0; i < map->rows; i++) {
+		for (j = 0; j < map->cols; j++) {
+			if (map->map[i][j] == map->obstacle) dp[i][j] = 0;
+			else if (i == 0 || j == 0) dp[i][j] = 1;
+			else dp[i][j] = 1 + min3_func(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+			if (dp[i][j] > max_sz) { max_sz = dp[i][j]; max_i = i; max_j = j; }
+		}
+	}
+	for (i = max_i - max_sz + 1; i <= max_i; i++) {
+		for (j = max_j - max_sz + 1; j <= max_j; j++) map->map[i][j] = map->full;
+	}
+	for (i = 0; i < map->rows; i++) { fputs(map->map[i], stdout); fputs("\n", stdout); }
+	for (i = 0; i < map->rows; i++) { free(dp[i]); }
+	free(dp);
+}
+
+void	process_file(FILE *f) {
+	t_map map_data = {0, 0, 0, 0, 0, NULL};
+	if (!parse_first_line(f, &map_data) || !read_map_content(f, &map_data)) fprintf(stderr, "map error\n");
+	else solve_and_print(&map_data);
+	free_map(&map_data);
+}
+
+int	main(int argc, char **argv) {
+	FILE *f; int i;
+	if (argc == 1) process_file(stdin);
+	else {
+		for (i = 1; i < argc; i++) {
+			f = fopen(argv[i], "r");
+			if (!f) fprintf(stderr, "map error\n");
+			else { process_file(f); fclose(f); }
+		}
+	}
+	return (0);
+}
