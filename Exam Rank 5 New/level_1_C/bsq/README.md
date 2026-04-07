@@ -36,6 +36,18 @@ En este proyecto encontrarás versiones de los ficheros fuente con y sin comenta
 
 Esto permite comparar la solución final con la versión explicada y usar ambos como referencia.
 
+---
+
+## ⏳ Doble implementación: ANSI C (C89) vs C99
+
+Actualmente el proyecto cuenta con dos implementaciones distintas destinadas a mantener la compatibilidad con diferentes estándares del lenguaje C, dado que las evaluaciones de 42 suelen ser extremadamente rigurosas:
+
+1. **Implementación estricta ANSI C / C89 (`bsq.c` y `bsq_comentado.c`)**:
+   Es la versión principal actual, refactorizada y compactada para cumplir al 100% con el estándar histórico C89. Elimina totalmente la dependencia de utilidades POSIX (como `getline` o `ssize_t`), leyendo los mapas de archivo mediante gestión dinámica manual (`read_c89_line`). Además, declara todas las variables obligatoriamente al inicio de los bloques, tal y como dictaba el antiguo estándar. Pasa sin errores los flags de compilación más duros (`cc -Wall -Wextra -Werror -std=c89 -pedantic`).
+
+2. **Implementación moderna C99 / POSIX (`bsq.c.bak` y `bsq_comentado.c.bak`)**:
+   Son los archivos originales de copia de seguridad. Representan la solución enfocada a entornos más modernos introducidos a partir de 1999. Destacan por declarar las variables al vuelo en los bucles `for (int i = 0; ...)` y delegar la lectura eficiente en `getline()`. Se conservan en el proyecto para que puedas comparar cómo evoluciona la gramática y las libertades del lenguaje con los años.
+
 -----
 
 Vamos a desglosar este proyecto del "Biggest Square" (BSQ) para que tengas una visión completa y detallada de cómo funciona. Este es un ejercicio clásico de programación que combina el manejo de archivos, la lectura de datos estructurados y un algoritmo de búsqueda.
